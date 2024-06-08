@@ -130,6 +130,10 @@ body * {
   width: 300px;
 }
 
+.w65vw{
+  width: 65vw;
+}
+
 .full-width{
   width: 100%;
 }
@@ -418,4 +422,18 @@ fieldset {
 .searchBar {
   width: 50vw;
   min-width: 300px !important;
+}
+
+.skeleton-container{
+  margin: 2px 2px;
+  .MuiSkeleton-wave::after{
+    background: linear-gradient(90deg, transparent, #4a4a4a, transparent);  
+  }
+}
+
+.MuiSkeleton-circular{
+  margin: 15px 0px;
+}
+.paginator-container{
+  margin: 81px 0 0 0;
 }
