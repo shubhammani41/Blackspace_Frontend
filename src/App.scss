@@ -1,0 +1,421 @@
+@import './app-font.scss';
+
+:root {
+  --app-background: #000000;
+  --app-accent-color: #03A062;
+  --app-accent-color-lighter: #77ffc8;
+  --app-accent--darker: #006b40;
+  --app-accent2-color: #569CD6;
+  --app-accent2-color-lighter: #7cadd5;
+  --app-accent2-color-darker: #569cd665;
+  --white-color: #ffffff;
+  --string-color: #CE9178;
+  --app-error-color: #ff0000;
+  --app-error-color-lighter: #ff7272;
+  --app-error-color-darker: #950000;
+  --app-info-color: #FFFF00;
+  --app-info-color-lighter: #ffff9e;
+  --app-info-color-darker: #9c9c00;
+  --app-success-color: #03A062;
+  --app-success-color-lighter: #77ffc8;
+  --app-success--darker: #006b40;
+  --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
+  --font-xxs: 8px;
+  --font-xs: 10px;
+  --font-s: 12px;
+  --font-sm: 15px;
+  --font-m: 18px;
+  --font-ml: 21px;
+  --font-l: 27px;
+  --font-xl: 31px;
+  --font-xxl: 35px;
+  --app-transition: 0.2s ease-in-out;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--app-font-family);
+  /* color: var(--app-accent-color); */
+  background-color: var(--app-background);
+  /* overflow: hidden; */
+}
+
+body * {
+  font-family: var(--app-font-family) !important;
+  font-size: var(--font-m) !important;
+  font-weight: 500 !important;
+  /* color: var(--app-accent-color) !important; */
+}
+
+.app-background-image-container {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  filter: blur(4px);
+  position: fixed;
+  z-index: -1;
+}
+
+.app-background-image {
+  object-fit: contain;
+}
+
+.df {
+  display: flex;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.js {
+  justify-content: start;
+}
+
+.jsb {
+  justify-content: space-between;
+}
+
+.ac {
+  align-items: center;
+}
+
+.fw {
+  flex-wrap: wrap;
+}
+
+.gp50px {
+  gap: 50px;
+}
+
+.f100 {
+  flex: 0 0 100%;
+}
+
+.w90vw {
+  width: 90vw;
+  min-width: 300px;
+}
+
+.w50vw {
+  width: 50vw;
+  min-width: 300px;
+}
+
+.w75vw {
+  width: 75vw;
+  min-width: 300px;
+}
+
+
+.w45vw {
+  width: 40vw;
+  min-width: 300px;
+}
+
+.h100vh {
+  height: 100vh;
+}
+
+.mb40 {
+  margin-bottom: 40px;
+}
+
+.w100p {
+  width: 100px;
+}
+
+.w300p {
+  width: 300px;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.matrix-card-container.full-width{
+  .MuiPaper-root{
+    width: 90vw;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* mui override starts */
+.MuiPaper-elevation {
+  //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
+
+.MuiFormLabel-root.MuiInputLabel-root {
+  color: var(--app-accent-color) !important;
+  padding: 5px 5px 5px 0px !important;
+  transform: translate(0px, 0px) scale(1);
+  position: unset !important;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root {
+  border: 2px solid var(--app-accent-color) !important;
+  border-radius: 0px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.Mui-focused {
+  border: 2px solid var(--app-accent2-color) !important;
+}
+
+.MuiInputBase-input {
+  /* color: var(--white-color) !important; */
+}
+
+.MuiFormHelperText-root {
+  color: var(--app-accent-color) !important;
+  margin-left: 0px !important;
+}
+
+fieldset {
+  display: none !important;
+}
+
+/* Mui Table css override starts */
+.matrix-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .table-container {
+    thead {
+      tr {
+        th {
+          color: var(--app-accent-color);
+        }
+      }
+    }
+
+    tr {
+      transition: var(--app-transition);
+      cursor: pointer;
+
+      th,
+      td {
+        border: none;
+      }
+
+      th:first-child,
+      td:first-child {
+        text-align: start;
+      }
+
+      th:last-child,
+      td:last-child {
+        text-align: end;
+      }
+    }
+
+    tbody {
+      tr {
+        border-left: 2px solid var(--app-accent-color);
+      }
+
+      tr:hover {
+        background-color: var(--app-accent2-color-darker);
+        transition: var(--app-transition);
+      }
+    }
+  }
+}
+
+.MuiTablePagination-root {
+  border: none !important;
+}
+
+.MuiTablePagination-toolbar {
+  flex-wrap: wrap;
+
+  p {
+    margin: 2px !important;
+  }
+}
+
+/* Mui Table css override ends */
+
+/* mui override ends */
+
+
+.header {
+  font-size: var(--font-xl) !important;
+  color: var(--app-accent-color);
+}
+
+.subHeader {
+  font-size: var(--font-l);
+  color: var(--app-accent-color);
+}
+
+.list-border {
+  border-left: 2px solid var(--app-accent-color);
+  padding: 20px;
+}
+
+.list-border {
+  border-left: 2px solid var(--app-accent-color);
+  padding: 20px;
+  margin: 0px;
+  margin-top: 25px;
+  width: 100%;
+  transition: var(--app-transition);
+}
+
+
+.list-border:hover {
+  background-color: var(--app-accent2-color-darker);
+  border-left: 2px solid var(--app-accent2-color);
+  color: var(--white-color);
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: var(--app-transition);
+}
+
+.blueText {
+  color: var(--app-accent2-color) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 196px;
+}
+
+.brownText {
+  color: var(--string-color) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 196px;
+}
+
+.whiteText {
+  /* color: var(--white-color) !important; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 196px;
+}
+
+.app-header {
+  margin: 0px 20px 30px 20px;
+  padding-top: 100px;
+}
+
+/* react perfect scroll bar css override starts */
+.perfect-scroll-bar {
+  .content {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .ps--clicking,
+  .ps--clicking:hover,
+  .ps__rail-y:hover,
+  .ps__rail-x:hover {
+    background: transparent !important;
+  }
+
+  .ps__thumb-x,
+  .ps__thumb-y {
+    background-color: var(--app-accent-color) !important;
+    border-radius: 0px !important;
+  }
+
+  .ps--clicking .ps__thumb-x:hover,
+  .ps--clicking:hover .ps__thumb-x:hover,
+  .ps--clicking .ps__thumb-y:hover,
+  .ps--clicking:hover .ps__thumb-y:hover {
+    background-color: var(--app-accent2-color) !important;
+    cursor: pointer !important;
+  }
+
+  .ps--clicking .ps__thumb-x,
+  .ps--clicking:hover .ps__thumb-x,
+  .ps--clicking .ps__thumb-y,
+  .ps--clicking:hover .ps__thumb-y {
+    background-color: var(--app-accent2-color) !important;
+    cursor: pointer !important;
+  }
+
+  .ps__thumb-x:hover,
+  .ps__thumb-y:hover {
+    background-color: var(--app-accent2-color) !important;
+    cursor: pointer !important;
+  }
+}
+
+.customHeight1 {
+  height: calc(100vh - 100px) !important;
+}
+
+/* react perfect scroll bar css override ends */
+
+
+/* browser scroll bar css override starts */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--app-accent-color);
+  transition: var(--app-transition);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--app-accent2-color);
+  transition: var(--app-transition);
+  cursor: pointer;
+}
+
+/* browser scroll bar css override starts */
+
+/* span, p, h1, h2, h3, h4, h5, h6, a, li, label, strong, td, th {
+  cursor: text;
+} */
+
+.errorText {
+  color: var(--app-error-color) !important;
+}
+
+.matrix-card-container {
+  width: 25vw;
+  min-width: 300px;
+  max-width: 400px;
+  height: 50vh;
+  min-height: 300px;
+  max-height: 400px;
+}
+
+.matrix-card-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .matrix-card-container {
+    cursor: pointer;
+    transition: var(--app-transition);
+  }
+
+  .matrix-card-container:hover {
+    transform: scale(1.1);
+    transition: var(--app-transition);
+  }
+}
+
+.searchBar {
+  width: 50vw;
+  min-width: 300px !important;
+}
