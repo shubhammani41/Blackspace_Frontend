@@ -1,0 +1,46 @@
+.df {
+    display: flex;
+}
+
+.js {
+    justify-content: start;
+}
+
+
+.ac {
+    align-items: center;
+}
+
+.gp30px {
+    gap: 30px;
+}
+
+.mrg {
+    margin: 0px 10px 0px 10px;
+}
+
+
+.skeleton-container {
+    margin: 2px 2px;
+
+    .MuiSkeleton-wave::after {
+        background: linear-gradient(90deg, transparent, #4a4a4a, transparent);
+    }
+}
+
+.MuiSkeleton-circular {
+    margin: 10px 0px 15px 0px;
+}
+
+.paginator-container {
+    margin: 81px 0 0 0;
+}
+
+.avatar100 {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.skeleton-avatar-title {
+    width: calc(100% - 120px);
+}
