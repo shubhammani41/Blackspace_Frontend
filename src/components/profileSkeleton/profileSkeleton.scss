@@ -23,9 +23,10 @@
 .skeleton-container {
     margin: 2px 2px;
 
-    .MuiSkeleton-wave::after {
-        background: linear-gradient(90deg, transparent, #4a4a4a, transparent);
-    }
+    // .MuiSkeleton-wave::after {
+    //     background: linear-gradient(90deg, transparent, #4a4a4a, transparent);
+    //     background: linear-gradient(90deg, transparent, #efefef, transparent);
+    // }
 }
 
 .MuiSkeleton-circular {

@@ -44,7 +44,7 @@ const themeObjLight: ThemeOptions = {
         },
         action: {
             active: '#569CD6',
-            hover: '#7cadd5',
+            hover: '#efefef',
             // hoverOpacity: number;
             selected: '#569CD6',
             // selectedOpacity: number;
@@ -108,7 +108,7 @@ const themeObjDark: ThemeOptions = {
         },
         action: {
             active: '#569CD6',
-            hover: '#7cadd5',
+            hover: '#4a4a4a',
             // hoverOpacity: number;
             selected: '#569CD6',
             // selectedOpacity: number;
