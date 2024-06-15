@@ -34,7 +34,7 @@ const themeObjLight: ThemeOptions = {
             dark: '#006b40',
         },
         background: {
-            default: '#ffffff',
+            default: '#f5f5f7',
             paper: '#ffffff'
         },
         text: {
@@ -66,7 +66,7 @@ const themeObjLight: ThemeOptions = {
         fontWeightMedium:500,
         fontWeightBold:600
     },
-    shadows:["none", "rgba(149, 157, 165, 0.2) 0px 8px 24px", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
+    shadows:["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
 const themeObjDark: ThemeOptions = {
     palette: {

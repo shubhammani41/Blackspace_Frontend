@@ -1,26 +1,21 @@
 import './themeToggleBtn.scss';
 import whiteMoon from '../../assets/images/white-moon.svg';
 import yellowSun from '../../assets/images/yellow-sun.svg';
-import { ThemeState } from './stores/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThemeOptions } from '@mui/material';
-import { ThemeMode, switchTheme } from './reducers/themeReducer';
+import useThemeStore, { ThemeMode } from './store/themeStore';
 
 const ThemeToggleBtn: React.FC = () => {
-    const theme = useSelector((state:{ theme: ThemeOptions | any }) => state.theme);
-    const dispatch = useDispatch();
-    const toggleTheme = () => {
+    const { data, toggleTheme } = useThemeStore();
+    const bgImage:string = 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))';
+    const toggle = () => {
         //chaneg redux state here
-        dispatch(switchTheme(ThemeMode.Toggle)); 
+        toggleTheme();
     }
     return (
-        <div>
-            <input onClick={toggleTheme} type="checkbox" className="checkbox" id="checkbox" checked={theme.mode===ThemeMode.Dark}></input>
-            <label htmlFor="checkbox" className="checkbox-label">
-                <img className='w15 h15' src={whiteMoon}></img>
-                <img className='w15 h15' src={yellowSun}></img>
-                <span className="ball"></span>
-            </label>
+        <div onClick={toggle} className='themeToggleBtn'>
+            {data.mode === ThemeMode.Light ? 
+                <div className='df jc ac btnContainer' style={{backgroundColor: data.theme.palette?.background?.paper}}><img className='toggleImg' src={yellowSun}></img></div> : 
+                <div className='df jc ac btnContainer' style={{backgroundColor: data.theme.palette?.background?.paper, backgroundImage: bgImage}}><img className='toggleImg' src={whiteMoon}></img></div>
+            }
         </div>
     );
 }

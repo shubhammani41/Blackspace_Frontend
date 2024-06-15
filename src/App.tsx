@@ -3,21 +3,18 @@ import './App.scss';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { themeObjDark, themeObjLight } from './constants/themeConstants';
-import { ThemeState, ThemeStore } from './components/themeToggleBtn/stores/store';
-import { Provider, useSelector } from 'react-redux';
+import useThemeStore from './components/themeToggleBtn/store/themeStore';
+import { AppHeader } from './components/header/header';
 
 const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
 
-const ThemedComponent: React.FC = () => {
-  const theme = useSelector((state: ThemeState) => state.theme);
-  React.useEffect(() => {
-    console.log(theme);
-  }, [theme]);
+const App: React.FC = () => {
+  const { data } = useThemeStore();
   return (
-    <ThemeProvider theme={createTheme(theme.theme)}>
+    <ThemeProvider theme={createTheme(data.theme)}>
       <CssBaseline />
+      <AppHeader></AppHeader>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Navigate to="/home" />}></Route>
@@ -27,13 +24,6 @@ const ThemedComponent: React.FC = () => {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  );
-}
-const App: React.FC = () => {
-  return (
-    <Provider store={ThemeStore}>
-      <ThemedComponent></ThemedComponent>
-    </Provider>
   );
 }
 

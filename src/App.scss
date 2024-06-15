@@ -80,6 +80,10 @@ body * {
   justify-content: space-between;
 }
 
+.je {
+  justify-content: end;
+}
+
 .ac {
   align-items: center;
 }
@@ -134,15 +138,15 @@ body * {
   margin-bottom: 40px;
 }
 
-.m10{
+.m10 {
   margin: 10px;
 }
 
-.m15{
+.m15 {
   margin: 15px;
 }
 
-.m20{
+.m20 {
   margin: 20px;
 }
 
@@ -154,16 +158,16 @@ body * {
   width: 300px;
 }
 
-.w65vw{
+.w65vw {
   width: 65vw;
 }
 
-.full-width{
+.full-width {
   width: 100%;
 }
 
-.matrix-card-container.full-width{
-  .MuiPaper-root{
+.matrix-card-container.full-width {
+  .MuiPaper-root {
     width: 90vw;
   }
 }
@@ -333,8 +337,8 @@ fieldset {
 }
 
 .app-header {
-  margin: 0px 20px 30px 20px;
-  padding-top: 100px;
+  margin: 0px 20px 2vw 20px;
+  padding-top: 7vw;
 }
 
 /* react perfect scroll bar css override starts */
@@ -417,7 +421,7 @@ fieldset {
   color: var(--app-error-color) !important;
 }
 
-.mainContainer{
+.mainContainer {
   margin: 10px 10px 100px 10px;
 }
 
@@ -446,6 +450,6 @@ fieldset {
 }
 
 .searchBar {
-  width: 50vw;
-  min-width: 300px !important;
+  width: 77vw;
+  min-width: 338px !important;
 }
