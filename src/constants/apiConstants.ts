@@ -4,7 +4,7 @@ interface APIConfig {
     url: string;
 }
 
-const baseURL: string = "http://blackspace.co.in/api/";
+const baseURL: string = "http://localhost:8080/";
 
 const apiConstants: { [key: string]: APIConfig } = {
     getUserListRandom: {

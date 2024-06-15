@@ -5,6 +5,7 @@ import './homeComponent.scss';
 import { UserData } from "../../../models/userData";
 import axiosInstance from "../../../config/axiosConfig";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
+import { ThemeToggleBtn } from "../../../components/themeToggleBtn/themeToggleBtn";
 
 const HomeComponent: React.FC = () => {
     const audioRef: RefObject<HTMLAudioElement> = React.createRef();
@@ -138,6 +139,7 @@ const HomeComponent: React.FC = () => {
             <audio ref={audioRef} loop controls={false} autoPlay={true}>
                 <source src={clubbedToDeath} type="audio/mp3" />
             </audio>
+            <ThemeToggleBtn></ThemeToggleBtn>
         </div>
     );
 }
