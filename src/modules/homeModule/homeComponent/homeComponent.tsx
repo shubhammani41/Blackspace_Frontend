@@ -41,7 +41,7 @@ const HomeComponent: React.FC = () => {
             //test
         }
 
-        // setTimeout(() => { setDevListLoading(false) }, 1000);
+        setTimeout(() => { setDevListLoading(false) }, 1000);
     };
 
     useEffect(() => {

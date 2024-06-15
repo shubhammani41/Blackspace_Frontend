@@ -57,10 +57,14 @@ const themeObjLight: ThemeOptions = {
         }
     },
     typography: {
-        fontFamily: 'IBM Plex Mono',
+        fontFamily: 'Roboto',
         allVariants: {
             color: "#03A062"
         },
+        fontWeightLight:200,
+        fontWeightRegular:400,
+        fontWeightMedium:500,
+        fontWeightBold:600
     },
     shadows:["none", "rgba(149, 157, 165, 0.2) 0px 8px 24px", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
@@ -121,10 +125,14 @@ const themeObjDark: ThemeOptions = {
         },
     },
     typography: {
-        fontFamily: 'IBM Plex Mono',
+        fontFamily: 'Roboto',
         allVariants: {
             color: "#03A062"
         },
+        fontWeightLight:100,
+        fontWeightRegular:300,
+        fontWeightMedium:400,
+        fontWeightBold:500
     },
     shadows:["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }

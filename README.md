@@ -51,4 +51,5 @@ Generation Script:
 npx create-react-app my-app --template typescript
 
 Post Generation Script:
-npm install @mui/material @emotion/react @emotion/styled redux react-redux formik yup react-router-dom axios lodash moment sass
+npm install @reduxjs/toolkit react-hook-form @mui/material @emotion/react @emotion/styled react-redux react-router-dom axios lodash moment sass
+

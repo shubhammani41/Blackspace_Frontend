@@ -10,7 +10,7 @@ const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule")
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={createTheme(themeObjDark)}>
+    <ThemeProvider theme={createTheme(themeObjLight)}>
       <CssBaseline  />
       <BrowserRouter>
       <Routes>

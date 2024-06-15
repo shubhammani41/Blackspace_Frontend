@@ -1,4 +1,5 @@
-@import './app-font.scss';
+@import './app-font-IBM-Plex_mono.scss';
+@import './app-font-Roboto.scss';
 
 :root {
   --app-background: #000000;
@@ -19,7 +20,8 @@
   --app-success-color: #03A062;
   --app-success-color-lighter: #77ffc8;
   --app-success--darker: #006b40;
-  --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
+  // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
+  --app-font-family: 'Roboto', Courier, 'Courier New', monospace;
   --font-xxs: 8px;
   --font-xs: 10px;
   --font-s: 12px;
@@ -44,7 +46,8 @@ body {
 body * {
   font-family: var(--app-font-family) !important;
   font-size: var(--font-m) !important;
-  font-weight: 500 !important;
+  font-weight: 300;
+  letter-spacing: 2px;
   /* color: var(--app-accent-color) !important; */
 }
 
