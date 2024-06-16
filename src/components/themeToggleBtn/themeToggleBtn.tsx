@@ -13,9 +13,10 @@ const ThemeToggleBtn: React.FC = () => {
     return (
         <div onClick={toggle} className='themeToggleBtn'>
             {data.mode === ThemeMode.Light ? 
-                <div className='df jc ac btnContainer' style={{backgroundColor: data.theme.palette?.background?.paper}}><img className='toggleImg' src={yellowSun}></img></div> : 
-                <div className='df jc ac btnContainer' style={{backgroundColor: data.theme.palette?.background?.paper, backgroundImage: bgImage}}><img className='toggleImg' src={whiteMoon}></img></div>
+                <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> : 
+                <div className='df jc ac btnContainer'><img className='toggleImg' src={whiteMoon}></img></div>
             }
+            Toggle Theme
         </div>
     );
 }

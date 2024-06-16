@@ -5,7 +5,8 @@ import './homeComponent.scss';
 import { UserData } from "../../../models/userData";
 import axiosInstance from "../../../config/axiosConfig";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
-import { ThemeToggleBtn } from "../../../components/themeToggleBtn/themeToggleBtn";
+import SearchIcon from '@mui/icons-material/Search';
+import { apiConstants } from "../../../constants/apiConstants";
 
 const HomeComponent: React.FC = () => {
     const audioRef: RefObject<HTMLAudioElement> = React.createRef();
@@ -25,14 +26,39 @@ const HomeComponent: React.FC = () => {
         fetchUserData(parseInt(event.target.value), 0);
     };
 
-    const searchFn = () => {
-        // audioRef.current?.play();
+    let fetchTimer = setTimeout(() => { }, 500);
+
+    const searchFn = (event: any) => {
+        const { value } = event.target;
+        if (value.length >= 3) {
+            clearTimeout(fetchTimer);
+            timerFunc(value);
+        } else if (value === '') {
+            clearTimeout(fetchTimer);
+            timerFunc(value);
+        }
+        else {
+            clearTimeout(fetchTimer);
+        }
     }
 
-    const fetchUserData = async (rowsPerPage: number, pageNumber: number) => {
+    const timerFunc = (value: string) => {
+        fetchTimer = setTimeout(() => {
+            fetchUserData(5, 0, value);
+        }, 500);
+    }
+
+    const fetchUserData = async (rowsPerPage: number, pageNumber: number, searchKeyWord: string = '') => {
         setDevListLoading(true);
         try {
-            let response:any = await axiosInstance.get(`public/getRandomUserList?pageSize=${rowsPerPage}&pageNumber=${pageNumber}`);
+            let url = "";
+            if (searchKeyWord && searchKeyWord !== '') {
+                url = apiConstants.searchUserByKeyWord.url + `?pageSize=${rowsPerPage}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
+            }
+            else {
+                url = apiConstants.getUserListRandom.url + `?pageSize=${rowsPerPage}&pageNumber=${pageNumber}`;
+            }
+            let response: any = await axiosInstance.get(url);
             response = response.data.data;
             setTotalElements(response.totalElements);
             setDevData(response.data.map((obj: any) => {
@@ -59,11 +85,12 @@ const HomeComponent: React.FC = () => {
                     Welcome to Black Space.
                 </p>
             </div>
-            <div className='df jc ac mb40'>
+            <div className='df jc ac mb40 searchBarContainer'>
+                <SearchIcon className="searchIconContainer"></SearchIcon>
                 <TextField
                     id="searchDev"
                     label="Search developer profile"
-                    variant="outlined"
+                    variant="filled"
                     placeholder="e.g. Shubham Tripathi"
                     className='searchBar'
                     onChange={searchFn}
@@ -72,66 +99,74 @@ const HomeComponent: React.FC = () => {
             <div className="matrix-card-list">
                 {devListLoading ?
                     <div className="df jc ac fw gp50px w90vw">
-                        {Array(3).fill(1).map((val,index) => {
-                            return (<ProfileSkeleton key={"profileSkeleton_"+index}></ProfileSkeleton>)
+                        {Array(3).fill(1).map((val, index) => {
+                            return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
                         })}
                     </div> :
                     <div className="df jc ac fw gp50px w90vw">
-                        {devDataList.map((devData) => {
-                            return (
-                                <div className="matrix-card-container" key={"dev_"+devData.userId}>
-                                    <Card>
-                                        {/* <CardMedia
+                        {devDataList.length > 0 ?
+                            devDataList.map((devData) => {
+                                return (
+                                    <div className="matrix-card-container" key={"dev_" + devData.userId}>
+                                        <Card>
+                                            {/* <CardMedia
                                             component="img"
                                             alt={"Image not found"}
                                             height="140"
                                             src={devData.profilePictureUrl ? devData.profilePictureUrl : "defaultImageUrl"}
                                         /> */}
-                                        <div className="df js ac gp30px m15">
-                                            <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                            <div>
-                                                <Typography className="w300p ellipsis" gutterBottom variant="h5" component="div">
-                                                    {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
+                                            <div className="df js ac gp30px m15">
+                                                <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
+                                                <div>
+                                                    <Typography sx={{ color: 'text.primary' }} className="w300p ellipsis" gutterBottom variant="h5" component="div">
+                                                        {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
+                                                    </Typography>
+                                                    <Typography sx={{ color: 'text.primary' }} className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                        {devData.positionName}
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                            <CardContent>
+                                                <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                    Experience: {devData.experience} years
                                                 </Typography>
                                                 <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
-                                                    {devData.positionName}
+                                                    Technology: {devData.skills}
                                                 </Typography>
-                                            </div>
-                                        </div>
-                                        <CardContent>
-                                            <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
-                                                Experience: {devData.experience} years
-                                            </Typography>
-                                            <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
-                                                Technology: {devData.skills}
-                                            </Typography>
-                                            <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
-                                                Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small">View</Button>
-                                        </CardActions>
-                                    </Card>
-                                </div>
-                            )
-                        })}
+                                                <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                    Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size="small">View</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </div>
+                                )
+                            }) :
+                            <div className="df jc ac">
+                                <Typography className="w300p ellipsis df jc ac" variant="body2" color="text.secondary">
+                                    No profiles found
+                                </Typography>
+                            </div>
+                        }
+
                     </div>}
             </div>
             {!devListLoading ?
                 <div className="df jc ac fw gp50px paginator-container">
                     <table>
                         <tbody>
-                        <tr>
-                        <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        count={totalElements}
-                        rowsPerPage={rowsPerPage}
-                        page={pageNumber}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                        </tr>
+                            <tr>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25]}
+                                    count={totalElements}
+                                    rowsPerPage={rowsPerPage}
+                                    page={pageNumber}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -139,7 +174,6 @@ const HomeComponent: React.FC = () => {
             <audio ref={audioRef} loop controls={false} autoPlay={true}>
                 <source src={clubbedToDeath} type="audio/mp3" />
             </audio>
-            <ThemeToggleBtn></ThemeToggleBtn>
         </div>
     );
 }

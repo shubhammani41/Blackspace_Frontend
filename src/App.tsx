@@ -14,8 +14,8 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={createTheme(data.theme)}>
       <CssBaseline />
-      <AppHeader></AppHeader>
       <BrowserRouter>
+      <AppHeader></AppHeader>
         <Routes>
           <Route path='/' element={<Navigate to="/home" />}></Route>
           <Route path='/home' element={<HomeModule />}></Route>

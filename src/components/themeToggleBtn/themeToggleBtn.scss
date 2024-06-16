@@ -1,16 +1,14 @@
-.themeToggleBtn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  cursor: pointer;
+.themeToggleBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .btnContainer{
   border-radius: 50%;
 }
 
 .toggleImg {
-  height: 70px;
-  width: 70px;
-  padding: 10px;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
 }

@@ -39,7 +39,7 @@ const themeObjLight: ThemeOptions = {
         },
         text: {
             primary: '#000000',
-            secondary: '#000000',
+            secondary: '#808080',
             // disabled: '#03A062',
         },
         action: {
@@ -59,7 +59,7 @@ const themeObjLight: ThemeOptions = {
     typography: {
         fontFamily: 'Roboto',
         allVariants: {
-            color: "#03A062"
+            color: "#808080"
         },
         fontWeightLight:200,
         fontWeightRegular:400,
@@ -72,6 +72,7 @@ const themeObjDark: ThemeOptions = {
     palette: {
         mode: 'dark',
         primary: {
+            // main: '#03A062',
             main: '#03A062',
             contrastText: '#ffffff',
             light: '#77ffc8',
@@ -127,7 +128,7 @@ const themeObjDark: ThemeOptions = {
     typography: {
         fontFamily: 'Roboto',
         allVariants: {
-            color: "#03A062"
+            color: "#ffffff"
         },
         fontWeightLight:100,
         fontWeightRegular:300,

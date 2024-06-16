@@ -47,8 +47,12 @@ body * {
   font-family: var(--app-font-family) !important;
   font-size: var(--font-m) !important;
   font-weight: 300;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   /* color: var(--app-accent-color) !important; */
+}
+
+.fw300{
+  font-weight: 300 !important;
 }
 
 .app-background-image-container {
@@ -104,6 +108,10 @@ body * {
   flex: 0 0 100%;
 }
 
+.f50 {
+  flex: 0 0 50%;
+}
+
 .w90vw {
   width: 90vw;
   min-width: 300px;
@@ -146,6 +154,14 @@ body * {
   margin: 15px;
 }
 
+.ml15 {
+  margin-left: 15px !important;
+}
+
+.mr15 {
+  margin-right: 15px !important;
+}
+
 .m20 {
   margin: 20px;
 }
@@ -172,6 +188,13 @@ body * {
   }
 }
 
+.skeleton-container{
+  width: 400px;
+  min-width: 300px;
+  max-width: 400px;
+  height: 280px;
+}
+
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -184,6 +207,10 @@ body * {
   //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
 }
 
+.MuiTypography-root{
+  // line-height: 1 !important;
+}
+
 .MuiFormLabel-root.MuiInputLabel-root {
   color: var(--app-accent-color) !important;
   padding: 5px 5px 5px 0px !important;
@@ -192,13 +219,24 @@ body * {
 }
 
 .MuiInputBase-root.MuiOutlinedInput-root {
-  border: 2px solid var(--app-accent-color) !important;
-  border-radius: 0px;
+  border-radius: 5px;
 }
 
-.MuiInputBase-root.MuiOutlinedInput-root.Mui-focused {
-  border: 2px solid var(--app-accent2-color) !important;
+.MuiInputBase-input.MuiFilledInput-input {
+  padding: 16px !important;
 }
+
+.MuiInputBase-root.MuiFilledInput-root::before {
+  border: none !important;
+  border-radius: 5px !important;
+}
+
+.MuiInputBase-root.MuiFilledInput-root::after {
+  border: none !important;
+  border-radius: 5px !important;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.Mui-focused {}
 
 .MuiInputBase-input {
   /* color: var(--white-color) !important; */
@@ -271,6 +309,10 @@ fieldset {
   p {
     margin: 2px !important;
   }
+}
+
+.MuiSvgIcon-root{
+  cursor: pointer;
 }
 
 /* Mui Table css override ends */
@@ -452,4 +494,37 @@ fieldset {
 .searchBar {
   width: 77vw;
   min-width: 338px !important;
+}
+
+.searchBarContainer{
+  position: relative;
+  left: -16px;
+  .searchIconContainer {
+    width: 30px !important;
+    height: 30px !important;
+    position: relative;
+    top: 17px;
+    left: 46px;
+  }
+  .MuiInputBase-input.MuiFilledInput-input {
+    padding: 16px 60px !important;
+  }
+}
+
+.icon30{
+  width: 30px !important;
+  height: 30px !important
+}
+
+.smallMenu *{
+  font-size: var(--font-sm) !important;
+}
+
+.crPointer{
+  cursor: pointer;
+}
+
+.iconTp2n{
+  position: relative;
+  top: -2px;
 }

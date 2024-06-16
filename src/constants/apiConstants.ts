@@ -11,6 +11,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "GET",
         "access": "public",
         "url": "public/getRandomUserList"
+    },
+    searchUserByKeyWord:{
+        "type": "GET",
+        "access": "public",
+        "url": "public/searchUsersByKeyword"
     }
 }
 

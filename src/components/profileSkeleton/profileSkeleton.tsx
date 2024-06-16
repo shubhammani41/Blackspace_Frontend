@@ -12,7 +12,7 @@ const ProfileSkeleton: React.FC = ()=>{
                     <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
                 </div>
             </div>
-            <Skeleton variant="rounded" width={400} height={160} animation="wave" />
+            <Skeleton variant="rounded" height={160} animation="wave" />
         </div>
     )
 }
