@@ -3,7 +3,7 @@ interface APIConfig {
     access: string;
     url: string;
 }
-const baseURL: string = "https://localhost:8080/";
+const baseURL: string = "http://localhost:8080/";
 // const baseURL: string = "https://blackspace.co.in/api/";
 
 const apiConstants: { [key: string]: APIConfig } = {
