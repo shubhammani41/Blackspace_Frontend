@@ -186,7 +186,7 @@ const HomeComponent: React.FC = () => {
                                                     <Typography sx={{ color: 'text.primary' }} className="w300p ellipsis" gutterBottom variant="h5" component="div">
                                                         {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                     </Typography>
-                                                    <Typography sx={{ color: 'text.primary' }} className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                    <Typography sx={{ color: 'text.primary' }} className="w180 ellipsis" variant="body2" color="text.secondary">
                                                         {devData.positionName}
                                                     </Typography>
                                                 </div>
