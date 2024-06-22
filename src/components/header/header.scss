@@ -1,23 +1,37 @@
-.headerContainer{
+.headerContainer {
     padding: 10px 50px;
     position: fixed;
     width: 100vw;
     top: 0px;
 }
 
-.avatar24{
+.avatar24 {
     width: 24px !important;
     height: 24px !important;
 }
 
-.w15{
+.w15 {
     width: 15px !important;
 }
 
-.h15{
+.h15 {
     height: 15px !important;
 }
 
-.p4{
+.p4 {
     padding: 4px;
+}
+
+.logoIco {
+    width: 6vw !important;
+    height: 3vw !important;
+    margin-right: 10px;
+    position: relative;
+    top: 0px;
+    max-width: 65px;
+    max-height: 30px;
+}
+
+.logoIcoInvert {
+    filter: invert(1);
 }

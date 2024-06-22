@@ -1,15 +1,23 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GlobalLoader.scss';
 
-function GlobalLoader(message: string = "Running scripts.../>", timeout: number | null) {
-    let show = useState("false");
+const GlobalLoader: React.FC<{ timeout?: number }> = (props) => {
+    const [show, setShow] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (props?.timeout) {
+            setTimeout(() => {
+                setShow(false);
+            }, props.timeout)
+        }
+    });
+
     return (
         show ?
-            <div id="loader-container">
-                <div className='df jc ac'>
-                    <p>{message}</p>
-                </div>
-            </div> : null
+            <div className="loader-container">
+                <span className="loader"></span>
+            </div>
+            : null
     )
 }
 

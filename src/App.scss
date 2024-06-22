@@ -32,6 +32,7 @@
   --font-xl: 31px;
   --font-xxl: 35px;
   --app-transition: 0.2s ease-in-out;
+  --shadow-down-s: rgba(100, 100, 111, 0.2) 0px 18px 15px 3px;
 }
 
 body {
@@ -182,17 +183,14 @@ body * {
   width: 100%;
 }
 
+.mw0px{
+  min-width: 0px !important;
+}
+
 .matrix-card-container.full-width {
   .MuiPaper-root {
     width: 90vw;
   }
-}
-
-.skeleton-container{
-  width: 400px;
-  min-width: 300px;
-  max-width: 400px;
-  height: 280px;
 }
 
 .ellipsis {
@@ -205,6 +203,10 @@ body * {
 /* mui override starts */
 .MuiPaper-elevation {
   //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
+
+.MuiInputBase-root{
+  border-radius: 4px;
 }
 
 .MuiTypography-root{
@@ -486,7 +488,8 @@ fieldset {
   }
 
   .matrix-card-container:hover {
-    transform: scale(1.1);
+    transform: scale(1.00);
+    box-shadow: var(--shadow-down-s);
     transition: var(--app-transition);
   }
 }
@@ -527,4 +530,10 @@ fieldset {
 .iconTp2n{
   position: relative;
   top: -2px;
+}
+
+.loader-container{
+  .loader{
+    color: var(--app-accent-color);
+  }
 }

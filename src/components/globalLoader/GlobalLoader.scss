@@ -1,24 +1,35 @@
-#loader-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0px;
-    left: 0px;
-    background: black;
-    z-index: 9999999999;
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  min-height: 500px;
 }
 
-.df {
-    display: flex;
+.loader {
+  width: 12px;
+  height: 20px;
+  border-radius: 4px;
+  display: block;
+  color: #FFF;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;
   }
-  
-  .jc {
-    justify-content: center;
+
+  33% {
+    box-shadow: -38px 0px, -14px -12px, 14px 0, 38px 0;
   }
-  
-  .ac {
-    align-items: center;
+
+  66% {
+    box-shadow: -38px 0px, -14px 0, 14px -12px, 38px 0;
   }
+
+  100% {
+    box-shadow: -38px 0, -14px 0, 14px 0, 38px -12px;
+  }
+}

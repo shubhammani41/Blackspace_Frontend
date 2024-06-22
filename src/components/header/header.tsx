@@ -8,6 +8,8 @@ import { useRef, useState } from "react";
 import { ThemeToggleBtn } from "../themeToggleBtn/themeToggleBtn";
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Logo from '../../assets/images/logo5.png';
+import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -25,11 +27,14 @@ const AppHeader: React.FC = () => {
     const navigateToHome = () => {
         navigate("/home");
     }
+
+    const currentTheme = useThemeStore();
     return (
         <AppBar className="headerContainer df jc ac" sx={{ backgroundColor: 'background.default' }}>
             <div className="df jc ac w75vw">
                 <div className="df js ac f50">
-                    <HomeRoundedIcon sx={{ color: 'text.primary' }} className="icon30 iconTp2n" onClick={navigateToHome}></HomeRoundedIcon>
+                    {/* <HomeRoundedIcon sx={{ color: 'text.primary' }} className="icon30 iconTp2n" onClick={navigateToHome}></HomeRoundedIcon> */}
+                    <img src={Logo} className={"icon30 iconTp2n logoIco "+ (currentTheme.data.mode===ThemeMode.Dark?'logoIcoInvert':'')}></img>
                     <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer" variant="body1" color="text.secondary"
                         onClick={navigateToHome}>
                         Blackspace
@@ -38,10 +43,10 @@ const AppHeader: React.FC = () => {
                     {location?.pathname ? <Typography className="ellipsis fw300 ml15" color="text.secondary">{location.pathname.substring(1)}</Typography> : null}
                 </div>
                 <div className="df je ac f50">
-                    <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15">
+                    <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15 mw0px">
                         <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30"></AccountCircleOutlinedIcon>
                     </Button>
-                    <Button onClick={handleClick} ref={settingsAnchorRef}>
+                    <Button onClick={handleClick} ref={settingsAnchorRef} className="mw0px">
                         <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30"></SettingsOutlinedIcon>
                     </Button>
                 </div>

@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Skeleton, TablePagination, TextField, Typography } from "@mui/material";
-import React, { RefObject, useEffect, useState } from "react";
+import React, { ReactElement, RefObject, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
 import { UserData } from "../../../models/userData";
@@ -7,79 +7,150 @@ import axiosInstance from "../../../config/axiosConfig";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
 import { apiConstants } from "../../../constants/apiConstants";
+import InfiniteScroll from 'react-infinite-scroller';
+import { throttle, debounce } from 'lodash';
 
 const HomeComponent: React.FC = () => {
+    const defaultPageSize: number = 6;
+    const defaultPageNumber: number = 0;
+    const defaultSearchKeyWord: string = "";
+    const defaultSearchMessage: string = "Hold on a sec.";
+    const successSearchMessage: string = "There you go.";
+    const defaultTimeout: number = 500;
+    const noProfileSearchMessage: string = "Sorry! No profiles found.";
+    const errorSearchMessage: string = "Opps! Something went wrong.";
     const audioRef: RefObject<HTMLAudioElement> = React.createRef();
     const [devDataList, setDevData] = useState<UserData[]>([]);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-    const [pageNumber, setPageNumber] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(defaultPageSize);
+    const [pageNumber, setPageNumber] = useState<number>(defaultPageNumber);
     const [totalElements, setTotalElements] = useState<number>(0);
     const [devListLoading, setDevListLoading] = useState<boolean>(false);
+    const [hasMore, setHasMore] = useState<boolean>(false);
+    const [searchKeyWord, setSearchKeyWord] = useState<string>(defaultSearchKeyWord);
+    const [searchMessage, setSearchMessage] = useState<string>();
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPageNumber(newPage);
-        fetchUserData(rowsPerPage, newPage);
-    };
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value));
-        setPageNumber(0);
-        fetchUserData(parseInt(event.target.value), 0);
-    };
+    const profileSkeletonList:ReactElement[] = useMemo(() => {
+        return Array(3).fill(1).map((val, index) => {
+            return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
+        })
+    }, [])
 
-    let fetchTimer = setTimeout(() => { }, 500);
+    const tranformDevDataList = (data: UserData[]): UserData[] => {
+        return data.map((obj: any) => {
+            return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
+        });
+    }
 
     const searchFn = (event: any) => {
-        const { value } = event.target;
-        if (value.length >= 3) {
-            clearTimeout(fetchTimer);
-            timerFunc(value);
-        } else if (value === '') {
-            clearTimeout(fetchTimer);
-            timerFunc(value);
-        }
-        else {
-            clearTimeout(fetchTimer);
+        setSearchKeyWord(event.target.value);
+        if(event.target.value=='' || event.target.value.length>2){
+            setDevData([]);
+            setPageNumber(defaultPageNumber);
+            setPageSize(defaultPageSize);
+            fetchUserData(defaultPageSize, defaultPageNumber, event.target.value);
         }
     }
 
-    const timerFunc = (value: string) => {
-        fetchTimer = setTimeout(() => {
-            fetchUserData(5, 0, value);
-        }, 500);
-    }
+    const debouncedSearchFn = useMemo(() => {
+        return debounce(searchFn, defaultTimeout);
+    }, [])
 
-    const fetchUserData = async (rowsPerPage: number, pageNumber: number, searchKeyWord: string = '') => {
+
+
+    const fetchUserData = async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
         setDevListLoading(true);
         try {
             let url = "";
             if (searchKeyWord && searchKeyWord !== '') {
-                url = apiConstants.searchUserByKeyWord.url + `?pageSize=${rowsPerPage}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
+                url = apiConstants.searchUserByKeyWord.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
             }
             else {
-                url = apiConstants.getUserListRandom.url + `?pageSize=${rowsPerPage}&pageNumber=${pageNumber}`;
+                url = apiConstants.getUserListRandom.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
             }
             let response: any = await axiosInstance.get(url);
-            response = response.data.data;
-            setTotalElements(response.totalElements);
-            setDevData(response.data.map((obj: any) => {
-                return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
-            }));
+            if (response?.data) {
+                setTotalElements(response.totalElements);
+                setTimeout(() => {
+                    setDevData(prev => [...prev, ...tranformDevDataList(response.data)]);
+                }, defaultTimeout);
+            } else {
+                setDevData([]);
+                setSearchMessage(noProfileSearchMessage);
+                setHasMore(false);
+            }
+
         } catch (error) {
-            //test
+            setDevData([]);
+            setSearchMessage(errorSearchMessage);
+            setHasMore(false);
         }
 
-        setTimeout(() => { setDevListLoading(false) }, 1000);
+        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
     };
 
+    const loadMore = () => {
+        let pageNumberLatest = defaultPageNumber;
+        let pageSizeLatest = defaultPageSize;
+        let searchLatest = "";
+        setPageNumber(prevPageNumber => {
+            pageNumberLatest = prevPageNumber + 1;
+            setPageSize(prevPageSize => {
+                pageSizeLatest = prevPageSize;
+                setSearchKeyWord(searchPrev => {
+                    searchLatest = searchPrev;
+                    fetchUserData(pageSizeLatest, pageNumberLatest, searchLatest);
+                    return searchLatest;
+                });
+                return pageSizeLatest;
+            });
+            return pageNumberLatest;
+        });
+        setHasMore(false);
+    }
+
+    const debouncedLoadMore = useMemo(() => {
+        return debounce(loadMore, defaultTimeout)
+    }, [])
+
+    const handleScroll = () => {
+        let pageNumberLatest = defaultPageNumber;
+        let pageSizeLatest = defaultPageSize;
+        let totalElementsLatest = 0;
+        setPageNumber(prevPageNumber => {
+            pageNumberLatest = prevPageNumber;
+            setPageSize(prevPageSize => {
+                pageSizeLatest = prevPageSize;
+                setTotalElements(prevTotal => {
+                    totalElementsLatest = prevTotal;
+
+                    console.log(pageNumberLatest, pageSizeLatest, totalElementsLatest)
+                    if (pageNumberLatest * pageSizeLatest <= totalElementsLatest && pageSizeLatest <= totalElementsLatest) {
+                        setHasMore(true);
+                    }
+
+                    return totalElementsLatest;
+                });
+                return pageSizeLatest;
+            });
+            return pageNumberLatest;
+        });
+    }
+
     useEffect(() => {
-        fetchUserData(rowsPerPage, pageNumber);
+        fetchUserData(pageSize, pageNumber);
+        window.addEventListener('scrollend', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            window.removeEventListener('scrollend', handleScroll);
+            debouncedSearchFn.cancel();
+            debouncedLoadMore.cancel();
+        }
     }, []);
 
     return (
         <div className="mainContainer">
-            {/* <div className="app-background-image-container">
-                <img className="app-background-image" src={matrixrain} />
-            </div> */}
             <div className='df jc ac app-header'>
                 <p className='header'>
                     Welcome to Black Space.
@@ -93,28 +164,22 @@ const HomeComponent: React.FC = () => {
                     variant="filled"
                     placeholder="e.g. Shubham Tripathi"
                     className='searchBar'
-                    onChange={searchFn}
+                    onChange={debouncedSearchFn}
                 />
             </div>
             <div className="matrix-card-list">
-                {devListLoading ?
-                    <div className="df jc ac fw gp50px w90vw">
-                        {Array(3).fill(1).map((val, index) => {
-                            return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
-                        })}
-                    </div> :
+                <InfiniteScroll className="mb40"
+                    pageStart={defaultPageNumber}
+                    loadMore={debouncedLoadMore}
+                    hasMore={hasMore}
+                    useWindow={true} // Set to true to use window scroll, false to use a specific container
+                    threshold={0}>
                     <div className="df jc ac fw gp50px w90vw">
                         {devDataList.length > 0 ?
                             devDataList.map((devData) => {
                                 return (
                                     <div className="matrix-card-container" key={"dev_" + devData.userId}>
                                         <Card>
-                                            {/* <CardMedia
-                                            component="img"
-                                            alt={"Image not found"}
-                                            height="140"
-                                            src={devData.profilePictureUrl ? devData.profilePictureUrl : "defaultImageUrl"}
-                                        /> */}
                                             <div className="df js ac gp30px m15">
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                 <div>
@@ -146,31 +211,19 @@ const HomeComponent: React.FC = () => {
                             }) :
                             <div className="df jc ac">
                                 <Typography className="w300p ellipsis df jc ac" variant="body2" color="text.secondary">
-                                    No profiles found
+                                    {searchMessage}
                                 </Typography>
                             </div>
                         }
+                    </div>
+                </InfiniteScroll>
+                {devListLoading ?
+                    <div className="df jc ac fw gp50px w90vw">
+                        {profileSkeletonList}
+                    </div> : null
 
-                    </div>}
+                }
             </div>
-            {!devListLoading ?
-                <div className="df jc ac fw gp50px paginator-container">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25]}
-                                    count={totalElements}
-                                    rowsPerPage={rowsPerPage}
-                                    page={pageNumber}
-                                    onPageChange={handleChangePage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                />
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                : null}
             <audio ref={audioRef} loop controls={false} autoPlay={true}>
                 <source src={clubbedToDeath} type="audio/mp3" />
             </audio>
