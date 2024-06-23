@@ -20,7 +20,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Navigate to="/home" />}></Route>
           <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
-          <Route path='/profile' element={<ProfileModule />}></Route>
+          <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
           <Route path='*' element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

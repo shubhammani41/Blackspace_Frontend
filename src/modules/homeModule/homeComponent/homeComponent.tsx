@@ -9,16 +9,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import { apiConstants } from "../../../constants/apiConstants";
 import InfiniteScroll from 'react-infinite-scroller';
 import { debounce } from 'lodash';
-import { AppText } from "../../../constants/textConstants";
+import { AppText, AppValues, transformUserData } from "../../../constants/appConstants";
+import { useNavigate } from "react-router-dom";
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
     const defaultPageNumber: number = 0;
     const defaultSearchKeyWord: string = "";
-    const defaultTimeout: number = 500;
+    const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const noProfileSearchMessage: string = "Sorry! No profiles found.";
     const errorSearchMessage: string = AppText.errorMessage;
     const audioRef: RefObject<HTMLAudioElement> = React.createRef();
+    const navigate = useNavigate();
     const [devDataList, setDevData] = useState<UserData[]>([]);
     const [pageSize, setPageSize] = useState<number>(defaultPageSize);
     const [pageNumber, setPageNumber] = useState<number>(defaultPageNumber);
@@ -34,12 +36,14 @@ const HomeComponent: React.FC = () => {
         })
     }, [])
 
-    const transformDevDataList = useMemo(() => {
-        return (data: UserData[]): UserData[] => {
-            return data.map((obj: any) => {
-                return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
-            });
+    const goToProfile = (userName: string) => {
+        if (userName && userName.trim() != '') {
+            navigate(`/profile/${userName}`);
         }
+    }
+
+    const transformDevDataList = useMemo(() => {
+        return transformUserData;
     }, [devDataList]);
 
     const searchFn = (event: any) => {
@@ -69,10 +73,10 @@ const HomeComponent: React.FC = () => {
                 url = apiConstants.getUserListRandom.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
             }
             let response: any = await axiosInstance.get(url);
-            if (response?.data) {
-                setTotalElements(response.totalElements);
+            if (response?.data?.data) {
+                setTotalElements(response.data.totalElements);
                 setTimeout(() => {
-                    setDevData(prev => [...prev, ...transformDevDataList(response.data)]);
+                    setDevData(prev => [...prev, ...transformDevDataList(response.data.data)]);
                 }, defaultTimeout);
             } else {
                 setDevData([]);
@@ -118,9 +122,9 @@ const HomeComponent: React.FC = () => {
         }
     }, [pageNumber, pageSize, totalElements]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(hasMore);
-    },[hasMore])
+    }, [hasMore])
 
     useEffect(() => {
         window.removeEventListener('scrollend', handleScroll);
@@ -183,14 +187,14 @@ const HomeComponent: React.FC = () => {
                                                     Experience: {devData.experience} years
                                                 </Typography>
                                                 <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
-                                                    Technology: {devData.skills}
+                                                    Skills: {devData.skills}
                                                 </Typography>
                                                 <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
-                                                <Button size="small">View</Button>
+                                                <Button size="small" onClick={()=>{goToProfile(devData.userName)}}>View</Button>
                                             </CardActions>
                                         </Card>
                                     </div>

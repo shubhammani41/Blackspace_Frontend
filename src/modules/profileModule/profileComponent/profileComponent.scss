@@ -1,7 +1,21 @@
-.profileContainer{
+.profileContainer {
     margin-top: 100px;
 }
 
-.profileMainInfo{
+.profileMainInfo {
     width: 90vw;
+}
+
+.fullSizeCard {
+    width: 100% !important;
+    max-width: 90vw !important;
+    height: auto !important;
+}
+
+.fw {
+    flex-wrap: wrap;
+}
+
+.f100 {
+    flex: 0 0 100%;
 }

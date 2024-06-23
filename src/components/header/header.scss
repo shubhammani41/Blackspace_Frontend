@@ -35,3 +35,11 @@
 .logoIcoInvert {
     filter: invert(1);
 }
+
+.headerFontClamp{
+    font-size: clamp(6px, 4vw, 18px) !important;
+}
+
+.headerIcoClamp{
+    width: clamp(6px, 3vw, 18px) !important;
+}

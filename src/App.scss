@@ -331,6 +331,12 @@ fieldset {
   color: var(--app-accent-color);
 }
 
+.headerl {
+  font-size: var(--font-l) !important;
+  color: var(--app-accent-color);
+  margin: 10px 0px;
+}
+
 .subHeader {
   font-size: var(--font-l);
   color: var(--app-accent-color);
@@ -540,4 +546,9 @@ fieldset {
   .loader{
     color: var(--app-accent-color);
   }
+}
+
+.avatar100 {
+  width: 100px !important;
+  height: 100px !important;
 }

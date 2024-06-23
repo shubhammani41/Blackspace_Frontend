@@ -29,6 +29,8 @@ interface UserData {
     industryId: number;
     roleName: String;
     experience: number;
+    phoneNumber: String;
+    callingCode: String;
 }
 
 export type { UserData }
