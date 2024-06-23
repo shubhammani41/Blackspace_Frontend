@@ -19,3 +19,14 @@
 .f100 {
     flex: 0 0 100%;
 }
+
+.profileMainInfo{
+    .skeleton-container{
+        width: 90vw !important;
+        max-width: 90vw !important;
+        height: 100% !important;
+        .MuiSkeleton-root.MuiSkeleton-rounded.MuiSkeleton-wave{
+            height: 190px !important;
+        }
+    }
+}
