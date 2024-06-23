@@ -4,10 +4,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ThemeToggleBtn } from "../themeToggleBtn/themeToggleBtn";
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import Logo from '../../assets/images/logo5.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 
@@ -28,19 +27,29 @@ const AppHeader: React.FC = () => {
         navigate("/home");
     }
 
+    const pageName = useMemo<string>(() => {
+        const segments = location.pathname.split('/').filter(Boolean);
+        const lastSegment = segments[segments.length - 1];
+        return lastSegment ? lastSegment.split('?')[0] : '';
+    }, [location]);
+
     const currentTheme = useThemeStore();
+
+    const themeMode = useMemo<string | null>(() => {
+        return currentTheme?.data?.mode ? currentTheme.data.mode : null;
+    }, [currentTheme]);
+
     return (
         <AppBar className="headerContainer df jc ac" sx={{ backgroundColor: 'background.default' }}>
             <div className="df jc ac w75vw">
                 <div className="df js ac f50">
-                    {/* <HomeRoundedIcon sx={{ color: 'text.primary' }} className="icon30 iconTp2n" onClick={navigateToHome}></HomeRoundedIcon> */}
-                    <img src={Logo} className={"icon30 iconTp2n logoIco "+ (currentTheme.data.mode===ThemeMode.Dark?'logoIcoInvert':'')}></img>
+                    <img src={Logo} className={"icon30 iconTp2n logoIco " + (themeMode === ThemeMode.Dark ? 'logoIcoInvert' : '')}></img>
                     <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer" variant="body1" color="text.secondary"
                         onClick={navigateToHome}>
                         Blackspace
                     </Typography>
                     <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15"></ArrowForwardIosIcon>
-                    {location?.pathname ? <Typography className="ellipsis fw300 ml15" color="text.secondary">{location.pathname.substring(1)}</Typography> : null}
+                    {location?.pathname ? <Typography className="ellipsis fw300 ml15" color="text.secondary">{pageName}</Typography> : null}
                 </div>
                 <div className="df je ac f50">
                     <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15 mw0px">

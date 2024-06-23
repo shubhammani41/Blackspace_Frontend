@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Skeleton, TablePagination, TextField, Typography } from "@mui/material";
-import React, { ReactElement, RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { Avatar, Button, Card, CardActions, CardContent, TextField, Typography } from "@mui/material";
+import React, { ReactElement, RefObject, useCallback, useEffect, useMemo, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
 import { UserData } from "../../../models/userData";
@@ -8,17 +8,16 @@ import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkel
 import SearchIcon from '@mui/icons-material/Search';
 import { apiConstants } from "../../../constants/apiConstants";
 import InfiniteScroll from 'react-infinite-scroller';
-import { throttle, debounce } from 'lodash';
+import { debounce } from 'lodash';
+import { AppText } from "../../../constants/textConstants";
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
     const defaultPageNumber: number = 0;
     const defaultSearchKeyWord: string = "";
-    const defaultSearchMessage: string = "Hold on a sec.";
-    const successSearchMessage: string = "There you go.";
     const defaultTimeout: number = 500;
     const noProfileSearchMessage: string = "Sorry! No profiles found.";
-    const errorSearchMessage: string = "Opps! Something went wrong.";
+    const errorSearchMessage: string = AppText.errorMessage;
     const audioRef: RefObject<HTMLAudioElement> = React.createRef();
     const [devDataList, setDevData] = useState<UserData[]>([]);
     const [pageSize, setPageSize] = useState<number>(defaultPageSize);
@@ -29,21 +28,23 @@ const HomeComponent: React.FC = () => {
     const [searchKeyWord, setSearchKeyWord] = useState<string>(defaultSearchKeyWord);
     const [searchMessage, setSearchMessage] = useState<string>();
 
-    const profileSkeletonList:ReactElement[] = useMemo(() => {
+    const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
             return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
         })
     }, [])
 
-    const tranformDevDataList = (data: UserData[]): UserData[] => {
-        return data.map((obj: any) => {
-            return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
-        });
-    }
+    const transformDevDataList = useMemo(() => {
+        return (data: UserData[]): UserData[] => {
+            return data.map((obj: any) => {
+                return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
+            });
+        }
+    }, [devDataList]);
 
     const searchFn = (event: any) => {
         setSearchKeyWord(event.target.value);
-        if(event.target.value=='' || event.target.value.length>2){
+        if (event.target.value == '' || event.target.value.length > 2) {
             setDevData([]);
             setPageNumber(defaultPageNumber);
             setPageSize(defaultPageSize);
@@ -53,7 +54,7 @@ const HomeComponent: React.FC = () => {
 
     const debouncedSearchFn = useMemo(() => {
         return debounce(searchFn, defaultTimeout);
-    }, [])
+    }, [searchKeyWord])
 
 
 
@@ -71,7 +72,7 @@ const HomeComponent: React.FC = () => {
             if (response?.data) {
                 setTotalElements(response.totalElements);
                 setTimeout(() => {
-                    setDevData(prev => [...prev, ...tranformDevDataList(response.data)]);
+                    setDevData(prev => [...prev, ...transformDevDataList(response.data)]);
                 }, defaultTimeout);
             } else {
                 setDevData([]);
@@ -88,60 +89,46 @@ const HomeComponent: React.FC = () => {
         setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
     };
 
-    const loadMore = () => {
-        let pageNumberLatest = defaultPageNumber;
-        let pageSizeLatest = defaultPageSize;
-        let searchLatest = "";
-        setPageNumber(prevPageNumber => {
-            pageNumberLatest = prevPageNumber + 1;
-            setPageSize(prevPageSize => {
-                pageSizeLatest = prevPageSize;
-                setSearchKeyWord(searchPrev => {
-                    searchLatest = searchPrev;
-                    fetchUserData(pageSizeLatest, pageNumberLatest, searchLatest);
-                    return searchLatest;
+    const loadMore = useMemo(() => {
+        return () => {
+            setPageNumber(prevPageNumber => {
+                setHasMore(prevHasMore => {
+                    if (prevHasMore) {
+                        fetchUserData(pageSize, prevPageNumber + 1, searchKeyWord);
+                    }
+                    return false;
                 });
-                return pageSizeLatest;
-            });
-            return pageNumberLatest;
-        });
-        setHasMore(false);
-    }
+                return prevPageNumber + 1;
+            })
+        }
+    }, [searchKeyWord]);
 
     const debouncedLoadMore = useMemo(() => {
         return debounce(loadMore, defaultTimeout)
-    }, [])
+    }, [loadMore])
 
-    const handleScroll = () => {
-        let pageNumberLatest = defaultPageNumber;
-        let pageSizeLatest = defaultPageSize;
-        let totalElementsLatest = 0;
-        setPageNumber(prevPageNumber => {
-            pageNumberLatest = prevPageNumber;
-            setPageSize(prevPageSize => {
-                pageSizeLatest = prevPageSize;
-                setTotalElements(prevTotal => {
-                    totalElementsLatest = prevTotal;
+    const handleScroll = useCallback(() => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            console.log(pageNumber, pageSize, totalElements);
+            if (pageNumber * pageSize <= totalElements && pageSize <= totalElements) {
+                setHasMore(true);
+            } else {
+                setHasMore(false);
+            }
+        }
+    }, [pageNumber, pageSize, totalElements]);
 
-                    console.log(pageNumberLatest, pageSizeLatest, totalElementsLatest)
-                    if (pageNumberLatest * pageSizeLatest <= totalElementsLatest && pageSizeLatest <= totalElementsLatest) {
-                        setHasMore(true);
-                    }
+    useEffect(()=>{
+        console.log(hasMore);
+    },[hasMore])
 
-                    return totalElementsLatest;
-                });
-                return pageSizeLatest;
-            });
-            return pageNumberLatest;
-        });
-    }
+    useEffect(() => {
+        window.removeEventListener('scrollend', handleScroll);
+        window.addEventListener('scrollend', handleScroll);
+    }, [handleScroll]);
 
     useEffect(() => {
         fetchUserData(pageSize, pageNumber);
-        window.addEventListener('scrollend', handleScroll);
-    }, []);
-
-    useEffect(() => {
         return () => {
             window.removeEventListener('scrollend', handleScroll);
             debouncedSearchFn.cancel();
