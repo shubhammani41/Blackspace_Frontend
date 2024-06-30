@@ -21,6 +21,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "GET",
         "access": "public",
         "url": "public/getUserByUserName"
+    },
+    getUserExperienceByUserId: {
+        "type": "GET",
+        "access": "public",
+        "url": "public/getUserExperienceByUserId"
     }
 }
 

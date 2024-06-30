@@ -8,9 +8,6 @@ interface UserData {
     profilePictureUrl: string;
     gender: string; // Assuming gender is a string (e.g., 'male', 'female', etc.)
     bio: string;
-    githubUrl: string;
-    linkedinUrl: string;
-    twitterUrl: string;
     websiteUrl: string;
     userName: string;
     skills: any; // JSON string of skills
