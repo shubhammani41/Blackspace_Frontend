@@ -37,32 +37,16 @@ const HomeComponent: React.FC = () => {
     }, [])
 
     const goToProfile = (userName: string) => {
-        if (userName && userName.trim() != '') {
+        if (userName && userName.trim() !== '') {
             navigate(`/profile/${userName}`);
         }
     }
 
     const transformDevDataList = useMemo(() => {
         return transformUserData;
-    }, [devDataList]);
+    }, []);
 
-    const searchFn = (event: any) => {
-        setSearchKeyWord(event.target.value);
-        if (event.target.value == '' || event.target.value.length > 2) {
-            setDevData([]);
-            setPageNumber(defaultPageNumber);
-            setPageSize(defaultPageSize);
-            fetchUserData(defaultPageSize, defaultPageNumber, event.target.value);
-        }
-    }
-
-    const debouncedSearchFn = useMemo(() => {
-        return debounce(searchFn, defaultTimeout);
-    }, [searchKeyWord])
-
-
-
-    const fetchUserData = async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
+    const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
         setDevListLoading(true);
         try {
             let url = "";
@@ -91,7 +75,21 @@ const HomeComponent: React.FC = () => {
         }
 
         setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
-    };
+    }, [defaultTimeout, errorSearchMessage, transformDevDataList])
+
+    const searchFn = useCallback((event: any) => {
+        setSearchKeyWord(event.target.value);
+        if (event.target.value === '' || event.target.value.length > 2) {
+            setDevData([]);
+            setPageNumber(defaultPageNumber);
+            setPageSize(defaultPageSize);
+            fetchUserData(defaultPageSize, defaultPageNumber, event.target.value);
+        }
+    }, [fetchUserData])
+
+    const debouncedSearchFn = useMemo(() => {
+        return debounce(searchFn, defaultTimeout);
+    }, [defaultTimeout, searchFn])
 
     const loadMore = useMemo(() => {
         return () => {
@@ -105,11 +103,11 @@ const HomeComponent: React.FC = () => {
                 return prevPageNumber + 1;
             })
         }
-    }, [searchKeyWord]);
+    }, [searchKeyWord, fetchUserData, pageSize]);
 
     const debouncedLoadMore = useMemo(() => {
         return debounce(loadMore, defaultTimeout)
-    }, [loadMore])
+    }, [loadMore, defaultTimeout])
 
     const handleScroll = useCallback(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -132,6 +130,7 @@ const HomeComponent: React.FC = () => {
     }, [handleScroll]);
 
     useEffect(() => {
+        setDevData([]);
         fetchUserData(pageSize, pageNumber);
         return () => {
             window.removeEventListener('scrollend', handleScroll);
@@ -174,34 +173,34 @@ const HomeComponent: React.FC = () => {
                                             <div className="df js ac gp30px m15">
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                 <div>
-                                                    <Typography sx={{ color: 'text.primary' }} className="w300p ellipsis" gutterBottom variant="h5" component="div">
+                                                    <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
                                                         {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                     </Typography>
-                                                    <Typography sx={{ color: 'text.primary' }} className="w180 ellipsis" variant="body2" color="text.secondary">
+                                                    <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
                                                         {devData.positionName}
                                                     </Typography>
                                                 </div>
                                             </div>
                                             <CardContent>
-                                                <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Experience: {devData.experience} years
                                                 </Typography>
-                                                <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Skills: {devData.skills}
                                                 </Typography>
-                                                <Typography className="w300p ellipsis" variant="body2" color="text.secondary">
+                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
-                                                <Button size="small" onClick={()=>{goToProfile(devData.userName)}}>View</Button>
+                                                <Button size="small" onClick={() => { goToProfile(devData.userName) }}>View</Button>
                                             </CardActions>
                                         </Card>
                                     </div>
                                 )
                             }) :
                             <div className="df jc ac">
-                                <Typography className="w300p ellipsis df jc ac" variant="body2" color="text.secondary">
+                                <Typography className="w90per ellipsis df jc ac" variant="body2" color="text.secondary">
                                     {searchMessage}
                                 </Typography>
                             </div>
@@ -215,9 +214,6 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
-            <audio ref={audioRef} loop controls={false} autoPlay={true}>
-                <source src={clubbedToDeath} type="audio/mp3" />
-            </audio>
         </div>
     );
 }
