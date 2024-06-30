@@ -22,17 +22,18 @@
   --app-success--darker: #006b40;
   // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
   --app-font-family: 'Roboto', Courier, 'Courier New', monospace;
-  --font-xxs: 8px;
-  --font-xs: 10px;
-  --font-s: 12px;
-  --font-sm: 15px;
-  --font-m: 18px;
-  --font-ml: 21px;
-  --font-l: 27px;
-  --font-xl: 31px;
-  --font-xxl: 35px;
+  --font-xxs: 0.2rem;
+  --font-xs: 0.4rem;
+  --font-s: 0.6rem;
+  --font-sm: 0.8rem, ;
+  --font-m: 1rem;
+  --font-ml: 1.2rem;
+  --font-l: 1.4rem;
+  --font-xl: 1.6rem;
+  --font-xxl: 1.8rem;
   --app-transition: 0.2s ease-in-out;
-  --shadow-down-s: rgba(100, 100, 111, 0.2) 0px 18px 15px 3px;
+  --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
+  font-size: clamp(14px, 2vw, 22px);
 }
 
 body {
@@ -52,7 +53,7 @@ body * {
   /* color: var(--app-accent-color) !important; */
 }
 
-.fw300{
+.fw300 {
   font-weight: 300 !important;
 }
 
@@ -175,6 +176,10 @@ body * {
   width: 300px;
 }
 
+.w90per {
+  width: 90%
+}
+
 .w180 {
   width: 180px;
 }
@@ -187,7 +192,7 @@ body * {
   width: 100%;
 }
 
-.mw0px{
+.mw0px {
   min-width: 0px !important;
 }
 
@@ -209,11 +214,11 @@ body * {
   //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
 }
 
-.MuiInputBase-root{
+.MuiInputBase-root {
   border-radius: 4px;
 }
 
-.MuiTypography-root{
+.MuiTypography-root {
   // line-height: 1 !important;
 }
 
@@ -317,7 +322,7 @@ fieldset {
   }
 }
 
-.MuiSvgIcon-root{
+.MuiSvgIcon-root {
   cursor: pointer;
 }
 
@@ -480,10 +485,9 @@ fieldset {
 }
 
 .matrix-card-container {
-  width: 400px;
-  min-width: 300px;
+  width: 90%;
+  min-width: 200px;
   max-width: 400px;
-  height: 280px;
 }
 
 .matrix-card-list {
@@ -506,12 +510,13 @@ fieldset {
 
 .searchBar {
   width: 77vw;
-  min-width: 338px !important;
+  min-width: 250px !important;
 }
 
-.searchBarContainer{
+.searchBarContainer {
   position: relative;
   left: -16px;
+
   .searchIconContainer {
     width: 30px !important;
     height: 30px !important;
@@ -519,31 +524,32 @@ fieldset {
     top: 17px;
     left: 46px;
   }
+
   .MuiInputBase-input.MuiFilledInput-input {
     padding: 16px 60px !important;
   }
 }
 
-.icon30{
+.icon30 {
   width: 30px !important;
   height: 30px !important
 }
 
-.smallMenu *{
+.smallMenu * {
   font-size: var(--font-sm) !important;
 }
 
-.crPointer{
+.crPointer {
   cursor: pointer;
 }
 
-.iconTp2n{
+.iconTp2n {
   position: relative;
   top: -2px;
 }
 
-.loader-container{
-  .loader{
+.loader-container {
+  .loader {
     color: var(--app-accent-color);
   }
 }
