@@ -73,7 +73,7 @@ const HomeComponent: React.FC = () => {
             setHasMore(false);
         }
 
-        // setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
     }, [defaultTimeout, errorSearchMessage, transformDevDataList])
 
     const searchFn = useCallback((event: any) => {

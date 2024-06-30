@@ -145,15 +145,15 @@ body * {
 }
 
 .mb1vw{
-  margin-bottom: 1vw !important;
+  margin-bottom: clamp(5px, 1vw, 16px) !important;
 }
 
 .pb1vw{
-  padding-bottom: 1vw !important;
+  padding-bottom: clamp(5px, 1vw, 16px) !important;
 }
 
 .pt1vw{
-  padding-top: 1vw !important;
+  padding-top: clamp(5px, 1vw, 16px) !important;
 }
 
 .mb40 {
@@ -515,7 +515,7 @@ fieldset {
 .matrix-card-container {
   width: 90%;
   min-width: 200px;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .matrix-card-list {
