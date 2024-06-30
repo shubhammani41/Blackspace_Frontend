@@ -47,15 +47,15 @@ const AppHeader: React.FC = () => {
                         onClick={navigateToHome}>
                         Blackspace
                     </Typography>
-                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp"></ArrowForwardIosIcon>
+                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
                     {location?.pathname ? <Typography className="ellipsis fw300 ml15 headerFontClamp" color="text.secondary">{pageName}</Typography> : null}
                 </div>
                 <div className="df je ac f50">
                     <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15 mw0px">
-                        <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30"></AccountCircleOutlinedIcon>
+                        <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
                     </Button>
                     <Button onClick={handleClick} ref={settingsAnchorRef} className="mw0px">
-                        <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30"></SettingsOutlinedIcon>
+                        <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
                     </Button>
                 </div>
             </div>

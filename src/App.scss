@@ -33,7 +33,7 @@
   --font-xxl: 1.8rem;
   --app-transition: 0.2s ease-in-out;
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
-  font-size: clamp(14px, 2vw, 22px);
+  font-size: clamp(15px, 2vw, 22px);
 }
 
 body {
@@ -144,6 +144,18 @@ body * {
   height: 100vh;
 }
 
+.mb1vw{
+  margin-bottom: 1vw !important;
+}
+
+.pb1vw{
+  padding-bottom: 1vw !important;
+}
+
+.pt1vw{
+  padding-top: 1vw !important;
+}
+
 .mb40 {
   margin-bottom: 40px;
 }
@@ -186,6 +198,10 @@ body * {
 
 .w90per {
   width: 90%
+}
+
+.w80per {
+  width: 80%;
 }
 
 .w50per {
@@ -409,7 +425,6 @@ fieldset {
 
 .app-header {
   margin: 0px 20px 2vw 20px;
-  padding-top: 7vw;
 }
 
 /* react perfect scroll bar css override starts */
@@ -494,6 +509,7 @@ fieldset {
 
 .mainContainer {
   margin: 10px 10px 100px 10px;
+  margin-top: calc(45px + 3vw);
 }
 
 .matrix-card-container {
@@ -567,6 +583,10 @@ fieldset {
 }
 
 .avatar100 {
-  width: 100px !important;
-  height: 100px !important;
+  width: 10vw !important;
+  height: 10vw !important;
+  max-width: 125px;
+  max-height: 125px;
+  min-width: 75px;
+  min-height: 75px;
 }

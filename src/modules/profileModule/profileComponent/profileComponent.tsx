@@ -52,7 +52,7 @@ const ProfileComponent: React.FC = () => {
     }, [devData])
 
     return (
-        <div className="profileContainer df jc ac">
+        <div className="mainContainer df jc ac">
             <div className="profileMainInfo df js ac fw">
                 {userDataLoading ? <ProfileSkeleton></ProfileSkeleton> :
                     <React.Fragment>

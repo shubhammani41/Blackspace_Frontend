@@ -73,7 +73,7 @@ const HomeComponent: React.FC = () => {
             setHasMore(false);
         }
 
-        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+        // setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
     }, [defaultTimeout, errorSearchMessage, transformDevDataList])
 
     const searchFn = useCallback((event: any) => {
@@ -169,9 +169,9 @@ const HomeComponent: React.FC = () => {
                                 return (
                                     <div className="matrix-card-container" key={"dev_" + devData.userId}>
                                         <Card>
-                                            <div className="df js ac gp30px m15">
+                                            <div className="df js ac gp30px m15 mb1vw">
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                <div>
+                                                <div className="w80per">
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
                                                         {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                     </Typography>
@@ -180,7 +180,7 @@ const HomeComponent: React.FC = () => {
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <CardContent>
+                                            <CardContent className="pb1vw pt1vw">
                                                 <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Experience: {devData.experience} years
                                                 </Typography>
@@ -191,7 +191,7 @@ const HomeComponent: React.FC = () => {
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
                                             </CardContent>
-                                            <CardActions>
+                                            <CardActions className="pb1vw pt1vw">
                                                 <Button size="small" onClick={() => { goToProfile(devData.userName) }}>View</Button>
                                             </CardActions>
                                         </Card>

@@ -37,9 +37,15 @@
 }
 
 .headerFontClamp{
-    font-size: clamp(6px, 4vw, 18px) !important;
+    font-size: var(--font-m) !important;
 }
 
-.headerIcoClamp{
-    width: clamp(6px, 3vw, 18px) !important;
+.headerIcoClamp1525{
+    width: clamp(15px, 2vw, 25px) !important;
+    height: clamp(15px, 2vw, 25px) !important;
+}
+
+.headerIcoClamp2535{
+    width: clamp(25px, 2vw, 35px) !important;
+    height: clamp(25px, 2vw, 35px) !important;
 }
