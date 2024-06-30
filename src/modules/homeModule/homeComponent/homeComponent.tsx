@@ -19,7 +19,6 @@ const HomeComponent: React.FC = () => {
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const noProfileSearchMessage: string = "Sorry! No profiles found.";
     const errorSearchMessage: string = AppText.errorMessage;
-    const audioRef: RefObject<HTMLAudioElement> = React.createRef();
     const navigate = useNavigate();
     const [devDataList, setDevData] = useState<UserData[]>([]);
     const [pageSize, setPageSize] = useState<number>(defaultPageSize);
