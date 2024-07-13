@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, RefObject, useCallback, useEffect, useMemo, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -11,6 +11,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { debounce } from 'lodash';
 import { AppText, AppValues, transformUserData } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
+import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -192,7 +194,16 @@ const HomeComponent: React.FC = () => {
                                                 </Typography>
                                             </CardContent>
                                             <CardActions className="pt3px">
-                                                <Button size="small" onClick={() => { goToProfile(devData.userName) }}>View</Button>
+                                                <Tooltip title="View">
+                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
+                                                        <VisibilityRoundedIcon></VisibilityRoundedIcon>
+                                                    </Button>
+                                                </Tooltip>
+                                                <Tooltip title="Download">
+                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
+                                                        <DownloadRoundedIcon></DownloadRoundedIcon>
+                                                    </Button>
+                                                </Tooltip>
                                             </CardActions>
                                         </Card>
                                     </div>

@@ -39,7 +39,7 @@ const themeObjLight: ThemeOptions = {
         },
         text: {
             primary: '#000000',
-            secondary: '#808080',
+            secondary: '#6a617e',
             // disabled: '#03A062',
         },
         action: {
@@ -59,7 +59,7 @@ const themeObjLight: ThemeOptions = {
     typography: {
         fontFamily: 'Roboto',
         allVariants: {
-            color: "#808080"
+            color: "#6a617e"
         },
         fontWeightLight:200,
         fontWeightRegular:400,
