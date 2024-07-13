@@ -65,7 +65,7 @@ const ProfileComponent: React.FC = () => {
                             <Card>
                                 <div className="df js ac gp30px m15">
                                     <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
-                                    <div>
+                                    <div className="w80per">
                                         <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
                                             {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
                                         </Typography>

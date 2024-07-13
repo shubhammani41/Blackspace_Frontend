@@ -33,7 +33,7 @@
   --font-xxl: 1.8rem;
   --app-transition: 0.2s ease-in-out;
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
-  font-size: clamp(15px, 2vw, 22px);
+  font-size: clamp(15px, 1.05vw, 22px);
 }
 
 body {
@@ -99,11 +99,11 @@ body * {
 }
 
 .gp50px {
-  gap: 50px;
+  gap: clamp(10px, 5vw, 50px) !important;
 }
 
 .gp30px {
-  gap: 30px;
+  gap: clamp(5px, 3vw, 30px) !important;
 }
 
 .f100 {
@@ -144,16 +144,16 @@ body * {
   height: 100vh;
 }
 
-.mb1vw{
-  margin-bottom: clamp(5px, 1vw, 16px) !important;
+.mb3px{
+  margin-bottom: 3px !important
 }
 
-.pb1vw{
-  padding-bottom: clamp(5px, 1vw, 16px) !important;
+.pb3px{
+  padding-bottom: 3px !important
 }
 
-.pt1vw{
-  padding-top: clamp(5px, 1vw, 16px) !important;
+.pt3px{
+  padding-top: 3px
 }
 
 .mb40 {

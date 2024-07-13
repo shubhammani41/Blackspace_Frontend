@@ -169,7 +169,7 @@ const HomeComponent: React.FC = () => {
                                 return (
                                     <div className="matrix-card-container" key={"dev_" + devData.userId}>
                                         <Card>
-                                            <div className="df js ac gp30px m15 mb1vw">
+                                            <div className="df js ac gp30px m15 mb3px">
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                 <div className="w80per">
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
@@ -180,7 +180,7 @@ const HomeComponent: React.FC = () => {
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <CardContent className="pb1vw pt1vw">
+                                            <CardContent className="pb3px pt3px">
                                                 <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Experience: {devData.experience} years
                                                 </Typography>
@@ -191,7 +191,7 @@ const HomeComponent: React.FC = () => {
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
                                             </CardContent>
-                                            <CardActions className="pb1vw pt1vw">
+                                            <CardActions className="pt3px">
                                                 <Button size="small" onClick={() => { goToProfile(devData.userName) }}>View</Button>
                                             </CardActions>
                                         </Card>
