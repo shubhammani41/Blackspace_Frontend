@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, CardActions, CardContent, TextField, Tooltip, Typography } from "@mui/material";
-import React, { ReactElement, RefObject, useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
 import { UserData } from "../../../models/userData";
@@ -13,6 +13,12 @@ import { AppText, AppValues, transformUserData } from "../../../constants/appCon
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import { DownloadableProfileComponent } from "../../profileModule/downloadableProfileComponent/downloadableProfileComponent";
+import ReactDOM from "react-dom";
+import { createRoot, Root } from "react-dom/client";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import moment from "moment";
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -27,9 +33,14 @@ const HomeComponent: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(defaultPageNumber);
     const [totalElements, setTotalElements] = useState<number>(0);
     const [devListLoading, setDevListLoading] = useState<boolean>(false);
+    const [isPDFLoaded, setIsPDFLoaded] = useState<boolean>(false);
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [searchKeyWord, setSearchKeyWord] = useState<string>(defaultSearchKeyWord);
     const [searchMessage, setSearchMessage] = useState<string>();
+    const [userFullName, setUserFullName] = useState<string>('');
+    const container = useRef<HTMLElement>();
+    const root =  document.getElementById('root');
+    const downloadContainer = useRef<Root>();
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
@@ -121,6 +132,36 @@ const HomeComponent: React.FC = () => {
         }
     }, [pageNumber, pageSize, totalElements]);
 
+    const downloadProfile = (userName: string) => {
+        if (root) {
+            container.current = document.createElement('div');
+            root.appendChild(container.current);
+            downloadContainer.current = createRoot(container.current);
+            downloadContainer.current.render(<DownloadableProfileComponent userName={userName} setIsPDFLoaded={setIsPDFLoaded}  setUserFullName={setUserFullName}/>);
+        }
+    };
+
+    const generateAndDownloadPdf = useCallback(() => {
+        if (container.current && root) {
+            html2canvas(container.current as HTMLElement).then((canvas) => {
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 300;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save(`${userFullName}-CV-${moment().format("YYYYDDMM")}.pdf`);
+                if(downloadContainer.current){downloadContainer.current.unmount();}
+                if(container.current){root.removeChild(container.current);}
+            });
+        }
+    },[container, root, userFullName]);
+
+    useEffect(()=>{
+        if(isPDFLoaded){
+            generateAndDownloadPdf();
+            setIsPDFLoaded(false);
+        }
+    },[isPDFLoaded])
+
     useEffect(() => {
         console.log(hasMore);
     }, [hasMore])
@@ -200,7 +241,7 @@ const HomeComponent: React.FC = () => {
                                                     </Button>
                                                 </Tooltip>
                                                 <Tooltip title="Download">
-                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
+                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName) }}>
                                                         <DownloadRoundedIcon></DownloadRoundedIcon>
                                                     </Button>
                                                 </Tooltip>
