@@ -39,7 +39,7 @@ const HomeComponent: React.FC = () => {
     const [searchMessage, setSearchMessage] = useState<string>();
     const [userFullName, setUserFullName] = useState<string>('');
     const container = useRef<HTMLElement>();
-    const root =  document.getElementById('root');
+    const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
@@ -137,30 +137,43 @@ const HomeComponent: React.FC = () => {
             container.current = document.createElement('div');
             root.appendChild(container.current);
             downloadContainer.current = createRoot(container.current);
-            downloadContainer.current.render(<DownloadableProfileComponent userName={userName} setIsPDFLoaded={setIsPDFLoaded}  setUserFullName={setUserFullName}/>);
+            downloadContainer.current.render(<DownloadableProfileComponent userName={userName} setIsPDFLoaded={setIsPDFLoaded} setUserFullName={setUserFullName} />);
         }
     };
 
     const generateAndDownloadPdf = useCallback(() => {
-        if (container.current && root) {
-            html2canvas(container.current as HTMLElement).then((canvas) => {
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgWidth = 300;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+        if (container?.current && root) {
+            html2canvas(container.current as HTMLElement, {allowTaint : true,useCORS : true}).then((canvas) => {
+                var imgData = canvas.toDataURL('image/png');
+                var imgWidth = 350;
+                var pageHeight = 492;
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var pdf = new jsPDF('p', 'mm');
+                var position = 0;
+
+                pdf.addImage(imgData, 'jpeg', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'jpeg', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
                 pdf.save(`${userFullName}-CV-${moment().format("YYYYDDMM")}.pdf`);
-                if(downloadContainer.current){downloadContainer.current.unmount();}
-                if(container.current){root.removeChild(container.current);}
+                if (downloadContainer?.current) { downloadContainer.current.unmount(); }
+                if (container?.current) { root.removeChild(container.current); }
             });
         }
-    },[container, root, userFullName]);
+    }, [container, root, userFullName]);
 
-    useEffect(()=>{
-        if(isPDFLoaded){
+    useEffect(() => {
+        if (isPDFLoaded) {
             generateAndDownloadPdf();
             setIsPDFLoaded(false);
         }
-    },[isPDFLoaded])
+    }, [isPDFLoaded])
 
     useEffect(() => {
         console.log(hasMore);
@@ -206,7 +219,7 @@ const HomeComponent: React.FC = () => {
                     hasMore={hasMore}
                     useWindow={true} // Set to true to use window scroll, false to use a specific container
                     threshold={0}>
-                    <div className="df jc ac fw gp50px w90vw">
+                    <div className="df jc ac fw gp50px w90vw mw4096">
                         {devDataList.length > 0 ?
                             devDataList.map((devData) => {
                                 return (

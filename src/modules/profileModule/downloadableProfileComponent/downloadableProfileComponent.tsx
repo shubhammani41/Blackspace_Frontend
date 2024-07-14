@@ -66,7 +66,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
 
     return (
         <ThemeProvider theme={createTheme(data.theme)}>
-            <div className="mainContainer df jc ac">
+            <div className="p40">
                 <div className="profileMainInfo df js ac fw">
                     {userDataLoading ? <ProfileSkeleton></ProfileSkeleton> :
                         <React.Fragment>
@@ -79,7 +79,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                 <div className="matrix-card-container fullSizeCard f100 mb40">
                                     <Card>
                                         <div className="df js ac gp30px m15">
-                                            <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
+                                            {/* {devData?.profilePictureUrl?<Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />:<></>} */}
                                             <div className="w80per">
                                                 <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
                                                     {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
@@ -109,13 +109,6 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                                 Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
                                             </Typography>
                                         </CardContent>
-                                        <CardActions>
-                                            <Tooltip title="Download">
-                                                <Button variant="contained" size="small" className="icon40Btn">
-                                                    <DownloadRoundedIcon></DownloadRoundedIcon>
-                                                </Button>
-                                            </Tooltip>
-                                        </CardActions>
                                     </Card>
                                 </div>
                             </React.Fragment> : <></>}

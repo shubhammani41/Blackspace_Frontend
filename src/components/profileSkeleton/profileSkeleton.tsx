@@ -5,7 +5,7 @@ import { Skeleton } from "@mui/material";
 const ProfileSkeleton: React.FC = ()=>{
     return (
         <div className="skeleton-container">
-            <div className="df js ac gp30px mb3px">
+            <div className="df js ac gp30px mb3px mw4096">
                 <Skeleton variant="circular" className="avatar100 mb3px" width={100} height={100} animation="wave" />
                 <div className="skeleton-avatar-title mb3px">
                     <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
