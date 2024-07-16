@@ -1,6 +1,11 @@
 import { ThemeOptions } from "@mui/material"
 
 const themeObjLight: ThemeOptions = {
+    components: {
+        MuiPaper: {
+            styleOverrides: { root: { backgroundImage: 'unset' } },
+        },
+    },
     palette: {
         mode: 'light',
         primary: {
@@ -34,7 +39,7 @@ const themeObjLight: ThemeOptions = {
             dark: '#006b40',
         },
         background: {
-            default: '#f5f5f7',
+            default: '#f4fffb',
             paper: '#ffffff'
         },
         text: {
@@ -61,14 +66,19 @@ const themeObjLight: ThemeOptions = {
         allVariants: {
             color: "#6a617e"
         },
-        fontWeightLight:200,
-        fontWeightRegular:400,
-        fontWeightMedium:500,
-        fontWeightBold:600
+        fontWeightLight: 200,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
+        fontWeightBold: 600
     },
-    shadows:["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
+    shadows: ["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
 const themeObjDark: ThemeOptions = {
+    components: {
+        MuiPaper: {
+            styleOverrides: { root: { backgroundImage: 'unset' } },
+        },
+    },
     palette: {
         mode: 'dark',
         primary: {
@@ -104,7 +114,7 @@ const themeObjDark: ThemeOptions = {
         },
         background: {
             default: '#000000',
-            paper: '#000000'
+            paper: '#0d0d0d'
         },
         text: {
             primary: '#ffffff',
@@ -130,12 +140,12 @@ const themeObjDark: ThemeOptions = {
         allVariants: {
             color: "#ffffff"
         },
-        fontWeightLight:100,
-        fontWeightRegular:300,
-        fontWeightMedium:400,
-        fontWeightBold:500
+        fontWeightLight: 100,
+        fontWeightRegular: 300,
+        fontWeightMedium: 400,
+        fontWeightBold: 500
     },
-    shadows:["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
+    shadows: ["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
 
 export { themeObjLight, themeObjDark }

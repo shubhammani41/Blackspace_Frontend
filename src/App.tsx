@@ -6,6 +6,7 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
 import { AppHeader } from './components/header/header';
 import { GlobalLoader } from './components/globalLoader/GlobalLoader';
+import { SideBar } from './components/sideBar/sidebar';
 
 const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <BrowserRouter>
         <AppHeader></AppHeader>
+        <SideBar></SideBar>
         <Routes>
           <Route path='/' element={<Navigate to="/home" />}></Route>
           <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>

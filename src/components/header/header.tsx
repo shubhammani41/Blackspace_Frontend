@@ -40,8 +40,8 @@ const AppHeader: React.FC = () => {
 
     return (
         <AppBar className="headerContainer df jc ac" sx={{ backgroundColor: 'background.default' }}>
-            <div className="df jc ac w75vw">
-                <div className="df js ac f50">
+            <div className="headerInner df jsb ac w75vw" style={{backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
+                <div className="df js ac">
                     <img src={Logo} className={"icon30 iconTp2n logoIco " + (themeMode === ThemeMode.Dark ? 'logoIcoInvert' : '')}></img>
                     <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp" variant="body1" color="text.secondary"
                         onClick={navigateToHome}>
@@ -50,7 +50,7 @@ const AppHeader: React.FC = () => {
                     <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
                     {location?.pathname ? <Typography className="ellipsis fw300 ml15 headerFontClamp" color="text.secondary">{pageName}</Typography> : null}
                 </div>
-                <div className="df je ac f50">
+                <div className="df je ac">
                     <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15 mw0px">
                         <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
                     </Button>
