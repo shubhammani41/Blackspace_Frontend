@@ -67,7 +67,7 @@
 }
 
 .sidebarInner{
-    gap:50px;
+    gap:35px;
     overflow: auto;
     height: calc(100vh - 100px);
 }
@@ -83,7 +83,7 @@
 }
 
 .menuIconContainer{
-    top: 13px !important;
+    top: 10px !important;
     position: fixed;
     z-index: 9992;
     height: auto;
