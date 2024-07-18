@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, TextField, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, Chip, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -14,11 +14,12 @@ import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import { DownloadableProfileComponent } from "../../profileModule/downloadableProfileComponent/downloadableProfileComponent";
-import ReactDOM from "react-dom";
 import { createRoot, Root } from "react-dom/client";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
+import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -41,6 +42,7 @@ const HomeComponent: React.FC = () => {
     const container = useRef<HTMLElement>();
     const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
+    const pinRef = useRef(null);
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
@@ -168,6 +170,16 @@ const HomeComponent: React.FC = () => {
         }
     }, [container, root, userFullName]);
 
+    const pinProfile = (event:any) => {
+        const pin = event.currentTarget;
+        if(pin && pin.classList.contains("pinned")){
+            pin.classList.remove("pinned");
+        }
+        else{
+            pin.classList.add("pinned");
+        }
+    }
+
     useEffect(() => {
         if (isPDFLoaded) {
             generateAndDownloadPdf();
@@ -225,10 +237,14 @@ const HomeComponent: React.FC = () => {
                                 return (
                                     <div className="matrix-card-container" key={"dev_" + devData.userId}>
                                         <Card>
+                                            <div className="pinIconContainer">
+                                                <PushPinRoundedIcon className="headerIcoClamp2535" onClick={pinProfile}></PushPinRoundedIcon>
+                                            </div>
                                             <div className="df js ac gp30px m15 mb3px">
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                 <div className="w80per">
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
+                                                        <VerifiedRoundedIcon sx={{color:'secondary.main'}} style={{position:'relative', top:'2px'}}></VerifiedRoundedIcon>
                                                         {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                     </Typography>
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
@@ -238,14 +254,14 @@ const HomeComponent: React.FC = () => {
                                             </div>
                                             <CardContent className="pb3px pt3px">
                                                 <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                                    Experience: {devData.experience} years
-                                                </Typography>
-                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                                    Skills: {devData.skills}
+                                                    Experience: {devData.experience}+ years
                                                 </Typography>
                                                 <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
+                                                {devData?.skills?.map((skill:String, index:number)=>{
+                                                    return <Chip className="lightGrayChip" label={skill} key={index}/>
+                                                })}
                                             </CardContent>
                                             <CardActions className="pt3px">
                                                 <Tooltip title="View">

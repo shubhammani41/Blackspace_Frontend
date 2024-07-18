@@ -15,9 +15,9 @@ const themeObjLight: ThemeOptions = {
             dark: '#006b40',
         },
         secondary: {
-            main: '#569CD6',
-            light: '#7cadd5',
-            dark: '#569cd665',
+            main: '#0095F6',
+            light: '#67bdff',
+            dark: '#247cbf',
             contrastText: '#ffffff',
         },
         error: {
@@ -48,15 +48,15 @@ const themeObjLight: ThemeOptions = {
             // disabled: '#03A062',
         },
         action: {
-            active: '#569CD6',
+            active: '#0095F6',
             hover: '#efefef',
             // hoverOpacity: number;
-            selected: '#569CD6',
+            selected: '#0095F6',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#569CD6',
+            focus: '#0095F6',
             // focusOpacity: number;
             // activatedOpacity: number;
         }
@@ -89,9 +89,9 @@ const themeObjDark: ThemeOptions = {
             dark: '#006b40',
         },
         secondary: {
-            main: '#569CD6',
-            light: '#7cadd5',
-            dark: '#569cd665',
+            main: '#0095F6',
+            light: '#67bdff',
+            dark: '#247cbf',
             contrastText: '#ffffff',
         },
         error: {
@@ -122,15 +122,15 @@ const themeObjDark: ThemeOptions = {
             // disabled: '#03A062',
         },
         action: {
-            active: '#569CD6',
+            active: '#0095F6',
             hover: '#4a4a4a',
             // hoverOpacity: number;
-            selected: '#569CD6',
+            selected: '#0095F6',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#569CD6',
+            focus: '#0095F6',
             // focusOpacity: number;
             // activatedOpacity: number;
         },

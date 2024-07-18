@@ -51,7 +51,11 @@
 }
 
 .headerInner{
-    border-radius: 10px;
+    border-radius: var(--app-border-radius-s);
     padding: 12px;
-    box-shadow: var(--shadow-hover-down-s);
+    box-shadow: var(--shadow-down-s-transparent);
+}
+
+.mw11vw{
+    max-width: 11vw;
 }

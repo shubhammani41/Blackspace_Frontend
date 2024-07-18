@@ -12,7 +12,7 @@ const AppValues = {
 
 const transformUserData = (data: UserData[]): UserData[] => {
     return data.map((obj: any) => {
-        return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name).join(",") }
+        return { ...obj, skills: JSON.parse(obj.skills).map((sk: any) => sk.skill_name) }
     });
 
 }

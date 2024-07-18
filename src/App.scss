@@ -6,20 +6,21 @@
   --app-accent-color: #03A062;
   --app-accent-color-lighter: #77ffc8;
   --app-accent--darker: #006b40;
-  --app-accent2-color: #569CD6;
-  --app-accent2-color-lighter: #7cadd5;
-  --app-accent2-color-darker: #569cd665;
+  --app-accent2-color: #0095F6;
+  --app-accent2-color-lighter: #67bdff;
+  --app-accent2-color-darker: #247cbf;
   --white-color: #ffffff;
   --string-color: #CE9178;
   --app-error-color: #ff0000;
   --app-error-color-lighter: #ff7272;
   --app-error-color-darker: #950000;
-  --app-info-color: #FFFF00;
+  --app-info-color: #ecec00;
   --app-info-color-lighter: #ffff9e;
   --app-info-color-darker: #9c9c00;
   --app-success-color: #03A062;
   --app-success-color-lighter: #77ffc8;
-  --app-success--darker: #006b40;
+  --app-success-darker: #006b40;
+  --app-light-gray-color: #d6d6d6;
   // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
   --app-font-family: 'Roboto', Courier, 'Courier New', monospace;
   --font-xxs: 0.2rem;
@@ -34,10 +35,12 @@
   --app-transition: 0.2s ease-in-out;
   --shadow-ini-down-s: rgb(0 0 0 / 5%) 0px 5px 100px -20px, rgb(0 0 0 / 9%) 0px 5px 60px -30px;
   --shadow-hover-down-s: rgb(0 0 0 / 16%) 0px 50px 100px -20px, rgb(0 0 0 / 17%) 0px 30px 60px -30px;
+  --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
+  --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
   font-size: clamp(15px, 1.05vw, 22px);
-  --app-border-radius-m: 15px;
-  --app-border-radius-s: 10px;
-  --app-border-radius-xs: 5px;
+  --app-border-radius-m: 6px;
+  --app-border-radius-s: 6px;
+  --app-border-radius-xs: 6px;
 }
 
 body {
@@ -126,7 +129,7 @@ body * {
   min-width: 300px;
 }
 
-.mw4096{
+.mw4096 {
   max-width: 4096px;
 }
 
@@ -163,7 +166,7 @@ body * {
   padding-bottom: 3px !important
 }
 
-.p40{
+.p40 {
   padding: 40px;
 }
 
@@ -193,6 +196,10 @@ body * {
 
 .ml15 {
   margin-left: 15px !important;
+}
+
+.mr5 {
+  margin-right: 5px !important;
 }
 
 .mr15 {
@@ -377,6 +384,14 @@ fieldset {
 
 .MuiPaper-root {
   padding: 5px;
+}
+
+.MuiChip-root {
+  margin: 3px 5px 3px 0px;
+}
+
+.MuiChip-label {
+  max-width: 300px;
 }
 
 /* Mui Table css override ends */
@@ -623,4 +638,36 @@ fieldset {
   width: clamp(30px, 2vw, 40px) !important;
   min-width: clamp(30px, 2vw, 40px) !important;
   height: clamp(30px, 2vw, 40px) !important;
+}
+
+hr.cardContentSeperator {
+  margin: 20px 17px 0px 17px;
+  border: 1px solid lightgray;
+  border-bottom: none;
+}
+
+.lightGrayChip {
+  background-color: var(--app-light-gray-color) !important;
+}
+
+.headerIcoClamp2535 {
+  width: clamp(25px, 2vw, 35px) !important;
+  height: clamp(25px, 2vw, 35px) !important;
+}
+
+.pinIconContainer {
+  position: relative;
+  float: right;
+  transform: rotateZ(45deg);
+  z-index: 899;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg.pinned{
+    color: var(--app-info-color);
+  }
 }
