@@ -285,7 +285,7 @@ body * {
 }
 
 .MuiFormLabel-root.MuiInputLabel-root {
-  color: var(--app-accent-color) !important;
+  // color: var(--app-accent-color) !important;
   padding: 5px 5px 5px 0px !important;
   transform: translate(0px, 0px) scale(1);
   position: unset !important;
@@ -559,7 +559,7 @@ fieldset {
 
 .mainContainer {
   margin: 10px 10px 100px 10px;
-  margin-top: calc(45px + 3vw);
+  margin-top: calc(59px + 3vw);
 }
 
 .matrix-card-container {

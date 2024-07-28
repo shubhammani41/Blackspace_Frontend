@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardMedia, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardMedia, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
 import "./profileComponent.scss";
 import { useLocation, useParams } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -11,6 +11,7 @@ import React from "react";
 import { UserExperience } from "../../../models/userExperience";
 import moment from "moment";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 
 const ProfileComponent: React.FC = () => {
     const { userName } = useParams<{ userName: string }>();
@@ -18,6 +19,7 @@ const ProfileComponent: React.FC = () => {
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
     const [expData, setExpData] = useState<UserExperience[]>();
+    const currentTheme = useThemeStore();
 
     const transformDevData = useMemo(() => {
         return transformUserData;
@@ -59,7 +61,7 @@ const ProfileComponent: React.FC = () => {
                     <React.Fragment>
                         {devData != null ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl'>
+                                <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                                     Profile
                                 </p>
                             </div>
@@ -109,7 +111,7 @@ const ProfileComponent: React.FC = () => {
 
                         {(devData != null && devData.skills != null && devData.skills != '') ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl'>
+                                <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                                     Skills
                                 </p>
                             </div>
@@ -129,7 +131,7 @@ const ProfileComponent: React.FC = () => {
                             {(expData != null && expData.length) ?
                                 <React.Fragment>
                                     <div className='df js ac f100'>
-                                        <p className='headerl'>
+                                        <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                                             Experience
                                         </p>
                                     </div>

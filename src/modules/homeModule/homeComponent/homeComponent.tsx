@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, Chip, TextField, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, Chip, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -227,12 +227,12 @@ const HomeComponent: React.FC = () => {
                         <button className="redPillThemeBtn" onClick={setRedTheme}></button>
                         <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
                     </div>
-                    <p className='header f100 df jc ac'>
+                    <p className='header f100 df jc ac' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                         Welcome, Neo. Choose a pill.
                     </p>
                 </div>:
                 <div className='df jc ac app-header fw'>
-                    <p className='header f100 df jc ac'>
+                    <p className='header f100 df jc ac' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                         Welcome to Blackspace.
                     </p>
                 </div>
@@ -246,6 +246,9 @@ const HomeComponent: React.FC = () => {
                     placeholder="e.g. Shubham Tripathi"
                     className='searchBar'
                     onChange={debouncedSearchFn}
+                    InputLabelProps={{
+                        style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
+                      }}
                 />
             </div>
             <div className="matrix-card-list">
