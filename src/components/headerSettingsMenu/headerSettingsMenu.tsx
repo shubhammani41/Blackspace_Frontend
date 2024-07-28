@@ -3,6 +3,7 @@ import './headerSettingsMenu.scss';
 import { Menu, MenuItem } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { ThemeToggleBtn } from '../themeToggleBtn/themeToggleBtn';
+import { MatrixEasterEggToggleBtn } from '../themeToggleBtn/matrixEasterEggToggleBtn';
 
 export interface HeaderSettingsMenuProp {
     settingsAnchorRef: React.RefObject<HTMLButtonElement>;
@@ -22,6 +23,11 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
             <MenuItem>
                 <div  className='df jc ac'>
                     <ThemeToggleBtn></ThemeToggleBtn>
+                </div>
+            </MenuItem>
+            <MenuItem>
+                <div  className='df jc ac'>
+                    <MatrixEasterEggToggleBtn></MatrixEasterEggToggleBtn>
                 </div>
             </MenuItem>
         </Menu>

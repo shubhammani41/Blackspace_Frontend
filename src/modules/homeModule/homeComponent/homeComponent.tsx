@@ -21,7 +21,7 @@ import moment from "moment";
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
-import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
+import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -218,18 +218,25 @@ const HomeComponent: React.FC = () => {
 
     return (
         <div className="mainContainer">
-            <div className='df jc ac app-header fw'>
-                <div className="f100 df jc ac">
-                    <img className="morpheusThemer" src={morpheus}></img>
+            {(currentTheme.data.mode=== ThemeMode.Blue || currentTheme.data.mode=== ThemeMode.Red)?
+                <div className='df jc ac app-header fw'>
+                    <div className="f100 df jc ac">
+                        <img className="morpheusThemer" src={morpheus}></img>
+                    </div>
+                    <div className="f100 df jc ac">
+                        <button className="redPillThemeBtn" onClick={setRedTheme}></button>
+                        <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
+                    </div>
+                    <p className='header f100 df jc ac'>
+                        Welcome, Neo. Choose a pill.
+                    </p>
+                </div>:
+                <div className='df jc ac app-header fw'>
+                    <p className='header f100 df jc ac'>
+                        Welcome to Blackspace.
+                    </p>
                 </div>
-                <div className="f100 df jc ac">
-                    <button className="redPillThemeBtn" onClick={setRedTheme}></button>
-                    <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
-                </div>
-                <p className='header f100 df jc ac'>
-                    Welcome, Neo. Choose a pill.
-                </p>
-            </div>
+            }
             <div className='df jc ac mb40 searchBarContainer'>
                 <SearchIcon className="searchIconContainer"></SearchIcon>
                 <TextField

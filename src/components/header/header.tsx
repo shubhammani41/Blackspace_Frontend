@@ -42,7 +42,7 @@ const AppHeader: React.FC = () => {
         <AppBar className="headerContainer df jc ac" sx={{ backgroundColor: 'background.default' }}>
             <div className="headerInner df jsb ac w75vw" style={{backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
                 <div className="df js ac">
-                    <img src={Logo} className={"icon30 iconTp2n logoIco " + (themeMode === ThemeMode.Blue ? 'logoIcoInvert' : '')}></img>
+                    <img src={Logo} className={"icon30 iconTp2n logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}></img>
                     <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp" variant="body1" color="text.secondary"
                         onClick={navigateToHome}>
                         Blackspace
