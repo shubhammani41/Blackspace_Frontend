@@ -1,16 +1,15 @@
 import { ThemeOptions } from "@mui/material"
 
-const themeObjDarkRed: ThemeOptions = {
+const themeObjLight: ThemeOptions = {
     components: {
         MuiPaper: {
             styleOverrides: { root: { backgroundImage: 'unset' } },
         },
     },
     palette: {
-        mode: 'dark',
+        mode: 'light',
         primary: {
-            // main: '#c0281b',
-            main: '#c0281b',
+            main: '#03A062',
             contrastText: '#ffffff',
             light: '#77ffc8',
             dark: '#006b40',
@@ -34,23 +33,23 @@ const themeObjDarkRed: ThemeOptions = {
             contrastText: '#ffffff',
         },
         success: {
-            main: '#c0281b',
+            main: '#03A062',
             contrastText: '#ffffff',
             light: '#77ffc8',
             dark: '#006b40',
         },
         background: {
-            default: '#000000',
-            paper: '#0d0d0d'
+            default: '#F5F5F7',
+            paper: '#ffffff'
         },
         text: {
-            primary: '#ffffff',
-            secondary: '#ffffff',
-            // disabled: '#c0281b',
+            primary: '#000000',
+            secondary: '#6a617e',
+            // disabled: '#03A062',
         },
         action: {
             active: '#0095F6',
-            hover: '#4a4a4a',
+            hover: '#efefef',
             // hoverOpacity: number;
             selected: '#0095F6',
             // selectedOpacity: number;
@@ -60,21 +59,21 @@ const themeObjDarkRed: ThemeOptions = {
             focus: '#0095F6',
             // focusOpacity: number;
             // activatedOpacity: number;
-        },
+        }
     },
     typography: {
         fontFamily: 'Roboto',
         allVariants: {
-            color: "#ffffff"
+            color: "#6a617e"
         },
-        fontWeightLight: 100,
-        fontWeightRegular: 300,
-        fontWeightMedium: 400,
-        fontWeightBold: 500
+        fontWeightLight: 200,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
+        fontWeightBold: 600
     },
     shadows: ["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
-const themeObjDarkBlue: ThemeOptions = {
+const themeObjDark: ThemeOptions = {
     components: {
         MuiPaper: {
             styleOverrides: { root: { backgroundImage: 'unset' } },
@@ -83,8 +82,8 @@ const themeObjDarkBlue: ThemeOptions = {
     palette: {
         mode: 'dark',
         primary: {
-            // main: '#c0281b',
-            main: '#42a0df',
+            // main: '#03A062',
+            main: '#03A062',
             contrastText: '#ffffff',
             light: '#77ffc8',
             dark: '#006b40',
@@ -108,7 +107,7 @@ const themeObjDarkBlue: ThemeOptions = {
             contrastText: '#ffffff',
         },
         success: {
-            main: '#42a0df',
+            main: '#03A062',
             contrastText: '#ffffff',
             light: '#77ffc8',
             dark: '#006b40',
@@ -120,7 +119,7 @@ const themeObjDarkBlue: ThemeOptions = {
         text: {
             primary: '#ffffff',
             secondary: '#ffffff',
-            // disabled: '#42a0df',
+            // disabled: '#03A062',
         },
         action: {
             active: '#0095F6',
@@ -149,4 +148,4 @@ const themeObjDarkBlue: ThemeOptions = {
     shadows: ["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none"]
 }
 
-export { themeObjDarkRed, themeObjDarkBlue }
+export { themeObjLight, themeObjDark }

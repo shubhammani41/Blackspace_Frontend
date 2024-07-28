@@ -10,7 +10,7 @@ const ThemeToggleBtn: React.FC = () => {
         currentTheme.toggleTheme();
     }
     const themeMenu = useMemo<ReactElement>(() => {
-        const menu = currentTheme.data.mode === ThemeMode.Light ? <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
+        const menu = currentTheme.data.mode === ThemeMode.Blue ? <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
             <div className='df jc ac btnContainer'><img className='toggleImg' src={whiteMoon}></img></div>
         return menu;
     }, [currentTheme]);

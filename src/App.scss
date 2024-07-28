@@ -37,6 +37,7 @@
   --shadow-hover-down-s: rgb(0 0 0 / 16%) 0px 50px 100px -20px, rgb(0 0 0 / 17%) 0px 30px 60px -30px;
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
   --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
+  --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
   font-size: clamp(15px, 1.05vw, 22px);
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
@@ -49,6 +50,11 @@ body {
   font-family: var(--app-font-family);
   /* color: var(--app-accent-color); */
   background-color: var(--app-background);
+  // background-image: url("./assets/images/light_background.jpg");
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  // background-position: center;
+  // background-size: cover;
   /* overflow: hidden; */
 }
 
@@ -236,6 +242,10 @@ body * {
 
 .w65vw {
   width: 65vw;
+}
+
+.w100vw{
+  width: 100vw;
 }
 
 .full-width {
@@ -670,4 +680,32 @@ hr.cardContentSeperator {
   svg.pinned{
     color: var(--app-info-color);
   }
+}
+
+.morpheusThemer{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.redPillThemeBtn{
+  position: relative;
+  bottom: 55px;
+  right: 47px;
+  width: 47px;
+  height: 39px;
+  opacity: 0;
+  margin-bottom: -35px; 
+  cursor: pointer;
+}
+
+.bluePillThemeBtn{
+  position: relative;
+  bottom: 55px;
+  right: -46px;
+  width: 48px;
+  height: 39px;
+  opacity: 0;
+  margin-bottom: -35px;
+  cursor: pointer;
 }
