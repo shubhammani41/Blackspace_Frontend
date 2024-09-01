@@ -39,7 +39,7 @@ const HomeComponent: React.FC = () => {
     const [isPDFLoaded, setIsPDFLoaded] = useState<boolean>(false);
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [searchKeyWord, setSearchKeyWord] = useState<string>(defaultSearchKeyWord);
-    const [searchMessage, setSearchMessage] = useState<string>();
+    const [searchMessage, setSearchMessage] = useState<string>('');
     const [userFullName, setUserFullName] = useState<string>('');
     const container = useRef<HTMLElement>();
     const root = document.getElementById('root');
@@ -155,13 +155,19 @@ const HomeComponent: React.FC = () => {
 
     const generateAndDownloadPdf = useCallback(() => {
         if (container?.current && root) {
-            html2canvas(container.current as HTMLElement, { allowTaint: true, useCORS: true }).then((canvas) => {
+            html2canvas(container.current as HTMLElement, { allowTaint: true, useCORS: true, width: 1000, // Set the width of the canvas
+                height: 1414 }).then((canvas) => {
                 var imgData = canvas.toDataURL('image/png');
-                var imgWidth = 350;
-                var pageHeight = 492;
+                console.log(imgData)
+                var imgWidth = 400;
+                var pageHeight = 480;
                 var imgHeight = canvas.height * imgWidth / canvas.width;
                 var heightLeft = imgHeight;
-                var pdf = new jsPDF('p', 'mm');
+                const pdf = new jsPDF({
+                    orientation: "p", // Portrait orientation
+                    unit: "mm", // Units in millimeters
+                    format: [imgWidth, pageHeight], // Custom page size
+                  });
                 var position = 0;
 
                 pdf.addImage(imgData, 'jpeg', 0, position, imgWidth, imgHeight);
@@ -307,7 +313,7 @@ const HomeComponent: React.FC = () => {
                                 )
                             }) :
                             <div className="df jc ac">
-                                <Typography className="w90per ellipsis df jc ac" variant="body2" color="text.secondary">
+                                <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
                                     {searchMessage}
                                 </Typography>
                             </div>
