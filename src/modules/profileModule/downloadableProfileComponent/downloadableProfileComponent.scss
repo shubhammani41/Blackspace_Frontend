@@ -1,11 +1,10 @@
-.profileMainInfo {
-    width: 90vw;
-    max-width: 1000px;
+.downloadableProfileMainInfo {
+    width: 1000px;
 }
 
 .fullSizeCard {
     width: 100% !important;
-    max-width: 90vw !important;
+    max-width: 90% !important;
     height: auto !important;
 }
 
@@ -17,10 +16,10 @@
     flex: 0 0 100%;
 }
 
-.profileMainInfo{
+.downloadableProfileMainInfo{
     .skeleton-container{
-        width: 90vw !important;
-        max-width: 90vw !important;
+        width: 90% !important;
+        max-width: 90% !important;
         height: 100% !important;
         .MuiSkeleton-root.MuiSkeleton-rounded.MuiSkeleton-wave{
             height: 190px !important;

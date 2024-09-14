@@ -1,6 +1,5 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardMedia, createTheme, ThemeProvider, Tooltip, Typography } from "@mui/material";
+import { Card,  CardContent, createTheme, ThemeProvider, Typography } from "@mui/material";
 import "./downloadableProfileComponent.scss";
-import { useLocation, useParams } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppValues, transformUserData } from "../../../constants/appConstants";
 import axiosInstance from "../../../config/axiosConfig";
@@ -10,8 +9,8 @@ import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkel
 import React from "react";
 import { UserExperience } from "../../../models/userExperience";
 import moment from "moment";
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
+import { themeObjLight } from "../../../constants/themeConstants";
 
 export interface DownloadableProfileComponentProp {
     userName: string;
@@ -65,9 +64,9 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
     })
 
     return (
-        <ThemeProvider theme={createTheme(data.theme)}>
+        <ThemeProvider theme={createTheme(themeObjLight)}>
             <div className="p40">
-                <div className="profileMainInfo df js ac fw">
+                <div className="downloadableProfileMainInfo df js ac fw">
                     {userDataLoading ? <ProfileSkeleton></ProfileSkeleton> :
                         <React.Fragment>
                             {devData != null ? <React.Fragment>

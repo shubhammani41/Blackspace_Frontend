@@ -26,7 +26,7 @@
   --font-xxs: 0.2rem;
   --font-xs: 0.4rem;
   --font-s: 0.6rem;
-  --font-sm: 0.8rem, ;
+  --font-sm: 0.8rem;
   --font-m: 1rem;
   --font-ml: 1.2rem;
   --font-l: 1.4rem;
@@ -37,6 +37,7 @@
   --shadow-hover-down-s: rgb(0 0 0 / 16%) 0px 50px 100px -20px, rgb(0 0 0 / 17%) 0px 30px 60px -30px;
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
   --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
+  --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
   font-size: clamp(15px, 1.05vw, 22px);
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
@@ -49,6 +50,11 @@ body {
   font-family: var(--app-font-family);
   /* color: var(--app-accent-color); */
   background-color: var(--app-background);
+  // background-image: url("./assets/images/light_background.jpg");
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  // background-position: center;
+  // background-size: cover;
   /* overflow: hidden; */
 }
 
@@ -238,6 +244,10 @@ body * {
   width: 65vw;
 }
 
+.w100vw{
+  width: 100vw;
+}
+
 .full-width {
   width: 100%;
 }
@@ -275,7 +285,7 @@ body * {
 }
 
 .MuiFormLabel-root.MuiInputLabel-root {
-  color: var(--app-accent-color) !important;
+  // color: var(--app-accent-color) !important;
   padding: 5px 5px 5px 0px !important;
   transform: translate(0px, 0px) scale(1);
   position: unset !important;
@@ -549,7 +559,7 @@ fieldset {
 
 .mainContainer {
   margin: 10px 10px 100px 10px;
-  margin-top: calc(45px + 3vw);
+  margin-top: calc(59px + 3vw);
 }
 
 .matrix-card-container {
@@ -670,4 +680,32 @@ hr.cardContentSeperator {
   svg.pinned{
     color: var(--app-info-color);
   }
+}
+
+.morpheusThemer{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.redPillThemeBtn{
+  position: relative;
+  bottom: 55px;
+  right: 47px;
+  width: 47px;
+  height: 39px;
+  opacity: 0;
+  margin-bottom: -35px; 
+  cursor: pointer;
+}
+
+.bluePillThemeBtn{
+  position: relative;
+  bottom: 55px;
+  right: -46px;
+  width: 48px;
+  height: 39px;
+  opacity: 0;
+  margin-bottom: -35px;
+  cursor: pointer;
 }

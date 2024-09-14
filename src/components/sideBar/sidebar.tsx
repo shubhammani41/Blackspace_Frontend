@@ -1,11 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { Button, SimplePaletteColorOptions, Typography } from "@mui/material";
 import './sidebar.scss';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useState } from "react";
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
-import Person4Icon from '@mui/icons-material/Person4';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
@@ -27,7 +26,7 @@ const SideBar: React.FC = () => {
                     <MenuRoundedIcon sx={{ color: openSideBar ? '#ffffff' : 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
                 </Button>
             </div>
-            <div className={"sideBarContainer df js ac flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")}>
+            <div className={"sideBarContainer df js ac flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")} style={{"backgroundColor": (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
                 <div className="df js ac flxCol sidebarInner">
                     <div className="df jc ac flxCol">
                         <Button className="mw0px dsBlock">

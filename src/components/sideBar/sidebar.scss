@@ -45,7 +45,7 @@
 
 .sideBarContainer{
     padding: 12px;
-    box-shadow: var(--shadow-hover-down-s);
+    box-shadow: var(--shadow-right-normal);
     width: 5vw;
     min-width: 70px;
     top: 0px;
@@ -53,7 +53,7 @@
     left: 0px;
     max-width: 100px;
     z-index: 9991;
-    background-color: var(--app-accent-color);
+    // background-color: var(--app-accent-color);
     padding-top: 100px;
 }
 

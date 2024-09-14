@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, Chip, TextField, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, Chip, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -20,6 +20,9 @@ import jsPDF from "jspdf";
 import moment from "moment";
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
+import morpheus from "../../../assets/images/morpheus.png";
+import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
+import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -37,12 +40,20 @@ const HomeComponent: React.FC = () => {
     const [isPDFLoaded, setIsPDFLoaded] = useState<boolean>(false);
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [searchKeyWord, setSearchKeyWord] = useState<string>(defaultSearchKeyWord);
-    const [searchMessage, setSearchMessage] = useState<string>();
+    const [searchMessage, setSearchMessage] = useState<string>('');
     const [userFullName, setUserFullName] = useState<string>('');
     const container = useRef<HTMLElement>();
     const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
     const pinRef = useRef(null);
+
+    const currentTheme = useThemeStore();
+    const setRedTheme = () => {
+        currentTheme.setRedTheme();
+    }
+    const setBlueTheme = () => {
+        currentTheme.setBlueTheme();
+    }
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
@@ -145,13 +156,21 @@ const HomeComponent: React.FC = () => {
 
     const generateAndDownloadPdf = useCallback(() => {
         if (container?.current && root) {
-            html2canvas(container.current as HTMLElement, {allowTaint : true,useCORS : true}).then((canvas) => {
+            html2canvas(container.current as HTMLElement, {
+                allowTaint: true, useCORS: true, width: 1000, // Set the width of the canvas
+                height: 1414
+            }).then((canvas) => {
                 var imgData = canvas.toDataURL('image/png');
-                var imgWidth = 350;
-                var pageHeight = 492;
+                console.log(imgData)
+                var imgWidth = 400;
+                var pageHeight = 480;
                 var imgHeight = canvas.height * imgWidth / canvas.width;
                 var heightLeft = imgHeight;
-                var pdf = new jsPDF('p', 'mm');
+                const pdf = new jsPDF({
+                    orientation: "p", // Portrait orientation
+                    unit: "mm", // Units in millimeters
+                    format: [imgWidth, pageHeight], // Custom page size
+                });
                 var position = 0;
 
                 pdf.addImage(imgData, 'jpeg', 0, position, imgWidth, imgHeight);
@@ -170,12 +189,12 @@ const HomeComponent: React.FC = () => {
         }
     }, [container, root, userFullName]);
 
-    const pinProfile = (event:any) => {
+    const pinProfile = (event: any) => {
         const pin = event.currentTarget;
-        if(pin && pin.classList.contains("pinned")){
+        if (pin && pin.classList.contains("pinned")) {
             pin.classList.remove("pinned");
         }
-        else{
+        else {
             pin.classList.add("pinned");
         }
     }
@@ -208,11 +227,25 @@ const HomeComponent: React.FC = () => {
 
     return (
         <div className="mainContainer">
-            <div className='df jc ac app-header'>
-                <p className='header'>
-                    Welcome to Black Space.
-                </p>
-            </div>
+            {(currentTheme.data.mode === ThemeMode.Blue || currentTheme.data.mode === ThemeMode.Red) ?
+                <div className='df jc ac app-header fw'>
+                    <div className="f100 df jc ac">
+                        <img className="morpheusThemer" src={morpheus}></img>
+                    </div>
+                    <div className="f100 df jc ac">
+                        <button className="redPillThemeBtn" onClick={setRedTheme}></button>
+                        <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
+                    </div>
+                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                        Welcome, Neo. Choose a pill.
+                    </p>
+                </div> :
+                <div className='df jc ac app-header fw'>
+                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                        Welcome to Blackspace.
+                    </p>
+                </div>
+            }
             <div className='df jc ac mb40 searchBarContainer'>
                 <SearchIcon className="searchIconContainer"></SearchIcon>
                 <TextField
@@ -222,6 +255,9 @@ const HomeComponent: React.FC = () => {
                     placeholder="e.g. Shubham Tripathi"
                     className='searchBar'
                     onChange={debouncedSearchFn}
+                    InputLabelProps={{
+                        style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
+                    }}
                 />
             </div>
             <div className="matrix-card-list">
@@ -244,7 +280,7 @@ const HomeComponent: React.FC = () => {
                                                 <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                 <div className="w80per">
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
-                                                        <VerifiedRoundedIcon sx={{color:'secondary.main'}} style={{position:'relative', top:'2px'}}></VerifiedRoundedIcon>
+                                                        <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '2px' }}></VerifiedRoundedIcon>
                                                         {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                     </Typography>
                                                     <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
@@ -259,8 +295,8 @@ const HomeComponent: React.FC = () => {
                                                 <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                 </Typography>
-                                                {devData?.skills?.map((skill:String, index:number)=>{
-                                                    return <Chip className="lightGrayChip" label={skill} key={index}/>
+                                                {devData?.skills?.map((skill: String, index: number) => {
+                                                    return <Chip className="lightGrayChip" label={skill} key={index} />
                                                 })}
                                             </CardContent>
                                             <CardActions className="pt3px">
@@ -280,7 +316,7 @@ const HomeComponent: React.FC = () => {
                                 )
                             }) :
                             <div className="df jc ac">
-                                <Typography className="w90per ellipsis df jc ac" variant="body2" color="text.secondary">
+                                <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
                                     {searchMessage}
                                 </Typography>
                             </div>
@@ -294,6 +330,10 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
+            {(pageNumber * pageSize <= totalElements && pageSize <= totalElements)?
+                <div className="df jc ac fw" onClick={handleScroll}>
+                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                </div>:null}
         </div>
     );
 }
