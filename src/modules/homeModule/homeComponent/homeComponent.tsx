@@ -22,6 +22,7 @@ import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
+import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -155,8 +156,10 @@ const HomeComponent: React.FC = () => {
 
     const generateAndDownloadPdf = useCallback(() => {
         if (container?.current && root) {
-            html2canvas(container.current as HTMLElement, { allowTaint: true, useCORS: true, width: 1000, // Set the width of the canvas
-                height: 1414 }).then((canvas) => {
+            html2canvas(container.current as HTMLElement, {
+                allowTaint: true, useCORS: true, width: 1000, // Set the width of the canvas
+                height: 1414
+            }).then((canvas) => {
                 var imgData = canvas.toDataURL('image/png');
                 console.log(imgData)
                 var imgWidth = 400;
@@ -167,7 +170,7 @@ const HomeComponent: React.FC = () => {
                     orientation: "p", // Portrait orientation
                     unit: "mm", // Units in millimeters
                     format: [imgWidth, pageHeight], // Custom page size
-                  });
+                });
                 var position = 0;
 
                 pdf.addImage(imgData, 'jpeg', 0, position, imgWidth, imgHeight);
@@ -224,7 +227,7 @@ const HomeComponent: React.FC = () => {
 
     return (
         <div className="mainContainer">
-            {(currentTheme.data.mode=== ThemeMode.Blue || currentTheme.data.mode=== ThemeMode.Red)?
+            {(currentTheme.data.mode === ThemeMode.Blue || currentTheme.data.mode === ThemeMode.Red) ?
                 <div className='df jc ac app-header fw'>
                     <div className="f100 df jc ac">
                         <img className="morpheusThemer" src={morpheus}></img>
@@ -233,12 +236,12 @@ const HomeComponent: React.FC = () => {
                         <button className="redPillThemeBtn" onClick={setRedTheme}></button>
                         <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
                     </div>
-                    <p className='header f100 df jc ac' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
+                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                         Welcome, Neo. Choose a pill.
                     </p>
-                </div>:
+                </div> :
                 <div className='df jc ac app-header fw'>
-                    <p className='header f100 df jc ac' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
+                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                         Welcome to Blackspace.
                     </p>
                 </div>
@@ -254,7 +257,7 @@ const HomeComponent: React.FC = () => {
                     onChange={debouncedSearchFn}
                     InputLabelProps={{
                         style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
-                      }}
+                    }}
                 />
             </div>
             <div className="matrix-card-list">
@@ -327,6 +330,10 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
+            {(pageNumber * pageSize <= totalElements && pageSize <= totalElements)?
+                <div className="df jc ac fw" onClick={handleScroll}>
+                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                </div>:null}
         </div>
     );
 }
