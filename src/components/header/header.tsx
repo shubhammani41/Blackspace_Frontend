@@ -7,19 +7,27 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useMemo, useRef, useState } from "react";
 import Logo from '../../assets/images/logo5.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
-import { HeaderSettingsMenu } from "../headerSettingsMenu/headerSettingsMenu";
+import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
+import { ProfileSettingsMenu } from "./profileSettingsMenu/profileSettingsMenu";
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const settingsAnchorRef = useRef<HTMLButtonElement>(null);
-    const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
-    const handleClick = () => {
-        setSettingsOpen((prev) => !prev);
+    const headerSettingsAnchorRef = useRef<HTMLButtonElement>(null);
+    const profileSettingsAnchorRef = useRef<HTMLButtonElement>(null);
+    const [headerSettingsOpen, setHeaderSettingsOpen] = useState<boolean>(false);
+    const [profileSettingsOpen, setProfileSettingsOpen] = useState<boolean>(false);
+    const handleClickHeaderSettings = () => {
+        setHeaderSettingsOpen((prev) => !prev);
     };
-
-    const handleClose = () => {
-        setSettingsOpen(false);
+    const handleCloseHeaderSettings = () => {
+        setHeaderSettingsOpen(false);
+    };
+    const handleClickProfileSettings = () => {
+        setProfileSettingsOpen((prev) => !prev);
+    };
+    const handleCloseProfileSettings = () => {
+        setProfileSettingsOpen(false);
     };
 
     const navigateToHome = () => {
@@ -51,16 +59,19 @@ const AppHeader: React.FC = () => {
                     {location?.pathname ? <Typography className="ellipsis fw300 ml15 headerFontClamp mw11vw" color="text.secondary">{pageName}</Typography> : null}
                 </div>
                 <div className="df je ac">
-                    <Button onClick={handleClick} ref={settingsAnchorRef} className="ml15 mw0px">
+                    <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
                         <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
                     </Button>
-                    <Button onClick={handleClick} ref={settingsAnchorRef} className="mw0px">
+                    <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
                         <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
                     </Button>
                 </div>
             </div>
-            <div onClick={handleClose}>
-                <HeaderSettingsMenu settingsAnchorRef={settingsAnchorRef} settingsOpen={settingsOpen} handleClose={handleClose}></HeaderSettingsMenu>
+            <div onClick={handleCloseHeaderSettings}>
+                <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
+            </div>
+            <div onClick={handleCloseHeaderSettings}>
+                <ProfileSettingsMenu settingsAnchorRef={profileSettingsAnchorRef} settingsOpen={profileSettingsOpen} handleClose={handleCloseProfileSettings}></ProfileSettingsMenu>
             </div>
         </AppBar>
     )

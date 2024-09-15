@@ -1,0 +1,29 @@
+.singInButtonContainer {
+    position: fixed;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 15px;
+}
+.pe_signin_button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        width: clamp(253px, 14vw, 300px);
+    }
+}
+
+.pe_verify_email {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        width: clamp(253px, 14vw, 300px);
+    }
+}

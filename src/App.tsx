@@ -10,6 +10,7 @@ import { SideBar } from './components/sideBar/sidebar';
 
 const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
+const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
 
 const App: React.FC = () => {
   const { data } = useThemeStore();
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <SideBar></SideBar>
         <Routes>
           <Route path='/' element={<Navigate to="/home" />}></Route>
+          <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
           <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
           <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
           <Route path='*' element={<NotFound />}></Route>

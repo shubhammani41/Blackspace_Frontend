@@ -332,7 +332,9 @@ const HomeComponent: React.FC = () => {
             </div>
             {(pageNumber * pageSize <= totalElements && pageSize <= totalElements)?
                 <div className="df jc ac fw" onClick={handleScroll}>
-                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                    <Tooltip title="Load more">
+                        <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                    </Tooltip>
                 </div>:null}
         </div>
     );

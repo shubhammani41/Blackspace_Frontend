@@ -2,8 +2,8 @@ import React from 'react';
 import './headerSettingsMenu.scss';
 import { Menu, MenuItem } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
-import { ThemeToggleBtn } from '../themeToggleBtn/themeToggleBtn';
-import { MatrixEasterEggToggleBtn } from '../themeToggleBtn/matrixEasterEggToggleBtn';
+import { ThemeToggleBtn } from '../../themeToggleBtn/themeToggleBtn';
+import { MatrixEasterEggToggleBtn } from '../../themeToggleBtn/matrixEasterEggToggleBtn';
 
 export interface HeaderSettingsMenuProp {
     settingsAnchorRef: React.RefObject<HTMLButtonElement>;
