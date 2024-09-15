@@ -15,6 +15,7 @@
     align-items: center;
     button{
         width: clamp(253px, 14vw, 300px);
+        min-height: 52px;
     }
 }
 
@@ -25,5 +26,6 @@
     align-items: center;
     button{
         width: clamp(253px, 14vw, 300px);
+        min-height: 52px;
     }
 }

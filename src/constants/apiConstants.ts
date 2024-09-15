@@ -26,6 +26,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "GET",
         "access": "public",
         "url": "public/getUserExperienceByUserId"
+    },
+    getToken: {
+        "type": "POST",
+        "access": "public",
+        "url": "/public/login"
     }
 }
 

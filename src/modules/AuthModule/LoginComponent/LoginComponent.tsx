@@ -1,6 +1,10 @@
 
 import React, { useEffect } from 'react';
 import "./LoginComponent.scss"
+import axiosInstance from '../../../config/axiosConfig';
+import { apiConstants } from '../../../constants/apiConstants';
+import { UserLoginReq } from '../../../models/userLoginReq';
+import { UserLoginRes } from '../../../models/userLoginRes';
 declare const window: any;
 
 const LoginComponent = () => {
@@ -29,6 +33,10 @@ const LoginComponent = () => {
             console.log(user_json_url);
             // Do stuff after verification
             //like send the json url to backend for domain verification and user data access and register/login user
+            let tokenRes = getToken(user_json_url, 1);
+            tokenRes.then(res=>{
+                console.log(res);
+            })
 
         };
 
@@ -38,10 +46,17 @@ const LoginComponent = () => {
         };
     }, []);
 
+    const getToken = async (userJsonUrl: string, authType: number): Promise<UserLoginRes> => {
+        let url = apiConstants.getToken.url;
+        let data: UserLoginReq = { userJsonUrl: userJsonUrl, authType: authType }
+        let response: UserLoginRes = await axiosInstance.post(url,data);
+        return response;
+    }
+
     return (
         <div className='singInButtonContainer'>
-             <div className="pe_signin_button" data-client-id="17849261284489939531"></div>
-             <div className="pe_verify_email" data-client-id="17849261284489939531"></div>
+            <div className="pe_signin_button" data-client-id="17849261284489939531"></div>
+            <div className="pe_verify_email" data-client-id="17849261284489939531"></div>
         </div>
     );
 };
