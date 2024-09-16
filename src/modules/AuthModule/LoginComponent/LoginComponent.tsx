@@ -35,7 +35,7 @@ const LoginComponent = () => {
             // Do stuff after verification
             //like send the json url to backend for domain verification and user data access and register/login user
             let tokenRes = getToken(user_json_url, 0);
-            tokenRes.then((res: {data:UserLoginRes}) => {
+            tokenRes.then((res: { data: UserLoginRes }) => {
                 console.log(res)
                 if (res && res.data && res.data.token) {
                     localStorage.setItem("token", res.data.token);
@@ -50,7 +50,7 @@ const LoginComponent = () => {
             // Do stuff after verification
             //like send the json url to backend for domain verification and user data access and register/login user
             let tokenRes = getToken(user_json_url, 1);
-            tokenRes.then((res: {data:UserLoginRes}) => {
+            tokenRes.then((res: { data: UserLoginRes }) => {
                 console.log(res)
                 if (res && res.data && res.data.token) {
                     localStorage.setItem("token", res.data.token);
@@ -66,37 +66,42 @@ const LoginComponent = () => {
         };
     }, []);
 
-    const getToken = async (userJsonUrl: string, authType: number): Promise<{data:UserLoginRes}> => {
+    const getToken = async (userJsonUrl: string, authType: number): Promise<{ data: UserLoginRes }> => {
         let url = apiConstants.getToken.url;
         let data: UserLoginReq = { userJsonUrl: userJsonUrl, authType: authType }
-        let response: {data:UserLoginRes} = await axiosInstance.post(url, data);
+        let response: { data: UserLoginRes } = await axiosInstance.post(url, data);
         return response;
     }
 
     return (
         <div className='loginCardContainer matrix-card-list'>
-             <div className="matrix-card-container">
-             <Card>
-                <CardContent className="pb3px pt3px">
-                    <div className='singInButtonContainer'>
-                        <div>
-                            <div className='df jc ac fw'>
-                                <p className='p0m0 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                                    Welcome to Blackspace,
-                                </p>
+            <div className="matrix-card-container">
+                <Card>
+                    <CardContent className="pb3px pt3px">
+                        <div className='singInButtonContainer'>
+                            <div>
+                                <div className='df jc ac fw'>
+                                    <p className='p0m0 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                        Welcome to Blackspace,
+                                    </p>
+                                </div>
+                                <div className='df jc ac fw'>
+                                    <p className='p0m00150 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                        Sign In.
+                                    </p>
+                                </div>
                             </div>
-                            <div className='df jc ac fw'>
-                                <p className='p0m00150 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                                    Sign In.
+                            <div className="pe_signin_button" data-client-id="17849261284489939531"></div>
+                            <div className="pe_verify_email" data-client-id="17849261284489939531"></div>
+                            <div className="df jc ac f100">
+                                <p className="errorText">
+                                    Phone auth is temporarily disabled.
                                 </p>
                             </div>
                         </div>
-                        <div className="pe_signin_button" data-client-id="17849261284489939531"></div>
-                        <div className="pe_verify_email" data-client-id="17849261284489939531"></div>
-                    </div>
-                </CardContent>
-            </Card>
-             </div>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };
