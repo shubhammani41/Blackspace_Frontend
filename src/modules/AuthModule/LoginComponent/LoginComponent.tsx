@@ -77,7 +77,7 @@ const LoginComponent = () => {
     return (
         <div className='loginCardContainer matrix-card-list'>
             <div className="matrix-card-container">
-                <Card>
+                <Card className='pb5'>
                     <CardContent className="pb3px pt3px">
                         <div className='singInButtonContainer'>
                             <div>

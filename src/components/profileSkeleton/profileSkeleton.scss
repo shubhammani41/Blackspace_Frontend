@@ -12,8 +12,8 @@
 }
 
 .gp30px {
-    gap: 30px;
-}
+    gap: clamp(5px, 2vw, 20px) !important;
+  }
 
 .mrg {
     margin: 0px 10px 0px 10px;
@@ -21,11 +21,11 @@
 
 
 .skeleton-container {
-    min-width: 200px;
-    max-width: 500px;
-    height: 280px;
-    padding: 17px;
-    width: 90%;
+    min-width: 250px;
+    max-width: 400px;
+    height: auto;
+    padding: 0px 10px;
+    width: 45%;
     border-radius: 4px;
 }
 
@@ -38,5 +38,5 @@
 }
 
 .skeleton-avatar-title {
-    width: calc(100% - 150px);
+    flex: 0.8;
 }

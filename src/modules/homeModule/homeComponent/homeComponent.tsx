@@ -56,7 +56,7 @@ const HomeComponent: React.FC = () => {
     }
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
-        return Array(3).fill(1).map((val, index) => {
+        return Array(4).fill(1).map((val, index) => {
             return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
         })
     }, [])
@@ -267,7 +267,7 @@ const HomeComponent: React.FC = () => {
                     hasMore={hasMore}
                     useWindow={true} // Set to true to use window scroll, false to use a specific container
                     threshold={0}>
-                    <div className="df jc ac fw gp50px w90vw mw4096">
+                    <div className="df jc as fw gp50px w90vw mw4096">
                         {devDataList.length > 0 ?
                             devDataList.map((devData) => {
                                 return (

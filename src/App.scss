@@ -38,7 +38,7 @@
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
   --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
   --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
-  font-size: clamp(15px, 1.05vw, 22px);
+  font-size: clamp(12px, 2vw, 18px);
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
   --app-border-radius-xs: 6px;
@@ -115,11 +115,12 @@ body * {
 }
 
 .gp50px {
-  gap: clamp(10px, 5vw, 50px) !important;
+  row-gap: clamp(14px, 2vw, 29px) !important;
+  column-gap: clamp(8px, 2vw, 29px) !important;
 }
 
 .gp30px {
-  gap: clamp(5px, 3vw, 30px) !important;
+  gap: clamp(5px, 2vw, 20px) !important;
 }
 
 .f100 {
@@ -146,7 +147,7 @@ body * {
 
 .w75vw {
   width: 75vw;
-  min-width: 300px;
+  min-width: 270px;
 }
 
 .w80vw {
@@ -164,12 +165,16 @@ body * {
   height: 100vh;
 }
 
-.p0m0{
+.pb5{
+  padding-bottom: 5px;
+}
+
+.p0m0 {
   padding: 0px;
   margin: 0px;
 }
 
-.p0m00150{
+.p0m00150 {
   padding: 0px;
   margin: 0px 0px 15px 0px;
 }
@@ -254,7 +259,7 @@ body * {
   width: 65vw;
 }
 
-.w100vw{
+.w100vw {
   width: 100vw;
 }
 
@@ -459,7 +464,7 @@ fieldset {
   transition: var(--app-transition);
 }
 
-.textwrapNone{
+.textwrapNone {
   text-wrap: nowrap;
 }
 
@@ -577,9 +582,24 @@ fieldset {
 }
 
 .matrix-card-container {
-  width: 90%;
-  min-width: 200px;
-  max-width: 500px;
+  width: 45%;
+  min-width: 250px;
+  max-width: 400px;
+
+  .MuiCard-root {
+    height: 100%;
+    padding-bottom: clamp(45px, 3vw, 58px);
+    position: relative;
+
+    .MuiCardActions-root {
+      position: absolute;
+      bottom: 0px;
+    }
+  }
+
+  .MuiCard-root.pb5{
+    padding-bottom: 5px;
+  }
 }
 
 .matrix-card-list {
@@ -691,29 +711,29 @@ hr.cardContentSeperator {
   justify-content: center;
   align-items: center;
 
-  svg.pinned{
+  svg.pinned {
     color: var(--app-info-color);
   }
 }
 
-.morpheusThemer{
+.morpheusThemer {
   width: 200px;
   height: 200px;
   object-fit: contain;
 }
 
-.redPillThemeBtn{
+.redPillThemeBtn {
   position: relative;
   bottom: 55px;
   right: 47px;
   width: 47px;
   height: 39px;
   opacity: 0;
-  margin-bottom: -35px; 
+  margin-bottom: -35px;
   cursor: pointer;
 }
 
-.bluePillThemeBtn{
+.bluePillThemeBtn {
   position: relative;
   bottom: 55px;
   right: -46px;
