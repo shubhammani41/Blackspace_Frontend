@@ -61,7 +61,7 @@ const ProfileComponent: React.FC = () => {
                     <React.Fragment>
                         {devData != null ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
+                                <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                     Profile
                                 </p>
                             </div>
@@ -111,7 +111,7 @@ const ProfileComponent: React.FC = () => {
 
                         {(devData != null && devData.skills != null && devData.skills != '') ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
+                                <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                     Skills
                                 </p>
                             </div>
@@ -131,17 +131,17 @@ const ProfileComponent: React.FC = () => {
                             {(expData != null && expData.length) ?
                                 <React.Fragment>
                                     <div className='df js ac f100'>
-                                        <p className='headerl' style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
+                                        <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                             Experience
                                         </p>
                                     </div>
-                                    {expData?.map((expObj,index) => {
+                                    {expData?.map((expObj, index) => {
                                         return (
                                             <div className="matrix-card-container fullSizeCard f100 mb20" key={index}>
                                                 <Card>
                                                     <div className="df jsb ac mt15r15b5l15 fw">
                                                         <Typography sx={{ color: 'text.primary' }} className="w50per ellipsis" gutterBottom variant="h5" component="div">
-                                                            {expObj?.organizationDetails?.organizationName?expObj.organizationDetails.organizationName: (expObj.organizationName||"")}
+                                                            {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
                                                         </Typography>
                                                         <div className="df js ac fw">
                                                             <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
