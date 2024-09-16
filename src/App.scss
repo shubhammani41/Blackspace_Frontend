@@ -459,6 +459,10 @@ fieldset {
   transition: var(--app-transition);
 }
 
+.textwrapNone{
+  text-wrap: nowrap;
+}
+
 .blueText {
   color: var(--app-accent2-color) !important;
   white-space: nowrap;

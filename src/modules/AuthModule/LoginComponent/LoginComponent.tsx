@@ -82,7 +82,7 @@ const LoginComponent = () => {
                         <div className='singInButtonContainer'>
                             <div>
                                 <div className='df jc ac fw'>
-                                    <p className='p0m0 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                    <p className='p0m0 header textwrapNone f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                         Welcome to Blackspace,
                                     </p>
                                 </div>
@@ -95,7 +95,7 @@ const LoginComponent = () => {
                             <div className="pe_signin_button" data-client-id={sensitiveConstants.phoneEmaildataClientId}></div>
                             <div className="pe_verify_email" data-client-id={sensitiveConstants.phoneEmaildataClientId}></div>
                             <div className="df jc ac f100">
-                                <p className="errorText">
+                                <p className="errorText textwrapNone">
                                     Phone auth is temporarily disabled.
                                 </p>
                             </div>

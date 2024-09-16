@@ -21,12 +21,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
 
     button {
         width: clamp(253px, 14vw, 300px);
         min-height: 52px;
         pointer-events: none;
         background-color: #5fe0b4 !important;
+        span{
+            text-wrap: nowrap;
+        }
     }
 }
 
@@ -35,9 +40,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
 
     button {
         width: clamp(253px, 14vw, 300px);
         min-height: 52px;
+        span{
+            text-wrap: nowrap;
+        }
     }
 }
