@@ -7,7 +7,12 @@ import { ReactElement, useMemo } from 'react';
 const MatrixEasterEggToggleBtn: React.FC = () => {
     const currentTheme = useThemeStore();
     const toggle = () => {
-        currentTheme.setRedTheme();
+        if(currentTheme.data.mode===ThemeMode.Red){
+            currentTheme.setBlueTheme();
+        }
+        else{
+            currentTheme.setRedTheme();
+        }
     }
     const themeMenu = useMemo<ReactElement>(() => {
         return <div className='df jc ac btnContainer'>

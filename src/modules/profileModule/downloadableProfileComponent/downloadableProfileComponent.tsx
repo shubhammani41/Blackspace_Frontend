@@ -144,7 +144,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                                     <Card>
                                                         <div className="df jsb ac mt15r15b5l15 fw">
                                                             <Typography sx={{ color: 'text.primary' }} className="w50per ellipsis" gutterBottom variant="h5" component="div">
-                                                                {expObj?.organizationDetails.organizationName}
+                                                                {expObj?.organizationDetails?.organizationName?expObj.organizationDetails.organizationName: (expObj.organizationName||"")}
                                                             </Typography>
                                                             <div className="df js ac fw">
                                                                 <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">

@@ -4,8 +4,9 @@ export interface UserExperience {
     id: number;
     fromDate: string;
     toDate: string;
-    organizationId: number;
-    organizationDetails: UserOrganization;
+    organizationId?: number;
+    organizationName?: string;
+    organizationDetails?: UserOrganization;
     currentOrganization: boolean;
     description1: string,
     description2: string,
