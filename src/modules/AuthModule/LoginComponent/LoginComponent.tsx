@@ -8,6 +8,7 @@ import { UserLoginRes } from '../../../models/userLoginRes';
 import { useNavigate } from 'react-router-dom';
 import useThemeStore from '../../../components/themeToggleBtn/store/themeStore';
 import { Card, CardContent, SimplePaletteColorOptions } from '@mui/material';
+import { sensitiveConstants } from '../../../constants/sensitiveConstants';
 declare const window: any;
 
 const LoginComponent = () => {
@@ -91,8 +92,8 @@ const LoginComponent = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="pe_signin_button" data-client-id="17849261284489939531"></div>
-                            <div className="pe_verify_email" data-client-id="17849261284489939531"></div>
+                            <div className="pe_signin_button" data-client-id={sensitiveConstants.phoneEmaildataClientId}></div>
+                            <div className="pe_verify_email" data-client-id={sensitiveConstants.phoneEmaildataClientId}></div>
                             <div className="df jc ac f100">
                                 <p className="errorText">
                                     Phone auth is temporarily disabled.
