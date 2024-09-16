@@ -70,7 +70,7 @@ const AppHeader: React.FC = () => {
             <div onClick={handleCloseHeaderSettings}>
                 <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
             </div>
-            <div onClick={handleCloseHeaderSettings}>
+            <div onClick={handleCloseProfileSettings}>
                 <ProfileSettingsMenu settingsAnchorRef={profileSettingsAnchorRef} settingsOpen={profileSettingsOpen} handleClose={handleCloseProfileSettings}></ProfileSettingsMenu>
             </div>
         </AppBar>
