@@ -38,7 +38,7 @@
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
   --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
   --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
-  font-size: clamp(12px, 2vw, 18px);
+  font-size: clamp(15px, 2vw, 20px);
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
   --app-border-radius-xs: 6px;
@@ -80,6 +80,15 @@ body * {
   font-weight: 300;
   letter-spacing: 1px;
   /* color: var(--app-accent-color) !important; */
+}
+
+.hidden{
+  opacity: 0 !important;
+  transform: scale(0.7);
+  *{
+    opacity: 0 !important;
+  }
+  transition: ease-in-out 1s;
 }
 
 .fw300 {
@@ -597,10 +606,6 @@ fieldset {
       bottom: 0px;
       padding-bottom: 12px;
     }
-  }
-
-  .MuiCard-root.pb5{
-    padding-bottom: 5px;
   }
 }
 

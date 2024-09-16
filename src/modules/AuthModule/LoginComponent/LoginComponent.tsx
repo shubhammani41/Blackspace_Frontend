@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import "./LoginComponent.scss"
 import axiosInstance from '../../../config/axiosConfig';
 import { apiConstants } from '../../../constants/apiConstants';
@@ -14,6 +14,8 @@ declare const window: any;
 const LoginComponent = () => {
     const navigate = useNavigate();
     const currentTheme = useThemeStore();
+    const [isLoginCardReady, setIsLoginCardReady] = useState<boolean>(false);
+
     useEffect(() => {
         localStorage.clear();
         // Load the external script
@@ -61,6 +63,10 @@ const LoginComponent = () => {
 
         };
 
+        setTimeout(()=>{
+            setIsLoginCardReady(true);
+        },700)
+
         return () => {
             // Cleanup the listener function when the component unmounts
             window.phoneEmailListener = null;
@@ -76,7 +82,7 @@ const LoginComponent = () => {
 
     return (
         <div className='loginCardContainer matrix-card-list'>
-            <div className="matrix-card-container">
+            <div className={"matrix-card-container"+ (!isLoginCardReady?" hidden":"")}>
                 <Card className='pb5'>
                     <CardContent className="pb3px pt3px">
                         <div className='singInButtonContainer'>

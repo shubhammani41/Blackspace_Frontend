@@ -1,11 +1,23 @@
-.loginCardContainer{
+.loginCardContainer {
     align-items: start;
     display: flex;
-    height: calc(100vh - 59px - 3vw);
+    height: calc(100vh - 130px - 3vw);
     justify-content: center;
     margin-top: calc(130px + 3vw);
     width: 100vw;
+
+    .matrix-card-container {
+        width: 60%;
+        min-width: 300px;
+        max-width: 500px;
+
+        .MuiCard-root {
+            padding-bottom: 0px;
+            padding: clamp(15px, 3vw, 40px) clamp(20px, 2vw, 20px);
+        }
+    }
 }
+
 .singInButtonContainer {
     display: flex;
     justify-content: center;
@@ -29,7 +41,8 @@
         min-height: 52px;
         pointer-events: none;
         background-color: #5fe0b4 !important;
-        span{
+
+        span {
             text-wrap: nowrap;
         }
     }
@@ -46,7 +59,8 @@
     button {
         width: clamp(253px, 14vw, 300px);
         min-height: 52px;
-        span{
+
+        span {
             text-wrap: nowrap;
         }
     }

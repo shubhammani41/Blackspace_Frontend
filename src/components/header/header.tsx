@@ -56,7 +56,7 @@ const AppHeader: React.FC = () => {
                         Blackspace
                     </Typography>
                     <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
-                    {location?.pathname ? <Typography className="ellipsis fw300 ml15 headerFontClamp mw11vw" color="text.secondary">{pageName}</Typography> : null}
+                    {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp mw11vw" color="text.secondary">{pageName}</Typography> : null}
                 </div>
                 <div className="df je ac">
                     <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
