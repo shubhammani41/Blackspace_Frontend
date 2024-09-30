@@ -1,6 +1,6 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import './App.scss';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
@@ -14,21 +14,20 @@ const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
 
 const App: React.FC = () => {
   const { data } = useThemeStore();
-  return (
-    <ThemeProvider theme={createTheme(data.theme)}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AppHeader></AppHeader>
-        <SideBar></SideBar>
-        <Routes>
-          <Route path='/' element={<Navigate to="/home" />}></Route>
-          <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
-          <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
-          <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
-          <Route path='*' element={<NotFound />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+  return (<ThemeProvider theme={createTheme(data.theme)}>
+    <CssBaseline />
+    <BrowserRouter>
+      <AppHeader></AppHeader>
+      <SideBar></SideBar>
+      <Routes>
+        <Route path='/' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
+        <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
+        <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
+        <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
+        <Route path='*' element={<NotFound />}></Route>
+      </Routes>
+    </BrowserRouter>
+  </ThemeProvider>
   );
 }
 

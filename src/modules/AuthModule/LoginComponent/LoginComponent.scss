@@ -28,40 +28,24 @@
     padding: 19px 0px;
 }
 
-.pe_signin_button {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 4px;
-
-    button {
-        width: clamp(253px, 14vw, 300px);
-        min-height: 52px;
-        pointer-events: none;
-        background-color: #5fe0b4 !important;
-
-        span {
-            text-wrap: nowrap;
-        }
-    }
+.firebaseui-tos {
+    line-height: unset !important;
 }
 
-.pe_verify_email {
+.firebaseui-idp-button{
+    max-width: 100% !important;
+    padding: 18px !important;
+}
+
+.firebaseui-container{
+    max-width: 350px !important;
+    box-shadow: none !important;
+}
+
+#firebaseui-auth-container{
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 4px;
+}
 
-    button {
-        width: clamp(253px, 14vw, 300px);
-        min-height: 52px;
-
-        span {
-            text-wrap: nowrap;
-        }
-    }
+.firebaseui-card-content {
+    padding: 0 5px !important;
 }
