@@ -1,6 +1,32 @@
 @import './app-font-IBM-Plex_mono.scss';
 @import './app-font-Roboto.scss';
 
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* Define the weight range */
+  font-style: normal italic; /* Define the style range */
+}
+@font-face {
+  font-family: 'NunitoItalics';
+  src: url('./assets/fonts/Nunito/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* Define the weight range */
+  font-style: normal italic; /* Define the style range */
+}
+@font-face {
+  font-family: 'PlaywriteDEGrund';
+  src: url('./assets/fonts/Playwrite_DE_Grund/PlaywriteDEGrund-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* Define the weight range */
+  font-style: normal italic; /* Define the style range */
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('./assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-weight: 500 900; /* Define the weight range */
+  font-style: normal italic; /* Define the style range */
+}
+
 :root {
   --app-background: #000000;
   --app-accent-color: #03A062;
@@ -22,7 +48,7 @@
   --app-success-darker: #006b40;
   --app-light-gray-color: #d6d6d6;
   // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
-  --app-font-family: 'Roboto', Courier, 'Courier New', monospace;
+  --app-font-family: 'Roboto', Courier, 'Courier New', 'monospace';
   --font-xxs: 0.2rem;
   --font-xs: 0.4rem;
   --font-s: 0.6rem;
@@ -81,6 +107,19 @@ body * {
   letter-spacing: 1px;
   /* color: var(--app-accent-color) !important; */
 }
+
+//only use this when using quicksand font
+// body p, 
+// body h1, 
+// body h2, 
+// body h3, 
+// body h4, 
+// body h5, 
+// body h6, 
+// body span,
+// body label {
+//    transform: scaleX(0.92);
+// }
 
 .hidden{
   opacity: 0 !important;
@@ -677,8 +716,8 @@ fieldset {
 }
 
 .avatar100 {
-  width: 10vw !important;
-  height: 10vw !important;
+  width: 6vw !important;
+  height: 6vw !important;
   max-width: 125px;
   max-height: 125px;
   min-width: 75px;

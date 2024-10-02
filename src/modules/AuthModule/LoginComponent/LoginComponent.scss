@@ -8,7 +8,7 @@
 
     .matrix-card-container {
         width: 60%;
-        min-width: 300px;
+        min-width: 340px;
         max-width: 500px;
 
         .MuiCard-root {
@@ -35,6 +35,7 @@
 .firebaseui-idp-button{
     max-width: 100% !important;
     padding: 18px !important;
+    border-radius: 4px;
 }
 
 .firebaseui-container{
@@ -48,4 +49,73 @@
 
 .firebaseui-card-content {
     padding: 0 5px !important;
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+    //background-color: var(--app-accent-color) !important;
+    background-color: transparent !important;
+}
+
+.firebaseui-textfield{
+    padding: 10px !important;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: var(--app-border-radius-s);
+    padding: 2px 15px;
+}
+
+.firebaseui-input {
+    border-bottom: none !important;
+}
+
+.firebaseui-phone-number{
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: var(--app-border-radius-s);
+    padding: 2px 15px;
+    .firebaseui-textfield{
+        padding: 10px !important;
+        background-color: transparent;
+        border-radius: 0px !important;
+    }
+}
+
+.firebaseui-country-selector {
+    border-bottom: none !important;
+    margin: 10px 24px 10px 0 !important;
+}
+.firebaseui-country-selector:hover {
+    background-color: transparent !important;
+}
+
+.firebaseui-label{
+    display: none !important;
+}
+
+.firebaseui-card-header {
+    border-bottom: none !important;
+    margin-bottom: 5px !important;
+    padding: 16px 24px 0 8px !important;
+}
+
+.firebaseui-title {
+    padding-bottom: 0px !important;
+}
+
+.mdl-button--primary.mdl-button--primary {
+    background-color: var(--app-light-gray-color) !important;
+    color: white !important;
+}
+
+.mdl-button--raised.mdl-button--colored{
+    background-color: var(--app-accent-color) !important;
+}
+
+.firebaseui-button{
+    padding: 5px 10px 3px 10px !important;
+    height: auto !important;
+    border-radius: 4px !important;
+    font-size: var(--font-m) !important;
+}
+
+.firebaseui-relative-wrapper{
+    overflow: hidden;
 }
