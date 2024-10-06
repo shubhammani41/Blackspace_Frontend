@@ -23,15 +23,22 @@ const LoginComponent = () => {
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+            {
+                provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                recaptchaParameters: {
+                    type: 'invisible',
+                    size: 'invisible',
+                },
+                defaultCountry: 'US',
+            },
         ],
         callbacks: {
-            signInSuccessWithAuthResult: (authResult:any) => {
+            signInSuccessWithAuthResult: (authResult: any) => {
                 // Log the user's token
-                authResult.user.getIdToken().then((token:string) => {
+                authResult.user.getIdToken().then((token: string) => {
                     console.log('User Token:', token);
                     navigate("/home");
-                }).catch((error:any) => {
+                }).catch((error: any) => {
                     console.error('Error fetching token:', error);
                 });
                 return false; // Prevents redirect
@@ -43,8 +50,22 @@ const LoginComponent = () => {
         localStorage.clear();
 
         //firebaseui
-        const ui = new firebaseui.auth.AuthUI(firebaseAuth);
+        const ui = firebaseui.auth.AuthUI?.getInstance() ?? new firebaseui.auth.AuthUI(firebaseAuth);
         ui.start('#firebaseui-auth-container', firebaseUIConfig);
+
+        const handleBlur = (event:any) => {
+            const countryCodeSelector = document.querySelector('.firebaseui-country-code-selector');
+            // Check if the focus has moved outside the country code selector
+            if (countryCodeSelector && !countryCodeSelector.contains(event.relatedTarget)) {
+                ui.reset(); // Reset the UI or close the dropdown
+            }
+        };
+
+        // Add event listener for onBlur
+        const countryCodeSelector = document.querySelector('.firebaseui-country-code-selector');
+        if (countryCodeSelector) {
+            countryCodeSelector.addEventListener('blur', handleBlur);
+        }
 
         setTimeout(() => {
             setIsLoginCardReady(true);

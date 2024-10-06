@@ -36,6 +36,15 @@
     max-width: 100% !important;
     padding: 18px !important;
     border-radius: 4px;
+    background-color: #db4437;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none !important;
+}
+
+.firebaseui-idp-google{
+    background-color: #ededed !important;
 }
 
 .firebaseui-container{
