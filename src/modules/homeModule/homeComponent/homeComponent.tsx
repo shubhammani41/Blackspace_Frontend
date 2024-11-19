@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, Chip, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -23,6 +23,8 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
+import Accordion from '@mui/material/Accordion';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -267,60 +269,78 @@ const HomeComponent: React.FC = () => {
                     hasMore={hasMore}
                     useWindow={true} // Set to true to use window scroll, false to use a specific container
                     threshold={0}>
-                    <div className="df jc as fw gp50px w90vw mw4096">
-                        {devDataList.length > 0 ?
-                            devDataList.map((devData) => {
-                                return (
-                                    <div className="matrix-card-container" key={"dev_" + devData.userId}>
-                                        <Card>
-                                            <div className="pinIconContainer">
-                                                <PushPinRoundedIcon className="headerIcoClamp2535" onClick={pinProfile}></PushPinRoundedIcon>
-                                            </div>
-                                            <div className="df js ac gp30px m15 mb3px">
-                                                <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                <div className="w80per">
-                                                    <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
-                                                        <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '2px' }}></VerifiedRoundedIcon>
-                                                        {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
-                                                    </Typography>
-                                                    <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
-                                                        {devData.positionName}
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                            <CardContent className="pb3px pt3px">
-                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                                    Experience: {devData.experience}+ years
-                                                </Typography>
-                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                                    Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
-                                                </Typography>
-                                                {devData?.skills?.map((skill: String, index: number) => {
-                                                    return <Chip className="lightGrayChip" label={skill} key={index} />
-                                                })}
-                                            </CardContent>
-                                            <CardActions className="pt3px">
-                                                <Tooltip title="View">
-                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
-                                                        <VisibilityRoundedIcon></VisibilityRoundedIcon>
-                                                    </Button>
-                                                </Tooltip>
-                                                <Tooltip title="Download">
-                                                    <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName) }}>
-                                                        <DownloadRoundedIcon></DownloadRoundedIcon>
-                                                    </Button>
-                                                </Tooltip>
-                                            </CardActions>
-                                        </Card>
-                                    </div>
-                                )
-                            }) :
-                            <div className="df jc ac">
-                                <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
-                                    {searchMessage}
-                                </Typography>
-                            </div>
-                        }
+                    <div className="w50vw">
+                        <div className="row">
+                            {devDataList.length > 0 ?
+                                devDataList.map((devData, index) => {
+                                    return (
+                                        <div className="col-12" key={"dev_" + devData.userId}>
+                                            <Accordion>
+                                                <AccordionSummary
+                                                    expandIcon={<ArrowDropDownIcon style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }} />}
+                                                    aria-controls="panel2-content"
+                                                    id="panel2-header"
+                                                >
+                                                    <Card className="w100per">
+                                                        <div className="df js ac gp30px">
+                                                            <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
+                                                            <div className="w80per">
+                                                                <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
+                                                                    <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
+                                                                    {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
+                                                                </Typography>
+                                                                <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                                    {devData.positionName}
+                                                                </Typography>
+                                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                                    Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
+                                                                </Typography>
+                                                            </div>
+                                                        </div>
+                                                    </Card>
+                                                    <div className="pinIconContainer">
+                                                        <PushPinRoundedIcon className="headerIcoClamp2535" onClick={pinProfile}></PushPinRoundedIcon>
+                                                    </div>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Card>
+                                                        <CardContent className="pb3px pt3px">
+                                                            <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                                Experience: {devData.experience}+ years
+                                                            </Typography>
+                                                            {devData?.skills?.map((skill: String, index: number) => {
+                                                                return <Chip className="lightGrayChip" label={skill} key={index} />
+                                                            })}
+                                                        </CardContent>
+                                                        <CardActions className="pt3px">
+                                                            <Tooltip title="View">
+                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
+                                                                    <VisibilityRoundedIcon></VisibilityRoundedIcon>
+                                                                </Button>
+                                                            </Tooltip>
+                                                            <Tooltip title="Download">
+                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName) }}>
+                                                                    <DownloadRoundedIcon></DownloadRoundedIcon>
+                                                                </Button>
+                                                            </Tooltip>
+                                                        </CardActions>
+                                                    </Card>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                            {(index!=devDataList.length-1)?<div className="m-0" style= {{ backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
+                                                <hr className="m-0 ms-5 me-5"></hr>
+                                            </div>:null}
+                                            
+                                        </div>
+                                    )
+                                }) :
+                                <div className="df jc ac">
+                                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
+                                        {searchMessage}
+                                    </Typography>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </InfiniteScroll>
                 {devListLoading ?
@@ -330,12 +350,12 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
-            {(pageNumber * pageSize <= totalElements && pageSize <= totalElements)?
+            {(pageNumber * pageSize <= totalElements && pageSize <= totalElements) ?
                 <div className="df jc ac fw" onClick={handleScroll}>
                     <Tooltip title="Load more">
                         <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
                     </Tooltip>
-                </div>:null}
+                </div> : null}
         </div>
     );
 }

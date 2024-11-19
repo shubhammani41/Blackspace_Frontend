@@ -1,6 +1,6 @@
 @import './app-font-IBM-Plex_mono.scss';
 @import './app-font-Roboto.scss';
-
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
 @font-face {
   font-family: 'Nunito';
@@ -291,6 +291,10 @@ body * {
   width: 90%
 }
 
+.w100per {
+  width: 100%
+}
+
 .w80per {
   width: 80%;
 }
@@ -468,6 +472,20 @@ fieldset {
 }
 
 /* Mui Table css override ends */
+
+.MuiAccordionSummary-content{
+  width: 100%;
+  margin: 0px !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 0px !important;
+}
+
+.Mui-expanded {
+  margin: 0px !important;
+}
+
 
 /* mui override ends */
 
@@ -746,8 +764,7 @@ hr.cardContentSeperator {
 }
 
 .pinIconContainer {
-  position: relative;
-  float: right;
+  position: absolute;
   transform: rotateZ(45deg);
   z-index: 899;
   border-radius: 100%;
@@ -756,6 +773,7 @@ hr.cardContentSeperator {
   display: flex;
   justify-content: center;
   align-items: center;
+  right: -0px;
 
   svg.pinned {
     color: var(--app-info-color);
