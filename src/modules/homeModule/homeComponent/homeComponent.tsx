@@ -1,4 +1,4 @@
-import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -139,7 +139,7 @@ const HomeComponent: React.FC = () => {
     const handleScroll = useCallback(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             console.log(pageNumber, pageSize, totalElements);
-            if (pageNumber * pageSize <= totalElements && pageSize <= totalElements) {
+            if ((pageNumber+1) * pageSize <= totalElements && pageSize <= totalElements) {
                 setHasMore(true);
             } else {
                 setHasMore(false);
@@ -192,6 +192,8 @@ const HomeComponent: React.FC = () => {
     }, [container, root, userFullName]);
 
     const pinProfile = (event: any) => {
+        event.stopPropagation();
+        event.preventDefault();
         const pin = event.currentTarget;
         if (pin && pin.classList.contains("pinned")) {
             pin.classList.remove("pinned");
@@ -249,7 +251,6 @@ const HomeComponent: React.FC = () => {
                 </div>
             }
             <div className='df jc ac mb40 searchBarContainer'>
-                <SearchIcon className="searchIconContainer"></SearchIcon>
                 <TextField
                     id="searchDev"
                     label="Search developer profile"
@@ -259,6 +260,13 @@ const HomeComponent: React.FC = () => {
                     onChange={debouncedSearchFn}
                     InputLabelProps={{
                         style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon className="searchIconContainer" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}></SearchIcon>
+                            </InputAdornment>
+                        ),
                     }}
                 />
             </div>
@@ -277,11 +285,17 @@ const HomeComponent: React.FC = () => {
                                         <div className="col-12" key={"dev_" + devData.userId}>
                                             <Accordion>
                                                 <AccordionSummary
-                                                    expandIcon={<ArrowDropDownIcon style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }} />}
+                                                    expandIcon={<div className="expandIconContainer">
+                                                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }} />
+                                                    </div>}
                                                     aria-controls="panel2-content"
                                                     id="panel2-header"
                                                 >
-                                                    <Card className="w100per">
+                                                    
+                                                    <div className="pinIconContainer">
+                                                        <PushPinRoundedIcon className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
+                                                    </div>
+                                                    <Card className="w100per ml-neg30">
                                                         <div className="df js ac gp30px">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                             <div className="w80per">
@@ -298,9 +312,6 @@ const HomeComponent: React.FC = () => {
                                                             </div>
                                                         </div>
                                                     </Card>
-                                                    <div className="pinIconContainer">
-                                                        <PushPinRoundedIcon className="headerIcoClamp2535" onClick={pinProfile}></PushPinRoundedIcon>
-                                                    </div>
                                                 </AccordionSummary>
                                                 <AccordionDetails>
                                                     <Card>
@@ -327,10 +338,10 @@ const HomeComponent: React.FC = () => {
                                                     </Card>
                                                 </AccordionDetails>
                                             </Accordion>
-                                            {(index!=devDataList.length-1)?<div className="m-0" style= {{ backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
+                                            {(index != devDataList.length - 1) ? <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                                                 <hr className="m-0 ms-5 me-5"></hr>
-                                            </div>:null}
-                                            
+                                            </div> : null}
+
                                         </div>
                                     )
                                 }) :
@@ -350,7 +361,7 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
-            {(pageNumber * pageSize <= totalElements && pageSize <= totalElements) ?
+            {((pageNumber+1) * pageSize <= totalElements && pageSize <= totalElements) ?
                 <div className="df jc ac fw" onClick={handleScroll}>
                     <Tooltip title="Load more">
                         <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>

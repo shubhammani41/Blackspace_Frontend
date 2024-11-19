@@ -5,26 +5,37 @@
 @font-face {
   font-family: 'Nunito';
   src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900; /* Define the weight range */
-  font-style: normal italic; /* Define the style range */
+  font-weight: 100 900;
+  /* Define the weight range */
+  font-style: normal italic;
+  /* Define the style range */
 }
+
 @font-face {
   font-family: 'NunitoItalics';
   src: url('./assets/fonts/Nunito/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900; /* Define the weight range */
-  font-style: normal italic; /* Define the style range */
+  font-weight: 100 900;
+  /* Define the weight range */
+  font-style: normal italic;
+  /* Define the style range */
 }
+
 @font-face {
   font-family: 'PlaywriteDEGrund';
   src: url('./assets/fonts/Playwrite_DE_Grund/PlaywriteDEGrund-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900; /* Define the weight range */
-  font-style: normal italic; /* Define the style range */
+  font-weight: 100 900;
+  /* Define the weight range */
+  font-style: normal italic;
+  /* Define the style range */
 }
+
 @font-face {
   font-family: 'Quicksand';
   src: url('./assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf') format('truetype');
-  font-weight: 500 900; /* Define the weight range */
-  font-style: normal italic; /* Define the style range */
+  font-weight: 500 900;
+  /* Define the weight range */
+  font-style: normal italic;
+  /* Define the style range */
 }
 
 :root {
@@ -121,12 +132,14 @@ body * {
 //    transform: scaleX(0.92);
 // }
 
-.hidden{
+.hidden {
   opacity: 0 !important;
   transform: scale(0.7);
-  *{
+
+  * {
     opacity: 0 !important;
   }
+
   transition: ease-in-out 1s;
 }
 
@@ -213,7 +226,7 @@ body * {
   height: 100vh;
 }
 
-.pb5{
+.pb5 {
   padding-bottom: 5px;
 }
 
@@ -253,6 +266,10 @@ body * {
 
 .m10 {
   margin: 10px;
+}
+
+.ml-neg30{
+  margin-left: -30px;
 }
 
 .mt15r15b5l15 {
@@ -473,7 +490,7 @@ fieldset {
 
 /* Mui Table css override ends */
 
-.MuiAccordionSummary-content{
+.MuiAccordionSummary-content {
   width: 100%;
   margin: 0px !important;
 }
@@ -645,7 +662,7 @@ fieldset {
 
 .mainContainer {
   margin: 10px 10px 100px 10px;
-  margin-top: calc(59px + 3vw);
+  margin-top: calc(80px + 3vw);
 }
 
 .matrix-card-container {
@@ -688,24 +705,16 @@ fieldset {
 }
 
 .searchBar {
-  width: 77vw;
+  width: 75vw;
   min-width: 250px !important;
 }
 
 .searchBarContainer {
-  position: relative;
-  left: -16px;
-
   .searchIconContainer {
     width: 30px !important;
     height: 30px !important;
     position: relative;
-    top: 17px;
-    left: 46px;
-  }
-
-  .MuiInputBase-input.MuiFilledInput-input {
-    padding: 16px 60px !important;
+    top: -7px;
   }
 }
 
@@ -763,9 +772,35 @@ hr.cardContentSeperator {
   height: clamp(25px, 2vw, 35px) !important;
 }
 
+.headerIcoClamp2030 {
+  width: clamp(20px, 2vw, 30px) !important;
+  height: clamp(20px, 2vw, 30px) !important;
+}
+
 .pinIconContainer {
-  position: absolute;
+  position: relative;
   transform: rotateZ(45deg);
+  z-index: 899;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 101%;
+  top: 10px;
+
+  svg.pinned {
+    color: var(--app-info-color);
+  }
+}
+
+.MuiAccordionSummary-expandIconWrapper {
+  position: relative;
+  top: 15px;
+}
+
+.expandIconContainer {
   z-index: 899;
   border-radius: 100%;
   width: 40px;
@@ -773,11 +808,6 @@ hr.cardContentSeperator {
   display: flex;
   justify-content: center;
   align-items: center;
-  right: -0px;
-
-  svg.pinned {
-    color: var(--app-info-color);
-  }
 }
 
 .morpheusThemer {
