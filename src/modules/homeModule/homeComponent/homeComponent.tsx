@@ -69,10 +69,6 @@ const HomeComponent: React.FC = () => {
         }
     }
 
-    const transformDevDataList = useMemo(() => {
-        return transformUserData;
-    }, []);
-
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
         setDevListLoading(true);
         try {
@@ -85,11 +81,21 @@ const HomeComponent: React.FC = () => {
             }
             let response: any = await axiosInstance.get(url);
             if (response?.data?.data) {
-                setTotalElements(response.data.totalElements);
-                setTimeout(() => {
-                    setDevData(prev => [...prev, ...transformDevDataList(response.data.data)]);
-                }, defaultTimeout);
+                if (response.data.data.length > 0) {
+                    setTotalElements(response.data.totalElements);
+                    setTimeout(() => {
+                        setDevData(prev => [...prev, ...transformUserData(response.data.data)]);
+                    }, defaultTimeout);
+                }
+                else {
+                    setTotalElements(0);
+                    setDevData([]);
+                    setSearchMessage(noProfileSearchMessage);
+                    setHasMore(false);
+                }
+
             } else {
+                setTotalElements(0);
                 setDevData([]);
                 setSearchMessage(noProfileSearchMessage);
                 setHasMore(false);
@@ -102,7 +108,7 @@ const HomeComponent: React.FC = () => {
         }
 
         setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
-    }, [defaultTimeout, errorSearchMessage, transformDevDataList])
+    }, [defaultTimeout, errorSearchMessage])
 
     const searchFn = useCallback((event: any) => {
         setSearchKeyWord(event.target.value);
@@ -139,7 +145,7 @@ const HomeComponent: React.FC = () => {
     const handleScroll = useCallback(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             console.log(pageNumber, pageSize, totalElements);
-            if ((pageNumber+1) * pageSize <= totalElements && pageSize <= totalElements) {
+            if ((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) {
                 setHasMore(true);
             } else {
                 setHasMore(false);
@@ -291,7 +297,7 @@ const HomeComponent: React.FC = () => {
                                                     aria-controls="panel2-content"
                                                     id="panel2-header"
                                                 >
-                                                    
+
                                                     <div className="pinIconContainer">
                                                         <PushPinRoundedIcon className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                     </div>
@@ -345,15 +351,18 @@ const HomeComponent: React.FC = () => {
                                         </div>
                                     )
                                 }) :
-                                <div className="df jc ac">
-                                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
-                                        {searchMessage}
-                                    </Typography>
-                                </div>
+                                null
                             }
                         </div>
                     </div>
                 </InfiniteScroll>
+                {!devListLoading && devDataList.length<1 ? 
+                    <div className="df jc ac fw gp50px w90vw">
+                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
+                        {searchMessage}
+                    </Typography>
+                </div>:null
+                }
                 {devListLoading ?
                     <div className="df jc ac fw gp50px w90vw">
                         {profileSkeletonList}
@@ -361,7 +370,7 @@ const HomeComponent: React.FC = () => {
 
                 }
             </div>
-            {((pageNumber+1) * pageSize <= totalElements && pageSize <= totalElements) ?
+            {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
                 <div className="df jc ac fw" onClick={handleScroll}>
                     <Tooltip title="Load more">
                         <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
