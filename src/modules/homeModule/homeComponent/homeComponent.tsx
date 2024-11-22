@@ -289,7 +289,7 @@ const HomeComponent: React.FC = () => {
                     hasMore={hasMore}
                     useWindow={true} // Set to true to use window scroll, false to use a specific container
                     threshold={0}>
-                    <div className="row">
+                    <div className="row gx-0">
                         <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10">

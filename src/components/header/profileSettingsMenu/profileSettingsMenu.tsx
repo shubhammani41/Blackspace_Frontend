@@ -4,6 +4,7 @@ import { Menu, MenuItem } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useNavigate } from 'react-router-dom';
+import { firebaseAuth } from '../../../constants/sensitiveConstants';
 
 export interface ProfileSettingsMenuProp {
     settingsAnchorRef: React.RefObject<HTMLButtonElement>;
@@ -13,8 +14,15 @@ export interface ProfileSettingsMenuProp {
 
 const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSettingsMenuProp) => {
     const navigate = useNavigate();
-    const navigateToLogin = () => {
-        navigate('/signin');
+    const navigateToLogin = async () => {
+        await firebaseAuth.signOut()
+            .then(() => {
+                console.log("User signed out successfully");
+                navigate('/signin');
+            })
+            .catch((error) => {
+                console.error("Error signing out:", error);
+            });
     }
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 

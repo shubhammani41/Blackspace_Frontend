@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import './App.scss';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <AppHeader></AppHeader>
       <SideBar></SideBar>
       <Routes>
-        <Route path='/' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
+        <Route path='/' element={<Navigate to="/home" />}></Route>
         <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
         <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
         <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>

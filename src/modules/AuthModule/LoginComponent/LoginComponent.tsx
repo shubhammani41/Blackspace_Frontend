@@ -9,9 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import useThemeStore from '../../../components/themeToggleBtn/store/themeStore';
 import { Card, CardContent, SimplePaletteColorOptions } from '@mui/material';
 import * as firebaseui from 'firebaseui';
-import { firebaseAuth } from '../../../constants/sensitiveConstants';
 import firebase from 'firebase/compat/app';
-import 'firebaseui/dist/firebaseui.css';
 
 const LoginComponent = () => {
     const navigate = useNavigate();
@@ -20,6 +18,7 @@ const LoginComponent = () => {
 
     const firebaseUIConfig = {
         signInSuccessUrl: '/home',
+        signInFlow: 'popup',
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -43,6 +42,16 @@ const LoginComponent = () => {
                 });
                 return false; // Prevents redirect
             },
+            signInFailure: (error: any) => {
+                // Handle failed sign-in attempts
+                console.error('Sign-in failed:', error);
+          
+                // Example: Show a user-friendly error message
+                alert('Sign-in failed: ' + error.message);
+          
+                // Return a promise to handle custom error resolution, if needed
+                return Promise.resolve();
+              }
         },
     };
 
@@ -50,7 +59,7 @@ const LoginComponent = () => {
         localStorage.clear();
 
         //firebaseui
-        const ui = firebaseui.auth.AuthUI?.getInstance() ?? new firebaseui.auth.AuthUI(firebaseAuth);
+        const ui = firebaseui.auth.AuthUI?.getInstance() ?? new firebaseui.auth.AuthUI(firebase.auth());
         ui.start('#firebaseui-auth-container', firebaseUIConfig);
 
         const handleBlur = (event:any) => {
