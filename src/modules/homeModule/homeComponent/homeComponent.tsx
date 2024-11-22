@@ -1,4 +1,4 @@
-import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Fade, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -23,7 +23,7 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
-import Accordion from '@mui/material/Accordion';
+import Accordion, { AccordionSlots } from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const HomeComponent: React.FC = () => {
@@ -48,6 +48,7 @@ const HomeComponent: React.FC = () => {
     const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
     const pinRef = useRef(null);
+    const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const currentTheme = useThemeStore();
     const setRedTheme = () => {
@@ -141,6 +142,11 @@ const HomeComponent: React.FC = () => {
     const debouncedLoadMore = useMemo(() => {
         return debounce(loadMore, defaultTimeout)
     }, [loadMore, defaultTimeout])
+
+    const handleExpansion =
+        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+        };
 
     const handleScroll = useCallback(() => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -276,26 +282,28 @@ const HomeComponent: React.FC = () => {
                     }}
                 />
             </div>
-            <div className="matrix-card-list">
+            <div>
                 <InfiniteScroll className="mb40"
                     pageStart={defaultPageNumber}
                     loadMore={debouncedLoadMore}
                     hasMore={hasMore}
                     useWindow={true} // Set to true to use window scroll, false to use a specific container
                     threshold={0}>
-                    <div className="w50vw">
-                        <div className="row">
+                    <div className="row">
+                        <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+                        </div>
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10">
                             {devDataList.length > 0 ?
                                 devDataList.map((devData, index) => {
                                     return (
                                         <div className="col-12" key={"dev_" + devData.userId}>
-                                            <Accordion>
+                                            <Accordion expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
                                                 <AccordionSummary
                                                     expandIcon={<div className="expandIconContainer">
                                                         <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }} />
                                                     </div>}
                                                     aria-controls="panel2-content"
-                                                    id="panel2-header"
+                                                    id={"accordian_" + devData.userId}
                                                 >
 
                                                     <div className="pinIconContainer">
@@ -304,15 +312,15 @@ const HomeComponent: React.FC = () => {
                                                     <Card className="w100per ml-neg30">
                                                         <div className="df js ac gp30px">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                            <div className="w80per">
-                                                                <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
+                                                            <div className="w100per-neg50" style={{overflow: "hidden"}}>
+                                                                <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
                                                                     <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
                                                                     {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                                 </Typography>
-                                                                <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                                <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">
                                                                     {devData.positionName}
                                                                 </Typography>
-                                                                <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                                <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                                 </Typography>
                                                             </div>
@@ -322,7 +330,7 @@ const HomeComponent: React.FC = () => {
                                                 <AccordionDetails>
                                                     <Card>
                                                         <CardContent className="pb3px pt3px">
-                                                            <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                            <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                 Experience: {devData.experience}+ years
                                                             </Typography>
                                                             {devData?.skills?.map((skill: String, index: number) => {
@@ -354,14 +362,16 @@ const HomeComponent: React.FC = () => {
                                 null
                             }
                         </div>
+                        <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+                        </div>
                     </div>
                 </InfiniteScroll>
-                {!devListLoading && devDataList.length<1 ? 
+                {!devListLoading && devDataList.length < 1 ?
                     <div className="df jc ac fw gp50px w90vw">
-                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
-                        {searchMessage}
-                    </Typography>
-                </div>:null
+                        <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
+                            {searchMessage}
+                        </Typography>
+                    </div> : null
                 }
                 {devListLoading ?
                     <div className="df jc ac fw gp50px w90vw">

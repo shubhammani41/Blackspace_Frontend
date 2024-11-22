@@ -25,11 +25,13 @@
 .logoIco {
     width: 6vw !important;
     height: 3vw !important;
-    margin-right: 10px;
+    margin-right: 0px;
     position: relative;
-    top: 0px;
-    max-width: 65px;
-    max-height: 30px;
+    top: 1px;
+    max-width: 50px;
+    max-height: 25px;
+    min-width: 26px;
+    min-height: 13px;
 }
 
 .logoIcoInvert {
@@ -51,6 +53,8 @@
 }
 
 .headerInner{
+    width: 75vw;
+    min-width: 150px;
     border-radius: var(--app-border-radius-s);
     padding: 12px;
     box-shadow: var(--shadow-down-s-transparent);
