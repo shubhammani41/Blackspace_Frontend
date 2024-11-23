@@ -66,16 +66,16 @@ const AppHeader: React.FC = () => {
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
                     <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                        <div className="df js ac">
+                        <div className="df js ac headerInnerLeft">
                             <img src={Logo} className={"icon30 iconTp2n logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}></img>
                             <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
                                 onClick={navigateToHome}>
                                 Blackspace
                             </Typography>
                             <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
-                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp mw11vw" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
+                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
                         </div>
-                        <div className="df je ac">
+                        <div className="df je ac headerInnerRight">
                             <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
                                 <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
                             </Button>

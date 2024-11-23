@@ -28,10 +28,11 @@
     margin-right: 0px;
     position: relative;
     top: 1px;
-    max-width: 50px;
+    max-width: 58px;
     max-height: 25px;
-    min-width: 26px;
-    min-height: 13px;
+    min-width: 38px;
+    min-height: 17px;
+    padding-left: 8px;
 }
 
 .logoIcoInvert {
@@ -60,4 +61,11 @@
 
 .mw11vw{
     max-width: 11vw;
+}
+
+.headerInnerLeft{
+    width: calc(100% - 115px);
+}
+.headerInnerRight{
+    width: 115px;
 }
