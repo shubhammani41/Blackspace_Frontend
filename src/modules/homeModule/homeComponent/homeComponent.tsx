@@ -262,7 +262,7 @@ const HomeComponent: React.FC = () => {
                     </p>
                 </div>
             }
-            <div className="row">
+            <div className="row gx-0">
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
                 <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
                     <TextField

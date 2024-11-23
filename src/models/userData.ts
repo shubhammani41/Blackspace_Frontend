@@ -11,6 +11,7 @@ interface UserData {
     websiteUrl: string;
     userName: string;
     skills: any; // JSON string of skills
+    userExperience: any; // JSON string of expeirence
     countryName: string;
     stateName: string;
     cityName: string;
