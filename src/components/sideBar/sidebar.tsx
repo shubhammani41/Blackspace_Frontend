@@ -1,13 +1,15 @@
 import { Button, SimplePaletteColorOptions, Typography } from "@mui/material";
 import './sidebar.scss';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import useSideBarStore from "./store/sideBarStore";
 
 const SideBar: React.FC = () => {
 
@@ -18,16 +20,30 @@ const SideBar: React.FC = () => {
             return !prev
         })
     }
+    const sideBarStore = useSideBarStore();
+
+    useEffect(() => {
+        if (sideBarStore.data.sideBarState) {
+            setOpenSideBar(true);
+        }
+        else {
+            setOpenSideBar(false);
+        }
+    }, [sideBarStore])
+
+    const closeSideBar = () => {
+        sideBarStore.closeSideBar();
+    }
 
     return (
         <div>
-            <div className="df js ac flxCol sideBarVisible menuIconContainer">
-                <Button className="mw0px">
-                    <MenuRoundedIcon sx={{ color: openSideBar ? '#ffffff' : 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
-                </Button>
-            </div>
-            <div className={"sideBarContainer df js ac flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")} style={{"backgroundColor": (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}>
-                <div className="df js ac flxCol sidebarInner">
+            <div className={"sideBarContainer df js as flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")} style={{ "backgroundColor": (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                <div className="df jc ac" style={{backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
+                    <Button className="mw0px dsBlock closeBtn" onClick={() => closeSideBar()}>
+                        <CloseRoundedIcon className="sideBarIcoClamp2535"></CloseRoundedIcon>
+                    </Button>
+                </div>
+                <div className="df jc ac flxCol sidebarInner">
                     <div className="df jc ac flxCol">
                         <Button className="mw0px dsBlock">
                             <DnsRoundedIcon className="sideBarIcoClamp2535 whiteText"></DnsRoundedIcon>

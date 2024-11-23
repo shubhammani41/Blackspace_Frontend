@@ -15,16 +15,6 @@
     padding: 4px;
 }
 
-.logoIco {
-    width: 6vw !important;
-    height: 3vw !important;
-    margin-right: 10px;
-    position: relative;
-    top: 0px;
-    max-width: 65px;
-    max-height: 30px;
-}
-
 .logoIcoInvert {
     filter: invert(1);
 }
@@ -44,7 +34,6 @@
 }
 
 .sideBarContainer{
-    padding: 12px;
     box-shadow: var(--shadow-right-normal);
     width: 5vw;
     min-width: 70px;
@@ -53,17 +42,12 @@
     left: 0px;
     max-width: 100px;
     z-index: 9991;
-    // background-color: var(--app-accent-color);
-    padding-top: 100px;
+    height: 100vh;
 }
 
 .backgroundHider{
     padding-top: 100px;
     width: 100%;
-}
-
-.flxCol{
-    flex-direction: column;
 }
 
 .sidebarInner{
@@ -106,4 +90,8 @@
 
 .dsBlock{
     display: block;
+}
+
+.closeBtn{
+    margin: 20px !important;
 }

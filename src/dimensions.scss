@@ -1,200 +1,205 @@
 .fw300 {
-    font-weight: 300 !important;
-  }
-  
-  .df {
-    display: flex;
-  }
-  
-  .jc {
-    justify-content: center;
-  }
-  
-  .js {
-    justify-content: start;
-  }
-  
-  .jsb {
-    justify-content: space-between;
-  }
-  
-  .je {
-    justify-content: end;
-  }
-  
-  .ac {
-    align-items: center;
-  }
-  
-  .fw {
-    flex-wrap: wrap;
-  }
-  
-  .gp50px {
-    row-gap: clamp(14px, 2vw, 29px) !important;
-    column-gap: clamp(8px, 2vw, 29px) !important;
-  }
-  
-  .gp30px {
-    gap: clamp(5px, 2vw, 20px) !important;
-  }
-  
-  .f100 {
-    flex: 0 0 100%;
-  }
-  
-  .f50 {
-    flex: 0 0 50%;
-  }
-  
-  .w90vw {
-    width: 90vw;
-    min-width: 300px;
-  }
-  
-  .mw4096 {
-    max-width: 4096px;
-  }
-  
-  .w50vw {
-    width: 50vw;
-    min-width: 300px;
-  }
-  
-  .w75vw {
-    width: 75vw;
-    min-width: 270px;
-  }
-  
-  .w80vw {
-    width: 80vw;
-    min-width: 300px;
-  }
-  
-  
-  .w45vw {
-    width: 40vw;
-    min-width: 300px;
-  }
-  
-  .h100vh {
-    height: 100vh;
-  }
-  
-  .pb5 {
-    padding-bottom: 5px;
-  }
-  
-  .p0m0 {
-    padding: 0px;
-    margin: 0px;
-  }
-  
-  .p0m00150 {
-    padding: 0px;
-    margin: 0px 0px 15px 0px;
-  }
-  
-  .mb3px {
-    margin-bottom: 3px !important
-  }
-  
-  .pb3px {
-    padding-bottom: 3px !important
-  }
-  
-  .p40 {
-    padding: 40px;
-  }
-  
-  .pt3px {
-    padding-top: 3px
-  }
-  
-  .mb40 {
-    margin-bottom: 40px;
-  }
-  
-  .mb20 {
-    margin-bottom: 20px;
-  }
-  
-  .m10 {
-    margin: 10px;
-  }
-  
-  .ml-neg30{
-    margin-left: -30px;
-  }
-  
-  .mt15r15b5l15 {
-    margin: 15px 15px 5px 15px;
-  }
-  
-  .m15 {
-    margin: 15px;
-  }
-  
-  .ml15 {
-    margin-left: 15px !important;
-  }
-  
-  .mr5 {
-    margin-right: 5px !important;
-  }
-  
-  .mr15 {
-    margin-right: 15px !important;
-  }
-  
-  .m20 {
-    margin: 20px;
-  }
-  
-  .w100p {
-    width: 100px;
-  }
-  
-  .w300p {
-    width: 300px;
-  }
-  
-  .w90per {
-    width: 90%;
-  }
+  font-weight: 300 !important;
+}
 
-  .w100per-neg50 {
-    width: calc(100% - 50px);
-  }
-  
-  .w100per {
-    width: 100%
-  }
-  
-  .w80per {
-    width: 80%;
-  }
-  
-  .w50per {
-    width: 50%
-  }
-  
-  .w180 {
-    width: 180px;
-  }
-  
-  .w65vw {
-    width: 65vw;
-  }
-  
-  .w100vw {
-    width: 100vw;
-  }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  .mw0px {
-    min-width: 0px !important;
-  }
+.df {
+  display: flex;
+}
+
+
+.flxCol {
+  flex-direction: column;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.js {
+  justify-content: start;
+}
+
+.jsb {
+  justify-content: space-between;
+}
+
+.je {
+  justify-content: end;
+}
+
+.ac {
+  align-items: center;
+}
+
+.fw {
+  flex-wrap: wrap;
+}
+
+.gp50px {
+  row-gap: clamp(14px, 2vw, 29px) !important;
+  column-gap: clamp(8px, 2vw, 29px) !important;
+}
+
+.gp30px {
+  gap: clamp(5px, 2vw, 20px) !important;
+}
+
+.f100 {
+  flex: 0 0 100%;
+}
+
+.f50 {
+  flex: 0 0 50%;
+}
+
+.w90vw {
+  width: 90vw;
+  min-width: 300px;
+}
+
+.mw4096 {
+  max-width: 4096px;
+}
+
+.w50vw {
+  width: 50vw;
+  min-width: 300px;
+}
+
+.w75vw {
+  width: 75vw;
+  min-width: 270px;
+}
+
+.w80vw {
+  width: 80vw;
+  min-width: 300px;
+}
+
+
+.w45vw {
+  width: 40vw;
+  min-width: 300px;
+}
+
+.h100vh {
+  height: 100vh;
+}
+
+.pb5 {
+  padding-bottom: 5px;
+}
+
+.p0m0 {
+  padding: 0px;
+  margin: 0px;
+}
+
+.p0m00150 {
+  padding: 0px;
+  margin: 0px 0px 15px 0px;
+}
+
+.mb3px {
+  margin-bottom: 3px !important
+}
+
+.pb3px {
+  padding-bottom: 3px !important
+}
+
+.p40 {
+  padding: 40px;
+}
+
+.pt3px {
+  padding-top: 3px
+}
+
+.mb40 {
+  margin-bottom: 40px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.m10 {
+  margin: 10px;
+}
+
+.ml-neg30 {
+  margin-left: -30px;
+}
+
+.mt15r15b5l15 {
+  margin: 15px 15px 5px 15px;
+}
+
+.m15 {
+  margin: 15px;
+}
+
+.ml15 {
+  margin-left: 15px !important;
+}
+
+.mr5 {
+  margin-right: 5px !important;
+}
+
+.mr15 {
+  margin-right: 15px !important;
+}
+
+.m20 {
+  margin: 20px;
+}
+
+.w100p {
+  width: 100px;
+}
+
+.w300p {
+  width: 300px;
+}
+
+.w90per {
+  width: 90%;
+}
+
+.w100per-neg50 {
+  width: calc(100% - 50px);
+}
+
+.w100per {
+  width: 100%
+}
+
+.w80per {
+  width: 80%;
+}
+
+.w50per {
+  width: 50%
+}
+
+.w180 {
+  width: 180px;
+}
+
+.w65vw {
+  width: 65vw;
+}
+
+.w100vw {
+  width: 100vw;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mw0px {
+  min-width: 0px !important;
+}

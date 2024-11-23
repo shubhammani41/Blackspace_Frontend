@@ -32,10 +32,10 @@ const useThemeStore: UseBoundStore<StoreApi<ThemeStore>> = create((set) => ({
     toggleTheme: () => set((state: { data: ThemeState }) => (
         state.data.mode === ThemeMode.Light ? { data: darkTheme } : { data: lightTheme }
     )),
-    setBlueTheme: () => set((state: { data: ThemeState }) => (
+    setBlueTheme: () => set(() => (
         { data: blueTheme }
     )),
-    setRedTheme: () => set((state: { data: ThemeState }) => (
+    setRedTheme: () => set(() => (
         { data: redTheme }
     )),
 }));

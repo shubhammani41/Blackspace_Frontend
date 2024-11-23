@@ -1,5 +1,5 @@
 .headerContainer {
-    padding: 10px 50px;
+    padding: 10px 10px;
     position: fixed;
     width: 100vw;
     top: 0px;
@@ -53,8 +53,6 @@
 }
 
 .headerInner{
-    width: 75vw;
-    min-width: 150px;
     border-radius: var(--app-border-radius-s);
     padding: 12px;
     box-shadow: var(--shadow-down-s-transparent);

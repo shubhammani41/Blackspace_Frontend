@@ -22,14 +22,7 @@ const LoginComponent = () => {
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            {
-                provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-                recaptchaParameters: {
-                    type: 'invisible',
-                    size: 'invisible',
-                },
-                defaultCountry: 'US',
-            },
+            firebase.auth.PhoneAuthProvider.PROVIDER_ID
         ],
         callbacks: {
             signInSuccessWithAuthResult: (authResult: any) => {
@@ -45,13 +38,39 @@ const LoginComponent = () => {
             signInFailure: (error: any) => {
                 // Handle failed sign-in attempts
                 console.error('Sign-in failed:', error);
-          
+
                 // Example: Show a user-friendly error message
                 alert('Sign-in failed: ' + error.message);
-          
+
                 // Return a promise to handle custom error resolution, if needed
                 return Promise.resolve();
-              }
+            },
+            uiShown: () => {
+                document.addEventListener('beforeunload', (event) => {
+                    if (
+                        event.target instanceof HTMLElement &&
+                        event.target.classList.contains('firebaseui-list-box-dialog')
+                    ) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+
+                        // Get the first child of the firebaseui-list-box-dialog
+                        // const firstChild = event.target.firstElementChild;
+
+                        // if (firstChild && firstChild instanceof HTMLElement) {
+                        //     // Get the first child inside the first child
+                        //     const firstChildInsideFirstChild = firstChild.firstElementChild;
+
+                        //     if (firstChildInsideFirstChild && firstChildInsideFirstChild instanceof HTMLElement) {
+                        //         // Simulate a click on the first child inside the first child
+                        //         firstChildInsideFirstChild.click();
+                        //         console.log('Simulated click on the first child inside the first child of firebaseui-list-box-dialog');
+                        //     }
+                        // }
+                    }
+                }, true);
+            },
         },
     };
 
@@ -62,19 +81,7 @@ const LoginComponent = () => {
         const ui = firebaseui.auth.AuthUI?.getInstance() ?? new firebaseui.auth.AuthUI(firebase.auth());
         ui.start('#firebaseui-auth-container', firebaseUIConfig);
 
-        const handleBlur = (event:any) => {
-            const countryCodeSelector = document.querySelector('.firebaseui-country-code-selector');
-            // Check if the focus has moved outside the country code selector
-            if (countryCodeSelector && !countryCodeSelector.contains(event.relatedTarget)) {
-                ui.reset(); // Reset the UI or close the dropdown
-            }
-        };
 
-        // Add event listener for onBlur
-        const countryCodeSelector = document.querySelector('.firebaseui-country-code-selector');
-        if (countryCodeSelector) {
-            countryCodeSelector.addEventListener('blur', handleBlur);
-        }
 
         setTimeout(() => {
             setIsLoginCardReady(true);

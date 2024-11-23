@@ -262,25 +262,32 @@ const HomeComponent: React.FC = () => {
                     </p>
                 </div>
             }
+            <div className="row">
+                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
+                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
+                    <TextField
+                        id="searchDev"
+                        label="Search developer profile"
+                        variant="filled"
+                        placeholder="e.g. Shubham Tripathi"
+                        className='searchBar'
+                        onChange={debouncedSearchFn}
+                        InputLabelProps={{
+                            style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon className="searchIconContainer" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}></SearchIcon>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </div>
+                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
+            </div>
             <div className='df jc ac mb40 searchBarContainer'>
-                <TextField
-                    id="searchDev"
-                    label="Search developer profile"
-                    variant="filled"
-                    placeholder="e.g. Shubham Tripathi"
-                    className='searchBar'
-                    onChange={debouncedSearchFn}
-                    InputLabelProps={{
-                        style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
-                    }}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon className="searchIconContainer" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}></SearchIcon>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
+
             </div>
             <div>
                 <InfiniteScroll className="mb40"
@@ -312,7 +319,7 @@ const HomeComponent: React.FC = () => {
                                                     <Card className="w100per ml-neg30">
                                                         <div className="df js ac gp30px">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                            <div className="w100per-neg50" style={{overflow: "hidden"}}>
+                                                            <div className="w100per-neg50" style={{ overflow: "hidden" }}>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
                                                                     <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
                                                                     {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}

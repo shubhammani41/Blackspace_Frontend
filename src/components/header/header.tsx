@@ -9,6 +9,8 @@ import Logo from '../../assets/images/logo5.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
 import { ProfileSettingsMenu } from "./profileSettingsMenu/profileSettingsMenu";
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import useSideBarStore from "../sideBar/store/sideBarStore";
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -17,6 +19,7 @@ const AppHeader: React.FC = () => {
     const profileSettingsAnchorRef = useRef<HTMLButtonElement>(null);
     const [headerSettingsOpen, setHeaderSettingsOpen] = useState<boolean>(false);
     const [profileSettingsOpen, setProfileSettingsOpen] = useState<boolean>(false);
+    const sideBarStore = useSideBarStore();
     const handleClickHeaderSettings = () => {
         setHeaderSettingsOpen((prev) => !prev);
     };
@@ -34,6 +37,10 @@ const AppHeader: React.FC = () => {
         navigate("/home");
     }
 
+    const toggleSideBar = () => {
+        sideBarStore.toggleSideBar();
+    }
+
     const pageName = useMemo<string>(() => {
         const segments = location.pathname.split('/').filter(Boolean);
         const lastSegment = segments[segments.length - 1];
@@ -47,26 +54,42 @@ const AppHeader: React.FC = () => {
     }, [currentTheme]);
 
     return (
-        <AppBar className="headerContainer df jc ac" sx={{ backgroundColor: 'background.default' }}>
-            <div className="headerInner df jsb ac" style={{backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
-                <div className="df js ac">
-                    <img src={Logo} className={"icon30 iconTp2n logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}></img>
-                    <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
-                        onClick={navigateToHome}>
-                        Blackspace
-                    </Typography>
-                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525" style={{position: 'relative',top: '2px'}}></ArrowForwardIosIcon>
-                    {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp mw11vw" color="text.secondary">{pageName!=''?pageName:'Home'}</Typography> : null}
+        <AppBar className="headerContainer" sx={{ backgroundColor: 'background.default' }}>
+            <div className="row gx-0">
+                <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
+
                 </div>
-                <div className="df je ac">
-                    <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
-                        <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
+                <div className="col-1 df je ac">
+                    <Button className="mw0px">
+                        <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
                     </Button>
-                    <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
-                        <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
-                    </Button>
+                </div>
+                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
+                    <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                        <div className="df js ac">
+                            <img src={Logo} className={"icon30 iconTp2n logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}></img>
+                            <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
+                                onClick={navigateToHome}>
+                                Blackspace
+                            </Typography>
+                            <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
+                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp mw11vw" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
+                        </div>
+                        <div className="df je ac">
+                            <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
+                                <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
+                            </Button>
+                            <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
+                                <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
+
                 </div>
             </div>
+
             <div onClick={handleCloseHeaderSettings}>
                 <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
             </div>
