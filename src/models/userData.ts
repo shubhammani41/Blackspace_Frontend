@@ -11,7 +11,9 @@ interface UserData {
     websiteUrl: string;
     userName: string;
     skills: any; // JSON string of skills
+    skillList?: UserSkill[];
     userExperience: any; // JSON string of expeirence
+    experienceList: UserExperience[];
     countryName: string;
     stateName: string;
     cityName: string;
@@ -31,4 +33,15 @@ interface UserData {
     callingCode: String;
 }
 
-export type { UserData }
+interface UserSkill {
+    skillId: number,
+    skillName: string
+}
+
+interface UserExperience {
+    organizationId: number,
+    organizationName: string,
+    fromDate: string
+}
+
+export type { UserData, UserSkill }

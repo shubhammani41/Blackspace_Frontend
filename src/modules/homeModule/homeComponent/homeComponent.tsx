@@ -2,7 +2,7 @@ import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActi
 import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
-import { UserData } from "../../../models/userData";
+import { UserData, UserSkill } from "../../../models/userData";
 import axiosInstance from "../../../config/axiosConfig";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
@@ -340,8 +340,8 @@ const HomeComponent: React.FC = () => {
                                                             <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                 Experience: {devData.experience}+ years
                                                             </Typography>
-                                                            {devData?.skills?.map((skill: String, index: number) => {
-                                                                return <Chip className="lightGrayChip" label={skill} key={index} />
+                                                            {devData?.skillList?.map((skill: UserSkill, index: number) => {
+                                                                return <Chip className="lightGrayChip" label={skill.skillName} key={'skill_'+index} />
                                                             })}
                                                         </CardContent>
                                                         <CardActions className="pt3px">
