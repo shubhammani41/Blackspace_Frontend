@@ -25,6 +25,7 @@ import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/sto
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 import Accordion, { AccordionSlots } from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import apiFunctions from "../../../constants/apiFunctions";
 
 const HomeComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -72,41 +73,27 @@ const HomeComponent: React.FC = () => {
 
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
         setDevListLoading(true);
-        try {
-            let url = "";
-            if (searchKeyWord && searchKeyWord !== '') {
-                url = apiConstants.searchUserByKeyWord.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
-            }
-            else {
-                url = apiConstants.getUserListRandom.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
-            }
-            let response: any = await axiosInstance.get(url);
-            if (response?.data?.data) {
-                if (response.data.data.length > 0) {
-                    setTotalElements(response.data.totalElements);
-                    setTimeout(() => {
-                        setDevData(prev => [...prev, ...transformUserData(response.data.data)]);
-                    }, defaultTimeout);
-                }
-                else {
-                    setTotalElements(0);
-                    setDevData([]);
-                    setSearchMessage(noProfileSearchMessage);
-                    setHasMore(false);
-                }
-
+        apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
+            if (res?.data?.data && res.data.data.length > 0) {
+                setTotalElements(res.data.totalElements);
+                setTimeout(() => {
+                    setDevData(prev => [...prev, ...transformUserData(res.data.data)]);
+                }, defaultTimeout);
             } else {
                 setTotalElements(0);
                 setDevData([]);
                 setSearchMessage(noProfileSearchMessage);
                 setHasMore(false);
             }
-
-        } catch (error) {
+        }, rej => {
             setDevData([]);
             setSearchMessage(errorSearchMessage);
             setHasMore(false);
-        }
+        }).catch(err => {
+            setDevData([]);
+            setSearchMessage(errorSearchMessage);
+            setHasMore(false);
+        })
 
         setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
     }, [defaultTimeout, errorSearchMessage])
@@ -317,7 +304,7 @@ const HomeComponent: React.FC = () => {
                                                         <PushPinRoundedIcon className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                     </div>
                                                     <Card className="w100per ml-neg30">
-                                                        <div className="df js ac gp30px">
+                                                        <div className="df js ac gp30px ps-1">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                             <div className="w100per-neg50" style={{ overflow: "hidden" }}>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
@@ -336,15 +323,15 @@ const HomeComponent: React.FC = () => {
                                                 </AccordionSummary>
                                                 <AccordionDetails>
                                                     <Card>
-                                                        <CardContent className="pb3px pt3px">
+                                                        <CardContent className="p-0">
                                                             <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                 Experience: {devData.experience}+ years
                                                             </Typography>
                                                             {devData?.skillList?.map((skill: UserSkill, index: number) => {
-                                                                return <Chip className="lightGrayChip" label={skill.skillName} key={'skill_'+index} />
+                                                                return <Chip className="lightGrayChip" label={skill.skillName} key={'skill_' + index} />
                                                             })}
                                                         </CardContent>
-                                                        <CardActions className="pt3px">
+                                                        <CardActions className="px-0 py-2">
                                                             <Tooltip title="View">
                                                                 <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
                                                                     <VisibilityRoundedIcon></VisibilityRoundedIcon>

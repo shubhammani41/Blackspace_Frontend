@@ -117,9 +117,9 @@
     cursor: pointer;
   }
   
-  .MuiCardActions-root {
-    padding-left: 15px !important;
-  }
+  // .MuiCardActions-root {
+  //   padding-left: 15px !important;
+  // }
   
   .MuiPaper-root {
     padding: 5px;
@@ -146,5 +146,9 @@
   
   .Mui-expanded {
     margin: 0px !important;
+  }
+
+  .MuiDialogContent-root{
+    padding: 20px 20px !important;
   }
   /* mui override ends */

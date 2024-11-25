@@ -44,4 +44,11 @@ interface UserExperience {
     fromDate: string
 }
 
-export type { UserData, UserSkill }
+interface UserListResponse {
+    data: UserData[],
+    pageSize: number
+    totalElements: number
+    totalPages: number
+}
+
+export type { UserData, UserSkill, UserListResponse }

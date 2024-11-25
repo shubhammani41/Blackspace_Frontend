@@ -4,7 +4,9 @@ import { Menu, MenuItem } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useNavigate } from 'react-router-dom';
-import { firebaseAuth } from '../../../constants/sensitiveConstants';
+import apiFunctions from '../../../constants/apiFunctions';
+import useSigninDialogStore from '../../signinDialog/store/signinDialogStore';
+import useUserLoginDataStore from '../../../store/userLoginDetailsStore';
 
 export interface ProfileSettingsMenuProp {
     settingsAnchorRef: React.RefObject<HTMLButtonElement>;
@@ -13,32 +15,48 @@ export interface ProfileSettingsMenuProp {
 }
 
 const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSettingsMenuProp) => {
+    const signinDialogStore = useSigninDialogStore();
+    const userLoginDataStore = useUserLoginDataStore();
     const navigate = useNavigate();
     const navigateToLogin = async () => {
-        await firebaseAuth.signOut()
+        userLoginDataStore.clearUserData();
+        apiFunctions.logout()
             .then(() => {
-                console.log("User signed out successfully");
                 navigate('/signin');
             })
-            .catch((error) => {
-                console.error("Error signing out:", error);
+            .catch((err) => {
+                console.log(err);
             });
     }
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const switchAccount = async () => {
+        signinDialogStore.openDialog();
+    }
 
     return (
         <Menu className="smallMenu" anchorEl={props.settingsAnchorRef.current} open={props.settingsOpen} onClose={props.handleClose}>
-            {isAuthenticated ? <MenuItem>
-                <div className='df jc ac'>
-                    <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
-                    logout
-                </div>
-            </MenuItem> : <MenuItem>
-                <div className='df jc ac' onClick={navigateToLogin}>
-                    <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
-                    SignIn
-                </div>
-            </MenuItem>}
+            {userLoginDataStore?.data.isUserLoggedIn ?
+                [
+                    <MenuItem key='logout'>
+                        <div className='df jc ac' onClick={navigateToLogin}>
+                            <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
+                            logout
+                        </div>
+                    </MenuItem>,
+                    <MenuItem key='switch'>
+                        <div className='df jc ac' onClick={switchAccount}>
+                            <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
+                            Switch Account
+                        </div>
+                    </MenuItem>
+                ]
+                :
+                <MenuItem>
+                    <div className='df jc ac' onClick={switchAccount}>
+                        <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
+                        Signin
+                    </div>
+                </MenuItem>
+            }
             <MenuItem>
                 <div className='df jc ac'>
                     <TuneRoundedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></TuneRoundedIcon>

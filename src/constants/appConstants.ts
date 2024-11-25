@@ -17,7 +17,6 @@ const transformUserData = (data: UserData[]): UserData[] => {
             skillList: JSON.parse(obj.skills).map((skill: any) => ({ skillId: skill.skill_id, skillName: skill.skill_name })),
             experienceList: JSON.parse(obj.userExperience).map((experience: any) => ({ organizationId: experience.organization_id, organizationName: experience.organization_name, fromDate: experience.from_date })),
         }
-        console.log(formattedData);
         return formattedData;
     });
 

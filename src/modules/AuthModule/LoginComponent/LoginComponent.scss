@@ -1,21 +1,5 @@
 .loginCardContainer {
-    align-items: start;
-    display: flex;
-    height: calc(100vh - 130px - 3vw);
-    justify-content: center;
     margin-top: calc(130px + 3vw);
-    width: 100vw;
-
-    .matrix-card-container {
-        width: 60%;
-        min-width: 340px;
-        max-width: 500px;
-
-        .MuiCard-root {
-            padding-bottom: 0px;
-            padding: clamp(15px, 3vw, 40px) clamp(20px, 2vw, 20px);
-        }
-    }
 }
 
 .singInButtonContainer {
@@ -32,7 +16,7 @@
     line-height: unset !important;
 }
 
-.firebaseui-idp-button{
+.firebaseui-idp-button {
     max-width: 100% !important;
     padding: 18px !important;
     border-radius: 4px;
@@ -43,17 +27,22 @@
     box-shadow: none !important;
 }
 
-.firebaseui-idp-google{
+.firebaseui-idp-google {
     background-color: #ededed !important;
 }
 
-.firebaseui-container{
-    max-width: 350px !important;
+.firebaseui-container {
     box-shadow: none !important;
+    margin: 0px;
+    position: unset !important;
+    width: clamp(260px, 75%, 400px) !important;
 }
 
-#firebaseui-auth-container{
+#firebaseui-auth-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .firebaseui-card-content {
@@ -65,7 +54,7 @@
     background-color: transparent !important;
 }
 
-.firebaseui-textfield{
+.firebaseui-textfield {
     padding: 10px !important;
     background-color: rgba(0, 0, 0, 0.06);
     border-radius: var(--app-border-radius-s);
@@ -76,11 +65,12 @@
     border-bottom: none !important;
 }
 
-.firebaseui-phone-number{
+.firebaseui-phone-number {
     background-color: rgba(0, 0, 0, 0.06);
     border-radius: var(--app-border-radius-s);
     padding: 2px 15px;
-    .firebaseui-textfield{
+
+    .firebaseui-textfield {
         padding: 10px !important;
         background-color: transparent;
         border-radius: 0px !important;
@@ -91,11 +81,12 @@
     border-bottom: none !important;
     margin: 10px 24px 10px 0 !important;
 }
+
 .firebaseui-country-selector:hover {
     background-color: transparent !important;
 }
 
-.firebaseui-label{
+.firebaseui-label {
     display: none !important;
 }
 
@@ -114,17 +105,17 @@
     color: white !important;
 }
 
-.mdl-button--raised.mdl-button--colored{
+.mdl-button--raised.mdl-button--colored {
     background-color: var(--app-accent-color) !important;
 }
 
-.firebaseui-button{
+.firebaseui-button {
     padding: 5px 10px 3px 10px !important;
     height: auto !important;
     border-radius: 4px !important;
     font-size: var(--font-m) !important;
 }
 
-.firebaseui-relative-wrapper{
+.firebaseui-relative-wrapper {
     overflow: hidden;
 }

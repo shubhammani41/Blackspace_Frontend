@@ -8,5 +8,4 @@ export interface UserLoginDetails {
     userPhoneNumber?: string;
     userEmail?: string;
     userProfileId?: number;
-    phoneCountryCode?: string;
 }

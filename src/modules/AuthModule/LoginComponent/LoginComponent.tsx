@@ -1,130 +1,27 @@
 
-import { useEffect, useState } from 'react';
-import "./LoginComponent.scss"
-import axiosInstance from '../../../config/axiosConfig';
-import { apiConstants } from '../../../constants/apiConstants';
-import { UserLoginReq } from '../../../models/userLoginReq';
-import { UserLoginRes } from '../../../models/userLoginRes';
-import { useNavigate } from 'react-router-dom';
-import useThemeStore from '../../../components/themeToggleBtn/store/themeStore';
-import { Card, CardContent, SimplePaletteColorOptions } from '@mui/material';
-import * as firebaseui from 'firebaseui';
-import firebase from 'firebase/compat/app';
+import "./LoginComponent.scss";
+import { Card, CardContent } from '@mui/material';
+
+import { LoginUIComponent } from './LoginUIComponent';
 
 const LoginComponent = () => {
-    const navigate = useNavigate();
-    const currentTheme = useThemeStore();
-    const [isLoginCardReady, setIsLoginCardReady] = useState<boolean>(false);
-
-    const firebaseUIConfig = {
-        signInSuccessUrl: '/home',
-        signInFlow: 'popup',
-        signInOptions: [
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.PhoneAuthProvider.PROVIDER_ID
-        ],
-        callbacks: {
-            signInSuccessWithAuthResult: (authResult: any) => {
-                // Log the user's token
-                authResult.user.getIdToken().then((token: string) => {
-                    console.log('User Token:', token);
-                    navigate("/home");
-                }).catch((error: any) => {
-                    console.error('Error fetching token:', error);
-                });
-                return false; // Prevents redirect
-            },
-            signInFailure: (error: any) => {
-                // Handle failed sign-in attempts
-                console.error('Sign-in failed:', error);
-
-                // Example: Show a user-friendly error message
-                alert('Sign-in failed: ' + error.message);
-
-                // Return a promise to handle custom error resolution, if needed
-                return Promise.resolve();
-            },
-            uiShown: () => {
-                document.addEventListener('beforeunload', (event) => {
-                    if (
-                        event.target instanceof HTMLElement &&
-                        event.target.classList.contains('firebaseui-list-box-dialog')
-                    ) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        return false;
-
-                        // Get the first child of the firebaseui-list-box-dialog
-                        // const firstChild = event.target.firstElementChild;
-
-                        // if (firstChild && firstChild instanceof HTMLElement) {
-                        //     // Get the first child inside the first child
-                        //     const firstChildInsideFirstChild = firstChild.firstElementChild;
-
-                        //     if (firstChildInsideFirstChild && firstChildInsideFirstChild instanceof HTMLElement) {
-                        //         // Simulate a click on the first child inside the first child
-                        //         firstChildInsideFirstChild.click();
-                        //         console.log('Simulated click on the first child inside the first child of firebaseui-list-box-dialog');
-                        //     }
-                        // }
-                    }
-                }, true);
-            },
-        },
-    };
-
-    useEffect(() => {
-        localStorage.clear();
-
-        //firebaseui
-        const ui = firebaseui.auth.AuthUI?.getInstance() ?? new firebaseui.auth.AuthUI(firebase.auth());
-        ui.start('#firebaseui-auth-container', firebaseUIConfig);
-
-
-
-        setTimeout(() => {
-            setIsLoginCardReady(true);
-        }, 700);
-
-        return () => ui.reset();
-    }, []);
-
-    const getToken = async (userJsonUrl: string, authType: number): Promise<{ data: UserLoginRes }> => {
-        let url = apiConstants.getToken.url;
-        let data: UserLoginReq = { userJsonUrl: userJsonUrl, authType: authType }
-        let response: { data: UserLoginRes } = await axiosInstance.post(url, data);
-        return response;
+    const onFail = (err: any) => {
+        console.log(err);
     }
-
-    return (<div className='loginCardContainer matrix-card-list'>
-        <div className={"matrix-card-container" + (!isLoginCardReady ? " hidden" : "")}>
-            <Card className='pb5'>
-                <CardContent className="pb3px pt3px">
-                    <div className='singInButtonContainer'>
-                        <div>
-                            <div className='df jc ac fw'>
-                                <p className='p0m0 header textwrapNone f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                                    Welcome to Blackspace,
-                                </p>
-                            </div>
-                            <div className='df jc ac fw'>
-                                <p className='p0m00150 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                                    Sign In.
-                                </p>
-                            </div>
-                        </div>
-                        <div id="firebaseui-auth-container"></div>
-                        <div className="df jc ac f100">
-                            <p className="errorText textwrapNone">
-                                Phone auth is temporarily disabled.
-                            </p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+    return (
+        <div className='row gx-0'>
+            <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+            </div>
+            <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 loginCardContainer">
+                <Card className='pb5'>
+                    <CardContent className="pb3px pt3px">
+                        <LoginUIComponent onFail={onFail} redirectURL="/home"></LoginUIComponent>
+                    </CardContent>
+                </Card>
+            </div>
+            <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+            </div>
         </div>
-    </div>
     );
 };
 
