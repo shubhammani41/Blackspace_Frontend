@@ -328,13 +328,11 @@ body * {
   width: 100%;
 }
 
-.searchBarContainer {
-  .searchIconContainer {
-    width: 30px !important;
-    height: 30px !important;
-    position: relative;
-    top: -7px;
-  }
+.searchIconContainer {
+  width: clamp(25px, 2vw, 35px) !important;
+  height: clamp(25px, 2vw, 35px) !important;
+  position: relative;
+  top: -7px;
 }
 
 .icon30 {

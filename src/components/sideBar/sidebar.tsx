@@ -38,41 +38,43 @@ const SideBar: React.FC = () => {
     return (
         <div>
             <div className={"sideBarContainer df js as flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")} style={{ "backgroundColor": (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                <div className="df jc ac" style={{backgroundColor: currentTheme.data.theme.palette?.background?.paper}}>
+                <div className="df jc ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                     <Button className="mw0px dsBlock closeBtn" onClick={() => closeSideBar()}>
                         <CloseRoundedIcon className="sideBarIcoClamp2535"></CloseRoundedIcon>
                     </Button>
                 </div>
-                <div className="df jc ac flxCol sidebarInner">
-                    <div className="df jc ac flxCol">
-                        <Button className="mw0px dsBlock">
-                            <DnsRoundedIcon className="sideBarIcoClamp2535 whiteText"></DnsRoundedIcon>
-                        </Button>
-                        <Typography sx={{ color: '#ffffff' }} variant="body2">Profiles</Typography>
-                    </div>
-                    <div className="df jc ac flxCol">
-                        <Button className="mw0px dsBlock">
-                            <PushPinRoundedIcon className="sideBarIcoClamp2535 whiteText"></PushPinRoundedIcon>
-                        </Button>
-                        <Typography sx={{ color: '#ffffff' }} variant="body2">Pins</Typography>
-                    </div>
-                    <div className="df jc ac flxCol">
-                        <Button className="mw0px dsBlock">
-                            <ArticleRoundedIcon className="sideBarIcoClamp2535 whiteText"></ArticleRoundedIcon>
-                        </Button>
-                        <Typography sx={{ color: '#ffffff' }} variant="body2">Posts</Typography>
-                    </div>
-                    <div className="df jc ac flxCol">
-                        <Button className="mw0px dsBlock">
-                            <EmailRoundedIcon className="sideBarIcoClamp2535 whiteText"></EmailRoundedIcon>
-                        </Button>
-                        <Typography sx={{ color: '#ffffff' }} variant="body2">Mail</Typography>
-                    </div>
-                    <div className="df jc ac flxCol">
-                        <Button className="mw0px dsBlock">
-                            <SettingsOutlinedIcon className="sideBarIcoClamp2535 whiteText"></SettingsOutlinedIcon>
-                        </Button>
-                        <Typography sx={{ color: '#ffffff' }} variant="body2">Settings</Typography>
+                <div className="sidebarInner">
+                    <div className="df ac jc fw flxcol sideBarInnerItemsContainer">
+                        <div className="df jc ac flxCol sideBarInnerItems">
+                            <Button className="mw0px dsBlock">
+                                <DnsRoundedIcon className="sideBarIcoClamp2535 whiteText"></DnsRoundedIcon>
+                            </Button>
+                            <Typography sx={{ color: '#ffffff' }} variant="body2">Profiles</Typography>
+                        </div>
+                        <div className="df jc ac flxCol sideBarInnerItems">
+                            <Button className="mw0px dsBlock">
+                                <PushPinRoundedIcon className="sideBarIcoClamp2535 whiteText"></PushPinRoundedIcon>
+                            </Button>
+                            <Typography sx={{ color: '#ffffff' }} variant="body2">Pins</Typography>
+                        </div>
+                        <div className="df jc ac flxCol sideBarInnerItems">
+                            <Button className="mw0px dsBlock">
+                                <ArticleRoundedIcon className="sideBarIcoClamp2535 whiteText"></ArticleRoundedIcon>
+                            </Button>
+                            <Typography sx={{ color: '#ffffff' }} variant="body2">Posts</Typography>
+                        </div>
+                        <div className="df jc ac flxCol sideBarInnerItems">
+                            <Button className="mw0px dsBlock">
+                                <EmailRoundedIcon className="sideBarIcoClamp2535 whiteText"></EmailRoundedIcon>
+                            </Button>
+                            <Typography sx={{ color: '#ffffff' }} variant="body2">Mail</Typography>
+                        </div>
+                        <div className="df jc ac flxCol sideBarInnerItems">
+                            <Button className="mw0px dsBlock">
+                                <SettingsOutlinedIcon className="sideBarIcoClamp2535 whiteText"></SettingsOutlinedIcon>
+                            </Button>
+                            <Typography sx={{ color: '#ffffff' }} variant="body2">Settings</Typography>
+                        </div>
                     </div>
                 </div>
             </div>

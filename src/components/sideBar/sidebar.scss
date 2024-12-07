@@ -42,7 +42,7 @@
     left: 0px;
     max-width: 100px;
     z-index: 9991;
-    height: 100vh;
+    height: 100%;
 }
 
 .backgroundHider{
@@ -51,9 +51,9 @@
 }
 
 .sidebarInner{
-    gap:35px;
-    overflow: auto;
-    height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(50px, 5vw, 100px) 0px;
 }
 
 .sideBarVisible{
@@ -94,4 +94,12 @@
 
 .closeBtn{
     margin: 20px !important;
+}
+
+.sideBarInnerItemsContainer{
+    gap: 30px;
+}
+
+.sideBarInnerItems{
+    width: 100%;
 }

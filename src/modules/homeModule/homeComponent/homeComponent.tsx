@@ -251,7 +251,7 @@ const HomeComponent: React.FC = () => {
             }
             <div className="row gx-0">
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
-                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
+                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-5">
                     <TextField
                         id="searchDev"
                         label="Search developer profile"
@@ -272,9 +272,6 @@ const HomeComponent: React.FC = () => {
                     />
                 </div>
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
-            </div>
-            <div className='df jc ac mb40 searchBarContainer'>
-
             </div>
             <div>
                 <InfiniteScroll className="mb40"
