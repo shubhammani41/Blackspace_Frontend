@@ -26,9 +26,10 @@ interface UserData {
     industryId: number;
     roleName: String;
     experience: number;
-    // need to provide privacy settings before displaying phone and email
-    // email: string;
-    // phoneNumber: String;
+    email: string;
+    phoneNumber: String;
+    isEmailPrivate: boolean;
+    isPhonePrivate: boolean;
 }
 
 interface UserSkill {
