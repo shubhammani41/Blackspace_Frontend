@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useMemo, useRef, useState } from "react";
-import Logo from '../../assets/images/logo5.png';
+import Logo from '../../assets/images/logo.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
 import { ProfileSettingsMenu } from "./profileSettingsMenu/profileSettingsMenu";
@@ -67,7 +67,8 @@ const AppHeader: React.FC = () => {
                 <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
                     <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                         <div className="df js ac headerInnerLeft">
-                            <img src={Logo} className={"icon30 iconTp2n logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}></img>
+                            <img src={Logo} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                onClick={navigateToHome}></img>
                             <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
                                 onClick={navigateToHome}>
                                 Blackspace

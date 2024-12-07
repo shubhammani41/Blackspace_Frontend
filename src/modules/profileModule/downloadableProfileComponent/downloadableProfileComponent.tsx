@@ -89,12 +89,12 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                             </div>
                                         </div>
                                         <CardContent>
-                                            <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                            {/* <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                 Email: {devData?.email}
                                             </Typography>
                                             <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                 Phone: {devData?.callingCode ? devData.callingCode + ' ' : ''}{devData?.phoneNumber}
-                                            </Typography>
+                                            </Typography> */}
                                             {devData?.websiteUrl ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                                 Socials: {devData.websiteUrl}
                                             </Typography> : null}

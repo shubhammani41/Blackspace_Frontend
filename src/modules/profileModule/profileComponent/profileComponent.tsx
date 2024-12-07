@@ -79,12 +79,12 @@ const ProfileComponent: React.FC = () => {
                                         </div>
                                     </div>
                                     <CardContent>
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        {/*<Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                             Email: {devData?.email}
                                         </Typography>
                                         <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                             Phone: {devData?.callingCode ? devData.callingCode + ' ' : ''}{devData?.phoneNumber}
-                                        </Typography>
+                                        </Typography>*/}
                                         {devData?.websiteUrl ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                             Socials: {devData.websiteUrl}
                                         </Typography> : null}
@@ -92,7 +92,7 @@ const ProfileComponent: React.FC = () => {
                                             Experience: {devData?.experience} years
                                         </Typography>
                                         <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                            Skills: {devData?.skills}
+                                            Skills: {devData?.skillList?.map(skill => skill.skillName).join(', ')}
                                         </Typography>
                                         <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
                                             Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
@@ -115,12 +115,14 @@ const ProfileComponent: React.FC = () => {
                                     Skills
                                 </p>
                             </div>
-                            <div className="matrix-card-container fullSizeCard f100 mb40">
+                            <div className="fullSizeCard f100 mb40">
                                 <Card>
                                     <CardContent>
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                            {devData.skills}
-                                        </Typography>
+                                        {devData?.skillList?.map((skill, index) =>
+                                            <Typography key={"skill_" + index} className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                &#x2022; {skill.skillName}
+                                            </Typography>)
+                                        }
                                     </CardContent>
                                 </Card>
                             </div>
@@ -137,7 +139,7 @@ const ProfileComponent: React.FC = () => {
                                     </div>
                                     {expData?.map((expObj, index) => {
                                         return (
-                                            <div className="matrix-card-container fullSizeCard f100 mb20" key={index}>
+                                            <div className="fullSizeCard f100 mb20" key={index}>
                                                 <Card>
                                                     <div className="df jsb ac mt15r15b5l15 fw">
                                                         <Typography sx={{ color: 'text.primary' }} className="w50per ellipsis" gutterBottom variant="h5" component="div">
