@@ -38,9 +38,10 @@ interface UserSkill {
 }
 
 interface UserExperience {
-    organizationId: number,
-    organizationName: string,
-    fromDate: string
+    organizationId?: number,
+    organizationName?: string,
+    fromDate: string,
+    isCurrentOrganization: boolean;
 }
 
 interface UserListResponse {
@@ -50,4 +51,4 @@ interface UserListResponse {
     totalPages: number
 }
 
-export type { UserData, UserSkill, UserListResponse }
+export type { UserData, UserSkill, UserExperience, UserListResponse }

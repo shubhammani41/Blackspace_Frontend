@@ -1,15 +1,13 @@
-import { AccordionDetails, AccordionSummary, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Fade, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
-import React, { ReactElement, ReactNode, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, Fade, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
-import axiosInstance from "../../../config/axiosConfig";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
-import { apiConstants } from "../../../constants/apiConstants";
 import InfiniteScroll from 'react-infinite-scroller';
 import { debounce } from 'lodash';
-import { AppText, AppValues, transformUserData } from "../../../constants/appConstants";
+import { AppText, AppValues } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
@@ -23,7 +21,7 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
-import Accordion, { AccordionSlots } from '@mui/material/Accordion';
+import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
 
@@ -77,7 +75,7 @@ const HomeComponent: React.FC = () => {
             if (res?.data?.data && res.data.data.length > 0) {
                 setTotalElements(res.data.totalElements);
                 setTimeout(() => {
-                    setDevData(prev => [...prev, ...transformUserData(res.data.data)]);
+                    setDevData(prev => [...prev, ...res.data.data]);
                 }, defaultTimeout);
             } else {
                 setTotalElements(0);
@@ -85,10 +83,6 @@ const HomeComponent: React.FC = () => {
                 setSearchMessage(noProfileSearchMessage);
                 setHasMore(false);
             }
-        }, rej => {
-            setDevData([]);
-            setSearchMessage(errorSearchMessage);
-            setHasMore(false);
         }).catch(err => {
             setDevData([]);
             setSearchMessage(errorSearchMessage);

@@ -1,16 +1,14 @@
-import { Card,  CardContent, createTheme, ThemeProvider, Typography } from "@mui/material";
+import { Card, CardContent, createTheme, ThemeProvider, Typography } from "@mui/material";
 import "./downloadableProfileComponent.scss";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AppValues, transformUserData } from "../../../constants/appConstants";
-import axiosInstance from "../../../config/axiosConfig";
-import { apiConstants } from "../../../constants/apiConstants";
+import { useCallback, useEffect, useState } from "react";
+import { AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import React from "react";
-import { UserExperience } from "../../../models/userExperience";
+import { UserExperienceDetails } from "../../../models/userExperience";
 import moment from "moment";
-import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import { themeObjLight } from "../../../constants/themeConstants";
+import apiFunctions from "../../../constants/apiFunctions";
 
 export interface DownloadableProfileComponentProp {
     userName: string;
@@ -19,43 +17,48 @@ export interface DownloadableProfileComponentProp {
 }
 
 const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> = (props: DownloadableProfileComponentProp) => {
-    const [userName, setUserName] = useState<string>(props.userName);
+    const [userName] = useState<string>(props.userName);
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
-    const [expData, setExpData] = useState<UserExperience[]>([]);
-    const { data } = useThemeStore();
-
-    const transformDevData = useMemo(() => {
-        return transformUserData;
-    }, [devData]);
+    const [expData, setExpData] = useState<UserExperienceDetails[]>([]);
 
     const fetchUserData = useCallback(async (userName: string) => {
-        if (userName && userName.trim() != '') {
+        if (userName && userName.trim() !== '') {
             setUserDataLoading(true);
-            const url1 = apiConstants.getUserDataByUserName.url + `?userName=${userName.trim()}`;
-            const response1: { data: UserData } = await axiosInstance.get(url1);
-            if (response1 && response1.data) {
-                props.setUserFullName(response1.data.firstName + (response1.data.lastName ? " " + response1.data.lastName : ""));
-                const url2 = apiConstants.getUserExperienceByUserId.url + `?userId=${response1.data.userId}`;
-                const response2: { data: UserExperience[] } = await axiosInstance.get(url2);
-                setTimeout(() => {
-                    setDevData(transformDevData([response1.data])[0]);
-                    if (response2 && response2.data) {
-                        setExpData(response2.data ? response2.data : []);
+            const response1: { data: UserData } = await apiFunctions.fetchUserDetailsByUserName(userName);
+            if (response1?.data) {
+                apiFunctions.fetchUserExperienceDetails(response1.data.userId).then((response2: { data?: UserExperienceDetails[] }) => {
+                    if (response2?.data) {
+                        setTimeout(() => {
+                            setDevData([response1.data][0]);
+                            if (response2 && response2.data) {
+                                setExpData(response2.data);
+                            }
+                        }, defaultTimeout)
                     }
-                }, defaultTimeout)
+                    else {
+                        setTimeout(() => {
+                            setDevData([response1.data][0]);
+                        }, defaultTimeout)
+                    }
+                }).catch(err => {
+                    setTimeout(() => {
+                        setDevData([response1.data][0]);
+                    }, defaultTimeout)
+                });
+
             }
             setTimeout(() => { setUserDataLoading(false) }, defaultTimeout);
         }
-    }, []);
+    }, [defaultTimeout]);
 
     useEffect(() => {
         props.setIsPDFLoaded(false);
         if (userName) {
             fetchUserData(userName);
         }
-    }, [userName]);
+    }, [userName,fetchUserData]);
 
     useEffect(() => {
         if (devData && expData && !userDataLoading) {
@@ -112,7 +115,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                 </div>
                             </React.Fragment> : <></>}
 
-                            {(devData != null && devData.skills != null && devData.skills != '') ? <React.Fragment>
+                            {(devData && devData?.skills !== null && devData?.skills !== '') ? <React.Fragment>
                                 <div className='df js ac f100'>
                                     <p className='headerl'>
                                         Skills
@@ -144,13 +147,13 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
                                                     <Card>
                                                         <div className="df jsb ac mt15r15b5l15 fw">
                                                             <Typography sx={{ color: 'text.primary' }} className="w50per ellipsis" gutterBottom variant="h5" component="div">
-                                                                {expObj?.organizationDetails?.organizationName?expObj.organizationDetails.organizationName: (expObj.organizationName||"")}
+                                                                {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
                                                             </Typography>
                                                             <div className="df js ac fw">
                                                                 <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
                                                                     {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
                                                                 </Typography>
-                                                                {(!expObj?.currentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
+                                                                {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
                                                                     &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
                                                                 </Typography> : null}
                                                             </div>

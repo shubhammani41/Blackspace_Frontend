@@ -1,58 +1,60 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardMedia, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
 import "./profileComponent.scss";
-import { useLocation, useParams } from "react-router-dom";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AppValues, transformUserData } from "../../../constants/appConstants";
-import axiosInstance from "../../../config/axiosConfig";
-import { apiConstants } from "../../../constants/apiConstants";
+import { useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import React from "react";
-import { UserExperience } from "../../../models/userExperience";
+import { UserExperienceDetails } from "../../../models/userExperience";
 import moment from "moment";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
+import apiFunctions from "../../../constants/apiFunctions";
 
 const ProfileComponent: React.FC = () => {
     const { userName } = useParams<{ userName: string }>();
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
-    const [expData, setExpData] = useState<UserExperience[]>();
+    const [expData, setExpData] = useState<UserExperienceDetails[]>();
     const currentTheme = useThemeStore();
 
-    const transformDevData = useMemo(() => {
-        return transformUserData;
-    }, [devData]);
-
     const fetchUserData = useCallback(async (userName: string) => {
-        if (userName && userName.trim() != '') {
+        if (userName && userName.trim() !== '') {
             setUserDataLoading(true);
-            const url1 = apiConstants.getUserDataByUserName.url + `?userName=${userName.trim()}`;
-            const response1: { data: UserData } = await axiosInstance.get(url1);
-            if (response1 && response1.data) {
-                const url2 = apiConstants.getUserExperienceByUserId.url + `?userId=${response1.data.userId}`;
-                const response2: { data: UserExperience[] } = await axiosInstance.get(url2);
-                setTimeout(() => {
-                    setDevData(transformDevData([response1.data])[0]);
-                    if (response2 && response2.data) {
-                        setExpData(response2.data);
+            const response1: { data: UserData } = await apiFunctions.fetchUserDetailsByUserName(userName);
+            if (response1?.data) {
+                apiFunctions.fetchUserExperienceDetails(response1.data.userId).then((response2: { data?: UserExperienceDetails[] }) => {
+                    if (response2?.data) {
+                        setTimeout(() => {
+                            setDevData([response1.data][0]);
+                            if (response2 && response2.data) {
+                                setExpData(response2.data);
+                            }
+                        }, defaultTimeout)
                     }
-                }, defaultTimeout)
+                    else {
+                        setTimeout(() => {
+                            setDevData([response1.data][0]);
+                        }, defaultTimeout)
+                    }
+                }).catch(err => {
+                    setTimeout(() => {
+                        setDevData([response1.data][0]);
+                    }, defaultTimeout)
+                });
+
             }
             setTimeout(() => { setUserDataLoading(false) }, defaultTimeout);
         }
-    }, []);
+    }, [defaultTimeout]);
 
     useEffect(() => {
         if (userName) {
             fetchUserData(userName);
         }
-    }, [userName]);
-
-    useEffect(() => {
-        console.log(devData)
-    }, [devData])
+    }, [userName, fetchUserData]);
 
     return (
         <div className="mainContainer df jc ac">
@@ -109,7 +111,7 @@ const ProfileComponent: React.FC = () => {
                             </div>
                         </React.Fragment> : <></>}
 
-                        {(devData != null && devData.skills != null && devData.skills != '') ? <React.Fragment>
+                        {(devData && devData?.skills !== null && devData?.skills !== '') ? <React.Fragment>
                             <div className='df js ac f100'>
                                 <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                     Skills
@@ -149,7 +151,7 @@ const ProfileComponent: React.FC = () => {
                                                             <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
                                                                 {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
                                                             </Typography>
-                                                            {(!expObj?.currentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
+                                                            {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
                                                                 &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
                                                             </Typography> : null}
                                                         </div>

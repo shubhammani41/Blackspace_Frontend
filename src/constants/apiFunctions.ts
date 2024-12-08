@@ -1,31 +1,81 @@
 import axiosInstance from "../config/axiosConfig";
-import { UserListResponse } from "../models/userData";
+import { firebaseAuth } from "../config/firebaseConfig";
+import { UserData, UserListResponse } from "../models/userData";
+import { UserExperienceDetails } from "../models/userExperience";
 import { UserLoginReq } from "../models/userLoginReq";
 import { UserLoginRes } from "../models/userLoginRes";
 import { apiConstants } from "./apiConstants";
-import { firebaseAuth } from "./sensitiveConstants";
+import { sortExperienceDetailsByDateAndCurrent, transformUserData, transformUserDataList } from "./appConstants";
 
 const apiFunctions = {
     verifyFirebaseToken: async (firebaseToken: string): Promise<{ data: UserLoginRes }> => {
-        let url = apiConstants.getToken.url;
-        let data: UserLoginReq = { firebaseToken: firebaseToken }
-        let response: { data: UserLoginRes } = await axiosInstance.post(url, data);
-        return response;
+        return new Promise<{ data: UserLoginRes }>((resolve, reject) => {
+            let url = apiConstants.getToken.url;
+            let data: UserLoginReq = { firebaseToken: firebaseToken }
+            axiosInstance.post(url, data).then((response: { data: UserLoginRes }) => {
+                resolve(response);
+            }).catch(err => {
+                reject(err);
+            });
+        })
     },
     fetchUserList: async (pageSize: number, pageNumber: number, searchKeyWord: string = ''): Promise<{ data: UserListResponse }> => {
-        let url = "";
-        if (searchKeyWord && searchKeyWord !== '') {
-            url = apiConstants.searchUserByKeyWord.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
-        }
-        else {
-            url = apiConstants.getUserListRandom.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
-        }
-        let response: any = await axiosInstance.get(url);
-        return response
+        return new Promise<{ data: UserListResponse }>((resolve, reject) => {
+            let url = "";
+            if (searchKeyWord && searchKeyWord !== '') {
+                url = apiConstants.searchUserByKeyWord.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&searchKeyWord=${searchKeyWord}`;
+            }
+            else {
+                url = apiConstants.getUserListRandom.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
+            }
+            axiosInstance.get(url).then((response: { data: UserListResponse }) => {
+                if (response?.data?.data) {
+                    response.data.data = transformUserDataList(response.data.data);
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    fetchUserDetailsByUserName: async (userName: string): Promise<{ data: UserData }> => {
+        return new Promise<{ data: UserData }>((resolve, reject) => {
+            const url = apiConstants.getUserDataByUserName.url + `?userName=${userName.trim()}`;
+            axiosInstance.get(url).then((response: { data: UserData }) => {
+                if (response.data) {
+                    response.data = transformUserData(response.data);
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    fetchUserExperienceDetails: async (userId: number): Promise<{ data: UserExperienceDetails[] }> => {
+        return new Promise<{ data: UserExperienceDetails[] }>((resolve, reject) => {
+            const url = apiConstants.getUserExperienceByUserId.url + `?userId=${userId}`;
+            axiosInstance.get(url).then((response: { data: UserExperienceDetails[] }) => {
+                if (response.data) {
+                    response.data = sortExperienceDetailsByDateAndCurrent(response.data);
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
     },
     logout: async () => {
-        return new Promise(async (resolve, reject) => {
-            await firebaseAuth.signOut().then(res => {
+        return new Promise((resolve, reject) => {
+            firebaseAuth.signOut().then(res => {
                 localStorage.clear();
                 resolve(res);
             }, rej => {
