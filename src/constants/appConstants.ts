@@ -12,7 +12,6 @@ const AppValues = {
     defaultLoadingTimer: 500
 }
 
-// TODO: Need to move below transformation functions on backend
 const transformUserDataList = (data: UserData[]): UserData[] => {
     return data.map((obj: any) => {
         return transformUserData(obj);
@@ -22,22 +21,7 @@ const transformUserDataList = (data: UserData[]): UserData[] => {
 const transformUserData = (data: UserData): UserData => {
     let formattedData: UserData = {
         ...data,
-        skillList: JSON.parse(data.skills).map((skill: any) => (
-            {
-                skillId: skill.skill_id,
-                skillName: skill.skill_name
-            }
-        )),
-        experienceList: sortExperienceByDateAndCurrent(
-            JSON.parse(data.userExperience).map((experience: any) => (
-                {
-                    organizationId: experience.organization_id,
-                    organizationName: experience.organization_name,
-                    fromDate: experience.from_date,
-                    isCurrentOrganization: experience.is_current_organization
-                }
-            ))
-        ),
+        userExperience: sortExperienceByDateAndCurrent(data.userExperience),
     }
     return formattedData;
 }

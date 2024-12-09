@@ -318,7 +318,7 @@ const HomeComponent: React.FC = () => {
                                                             <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                 Experience: {devData.experience}+ years
                                                             </Typography>
-                                                            {devData?.skillList?.map((skill: UserSkill, index: number) => {
+                                                            {devData?.skills?.map((skill: UserSkill, index: number) => {
                                                                 return <Chip className="lightGrayChip" label={skill.skillName} key={'skill_' + index} />
                                                             })}
                                                         </CardContent>

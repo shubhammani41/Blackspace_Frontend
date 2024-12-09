@@ -9,10 +9,8 @@ interface UserData {
     bio: string;
     websiteUrl: string;
     userName: string;
-    skills: any; // JSON string of skills
-    skillList?: UserSkill[];
-    userExperience: any; // JSON string of expeirence
-    experienceList: UserExperience[];
+    skills: UserSkill[];
+    userExperience: UserExperience[];
     countryName: string;
     stateName: string;
     cityName: string;

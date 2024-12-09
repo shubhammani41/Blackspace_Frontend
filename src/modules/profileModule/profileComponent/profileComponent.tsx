@@ -72,31 +72,31 @@ const ProfileComponent: React.FC = () => {
                                     <div className="df js ac gp30px m15">
                                         <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
                                         <div className="w80per">
-                                            <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" gutterBottom variant="h5" component="div">
+                                            <Typography sx={{ color: 'text.primary' }} className="w90per" gutterBottom variant="h5" component="div">
                                                 {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
                                             </Typography>
-                                            <Typography sx={{ color: 'text.primary' }} className="w90per ellipsis" variant="body2" color="text.secondary">
+                                            <Typography sx={{ color: 'text.primary' }} className="w90per" variant="body2" color="text.secondary">
                                                 {devData?.positionName}
                                             </Typography>
                                         </div>
                                     </div>
                                     <CardContent>
-                                        {/*<Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        {/*<Typography className="w90per" variant="body2" color="text.secondary">
                                             Email: {devData?.email}
                                         </Typography>
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        <Typography className="w90per" variant="body2" color="text.secondary">
                                             Phone: {devData?.callingCode ? devData.callingCode + ' ' : ''}{devData?.phoneNumber}
                                         </Typography>*/}
-                                        {devData?.websiteUrl ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
                                             Socials: {devData.websiteUrl}
                                         </Typography> : null}
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        <Typography className="w90per" variant="body2" color="text.secondary">
                                             Experience: {devData?.experience} years
                                         </Typography>
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
-                                            Skills: {devData?.skillList?.map(skill => skill.skillName).join(', ')}
+                                        <Typography className="w90per" variant="body2" color="text.secondary">
+                                            Skills: {devData?.skills?.map(skill => skill.skillName).join(', ')}
                                         </Typography>
-                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        <Typography className="w90per" variant="body2" color="text.secondary">
                                             Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
                                         </Typography>
                                     </CardContent>
@@ -111,7 +111,7 @@ const ProfileComponent: React.FC = () => {
                             </div>
                         </React.Fragment> : <></>}
 
-                        {(devData && devData?.skills !== null && devData?.skills !== '') ? <React.Fragment>
+                        {(devData && devData?.skills !== null) ? <React.Fragment>
                             <div className='df js ac f100'>
                                 <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                                     Skills
@@ -120,8 +120,8 @@ const ProfileComponent: React.FC = () => {
                             <div className="fullSizeCard f100 mb40">
                                 <Card>
                                     <CardContent>
-                                        {devData?.skillList?.map((skill, index) =>
-                                            <Typography key={"skill_" + index} className="w90per ellipsis" variant="body2" color="text.secondary">
+                                        {devData?.skills?.map((skill, index) =>
+                                            <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
                                                 &#x2022; {skill.skillName}
                                             </Typography>)
                                         }
@@ -144,27 +144,27 @@ const ProfileComponent: React.FC = () => {
                                             <div className="fullSizeCard f100 mb20" key={index}>
                                                 <Card>
                                                     <div className="df jsb ac mt15r15b5l15 fw">
-                                                        <Typography sx={{ color: 'text.primary' }} className="w50per ellipsis" gutterBottom variant="h5" component="div">
+                                                        <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
                                                             {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
                                                         </Typography>
                                                         <div className="df js ac fw">
-                                                            <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
+                                                            <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
                                                                 {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
                                                             </Typography>
-                                                            {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p ellipsis" variant="body2" color="text.secondary">
+                                                            {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
                                                                 &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
                                                             </Typography> : null}
                                                         </div>
                                                     </div>
                                                     <CardContent>
-                                                        <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                        <Typography className="w90per" variant="body2" color="text.secondary">
                                                             Responsibilities & Roles:
                                                         </Typography>
-                                                        {expObj?.description1 ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                        {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
                                                             &#x2022; {expObj.description1}</Typography> : null}
-                                                        {expObj?.description2 ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                        {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
                                                             &#x2022; {expObj.description2}</Typography> : null}
-                                                        {expObj?.description3 ? <Typography className="w90per ellipsis" variant="body2" color="text.secondary">
+                                                        {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
                                                             &#x2022; {expObj.description3}</Typography> : null}
                                                     </CardContent>
                                                 </Card>
