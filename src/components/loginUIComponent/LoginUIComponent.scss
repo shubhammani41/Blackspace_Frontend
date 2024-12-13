@@ -1,0 +1,121 @@
+.loginCardContainer {
+    margin-top: calc(130px + 3vw);
+}
+
+.singInButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    padding: 19px 0px;
+}
+
+.firebaseui-tos {
+    line-height: unset !important;
+}
+
+.firebaseui-idp-button {
+    max-width: 100% !important;
+    padding: 18px !important;
+    border-radius: 4px;
+    background-color: #db4437;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none !important;
+}
+
+.firebaseui-idp-google {
+    background-color: #ededed !important;
+}
+
+.firebaseui-container {
+    box-shadow: none !important;
+    margin: 0px;
+    position: unset !important;
+    width: clamp(260px, 75%, 400px) !important;
+}
+
+#firebaseui-auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.firebaseui-card-content {
+    padding: 0 5px !important;
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+    //background-color: var(--app-accent-color) !important;
+    background-color: transparent !important;
+}
+
+.firebaseui-textfield {
+    padding: 10px !important;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: var(--app-border-radius-s);
+    padding: 2px 15px;
+}
+
+.firebaseui-input {
+    border-bottom: none !important;
+}
+
+.firebaseui-phone-number {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: var(--app-border-radius-s);
+    padding: 2px 15px;
+
+    .firebaseui-textfield {
+        padding: 10px !important;
+        background-color: transparent;
+        border-radius: 0px !important;
+    }
+}
+
+.firebaseui-country-selector {
+    border-bottom: none !important;
+    margin: 10px 24px 10px 0 !important;
+}
+
+.firebaseui-country-selector:hover {
+    background-color: transparent !important;
+}
+
+.firebaseui-label {
+    display: none !important;
+}
+
+.firebaseui-card-header {
+    border-bottom: none !important;
+    margin-bottom: 5px !important;
+    padding: 16px 24px 0 8px !important;
+}
+
+.firebaseui-title {
+    padding-bottom: 0px !important;
+}
+
+.mdl-button--primary.mdl-button--primary {
+    background-color: var(--app-light-gray-color) !important;
+    color: white !important;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    background-color: var(--app-accent-color) !important;
+}
+
+.firebaseui-button {
+    padding: 5px 10px 3px 10px !important;
+    height: auto !important;
+    border-radius: 4px !important;
+    font-size: var(--font-m) !important;
+}
+
+.firebaseui-relative-wrapper {
+    overflow: hidden;
+}

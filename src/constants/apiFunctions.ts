@@ -57,6 +57,22 @@ const apiFunctions = {
             });
         });
     },
+    fetchUserProfileByUserLoginId: async (userLoginId: number): Promise<{ data: UserData }> => {
+        return new Promise<{ data: UserData }>((resolve, reject) => {
+            const url = apiConstants.getUserProfileByUserLoginId.url + `?userLoginId=${userLoginId}`;
+            axiosInstance.get(url).then((response: { data: UserData }) => {
+                if (response.data) {
+                    response.data = transformUserData(response.data);
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
     fetchUserExperienceDetails: async (userId: number): Promise<{ data: UserExperienceDetails[] }> => {
         return new Promise<{ data: UserExperienceDetails[] }>((resolve, reject) => {
             const url = apiConstants.getUserExperienceByUserId.url + `?userId=${userId}`;

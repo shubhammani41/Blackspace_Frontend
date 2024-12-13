@@ -1,8 +1,7 @@
 
+import { LoginUIComponent } from "../../../components/loginUIComponent/LoginUIComponent";
 import "./LoginComponent.scss";
 import { Card, CardContent } from '@mui/material';
-
-import { LoginUIComponent } from './LoginUIComponent';
 
 const LoginComponent = () => {
     const onFail = (err: any) => {

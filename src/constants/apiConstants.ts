@@ -3,29 +3,34 @@ interface APIConfig {
     access: string;
     url: string;
 }
-const baseURL: string = "http://localhost:8080/";
+const baseURL: string = "http://localhost:8080";
 // const baseURL: string = "https://blackspace.co.in/api/";
 
 const apiConstants: { [key: string]: APIConfig } = {
     getUserListRandom: {
         "type": "GET",
         "access": "public",
-        "url": "public/getRandomUserList"
+        "url": "/public/getRandomUserList"
     },
     searchUserByKeyWord: {
         "type": "GET",
         "access": "public",
-        "url": "public/searchUsersByKeyword"
+        "url": "/public/searchUsersByKeyword"
     },
     getUserDataByUserName: {
         "type": "GET",
         "access": "public",
-        "url": "public/getUserByUserName"
+        "url": "/public/getUserByUserName"
+    },
+    getUserProfileByUserLoginId: {
+        "type": "GET",
+        "access": "private",
+        "url": "/getUserProfileByUserLoginId"
     },
     getUserExperienceByUserId: {
         "type": "GET",
         "access": "public",
-        "url": "public/getUserExperienceByUserId"
+        "url": "/public/getUserExperienceByUserId"
     },
     getToken: {
         "type": "POST",

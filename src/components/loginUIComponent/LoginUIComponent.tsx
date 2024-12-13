@@ -1,13 +1,14 @@
 
 import { useEffect, useState } from 'react';
-import "./LoginComponent.scss"
-import useThemeStore from '../../../components/themeToggleBtn/store/themeStore';
 import { SimplePaletteColorOptions } from '@mui/material';
 import * as firebaseui from 'firebaseui';
 import firebase from 'firebase/compat/app';
-import apiFunctions from '../../../constants/apiFunctions';
-import useUserLoginDataStore from '../../../store/userLoginDetailsStore';
 import { useNavigate } from 'react-router-dom';
+import "./LoginUIComponent.scss";
+import useThemeStore from '../themeToggleBtn/store/themeStore';
+import useUserLoginDataStore from '../../store/userLoginDetailsStore';
+import apiFunctions from '../../constants/apiFunctions';
+import useAddBasicDetailsDialogStore from '../addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
 
 export interface LoginUIComponentProp {
     onSuccess?: (res?: any) => void;
@@ -20,6 +21,7 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
     const [isLoginCardReady, setIsLoginCardReady] = useState<boolean>(false);
     const userLoginDataStore = useUserLoginDataStore();
     const navigate = useNavigate();
+    const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
 
     const firebaseUIConfig = {
         signInSuccessUrl: props?.redirectURL ?? '',
@@ -36,9 +38,14 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                     apiFunctions.verifyFirebaseToken(token)
                         .then(res => {
                             if (res && res.data) {
-                                localStorage.clear();
                                 userLoginDataStore.updateUserData(res.data);
-                                localStorage.setItem('userLoginData', JSON.stringify(res.data));
+                                if(res.data.userDetails?.userId){
+                                    apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails?.userId).then(res=>{
+                                        console.log(res);
+                                    }).catch(err=>{
+                                        addBasicDetailsDialogStore.openDialog();
+                                    });
+                                }
                                 if (props?.onSuccess) {
                                     props.onSuccess(res);
                                 }

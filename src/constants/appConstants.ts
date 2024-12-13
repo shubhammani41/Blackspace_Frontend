@@ -1,6 +1,7 @@
 import moment from "moment";
 import { UserData, UserExperience } from "../models/userData";
 import { UserExperienceDetails } from "../models/userExperience";
+import { UserLoginRes } from "../models/userLoginRes";
 
 const AppText = {
     loadingMessage: "Hold on a sec.",
@@ -8,8 +9,45 @@ const AppText = {
     errorMessage: "Opps! Something went wrong."
 }
 
+const userLoginDataStorageKey = 'userLoginData';
+
 const AppValues = {
     defaultLoadingTimer: 500
+}
+
+const getTokenFromLocalStorage = (): String => {
+    try {
+        const userLoginDataStr = localStorage.getItem(userLoginDataStorageKey);
+        if (userLoginDataStr) {
+            const userLoginData = JSON.parse(userLoginDataStr);
+            return userLoginData.token;
+        }
+        else return '';
+    }
+    catch (e) {
+        console.log("Error in parsing user login data");
+        return '';
+    }
+}
+
+const getUserLoginDetailsFromLocalStorage = (): UserLoginRes | null => {
+    try {
+        const userLoginDataStr = localStorage.getItem(userLoginDataStorageKey);
+        if (userLoginDataStr) {
+            const userLoginData = JSON.parse(userLoginDataStr);
+            return userLoginData;
+        }
+        else return null;
+    }
+    catch (e) {
+        console.log("Error in parsing user login data");
+        return null;
+    }
+}
+
+const updateUserLoginDataInLocalStorage = (data: UserLoginRes) => {
+    localStorage.clear();
+    localStorage.setItem(userLoginDataStorageKey, JSON.stringify(data));
 }
 
 const transformUserDataList = (data: UserData[]): UserData[] => {
@@ -21,7 +59,7 @@ const transformUserDataList = (data: UserData[]): UserData[] => {
 const transformUserData = (data: UserData): UserData => {
     let formattedData: UserData = {
         ...data,
-        userExperience: sortExperienceByDateAndCurrent(data.userExperience),
+        userExperience: data.userExperience?sortExperienceByDateAndCurrent(data.userExperience):undefined,
     }
     return formattedData;
 }
@@ -42,4 +80,4 @@ const sortExperienceDetailsByDateAndCurrent = (experienceList: UserExperienceDet
     });
 }
 
-export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent }
+export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserLoginDataInLocalStorage, getUserLoginDetailsFromLocalStorage }

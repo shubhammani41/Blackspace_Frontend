@@ -8,4 +8,5 @@ export interface UserLoginDetails {
     userPhoneNumber?: string;
     userEmail?: string;
     userProfileId?: number;
+    isDeactivated: boolean;
 }

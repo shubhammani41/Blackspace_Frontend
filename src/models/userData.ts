@@ -10,7 +10,7 @@ interface UserData {
     websiteUrl: string;
     userName: string;
     skills: UserSkill[];
-    userExperience: UserExperience[];
+    userExperience?: UserExperience[];
     countryName: string;
     stateName: string;
     cityName: string;
