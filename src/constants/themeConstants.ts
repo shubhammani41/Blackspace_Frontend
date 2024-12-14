@@ -81,10 +81,10 @@ const themeObjDark: ThemeOptions = {
     palette: {
         mode: 'dark',
         primary: {
-            main: '#949494',
+            main: '#7e8a92',
             contrastText: '#ffffff',
-            light: '#aaaaaa',
-            dark: '#7f7f7f',
+            light: '#bacedc',
+            dark: '#7e8c96',
         },
         secondary: {
             main: '#3b5e75',

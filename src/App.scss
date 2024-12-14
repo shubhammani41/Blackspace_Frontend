@@ -50,7 +50,7 @@
   --app-error-color-darker: #950000;
   --app-info-color: #FFFF00;
   --app-info-color-lighter: #ffff9e;
-  --app-info-color-darker: #9c9c00;
+  --app-info-color-darker: #f2f208;
   --app-success-color: #03A062;
   --app-success-color-lighter: #77ffc8;
   --app-success-darker: #006b40;
@@ -280,7 +280,7 @@ hr.cardContentSeperator {
   top: 10px;
 
   svg.pinned {
-    color: black !important;
+    color: var(--app-info-color-darker) !important;
   }
 }
 
