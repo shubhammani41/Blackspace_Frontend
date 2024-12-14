@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Logo from '../../assets/images/logo.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
@@ -20,6 +20,26 @@ const AppHeader: React.FC = () => {
     const [headerSettingsOpen, setHeaderSettingsOpen] = useState<boolean>(false);
     const [profileSettingsOpen, setProfileSettingsOpen] = useState<boolean>(false);
     const sideBarStore = useSideBarStore();
+    const [isHidden, setIsHidden] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setIsHidden(true);
+            } else {
+                setIsHidden(false);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
     const handleClickHeaderSettings = () => {
         setHeaderSettingsOpen((prev) => !prev);
     };
@@ -54,50 +74,52 @@ const AppHeader: React.FC = () => {
     }, [currentTheme]);
 
     return (
-        <AppBar className="headerContainer" sx={{ backgroundColor: 'background.default' }}>
-            <div className="row gx-0">
-                <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
+        <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
+            <AppBar sx={{ backgroundColor: 'background.default' }}>
+                <div className="row gx-0">
+                    <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
 
-                </div>
-                <div className="col-1 df je ac">
-                    <Button className="mw0px">
-                        <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
-                    </Button>
-                </div>
-                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
-                    <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                        <div className="df js ac headerInnerLeft">
-                            <img src={Logo} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
-                                onClick={navigateToHome}></img>
-                            <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
-                                onClick={navigateToHome}>
-                                Blackspace
-                            </Typography>
-                            <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
-                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
-                        </div>
-                        <div className="df je ac headerInnerRight">
-                            <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
-                                <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
-                            </Button>
-                            <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
-                                <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
-                            </Button>
+                    </div>
+                    <div className="col-1 df je ac">
+                        {location.pathname !== '/signin' ? <Button className="mw0px">
+                            <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
+                        </Button> : <></>}
+                    </div>
+                    <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
+                        <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                            <div className="df js ac headerInnerLeft">
+                                <img src={Logo} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                    onClick={navigateToHome}></img>
+                                <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
+                                    onClick={navigateToHome}>
+                                    Blackspace
+                                </Typography>
+                                <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
+                                {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
+                            </div>
+                            <div className="df je ac headerInnerRight">
+                                {location.pathname !== '/signin' ? <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
+                                    <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
+                                </Button> : <></>}
+                                <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
+                                    <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
+                    <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
 
+                    </div>
                 </div>
-            </div>
 
-            <div onClick={handleCloseHeaderSettings}>
-                <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
-            </div>
-            <div onClick={handleCloseProfileSettings}>
-                <ProfileSettingsMenu settingsAnchorRef={profileSettingsAnchorRef} settingsOpen={profileSettingsOpen} handleClose={handleCloseProfileSettings}></ProfileSettingsMenu>
-            </div>
-        </AppBar>
+                <div onClick={handleCloseHeaderSettings}>
+                    <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
+                </div>
+                <div onClick={handleCloseProfileSettings}>
+                    <ProfileSettingsMenu settingsAnchorRef={profileSettingsAnchorRef} settingsOpen={profileSettingsOpen} handleClose={handleCloseProfileSettings}></ProfileSettingsMenu>
+                </div>
+            </AppBar>
+        </div>
     )
 }
 

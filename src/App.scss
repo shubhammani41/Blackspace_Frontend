@@ -93,6 +93,10 @@ body * {
   letter-spacing: 1px;
 }
 
+.overFlowHidden{
+  overflow: hidden;
+}
+
 .hidden {
   opacity: 0 !important;
   transform: scale(0.7);

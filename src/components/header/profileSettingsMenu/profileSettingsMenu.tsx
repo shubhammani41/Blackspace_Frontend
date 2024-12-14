@@ -47,6 +47,12 @@ const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSe
                             <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
                             Switch Account
                         </div>
+                    </MenuItem>,
+                    <MenuItem>
+                        <div className='df jc ac'>
+                            <TuneRoundedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></TuneRoundedIcon>
+                            Settings
+                        </div>
                     </MenuItem>
                 ]
                 :
@@ -57,12 +63,6 @@ const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSe
                     </div>
                 </MenuItem>
             }
-            <MenuItem>
-                <div className='df jc ac'>
-                    <TuneRoundedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></TuneRoundedIcon>
-                    Settings
-                </div>
-            </MenuItem>
         </Menu>
     )
 }

@@ -17,15 +17,24 @@ const openedState: SideBarState = { sideBarState: true };
 
 const useSideBarStore: UseBoundStore<StoreApi<SideBarStore>> = create(set => ({
     data: defaultState,
-    toggleSideBar: () => set((state: { data: SideBarState }) => (
-        state.data.sideBarState === true ? { data: closedState } : { data: openedState }
-    )),
-    openSideBar: () => set(() => (
-        { data: openedState }
-    )),
-    closeSideBar: () => set(() => (
-        { data: closedState }
-    ))
+    toggleSideBar: () => set((state: { data: SideBarState }) => {
+        if (state.data.sideBarState === true) {
+            window.document.body.classList.remove('overFlowHidden');
+            return { data: closedState }
+        }
+        else {
+            window.document.body.classList.add('overFlowHidden');
+            return { data: openedState };
+        }
+    }),
+    openSideBar: () => set(() => {
+        window.document.body.classList.add('overFlowHidden');
+        return { data: openedState }
+    }),
+    closeSideBar: () => set(() => {
+        window.document.body.classList.remove('overFlowHidden');
+        return { data: closedState }
+    })
 }));
 
 export { defaultState, closedState, openedState };

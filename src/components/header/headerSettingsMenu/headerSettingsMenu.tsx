@@ -25,11 +25,11 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
                     <ThemeToggleBtn></ThemeToggleBtn>
                 </div>
             </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
                 <div  className='df jc ac'>
                     <MatrixEasterEggToggleBtn></MatrixEasterEggToggleBtn>
                 </div>
-            </MenuItem>
+            </MenuItem> */}
         </Menu>
     )
 }

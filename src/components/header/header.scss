@@ -2,7 +2,16 @@
     padding: 10px 10px;
     position: fixed;
     width: 100vw;
-    top: 0px;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s ease-in-out;
+    transform: translateY(0);
+    z-index: 1000;
+}
+
+.headerHidden {
+    // transform: translateY(-300px);
+    // transition: transform 0.4s ease-in-out;
 }
 
 .avatar24 {
@@ -36,33 +45,34 @@
     filter: invert(1);
 }
 
-.headerFontClamp{
+.headerFontClamp {
     font-size: var(--font-m) !important;
 }
 
-.headerIcoClamp1525{
+.headerIcoClamp1525 {
     width: clamp(15px, 2vw, 25px) !important;
     height: clamp(15px, 2vw, 25px) !important;
 }
 
-.headerIcoClamp2535{
+.headerIcoClamp2535 {
     width: clamp(25px, 2vw, 35px) !important;
     height: clamp(25px, 2vw, 35px) !important;
 }
 
-.headerInner{
+.headerInner {
     border-radius: var(--app-border-radius-s);
     padding: 12px;
     box-shadow: var(--shadow-down-s-transparent);
 }
 
-.mw11vw{
+.mw11vw {
     max-width: 11vw;
 }
 
-.headerInnerLeft{
+.headerInnerLeft {
     width: calc(100% - 115px);
 }
-.headerInnerRight{
+
+.headerInnerRight {
     width: 115px;
 }
