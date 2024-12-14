@@ -27,6 +27,17 @@
   .MuiInputBase-input.MuiFilledInput-input {
     padding: 16px !important;
   }
+
+  .thinInput .MuiInputBase-input.MuiFilledInput-input {
+    padding: 8px 2px !important;
+  }
+  .thinInput .MuiInputBase-root {
+    padding: 0px !important;
+  }
+
+  .thinInput .MuiInputLabel-root{
+    font-size: var(--font-m) !important;
+  }
   
   .MuiInputBase-root.MuiFilledInput-root::before {
     border: none !important;
@@ -47,6 +58,10 @@
   .MuiFormHelperText-root {
     color: var(--app-accent-color) !important;
     margin-left: 0px !important;
+  }
+
+  .MuiDialogTitle-root{
+    padding: 16px 24px 5px 24px !important;
   }
   
   fieldset {

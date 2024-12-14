@@ -40,10 +40,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <BrowserRouter>
         <div className='componentContainer'>
-          <AppHeader></AppHeader>
-          <SideBar></SideBar>
-          <SigninDialog></SigninDialog>
-          <AddBasicDetailsDialog></AddBasicDetailsDialog>
+          <GlobalComponents></GlobalComponents>
           <Routes>
             <Route path='/' element={<Navigate to="/home" />}></Route>
             <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
@@ -56,5 +53,17 @@ const App: React.FC = () => {
     </ThemeProvider>
   );
 }
+
+const GlobalComponents: React.FC = () => {
+  return (
+    <div>
+      <AppHeader></AppHeader>
+      <SideBar></SideBar>
+      <SigninDialog></SigninDialog>
+      <AddBasicDetailsDialog></AddBasicDetailsDialog>
+    </div>
+  )
+}
+
 
 export default App;

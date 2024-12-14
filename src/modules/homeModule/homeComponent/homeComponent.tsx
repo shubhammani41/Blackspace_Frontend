@@ -251,7 +251,7 @@ const HomeComponent: React.FC = () => {
                         label="Search developer profile"
                         variant="filled"
                         placeholder="e.g. Shubham Tripathi"
-                        className='searchBar'
+                        className='w100per'
                         onChange={debouncedSearchFn}
                         InputLabelProps={{
                             style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
@@ -277,7 +277,7 @@ const HomeComponent: React.FC = () => {
                     <div className="row gx-0">
                         <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
                         </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10">
+                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 roundedContainer">
                             {devDataList.length > 0 ?
                                 devDataList.map((devData, index) => {
                                     return (

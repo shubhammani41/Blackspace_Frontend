@@ -43,12 +43,6 @@
 
 :root {
   --app-background: #000000;
-  --app-accent-color: #03A062;
-  --app-accent-color-lighter: #77ffc8;
-  --app-accent--darker: #006b40;
-  --app-accent2-color: #0095F6;
-  --app-accent2-color-lighter: #67bdff;
-  --app-accent2-color-darker: #247cbf;
   --white-color: #ffffff;
   --string-color: #CE9178;
   --app-error-color: #ff0000;
@@ -79,9 +73,9 @@
   --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
   --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
   font-size: clamp(15px, 2vw, 17px);
-  --app-border-radius-m: 6px;
-  --app-border-radius-s: 6px;
-  --app-border-radius-xs: 6px;
+  --app-border-radius-s: 8px;
+  --app-border-radius-m: 16px;
+  --app-border-radius-xs: 32px;
 }
 
 body {
@@ -129,54 +123,15 @@ body * {
 
 .header {
   font-size: var(--font-xl) !important;
-  color: var(--app-accent-color);
 }
 
 .headerl {
   font-size: var(--font-l) !important;
-  color: var(--app-accent-color);
   margin: 10px 0px;
-}
-
-.subHeader {
-  font-size: var(--font-l);
-  color: var(--app-accent-color);
-}
-
-.list-border {
-  border-left: 2px solid var(--app-accent-color);
-  padding: 20px;
-}
-
-.list-border {
-  border-left: 2px solid var(--app-accent-color);
-  padding: 20px;
-  margin: 0px;
-  margin-top: 25px;
-  width: 100%;
-  transition: var(--app-transition);
-}
-
-
-.list-border:hover {
-  background-color: var(--app-accent2-color-darker);
-  border-left: 2px solid var(--app-accent2-color);
-  color: var(--white-color);
-  cursor: pointer;
-  transform: scale(1.03);
-  transition: var(--app-transition);
 }
 
 .textwrapNone {
   text-wrap: nowrap;
-}
-
-.blueText {
-  color: var(--app-accent2-color) !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 196px;
 }
 
 .brownText {
@@ -199,55 +154,6 @@ body * {
   margin: 0px 20px 2vw 20px;
 }
 
-/* react perfect scroll bar css override starts */
-.perfect-scroll-bar {
-  .content {
-    width: 100%;
-    height: 100vh;
-  }
-
-  .ps--clicking,
-  .ps--clicking:hover,
-  .ps__rail-y:hover,
-  .ps__rail-x:hover {
-    background: transparent !important;
-  }
-
-  .ps__thumb-x,
-  .ps__thumb-y {
-    background-color: var(--app-accent-color) !important;
-    border-radius: 0px !important;
-  }
-
-  .ps--clicking .ps__thumb-x:hover,
-  .ps--clicking:hover .ps__thumb-x:hover,
-  .ps--clicking .ps__thumb-y:hover,
-  .ps--clicking:hover .ps__thumb-y:hover {
-    background-color: var(--app-accent2-color) !important;
-    cursor: pointer !important;
-  }
-
-  .ps--clicking .ps__thumb-x,
-  .ps--clicking:hover .ps__thumb-x,
-  .ps--clicking .ps__thumb-y,
-  .ps--clicking:hover .ps__thumb-y {
-    background-color: var(--app-accent2-color) !important;
-    cursor: pointer !important;
-  }
-
-  .ps__thumb-x:hover,
-  .ps__thumb-y:hover {
-    background-color: var(--app-accent2-color) !important;
-    cursor: pointer !important;
-  }
-}
-
-.customHeight1 {
-  height: calc(100vh - 100px) !important;
-}
-
-/* react perfect scroll bar css override ends */
-
 
 /* browser scroll bar css override starts */
 ::-webkit-scrollbar {
@@ -260,21 +166,17 @@ body * {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--app-accent-color);
+  background: rgb(46, 46, 46);
   transition: var(--app-transition);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--app-accent2-color);
+  background: rgb(23, 23, 23);
   transition: var(--app-transition);
   cursor: pointer;
 }
 
 /* browser scroll bar css override starts */
-
-/* span, p, h1, h2, h3, h4, h5, h6, a, li, label, strong, td, th {
-  cursor: text;
-} */
 
 .errorText {
   color: var(--app-error-color) !important;
@@ -303,31 +205,6 @@ body * {
   }
 }
 
-.matrix-card-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  .matrix-card-container {
-    border-radius: var(--app-border-radius-m) !important;
-    overflow: hidden;
-    box-shadow: var(--shadow-ini-down-s);
-    cursor: text;
-    transition: var(--app-transition);
-  }
-
-  .matrix-card-container:hover {
-    transform: scale(1.00);
-    box-shadow: var(--shadow-hover-down-s);
-    transition: var(--app-transition);
-  }
-}
-
-.searchBar {
-  width: 100%;
-}
-
 .searchIconContainer {
   width: clamp(25px, 2vw, 35px) !important;
   height: clamp(25px, 2vw, 35px) !important;
@@ -351,12 +228,6 @@ body * {
 .iconTp2n {
   position: relative;
   top: -2px;
-}
-
-.loader-container {
-  .loader {
-    color: var(--app-accent-color);
-  }
 }
 
 .avatar100 {
@@ -453,4 +324,10 @@ hr.cardContentSeperator {
   opacity: 0;
   margin-bottom: -35px;
   cursor: pointer;
+}
+
+.roundedContainer {
+  border-radius: var(--app-border-radius-m) !important;
+  box-shadow: var(--shadow-ini-down-s) !important;
+  overflow: hidden;
 }
