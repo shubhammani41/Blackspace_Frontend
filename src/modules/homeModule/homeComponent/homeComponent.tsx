@@ -224,7 +224,7 @@ const HomeComponent: React.FC = () => {
 
     return (
         <div className="mainContainer">
-            {(currentTheme.data.mode === ThemeMode.Blue || currentTheme.data.mode === ThemeMode.Red) ?
+            {/* {(currentTheme.data.mode === ThemeMode.Blue || currentTheme.data.mode === ThemeMode.Red) ?
                 <div className='df jc ac app-header fw'>
                     <div className="f100 df jc ac">
                         <img className="morpheusThemer" src={morpheus}></img>
@@ -242,10 +242,10 @@ const HomeComponent: React.FC = () => {
                         Welcome to Blackspace.
                     </p>
                 </div>
-            }
+            } */}
             <div className="row gx-0">
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
-                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-5">
+                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-4">
                     <TextField
                         id="searchDev"
                         label="Search developer profile"
@@ -292,14 +292,14 @@ const HomeComponent: React.FC = () => {
                                                 >
 
                                                     <div className="pinIconContainer">
-                                                        <PushPinRoundedIcon className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
+                                                        <PushPinRoundedIcon style={{color:'#aaaaaa'}} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                     </div>
                                                     <Card className="w100per ml-neg30">
                                                         <div className="df js ac gp30px ps-1">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                             <div className="w100per-neg50" style={{ overflow: "hidden" }}>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
-                                                                    <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
+                                                                    <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
                                                                     {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
                                                                 </Typography>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">

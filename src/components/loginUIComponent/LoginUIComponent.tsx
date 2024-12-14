@@ -1,11 +1,9 @@
 
 import { useEffect, useState } from 'react';
-import { SimplePaletteColorOptions } from '@mui/material';
 import * as firebaseui from 'firebaseui';
 import firebase from 'firebase/compat/app';
 import { useNavigate } from 'react-router-dom';
 import "./LoginUIComponent.scss";
-import useThemeStore from '../themeToggleBtn/store/themeStore';
 import useUserLoginDataStore from '../../store/userLoginDetailsStore';
 import apiFunctions from '../../constants/apiFunctions';
 import useAddBasicDetailsDialogStore from '../addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
@@ -17,7 +15,6 @@ export interface LoginUIComponentProp {
 }
 
 const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponentProp) => {
-    const currentTheme = useThemeStore();
     const [isLoginCardReady, setIsLoginCardReady] = useState<boolean>(false);
     const userLoginDataStore = useUserLoginDataStore();
     const navigate = useNavigate();
@@ -94,18 +91,6 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
     return (
         <div className={"loginUIContainer" + (!isLoginCardReady ? " hidden" : "")}>
             <div className='singInButtonContainer'>
-                <div>
-                    <div className='df jc ac fw'>
-                        <p className='p0m0 header textwrapNone f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                            Welcome to Blackspace,
-                        </p>
-                    </div>
-                    <div className='df jc ac fw'>
-                        <p className='p0m00150 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                            Sign In.
-                        </p>
-                    </div>
-                </div>
                 <div id="firebaseui-auth-container"></div>
                 <div className="df jc ac f100">
                     <p className="errorText textwrapNone">

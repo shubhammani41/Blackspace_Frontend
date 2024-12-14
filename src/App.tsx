@@ -13,6 +13,8 @@ import { AddBasicDetailsDialog } from './components/addBasicDetailsDialog/addBas
 import { getUserLoginDetailsFromLocalStorage } from './constants/appConstants';
 import apiFunctions from './constants/apiFunctions';
 import useAddBasicDetailsDialogStore from './components/addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -36,21 +38,24 @@ const App: React.FC = () => {
     }
   }, [])
   return (
-    <ThemeProvider theme={createTheme(themeStore.data.theme)}>
-      <CssBaseline />
-      <BrowserRouter>
-        <div className='componentContainer'>
-          <GlobalComponents></GlobalComponents>
-          <Routes>
-            <Route path='/' element={<Navigate to="/home" />}></Route>
-            <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
-            <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
-            <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
-            <Route path='*' element={<NotFound />}></Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <ThemeProvider theme={createTheme(themeStore.data.theme)}>
+        <CssBaseline />
+        <BrowserRouter>
+          <div className='componentContainer'>
+            <GlobalComponents></GlobalComponents>
+            <Routes>
+              <Route path='/' element={<Navigate to="/home" />}></Route>
+              <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
+              <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
+              <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
+              <Route path='*' element={<NotFound />}></Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    </LocalizationProvider>
+
   );
 }
 

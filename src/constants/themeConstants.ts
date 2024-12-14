@@ -9,15 +9,15 @@ const themeObjLight: ThemeOptions = {
     palette: {
         mode: 'light',
         primary: {
-            main: '#03A062',
+            main: '#36454F',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         secondary: {
-            main: '#0095F6',
-            light: '#67bdff',
-            dark: '#247cbf',
+            main: '#3b5e75',
+            light: '#588cad',
+            dark: '#1b2d38',
             contrastText: '#ffffff',
         },
         error: {
@@ -44,19 +44,18 @@ const themeObjLight: ThemeOptions = {
         },
         text: {
             primary: '#000000',
-            secondary: '#6a617e',
-            // disabled: '#03A062',
+            secondary: '#3b5e75',
         },
         action: {
-            active: '#0095F6',
+            active: '#3b5e75',
             hover: '#efefef',
             // hoverOpacity: number;
-            selected: '#0095F6',
+            selected: '#3b5e75',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#0095F6',
+            focus: '#3b5e75',
             // focusOpacity: number;
             // activatedOpacity: number;
         }
@@ -64,7 +63,7 @@ const themeObjLight: ThemeOptions = {
     typography: {
         fontFamily: 'Roboto',
         allVariants: {
-            color: "#6a617e"
+            color: "#3b5e75"
         },
         fontWeightLight: 200,
         fontWeightRegular: 400,
@@ -82,16 +81,15 @@ const themeObjDark: ThemeOptions = {
     palette: {
         mode: 'dark',
         primary: {
-            // main: '#03A062',
-            main: '#03A062',
+            main: '#949494',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#aaaaaa',
+            dark: '#7f7f7f',
         },
         secondary: {
-            main: '#0095F6',
-            light: '#67bdff',
-            dark: '#247cbf',
+            main: '#3b5e75',
+            light: '#588cad',
+            dark: '#1b2d38',
             contrastText: '#ffffff',
         },
         error: {
@@ -114,23 +112,22 @@ const themeObjDark: ThemeOptions = {
         },
         background: {
             default: '#000000',
-            paper: '#0d0d0d'
+            paper: '#181818'
         },
         text: {
             primary: '#ffffff',
             secondary: '#ffffff',
-            // disabled: '#03A062',
         },
         action: {
-            active: '#0095F6',
+            active: '#3b5e75',
             hover: '#4a4a4a',
             // hoverOpacity: number;
-            selected: '#0095F6',
+            selected: '#3b5e75',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#0095F6',
+            focus: '#3b5e75',
             // focusOpacity: number;
             // activatedOpacity: number;
         },
@@ -160,13 +157,13 @@ const themeObjDarkRed: ThemeOptions = {
             // main: '#c0281b',
             main: '#c0281b',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         secondary: {
-            main: '#0095F6',
-            light: '#67bdff',
-            dark: '#247cbf',
+            main: '#3b5e75',
+            light: '#588cad',
+            dark: '#1b2d38',
             contrastText: '#ffffff',
         },
         error: {
@@ -184,12 +181,12 @@ const themeObjDarkRed: ThemeOptions = {
         success: {
             main: '#c0281b',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         background: {
             default: '#000000',
-            paper: '#0d0d0d'
+            paper: '#181818'
         },
         text: {
             primary: '#ffffff',
@@ -197,15 +194,15 @@ const themeObjDarkRed: ThemeOptions = {
             // disabled: '#c0281b',
         },
         action: {
-            active: '#0095F6',
+            active: '#3b5e75',
             hover: '#4a4a4a',
             // hoverOpacity: number;
-            selected: '#0095F6',
+            selected: '#3b5e75',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#0095F6',
+            focus: '#3b5e75',
             // focusOpacity: number;
             // activatedOpacity: number;
         },
@@ -234,13 +231,13 @@ const themeObjDarkBlue: ThemeOptions = {
             // main: '#c0281b',
             main: '#42a0df',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         secondary: {
-            main: '#0095F6',
-            light: '#67bdff',
-            dark: '#247cbf',
+            main: '#3b5e75',
+            light: '#588cad',
+            dark: '#1b2d38',
             contrastText: '#ffffff',
         },
         error: {
@@ -258,12 +255,12 @@ const themeObjDarkBlue: ThemeOptions = {
         success: {
             main: '#42a0df',
             contrastText: '#ffffff',
-            light: '#77ffc8',
-            dark: '#006b40',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         background: {
             default: '#000000',
-            paper: '#0d0d0d'
+            paper: '#181818'
         },
         text: {
             primary: '#ffffff',
@@ -271,15 +268,15 @@ const themeObjDarkBlue: ThemeOptions = {
             // disabled: '#42a0df',
         },
         action: {
-            active: '#0095F6',
+            active: '#3b5e75',
             hover: '#4a4a4a',
             // hoverOpacity: number;
-            selected: '#0095F6',
+            selected: '#3b5e75',
             // selectedOpacity: number;
             // disabled: string;
             // disabledOpacity: number;
             // disabledBackground: string;
-            focus: '#0095F6',
+            focus: '#3b5e75',
             // focusOpacity: number;
             // activatedOpacity: number;
         },

@@ -48,13 +48,14 @@
   --app-error-color: #ff0000;
   --app-error-color-lighter: #ff7272;
   --app-error-color-darker: #950000;
-  --app-info-color: #ecec00;
+  --app-info-color: #FFFF00;
   --app-info-color-lighter: #ffff9e;
   --app-info-color-darker: #9c9c00;
   --app-success-color: #03A062;
   --app-success-color-lighter: #77ffc8;
   --app-success-darker: #006b40;
   --app-light-gray-color: #d6d6d6;
+  --app-verified-color: #0095F6;
   // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
   --app-font-family: 'Roboto', Courier, 'Courier New', 'monospace';
   --font-xxs: 0.2rem;
@@ -70,7 +71,7 @@
   --shadow-ini-down-s: rgb(0 0 0 / 5%) 0px 5px 100px -20px, rgb(0 0 0 / 9%) 0px 5px 60px -30px;
   --shadow-hover-down-s: rgb(0 0 0 / 16%) 0px 50px 100px -20px, rgb(0 0 0 / 17%) 0px 30px 60px -30px;
   --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
-  --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
+  --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 8px 15px -3px;;
   --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
   font-size: clamp(15px, 2vw, 17px);
   --app-border-radius-s: 8px;
@@ -279,7 +280,7 @@ hr.cardContentSeperator {
   top: 10px;
 
   svg.pinned {
-    color: var(--app-info-color);
+    color: black !important;
   }
 }
 
@@ -328,6 +329,27 @@ hr.cardContentSeperator {
 
 .roundedContainer {
   border-radius: var(--app-border-radius-m) !important;
-  box-shadow: var(--shadow-ini-down-s) !important;
+  box-shadow: var(--shadow-down-s-transparent) !important;
   overflow: hidden;
+}
+
+.verifiedTick{
+  color: var(--app-verified-color);
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  appearance: none;
+  background-color: transparent !important;
+  color: var(--app-verified-color) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill,
+input:focus:-webkit-autofill {
+  appearance: none;
+  background-color: transparent !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  color: var(--app-verified-color) !important;
 }
