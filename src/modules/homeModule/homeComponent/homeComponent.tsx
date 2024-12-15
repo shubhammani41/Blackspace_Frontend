@@ -324,12 +324,12 @@ const HomeComponent: React.FC = () => {
                                                         </CardContent>
                                                         <CardActions className="px-0 py-2">
                                                             <Tooltip title="View">
-                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName) }}>
+                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName || '') }}>
                                                                     <VisibilityRoundedIcon></VisibilityRoundedIcon>
                                                                 </Button>
                                                             </Tooltip>
                                                             <Tooltip title="Download">
-                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName) }}>
+                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName || '') }}>
                                                                     <DownloadRoundedIcon></DownloadRoundedIcon>
                                                                 </Button>
                                                             </Tooltip>

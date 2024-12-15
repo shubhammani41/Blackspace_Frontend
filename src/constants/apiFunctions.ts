@@ -100,6 +100,22 @@ const apiFunctions = {
                 reject(err);
             })
         });
+    },
+    createBasicDetailsByUserLoginId: async (userLoginId: number, userData: UserData) => {
+        return new Promise<{ data: UserData }>((resolve, reject) => {
+            const url = apiConstants.createBasicDetailsByUserLoginId.url + `?userLoginId=${userLoginId}`;
+            axiosInstance.post(url,userData).then((response: { data: UserData }) => {
+                if (response.data) {
+                    response.data = transformUserData(response.data);
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
 }
 

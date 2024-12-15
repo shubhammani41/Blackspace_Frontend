@@ -1,12 +1,16 @@
 export interface UserLoginRes {
     token: string;
-    userDetails?:UserLoginDetails;
+    userDetails?: UserLoginDetails;
 }
 
 export interface UserLoginDetails {
-    userId?: number;
-    userPhoneNumber?: string;
-    userEmail?: string;
+    userId: number;
     userProfileId?: number;
-    isDeactivated: boolean;
+    phoneNumber?: string;
+    email?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    updated_by?: number;
+    isDeactivated?: boolean;
+    deactivatedAt?: string;
 }

@@ -48,7 +48,7 @@ const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSe
                             Switch Account
                         </div>
                     </MenuItem>,
-                    <MenuItem>
+                    <MenuItem key='settings'>
                         <div className='df jc ac'>
                             <TuneRoundedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></TuneRoundedIcon>
                             Settings

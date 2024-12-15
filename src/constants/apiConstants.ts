@@ -36,6 +36,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "POST",
         "access": "public",
         "url": "/public/login"
+    },
+    createBasicDetailsByUserLoginId: {
+        "type": "POST",
+        "access": "private",
+        "url": "/createBasicDetailsByUserLoginId"
     }
 }
 

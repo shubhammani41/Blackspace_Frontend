@@ -27,10 +27,12 @@ const App: React.FC = () => {
   useEffect(() => {
     let userLoginData = getUserLoginDetailsFromLocalStorage();
     if (userLoginData) {
-      userLoginDataStore.updateUserData(userLoginData);
+      userLoginDataStore.updateUserData({ userLoginDetails: userLoginData, ...userLoginDataStore.data.userDetails });
       if (userLoginData?.userDetails?.userId) {
         apiFunctions.fetchUserProfileByUserLoginId(userLoginData.userDetails.userId).then(res => {
-          console.log(res);
+          if (res?.data && userLoginDataStore?.data?.userDetails) {
+            userLoginDataStore.updateUserData({ userProfileDetails: userLoginDataStore.data.userDetails?.userProfileDetails, ...userLoginDataStore.data.userDetails });
+          }
         }).catch(err => {
           addBasicDetailsDialogStore.openDialog();
         });

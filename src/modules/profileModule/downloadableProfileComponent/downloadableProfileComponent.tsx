@@ -27,7 +27,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
         if (userName && userName.trim() !== '') {
             setUserDataLoading(true);
             const response1: { data: UserData } = await apiFunctions.fetchUserDetailsByUserName(userName);
-            if (response1?.data) {
+            if (response1?.data?.userId) {
                 apiFunctions.fetchUserExperienceDetails(response1.data.userId).then((response2: { data?: UserExperienceDetails[] }) => {
                     if (response2?.data) {
                         setTimeout(() => {

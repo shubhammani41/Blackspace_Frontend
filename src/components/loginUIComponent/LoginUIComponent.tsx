@@ -35,7 +35,7 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                     apiFunctions.verifyFirebaseToken(token)
                         .then(res => {
                             if (res && res.data) {
-                                userLoginDataStore.updateUserData(res.data);
+                                userLoginDataStore.updateUserData({userLoginDetails:res.data, userProfileDetails:userLoginDataStore.data.userDetails?.userProfileDetails});
                                 if(res.data.userDetails?.userId){
                                     apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails?.userId).then(res=>{
                                         console.log(res);

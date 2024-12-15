@@ -3,10 +3,22 @@ import useAddBasicDetailsDialogStore from "./store/addBasicDetailsDialogStotre"
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 import moment from "moment";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
+import apiFunctions from "../../constants/apiFunctions";
+import useUserLoginDataStore from "../../store/userLoginDetailsStore";
 
 const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
+    const userLoginDataStore = useUserLoginDataStore();
     const currentTheme = useThemeStore();
+    const createBasicDetailsByUserLoginId = async()=>{
+        if(userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId){
+            apiFunctions.createBasicDetailsByUserLoginId(userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId, {firstName:"name"}).then(res=>{
+                addBasicDetailsDialogStore.closeDialog();
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
+    }
     return <div>
         <Dialog
             open={addBasicDetailsDialogStore.data.dialogState}
@@ -111,7 +123,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                 </Select>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" size="small" onClick={addBasicDetailsDialogStore.closeDialog}>
+                <Button variant="contained" size="small" onClick={createBasicDetailsByUserLoginId}>
                     Update
                 </Button>
                 <Button color="primary" size="small" onClick={addBasicDetailsDialogStore.closeDialog}>
