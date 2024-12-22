@@ -15,6 +15,7 @@ import apiFunctions from './constants/apiFunctions';
 import useAddBasicDetailsDialogStore from './components/addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { AxiosError } from 'axios';
 
 const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -24,7 +25,7 @@ const App: React.FC = () => {
   const themeStore = useThemeStore();
   const userLoginDataStore = useUserLoginDataStore();
   const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
-  useEffect(() => {
+  const verifyUserDataFromLocalAndSignin = () => {
     let userLoginData = getUserLoginDetailsFromLocalStorage();
     if (userLoginData) {
       userLoginDataStore.updateUserData({ userLoginDetails: userLoginData, ...userLoginDataStore.data.userDetails });
@@ -32,12 +33,16 @@ const App: React.FC = () => {
         apiFunctions.fetchUserProfileByUserLoginId(userLoginData.userDetails.userId).then(res => {
           if (res?.data && userLoginDataStore?.data?.userDetails) {
             userLoginDataStore.updateUserData({ userProfileDetails: userLoginDataStore.data.userDetails?.userProfileDetails, ...userLoginDataStore.data.userDetails });
+            addBasicDetailsDialogStore.openDialog();
           }
-        }).catch(err => {
-          addBasicDetailsDialogStore.openDialog();
+        }).catch((err) => {
+          userLoginDataStore.clearUserData();
         });
       }
     }
+  }
+  useEffect(() => {
+    verifyUserDataFromLocalAndSignin();
   }, [])
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>

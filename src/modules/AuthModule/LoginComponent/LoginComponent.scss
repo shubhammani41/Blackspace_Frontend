@@ -1,0 +1,24 @@
+.loginLogoIco {
+    width: 10vw !important;
+    height: 10vw !important;
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 100px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.logoIcoInvert {
+    filter: invert(1);
+}
+
+.logoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: calc(50px + 1vw);
+}
+
+.loginCardContainer {
+    margin-top: calc(50px + 1vw);
+}

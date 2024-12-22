@@ -10,9 +10,9 @@ const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
     const currentTheme = useThemeStore();
-    const createBasicDetailsByUserLoginId = async()=>{
+    const saveBasicDetailsByUserLoginId = async()=>{
         if(userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId){
-            apiFunctions.createBasicDetailsByUserLoginId(userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId, {firstName:"name"}).then(res=>{
+            apiFunctions.saveBasicDetailsByUserLoginId({firstName:"name"}).then(res=>{
                 addBasicDetailsDialogStore.closeDialog();
             }).catch(err=>{
                 console.log(err);
@@ -123,7 +123,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                 </Select>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" size="small" onClick={createBasicDetailsByUserLoginId}>
+                <Button variant="contained" size="small" onClick={saveBasicDetailsByUserLoginId}>
                     Update
                 </Button>
                 <Button color="primary" size="small" onClick={addBasicDetailsDialogStore.closeDialog}>

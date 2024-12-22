@@ -5,7 +5,7 @@ import { getTokenFromLocalStorage } from '../constants/appConstants';
 
 const axiosInstance = axios.create({
   baseURL: baseURL, // Replace with your API base URL
-  timeout: 10000, // Optional: set a timeout for requests
+  timeout: 60000, // Optional: set a timeout for requests
 });
 
 // Add a request interceptor

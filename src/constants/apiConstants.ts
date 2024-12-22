@@ -37,10 +37,10 @@ const apiConstants: { [key: string]: APIConfig } = {
         "access": "public",
         "url": "/public/login"
     },
-    createBasicDetailsByUserLoginId: {
+    saveBasicDetailsByUserLoginId: {
         "type": "POST",
         "access": "private",
-        "url": "/createBasicDetailsByUserLoginId"
+        "url": "/saveBasicDetailsByUserLoginId"
     }
 }
 

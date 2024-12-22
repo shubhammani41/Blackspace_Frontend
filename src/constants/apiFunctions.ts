@@ -101,9 +101,9 @@ const apiFunctions = {
             })
         });
     },
-    createBasicDetailsByUserLoginId: async (userLoginId: number, userData: UserData) => {
+    saveBasicDetailsByUserLoginId: async (userData: UserData) => {
         return new Promise<{ data: UserData }>((resolve, reject) => {
-            const url = apiConstants.createBasicDetailsByUserLoginId.url + `?userLoginId=${userLoginId}`;
+            const url = apiConstants.saveBasicDetailsByUserLoginId.url;
             axiosInstance.post(url,userData).then((response: { data: UserData }) => {
                 if (response.data) {
                     response.data = transformUserData(response.data);

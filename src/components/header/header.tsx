@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useEffect, useMemo, useRef, useState } from "react";
-import Logo from '../../assets/images/logo.png';
+import LogoTr from '../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
 import { ProfileSettingsMenu } from "./profileSettingsMenu/profileSettingsMenu";
@@ -75,20 +75,20 @@ const AppHeader: React.FC = () => {
 
     return (
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
-            <AppBar sx={{ backgroundColor: 'background.default' }}>
+            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default' }}>
                 <div className="row gx-0">
                     <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
 
                     </div>
                     <div className="col-1 df je ac">
-                        {location.pathname !== '/signin' ? <Button className="mw0px">
+                        <Button className="mw0px">
                             <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
-                        </Button> : <></>}
+                        </Button>
                     </div>
                     <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
                         <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                             <div className="df js ac headerInnerLeft">
-                                <img src={Logo} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                <img src={LogoTr} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
                                     onClick={navigateToHome}></img>
                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
                                     onClick={navigateToHome}>
@@ -98,9 +98,9 @@ const AppHeader: React.FC = () => {
                                 {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
                             </div>
                             <div className="df je ac headerInnerRight">
-                                {location.pathname !== '/signin' ? <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
+                                <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
                                     <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
-                                </Button> : <></>}
+                                </Button>
                                 <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
                                     <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
                                 </Button>
@@ -118,7 +118,8 @@ const AppHeader: React.FC = () => {
                 <div onClick={handleCloseProfileSettings}>
                     <ProfileSettingsMenu settingsAnchorRef={profileSettingsAnchorRef} settingsOpen={profileSettingsOpen} handleClose={handleCloseProfileSettings}></ProfileSettingsMenu>
                 </div>
-            </AppBar>
+            </AppBar>: <></>}
+            
         </div>
     )
 }

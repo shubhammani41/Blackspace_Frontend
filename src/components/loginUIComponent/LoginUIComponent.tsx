@@ -26,7 +26,7 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.PhoneAuthProvider.PROVIDER_ID
+            // firebase.auth.PhoneAuthProvider.PROVIDER_ID
         ],
         callbacks: {
             signInSuccessWithAuthResult: (authResult: any) => {
@@ -38,9 +38,9 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                                 userLoginDataStore.updateUserData({userLoginDetails:res.data, userProfileDetails:userLoginDataStore.data.userDetails?.userProfileDetails});
                                 if(res.data.userDetails?.userId){
                                     apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails?.userId).then(res=>{
-                                        console.log(res);
-                                    }).catch(err=>{
                                         addBasicDetailsDialogStore.openDialog();
+                                    }).catch(err=>{
+                                        userLoginDataStore.clearUserData();
                                     });
                                 }
                                 if (props?.onSuccess) {
@@ -89,7 +89,7 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
     }, []);
 
     return (
-        <div className={"loginUIContainer" + (!isLoginCardReady ? " hidden" : "")}>
+        <div className={"loginUIContainer " + (!isLoginCardReady ? " hidden" : "")}>
             <div className='singInButtonContainer'>
                 <div id="firebaseui-auth-container"></div>
                 <div className="df jc ac f100">
