@@ -1,4 +1,4 @@
-import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, Fade, Input, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './homeComponent.scss';
@@ -58,7 +58,7 @@ const HomeComponent: React.FC = () => {
     }
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
-        return Array(4).fill(1).map((val, index) => {
+        return Array(3).fill(1).map((val, index) => {
             return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
         })
     }, [])
@@ -254,12 +254,12 @@ const HomeComponent: React.FC = () => {
                         className='w100per'
                         onChange={debouncedSearchFn}
                         InputLabelProps={{
-                            style: { color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main },
+                            style: { color: currentTheme.data.theme.palette?.text?.secondary },
                         }}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchIcon className="searchIconContainer" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}></SearchIcon>
+                                    <SearchIcon className="searchIconContainer" style={{ color: currentTheme.data.theme.palette?.text?.secondary }}></SearchIcon>
                                 </InputAdornment>
                             ),
                         }}
@@ -267,37 +267,37 @@ const HomeComponent: React.FC = () => {
                 </div>
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
             </div>
-            <div>
-                <InfiniteScroll className="mb40"
-                    pageStart={defaultPageNumber}
-                    loadMore={debouncedLoadMore}
-                    hasMore={hasMore}
-                    useWindow={true} // Set to true to use window scroll, false to use a specific container
-                    threshold={0}>
-                    <div className="row gx-0">
-                        <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
-                        </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 roundedContainer">
+            <div className="row gx-0">
+                <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+                </div>
+                {devListLoading || (!devListLoading && devDataList.length > 0) ?
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 roundedContainer mb-2">
+                        <InfiniteScroll
+                            pageStart={defaultPageNumber}
+                            loadMore={debouncedLoadMore}
+                            hasMore={hasMore}
+                            useWindow={true} // Set to true to use window scroll, false to use a specific container
+                            threshold={0}>
                             {devDataList.length > 0 ?
                                 devDataList.map((devData, index) => {
                                     return (
                                         <div className="col-12" key={"dev_" + devData.userId}>
-                                            <Accordion expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
+                                            <Accordion style={{ borderRadius: '0px' }} expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
                                                 <AccordionSummary
                                                     expandIcon={<div className="expandIconContainer">
-                                                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }} />
+                                                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
                                                     </div>}
                                                     aria-controls="panel2-content"
                                                     id={"accordian_" + devData.userId}
                                                 >
 
                                                     <div className="pinIconContainer">
-                                                        <PushPinRoundedIcon style={{color:'#aaaaaa'}} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
+                                                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                     </div>
                                                     <Card className="w100per ml-neg30">
                                                         <div className="df js ac gp30px ps-1">
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                            <div className="w100per-neg50" style={{ overflow: "hidden" }}>
+                                                            <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
                                                                     <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
                                                                     {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
@@ -319,7 +319,7 @@ const HomeComponent: React.FC = () => {
                                                                 Experience: {devData.experience}+ years
                                                             </Typography>
                                                             {devData?.skills?.map((skill: UserSkill, index: number) => {
-                                                                return <Chip className="lightGrayChip" label={skill.skillName} key={'skill_' + index} />
+                                                                return <Chip sx={{ color: currentTheme.data.theme.palette?.text?.disabled }} label={skill.skillName} key={'skill_' + index} />
                                                             })}
                                                         </CardContent>
                                                         <CardActions className="px-0 py-2">
@@ -337,7 +337,7 @@ const HomeComponent: React.FC = () => {
                                                     </Card>
                                                 </AccordionDetails>
                                             </Accordion>
-                                            {(index != devDataList.length - 1) ? <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                                            {(index !== devDataList.length - 1) ? <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                                                 <hr className="m-0 ms-5 me-5"></hr>
                                             </div> : null}
 
@@ -346,25 +346,21 @@ const HomeComponent: React.FC = () => {
                                 }) :
                                 null
                             }
-                        </div>
-                        <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
-                        </div>
-                    </div>
-                </InfiniteScroll>
-                {!devListLoading && devDataList.length < 1 ?
-                    <div className="df jc ac fw gp50px w90vw">
-                        <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
-                            {searchMessage}
-                        </Typography>
-                    </div> : null
+                        </InfiniteScroll>
+                        {devListLoading ? profileSkeletonList : null}
+                    </div> : <></>
                 }
-                {devListLoading ?
-                    <div className="df jc ac fw gp50px w90vw">
-                        {profileSkeletonList}
-                    </div> : null
 
-                }
+                <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+                </div>
             </div>
+            {!devListLoading && devDataList.length < 1 ?
+                <div className="df jc ac fw">
+                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
+                        {searchMessage}
+                    </Typography>
+                </div> : null
+            }
             {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
                 <div className="df jc ac fw" onClick={handleScroll}>
                     <Tooltip title="Load more">

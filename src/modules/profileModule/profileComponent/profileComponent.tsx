@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, Tooltip, Typography } from "@mui/material";
 import "./profileComponent.scss";
 import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
@@ -63,7 +63,7 @@ const ProfileComponent: React.FC = () => {
                     <React.Fragment>
                         {devData != null ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                                     Profile
                                 </p>
                             </div>
@@ -113,7 +113,7 @@ const ProfileComponent: React.FC = () => {
 
                         {(devData && devData?.skills !== null) ? <React.Fragment>
                             <div className='df js ac f100'>
-                                <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                                     Skills
                                 </p>
                             </div>
@@ -135,7 +135,7 @@ const ProfileComponent: React.FC = () => {
                             {(expData != null && expData.length) ?
                                 <React.Fragment>
                                     <div className='df js ac f100'>
-                                        <p className='headerl' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                                        <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                                             Experience
                                         </p>
                                     </div>

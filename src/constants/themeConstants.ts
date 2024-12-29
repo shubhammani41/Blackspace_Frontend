@@ -44,7 +44,8 @@ const themeObjLight: ThemeOptions = {
         },
         text: {
             primary: '#000000',
-            secondary: '#3b5e75',
+            secondary: '#36454F',
+            disabled: '#c6cdd1'
         },
         action: {
             active: '#3b5e75',
@@ -81,10 +82,10 @@ const themeObjDark: ThemeOptions = {
     palette: {
         mode: 'dark',
         primary: {
-            main: '#7e8a92',
+            main: '#36454F',
             contrastText: '#ffffff',
-            light: '#bacedc',
-            dark: '#7e8c96',
+            light: '#2c2d2d',
+            dark: '#000000',
         },
         secondary: {
             main: '#3b5e75',
@@ -116,7 +117,8 @@ const themeObjDark: ThemeOptions = {
         },
         text: {
             primary: '#ffffff',
-            secondary: '#ffffff',
+            secondary: '#b1b8bd',
+            disabled: '#c6cdd1'
         },
         action: {
             active: '#3b5e75',
@@ -191,7 +193,7 @@ const themeObjDarkRed: ThemeOptions = {
         text: {
             primary: '#ffffff',
             secondary: '#ffffff',
-            // disabled: '#c0281b',
+            disabled: '#c6cdd1'
         },
         action: {
             active: '#3b5e75',
@@ -265,7 +267,7 @@ const themeObjDarkBlue: ThemeOptions = {
         text: {
             primary: '#ffffff',
             secondary: '#ffffff',
-            // disabled: '#42a0df',
+            disabled: '#c6cdd1'
         },
         action: {
             active: '#3b5e75',

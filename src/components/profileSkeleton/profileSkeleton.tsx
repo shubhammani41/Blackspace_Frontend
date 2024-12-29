@@ -1,20 +1,48 @@
 import React from "react";
 import "./profileSkeleton.scss";
-import { Skeleton } from "@mui/material";
+import { Accordion, Skeleton } from "@mui/material";
+import useThemeStore from "../themeToggleBtn/store/themeStore";
+import { AccordionSummary, Card } from "@mui/material";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 
-const ProfileSkeleton: React.FC = ()=>{
+const ProfileSkeleton: React.FC = () => {
+    const currentTheme = useThemeStore();
     return (
-        <div className="skeleton-container">
-            <div className="df js ac gp30px mb3px mw4096">
-                <Skeleton variant="circular" className="avatar100 mb3px" width={100} height={100} animation="wave" />
-                <div className="skeleton-avatar-title mb3px">
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-                </div>
-            </div>
-            <Skeleton className="mb3px" variant="rounded" height={120} animation="wave" />
+        <div className="col-12">
+            <Accordion style={{ borderRadius: '0px' }}>
+                <AccordionSummary
+                    aria-controls="panel2-content"
+                    expandIcon={<div className="expandIconContainer invisibile">
+                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
+                    </div>}>
+                    <div className="pinIconContainer invisibile">
+                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></PushPinRoundedIcon>
+                    </div>
+                    <Card className="w100per ml-neg30">
+                        <div className="df js ac gp30px ps-1">
+                            <Skeleton variant="circular" className="avatar100" width={100} height={100} animation="wave" />
+                            <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
+                                <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                                <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                                <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                            </div>
+                        </div>
+                    </Card>
+                </AccordionSummary>
+            </Accordion>
         </div>
+
+        // <div className="skeleton-container">
+        //     <div className="df js ac">
+        //         <Skeleton variant="circular" className="avatar100" width={100} height={100} animation="wave" />
+        //         <div className="skeleton-avatar-title">
+        //             <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+        //             <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+        //         </div>
+        //     </div>
+        // </div>
     )
 }
 
-export {ProfileSkeleton}
+export { ProfileSkeleton }

@@ -3,7 +3,6 @@ import './sidebar.scss';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useEffect, useState } from "react";
 import useThemeStore from "../themeToggleBtn/store/themeStore";
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
@@ -15,11 +14,6 @@ const SideBar: React.FC = () => {
 
     const currentTheme = useThemeStore();
     const [openSideBar, setOpenSideBar] = useState<boolean>(false);
-    const toggleSideBar = () => {
-        setOpenSideBar(prev => {
-            return !prev
-        })
-    }
     const sideBarStore = useSideBarStore();
 
     useEffect(() => {
@@ -40,7 +34,7 @@ const SideBar: React.FC = () => {
             <div className={"sideBarContainer df js as flxCol" + (openSideBar ? " sideBarVisible" : " sideBarHidden")} style={{ "backgroundColor": (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
                 <div className="df jc ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                     <Button className="mw0px dsBlock closeBtn" onClick={() => closeSideBar()}>
-                        <CloseRoundedIcon className="sideBarIcoClamp2535"></CloseRoundedIcon>
+                        <CloseRoundedIcon sx={{color: currentTheme.data.theme.palette?.text?.secondary}} className="sideBarIcoClamp2535"></CloseRoundedIcon>
                     </Button>
                 </div>
                 <div className="sidebarInner">

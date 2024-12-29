@@ -25,7 +25,7 @@ const lightTheme: ThemeState = { theme: themeObjLight, mode: ThemeMode.Light };
 const darkTheme: ThemeState = { theme: themeObjDark, mode: ThemeMode.Dark };
 const blueTheme: ThemeState = { theme: themeObjDarkBlue, mode: ThemeMode.Blue };
 const redTheme: ThemeState = { theme: themeObjDarkRed, mode: ThemeMode.Red };
-const defaultTheme: ThemeState = darkTheme;
+const defaultTheme: ThemeState = lightTheme;
 
 const useThemeStore: UseBoundStore<StoreApi<ThemeStore>> = create((set) => ({
     data: defaultTheme,

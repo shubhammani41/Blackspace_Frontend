@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './GlobalLoader.scss';
 import useThemeStore from '../themeToggleBtn/store/themeStore';
-import { SimplePaletteColorOptions } from '@mui/material';
 
 export interface GlobalLoaderProp {
     timeout?: number | undefined;
@@ -22,7 +21,7 @@ const GlobalLoader: React.FC = (props: GlobalLoaderProp) => {
     return (
         show ?
             <div className="loader-container">
-                <span className="loader" style={{color:(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main}}></span>
+                <span className="loader" style={{color: currentTheme.data.theme.palette?.text?.secondary}}></span>
             </div>
             : null
     )

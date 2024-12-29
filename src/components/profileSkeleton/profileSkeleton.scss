@@ -21,16 +21,12 @@
 
 
 .skeleton-container {
-    min-width: 250px;
-    max-width: 400px;
+    width: 100%;
     height: auto;
-    padding: 0px 10px;
-    width: 45%;
-    border-radius: 4px;
 }
 
 .MuiSkeleton-circular {
-    margin: 10px 0px 15px 0px;
+    flex-shrink: 0;
 }
 
 .paginator-container {

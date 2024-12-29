@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, SimplePaletteColorOptions } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import useSigninDialogStore from "./store/signinDialogStore";
 import './signinDialog.scss';
 import { LoginUIComponent } from "../loginUIComponent/LoginUIComponent";
@@ -25,12 +25,12 @@ const SigninDialog: React.FC = () => {
                 <DialogTitle>
                     <div>
                         <div className='df jc ac fw'>
-                            <p className='p0m0 header textwrapNone f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                            <p className='p0m0 header textwrapNone f100 df jc ac' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                                 Welcome to Blackspace,
                             </p>
                         </div>
                         <div className='df jc ac fw'>
-                            <p className='p0m00150 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                            <p className='p0m00150 header f100 df jc ac' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                                 Sign In.
                             </p>
                         </div>

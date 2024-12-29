@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, InputLabel, MenuItem, Select, SimplePaletteColorOptions, TextField } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import useAddBasicDetailsDialogStore from "./store/addBasicDetailsDialogStotre"
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 import moment from "moment";
@@ -28,7 +28,7 @@ const AddBasicDetailsDialog: React.FC = () => {
         >
             <div className="addBasicDetailsDialogBackdrop" />
             <DialogTitle>
-                <p className='p0m0 header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
+                <p className='p0m0 header f100 df jc ac' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                     Mind telling us more about yourself ?
                 </p>
             </DialogTitle>

@@ -1,11 +1,45 @@
+interface UserProfile {
+        userId?: number;
+        firstName?: string;
+        lastName?: string;
+        dateOfBirth?: Date | string;
+        gender?: "MALE" | "FEMALE" | "OTHER";
+        profilePictureUrl?: string;
+        bio?: string;
+        websiteUrl?: string;
+        userName?: string;
+        countryId?: number;
+        stateId?: number;
+        cityId?: number;
+        roleId?: number;
+        positionId?: number;
+        skillIds?: string;
+        isPhonePrivate?: boolean;
+        isEmailPrivate?: boolean;
+        createdAt?: Date | string;
+        updatedAt?: Date | string;
+        updatedBy?: number;
+}
 
-interface UserData {
+interface UserLogin {
+    userId?: number;
+    userProfileId?: number;
+    phoneNumber?: string;
+    email?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    updatedBy?: number;
+    isDeactivated?: boolean;
+    deactivatedAt?: Date;
+}
+
+interface UserData extends UserProfile {
     userId?: number;
     firstName?: string;
     lastName?: string;
-    dateOfBirth?: Date | string; // Depending on how dates are handled in your frontend (Date object or string representation)
+    dateOfBirth?: Date | string;
     profilePictureUrl?: string;
-    gender?: string; // Assuming gender is a string (e.g., 'male', 'female', etc.)
+    gender?: "MALE" | "FEMALE" | "OTHER";
     bio?: string;
     websiteUrl?: string;
     userName?: string;
@@ -55,4 +89,4 @@ interface UserListResponse {
     totalPages: number
 }
 
-export type { UserData, UserSkill, UserExperience, UserListResponse }
+export type { UserLogin, UserProfile, UserData, UserSkill, UserExperience, UserListResponse }

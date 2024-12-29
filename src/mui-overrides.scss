@@ -1,179 +1,191 @@
 /* mui override starts */
 .MuiPaper-elevation {
-    //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
-  }
-  
-  .MuiInputBase-root {
-    border-radius: var(--app-border-radius-s);
-    border-top-left-radius: var(--app-border-radius-s) !important;
-    border-top-right-radius: var(--app-border-radius-s) !important;
-  }
-  
-  .MuiTypography-root {
-    // line-height: 1 !important;
-  }
-  
-  .MuiFormLabel-root.MuiInputLabel-root {
-    // color: var(--app-accent-color) !important;
-    padding: 5px 5px 5px 0px !important;
-    transform: translate(0px, 0px) scale(1);
-    position: unset !important;
-  }
-  
-  .MuiInputBase-root.MuiOutlinedInput-root {
-    border-radius: var(--app-border-radius-s);
-  }
-  
-  .MuiInputBase-input.MuiFilledInput-input {
-    padding: 16px !important;
-  }
+  //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+}
 
-  .thinInput .MuiInputBase-input.MuiFilledInput-input {
-    padding: 8px 2px !important;
-  }
-  .thinInput .MuiInputBase-root {
-    padding: 2px 8px !important;
-  }
+.MuiInputBase-root {
+  border-radius: var(--app-border-radius-s);
+  border-top-left-radius: var(--app-border-radius-s) !important;
+  border-top-right-radius: var(--app-border-radius-s) !important;
+}
 
-  .thinInput .MuiInputLabel-root{
-    font-size: var(--font-m) !important;
-  }
-  
-  .MuiInputBase-root.MuiFilledInput-root::before {
-    border: none !important;
-    border-radius: var(--app-border-radius-s) !important;
-  }
-  
-  .MuiInputBase-root.MuiFilledInput-root::after {
-    border: none !important;
-    border-radius: var(--app-border-radius-s) !important;
-  }
-  
-  .MuiInputBase-input:focus{
-    background-color: transparent !important;
-  }
-  
-  .MuiFormHelperText-root {
-    color: var(--app-accent-color) !important;
-    margin-left: 0px !important;
-  }
+.MuiTypography-root {
+  // line-height: 1 !important;
+}
 
-  .MuiDialogTitle-root{
-    padding: 16px 24px 5px 24px !important;
-  }
+.MuiFormLabel-root.MuiInputLabel-root {
+  // color: var(--app-accent-color) !important;
+  padding: 5px 5px 5px 0px !important;
+  transform: translate(0px, 0px) scale(1);
+  position: unset !important;
+}
 
-  .MuiDateCalendar-root {
-    width: auto !important;
-    min-width: 250px;
-  }
+.MuiInputBase-root.MuiOutlinedInput-root {
+  border-radius: var(--app-border-radius-s);
+}
 
-  .select.MuiInputBase-root{
-    padding: 2px 14px;
-  }
-  .date .MuiInputBase-root{
-    padding: 2px 14px !important;
-  }
-  
-  fieldset {
-    display: none !important;
-  }
-  
-  /* Mui Table css override starts */
-  .matrix-table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    .table-container {
-      thead {
-        tr {
-          th {
-            color: var(--app-accent-color);
-          }
-        }
-      }
-  
+.MuiInputBase-input.MuiFilledInput-input {
+  padding: 16px !important;
+}
+
+.thinInput .MuiInputBase-input.MuiFilledInput-input {
+  padding: 8px 2px !important;
+}
+
+.thinInput .MuiInputBase-root {
+  padding: 2px 8px !important;
+}
+
+.thinInput .MuiInputLabel-root {
+  font-size: var(--font-m) !important;
+}
+
+.MuiInputBase-root.MuiFilledInput-root::before {
+  border: none !important;
+  border-radius: var(--app-border-radius-s) !important;
+}
+
+.MuiInputBase-root.MuiFilledInput-root::after {
+  border: none !important;
+  border-radius: var(--app-border-radius-s) !important;
+}
+
+.MuiInputBase-input:focus {
+  background-color: transparent !important;
+}
+
+.MuiFormHelperText-root {
+  color: var(--app-accent-color) !important;
+  margin-left: 0px !important;
+}
+
+.MuiDialogTitle-root {
+  padding: 16px 24px 5px 24px !important;
+}
+
+.MuiDateCalendar-root {
+  width: auto !important;
+  min-width: 250px;
+}
+
+.select.MuiInputBase-root {
+  padding: 2px 14px;
+}
+
+.date .MuiInputBase-root {
+  padding: 2px 14px !important;
+}
+
+fieldset {
+  display: none !important;
+}
+
+/* Mui Table css override starts */
+.matrix-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .table-container {
+    thead {
       tr {
-        transition: var(--app-transition);
-        cursor: pointer;
-  
-        th,
-        td {
-          border: none;
-        }
-  
-        th:first-child,
-        td:first-child {
-          text-align: start;
-        }
-  
-        th:last-child,
-        td:last-child {
-          text-align: end;
-        }
-      }
-  
-      tbody {
-        tr {
-          border-left: 2px solid var(--app-accent-color);
-        }
-  
-        tr:hover {
-          background-color: var(--app-accent2-color-darker);
-          transition: var(--app-transition);
+        th {
+          color: var(--app-accent-color);
         }
       }
     }
-  }
-  
-  .MuiTablePagination-root {
-    border: none !important;
-  }
-  
-  .MuiTablePagination-toolbar {
-    flex-wrap: wrap;
-  
-    p {
-      margin: 2px !important;
-    }
-  }
-  
-  .MuiSvgIcon-root {
-    cursor: pointer;
-  }
-  
-  // .MuiCardActions-root {
-  //   padding-left: 15px !important;
-  // }
-  
-  .MuiPaper-root {
-    padding: 5px;
-  }
-  
-  .MuiChip-root {
-    margin: 3px 5px 3px 0px;
-  }
-  
-  .MuiChip-label {
-    max-width: 300px;
-  }
-  
-  /* Mui Table css override ends */
-  
-  .MuiAccordionSummary-content {
-    width: 100%;
-    margin: 0px !important;
-  }
-  
-  .MuiAccordionDetails-root {
-    padding: 0px !important;
-  }
-  
-  .Mui-expanded {
-    margin: 0px !important;
-  }
 
-  .MuiDialogContent-root{
-    padding: 8px 24px !important;
+    tr {
+      transition: var(--app-transition);
+      cursor: pointer;
+
+      th,
+      td {
+        border: none;
+      }
+
+      th:first-child,
+      td:first-child {
+        text-align: start;
+      }
+
+      th:last-child,
+      td:last-child {
+        text-align: end;
+      }
+    }
+
+    tbody {
+      tr {
+        border-left: 2px solid var(--app-accent-color);
+      }
+
+      tr:hover {
+        background-color: var(--app-accent2-color-darker);
+        transition: var(--app-transition);
+      }
+    }
   }
-  /* mui override ends */
+}
+
+.MuiTablePagination-root {
+  border: none !important;
+}
+
+.MuiTablePagination-toolbar {
+  flex-wrap: wrap;
+
+  p {
+    margin: 2px !important;
+  }
+}
+
+.MuiSvgIcon-root {
+  cursor: pointer;
+}
+
+// .MuiCardActions-root {
+//   padding-left: 15px !important;
+// }
+
+.MuiPaper-root {
+  padding: 5px;
+}
+
+.MuiChip-root {
+  margin: 3px 5px 3px 0px;
+}
+
+.MuiChip-label {
+  max-width: 300px;
+}
+
+/* Mui Table css override ends */
+
+.MuiAccordionSummary-content {
+  width: 100%;
+  margin: 0px !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 0px !important;
+}
+
+.Mui-expanded {
+  margin: 0px !important;
+}
+
+.MuiDialogContent-root {
+  padding: 8px 24px !important;
+}
+
+.MuiAccordionSummary-expandIconWrapper {
+  position: relative;
+  top: 15px;
+}
+
+.MuiAccordionSummary-root{
+  padding: 0px clamp(0px, 1vw, 10px) !important;
+}
+
+/* mui override ends */
