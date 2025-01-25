@@ -70,34 +70,38 @@ const SearchComponent: React.FC = () => {
     }
 
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
-        setDevListLoading(true);
-        apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
-            if (res?.data?.data && res.data.data.length > 0) {
-                setTotalElements(res.data.totalElements);
-                setTimeout(() => {
-                    setDevData(prev => [...prev, ...res.data.data]);
-                }, defaultTimeout);
-            } else {
-                setTotalElements(0);
+        if (searchKeyWord) {
+            setDevListLoading(true);
+            apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
+                if (res?.data?.data && res.data.data.length > 0) {
+                    setTotalElements(res.data.totalElements);
+                    setTimeout(() => {
+                        setDevData(prev => [...prev, ...res.data.data]);
+                    }, defaultTimeout);
+                } else {
+                    setTotalElements(0);
+                    setDevData([]);
+                    setSearchMessage(noProfileSearchMessage);
+                    setHasMore(false);
+                }
+            }).catch(err => {
                 setDevData([]);
-                setSearchMessage(noProfileSearchMessage);
+                setSearchMessage(errorSearchMessage);
                 setHasMore(false);
-            }
-        }).catch(err => {
-            setDevData([]);
-            setSearchMessage(errorSearchMessage);
-            setHasMore(false);
-        })
+            })
 
-        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+            setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+        }
     }, [defaultTimeout, errorSearchMessage])
 
     const searchFn = useCallback((event: any) => {
         setSearchKeyWord(event.target.value);
-        if (event.target.value === '' || event.target.value.length > 2) {
-            setDevData([]);
-            setPageNumber(defaultPageNumber);
-            setPageSize(defaultPageSize);
+        setDevData([]);
+        setPageNumber(defaultPageNumber);
+        setPageSize(defaultPageSize);
+        setSearchMessage('');
+        setTotalElements(0);
+        if (event.target.value.length > 2) {
             fetchUserData(defaultPageSize, defaultPageNumber, event.target.value);
         }
     }, [fetchUserData])
