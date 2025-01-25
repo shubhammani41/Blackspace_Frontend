@@ -33,7 +33,7 @@ const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSe
     }
 
     return (
-        <Menu className="smallMenu" anchorEl={props.settingsAnchorRef.current} open={props.settingsOpen} onClose={props.handleClose}>
+        <Menu anchorEl={props.settingsAnchorRef.current} open={props.settingsOpen} onClose={props.handleClose}>
             {userLoginDataStore?.data.isUserLoggedIn ?
                 [
                     <MenuItem key='logout'>

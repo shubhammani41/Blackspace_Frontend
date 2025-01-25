@@ -1,6 +1,6 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { ElementType, Suspense, lazy, useEffect } from 'react';
 import './App.scss';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
@@ -15,9 +15,10 @@ import apiFunctions from './constants/apiFunctions';
 import useAddBasicDetailsDialogStore from './components/addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { AxiosError } from 'axios';
+import { AnimatePresence, motion } from "framer-motion";
+import { SearchComponent } from './modules/searchModule/searchComponent/searchComponent';
 
-const HomeModule = lazy(() => import("./modules/homeModule/HomeModule"));
+const HomeModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
 const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
 
@@ -51,18 +52,11 @@ const App: React.FC = () => {
         <BrowserRouter>
           <div className='componentContainer'>
             <GlobalComponents></GlobalComponents>
-            <Routes>
-              <Route path='/' element={<Navigate to="/home" />}></Route>
-              <Route path='/signin' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><AuthModule /></Suspense>}></Route>
-              <Route path='/home' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><HomeModule /></Suspense>}></Route>
-              <Route path='/profile/:userName' element={<Suspense fallback={<GlobalLoader></GlobalLoader>}><ProfileModule /></Suspense>}></Route>
-              <Route path='*' element={<NotFound />}></Route>
-            </Routes>
+            <RoutesComponent></RoutesComponent>
           </div>
         </BrowserRouter>
       </ThemeProvider>
     </LocalizationProvider>
-
   );
 }
 
@@ -74,6 +68,65 @@ const GlobalComponents: React.FC = () => {
       <SigninDialog></SigninDialog>
       <AddBasicDetailsDialog></AddBasicDetailsDialog>
     </div>
+  )
+}
+
+const RoutesComponent: React.FC = () => {
+  const location = useLocation();
+  const AnimatePresenceFixedType = AnimatePresence as ElementType;
+  return (
+    <AnimatePresenceFixedType mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path='/'
+          element={
+            <Navigate to="/profileSearch" />
+          }>
+        </Route>
+        <Route path='/signin'
+          element={
+            <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <AnimationMotionDiv component={AuthModule}></AnimationMotionDiv>
+            </Suspense>
+          }>
+        </Route>
+        <Route path='/profileSearch'
+          element={
+            <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <AnimationMotionDiv component={SearchComponent}></AnimationMotionDiv>
+            </Suspense>
+          }>
+        </Route>
+        <Route path='/profile/:userName'
+          element={
+            <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <AnimationMotionDiv component={ProfileModule}></AnimationMotionDiv>
+            </Suspense>
+          }>
+        </Route>
+        <Route path='*'
+          element={
+            <NotFound />
+          }>
+        </Route>
+      </Routes>
+    </AnimatePresenceFixedType>
+  )
+}
+
+interface AnimationMotionDivProps {
+  component: React.FC;
+}
+
+const AnimationMotionDiv: React.FC<AnimationMotionDivProps> = (props: AnimationMotionDivProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100 }}
+      transition={{ duration: 0.3 }}
+    >
+      <props.component />
+    </motion.div>
   )
 }
 

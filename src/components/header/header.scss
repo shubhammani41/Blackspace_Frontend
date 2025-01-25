@@ -19,9 +19,9 @@
 @media (max-width: 1024px) {
     .headerHidden {
         padding: 5px 10px;
-        transform: translateY(-2px);
+        transform: translateY(-15px);
         .headerInner{
-            padding: 0px 12px;
+            padding: 14px 12px 5px;
             transition: all 0.4s ease-in-out;
         }
         transition: all 0.4s ease-in-out;

@@ -51,4 +51,4 @@ Generation Script:
 npx create-react-app my-app --template typescript
 
 Post Generation Script:
-npm install react-hook-form @mui/material @emotion/react @emotion/styled @mui/icons-material @mui/x-date-pickers zustand react-router-dom axios lodash @types/lodash react-infinite-scroller @types/react-infinite-scroller moment sass html2canvas @types/html2canvas jspdf @types/jspdf bootstrap firebase firebaseui
+npm install react-hook-form @mui/material @emotion/react @emotion/styled @mui/icons-material @mui/x-date-pickers zustand react-router-dom axios lodash @types/lodash react-infinite-scroller @types/react-infinite-scroller moment sass html2canvas @types/html2canvas jspdf @types/jspdf bootstrap firebase firebaseui framer-motion

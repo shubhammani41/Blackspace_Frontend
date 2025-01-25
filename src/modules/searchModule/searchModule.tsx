@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { HomeComponent } from "./homeComponent/homeComponent"
+import { SearchComponent } from "./searchComponent/searchComponent"
 
 const HomeModule: React.FC = () => {
     return (
         <Routes>
-            <Route path="/" element={<HomeComponent />}></Route>
+            <Route path="/" element={<SearchComponent />}></Route>
         </Routes>
     )
 }

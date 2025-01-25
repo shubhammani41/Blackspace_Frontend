@@ -1,7 +1,7 @@
-import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
-import './homeComponent.scss';
+import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
 import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,7 +25,7 @@ import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
 
-const HomeComponent: React.FC = () => {
+const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
     const defaultPageNumber: number = 0;
     const defaultSearchKeyWord: string = "";
@@ -295,7 +295,7 @@ const HomeComponent: React.FC = () => {
                                                         <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                     </div>
                                                     <Card className="w100per ml-neg30">
-                                                        <div className="df js ac gp30px ps-1">
+                                                        <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
                                                             <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
                                                             <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
@@ -305,6 +305,11 @@ const HomeComponent: React.FC = () => {
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">
                                                                     {devData.positionName}
                                                                 </Typography>
+                                                                {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map(obj => {
+                                                                    return (<Typography className="ellipsis" variant="body2" color="text.secondary">
+                                                                        {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
+                                                                    </Typography>)
+                                                                })}
                                                                 <Typography className="ellipsis" variant="body2" color="text.secondary">
                                                                     Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
                                                                 </Typography>
@@ -324,13 +329,13 @@ const HomeComponent: React.FC = () => {
                                                         </CardContent>
                                                         <CardActions className="px-0 py-2">
                                                             <Tooltip title="View">
-                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { goToProfile(devData.userName || '') }}>
-                                                                    <VisibilityRoundedIcon></VisibilityRoundedIcon>
+                                                                <Button variant="contained" size="small" onClick={() => { goToProfile(devData.userName || '') }}>
+                                                                    <VisibilityRoundedIcon></VisibilityRoundedIcon>&nbsp;View
                                                                 </Button>
                                                             </Tooltip>
                                                             <Tooltip title="Download">
-                                                                <Button variant="contained" size="small" className="icon40Btn" onClick={() => { downloadProfile(devData.userName || '') }}>
-                                                                    <DownloadRoundedIcon></DownloadRoundedIcon>
+                                                                <Button variant="contained" size="small" onClick={() => { downloadProfile(devData.userName || '') }}>
+                                                                    <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
                                                                 </Button>
                                                             </Tooltip>
                                                         </CardActions>
@@ -371,4 +376,4 @@ const HomeComponent: React.FC = () => {
     );
 }
 
-export { HomeComponent };
+export { SearchComponent };

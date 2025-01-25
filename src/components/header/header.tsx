@@ -11,6 +11,7 @@ import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
 import { ProfileSettingsMenu } from "./profileSettingsMenu/profileSettingsMenu";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import useSideBarStore from "../sideBar/store/sideBarStore";
+import SearchIcon from '@mui/icons-material/Search';
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -46,8 +47,8 @@ const AppHeader: React.FC = () => {
     const handleCloseHeaderSettings = () => {
         setHeaderSettingsOpen(false);
     };
-    const handleClickProfileSettings = () => {
-        setProfileSettingsOpen((prev) => !prev);
+    const handleSearchClick = () => {
+        navigate('/profileSearch');
     };
     const handleCloseProfileSettings = () => {
         setProfileSettingsOpen(false);
@@ -75,7 +76,7 @@ const AppHeader: React.FC = () => {
 
     return (
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
-            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default' }}>
+            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', paddingBottom:'0px' }}>
                 <div className="row gx-0">
                     <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
 
@@ -98,10 +99,10 @@ const AppHeader: React.FC = () => {
                                 {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
                             </div>
                             <div className="df je ac headerInnerRight">
-                                <Button onClick={handleClickProfileSettings} ref={profileSettingsAnchorRef} className="ml15 mw0px">
-                                    <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></AccountCircleOutlinedIcon>
+                                <Button onClick={handleSearchClick} ref={profileSettingsAnchorRef} className="ml15 mw0px" style={{padding: '4px'}}>
+                                    <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SearchIcon>
                                 </Button>
-                                <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px">
+                                <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px" style={{padding: '4px'}}>
                                     <SettingsOutlinedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SettingsOutlinedIcon>
                                 </Button>
                             </div>

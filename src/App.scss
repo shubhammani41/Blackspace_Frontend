@@ -57,7 +57,7 @@
   --app-light-gray-color: #d6d6d6;
   --app-verified-color: #0095F6;
   // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
-  --app-font-family: 'Roboto', Courier, 'Courier New', 'monospace';
+  --app-font-family: 'Quicksand', 'Roboto', Courier, 'Courier New', 'monospace';
   --font-xxs: 0.2rem;
   --font-xs: 0.4rem;
   --font-s: 0.6rem;
@@ -91,7 +91,7 @@ body * {
   font-family: var(--app-font-family) !important;
   font-size: var(--font-m) !important;
   font-weight: 300;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
 }
 
 .overFlowHidden {
@@ -172,8 +172,10 @@ body * {
 
 /* browser scroll bar css override starts */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0.5vw;
   height: 10px;
+  min-width: 6px;
+  max-width: 15px;
 }
 
 ::-webkit-scrollbar-track {

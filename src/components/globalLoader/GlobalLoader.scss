@@ -1,7 +1,7 @@
 .loader-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   height: 100vh;
   min-height: 500px;
 }
@@ -13,7 +13,7 @@
   display: block;
   color: #FFF;
   box-sizing: border-box;
-  animation: animloader 1s linear infinite alternate;
+  animation: slideDown 0.7s ease-out forwards, animloader 1s linear infinite alternate;
 }
 
 @keyframes animloader {
@@ -31,5 +31,16 @@
 
   100% {
     box-shadow: -38px 0, -14px 0, 14px 0, 38px -12px;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(calc(30vh)); /* Center vertically */
+    opacity: 1;
   }
 }
