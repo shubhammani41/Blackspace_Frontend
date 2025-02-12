@@ -1,12 +1,12 @@
 import React from "react";
-import "./profileSkeleton.scss";
+import "./searchSkeleton.scss";
 import { Accordion, Skeleton } from "@mui/material";
-import useThemeStore from "../themeToggleBtn/store/themeStore";
+import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import { AccordionSummary, Card } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 
-const ProfileSkeleton: React.FC = () => {
+const SearchSkeleton: React.FC = () => {
     const currentTheme = useThemeStore();
     return (
         <div className="col-12">
@@ -32,17 +32,7 @@ const ProfileSkeleton: React.FC = () => {
                 </AccordionSummary>
             </Accordion>
         </div>
-
-        // <div className="skeleton-container">
-        //     <div className="df js ac">
-        //         <Skeleton variant="circular" className="avatar100" width={100} height={100} animation="wave" />
-        //         <div className="skeleton-avatar-title">
-        //             <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-        //             <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 
-export { ProfileSkeleton }
+export { SearchSkeleton }

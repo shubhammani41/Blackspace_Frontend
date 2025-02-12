@@ -3,7 +3,7 @@ import "./downloadableProfileComponent.scss";
 import { useCallback, useEffect, useState } from "react";
 import { AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
-import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
+import { SearchSkeleton } from "../../searchModule/searchSkeleton/searchSkeleton";
 import React from "react";
 import { UserExperienceDetails } from "../../../models/userExperience";
 import moment from "moment";
@@ -70,7 +70,7 @@ const DownloadableProfileComponent: React.FC<DownloadableProfileComponentProp> =
         <ThemeProvider theme={createTheme(themeObjLight)}>
             <div className="p40">
                 <div className="downloadableProfileMainInfo df js ac fw">
-                    {userDataLoading ? <ProfileSkeleton></ProfileSkeleton> :
+                    {userDataLoading ? <SearchSkeleton></SearchSkeleton> :
                         <React.Fragment>
                             {devData != null ? <React.Fragment>
                                 <div className='df js ac f100'>

@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState 
 import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
-import { ProfileSkeleton } from "../../../components/profileSkeleton/profileSkeleton";
+import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
 import InfiniteScroll from 'react-infinite-scroller';
 import { debounce } from 'lodash';
@@ -59,7 +59,7 @@ const SearchComponent: React.FC = () => {
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
-            return (<ProfileSkeleton key={"profileSkeleton_" + index}></ProfileSkeleton>)
+            return (<SearchSkeleton key={"profileSkeleton_" + index}></SearchSkeleton>)
         })
     }, [])
 
@@ -70,7 +70,7 @@ const SearchComponent: React.FC = () => {
     }
 
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
-        if (searchKeyWord) {
+        // if (searchKeyWord) {
             setDevListLoading(true);
             apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
                 if (res?.data?.data && res.data.data.length > 0) {
@@ -91,7 +91,7 @@ const SearchComponent: React.FC = () => {
             })
 
             setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
-        }
+        // }
     }, [defaultTimeout, errorSearchMessage])
 
     const searchFn = useCallback((event: any) => {
