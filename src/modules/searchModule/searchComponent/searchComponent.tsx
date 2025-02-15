@@ -309,8 +309,8 @@ const SearchComponent: React.FC = () => {
                                                                 <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">
                                                                     {devData.positionName}
                                                                 </Typography>
-                                                                {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map(obj => {
-                                                                    return (<Typography className="ellipsis" variant="body2" color="text.secondary">
+                                                                {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj,index) => {
+                                                                    return (<Typography className="ellipsis" variant="body2" color="text.secondary" key={'exp_'+index}>
                                                                         {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
                                                                     </Typography>)
                                                                 })}
@@ -353,7 +353,7 @@ const SearchComponent: React.FC = () => {
                                         </div>
                                     )
                                 }) :
-                                null
+                                <></>
                             }
                         </InfiniteScroll>
                         {devListLoading ? profileSkeletonList : null}

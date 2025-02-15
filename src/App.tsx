@@ -10,7 +10,7 @@ import { SideBar } from './components/sideBar/sidebar';
 import { SigninDialog } from './components/signinDialog/signinDialog';
 import useUserLoginDataStore from './store/userLoginDetailsStore';
 import { AddBasicDetailsDialog } from './components/addBasicDetailsDialog/addBasicDetailsDialog';
-import { getUserLoginDetailsFromLocalStorage } from './constants/appConstants';
+import { getUserDataFromLocalStorage } from './constants/appConstants';
 import apiFunctions from './constants/apiFunctions';
 import useAddBasicDetailsDialogStore from './components/addBasicDetailsDialog/store/addBasicDetailsDialogStotre';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -27,19 +27,21 @@ const App: React.FC = () => {
   const userLoginDataStore = useUserLoginDataStore();
   const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
   const verifyUserDataFromLocalAndSignin = () => {
-    let userLoginData = getUserLoginDetailsFromLocalStorage();
-    if (userLoginData) {
-      userLoginDataStore.updateUserData({ userLoginDetails: userLoginData, ...userLoginDataStore.data.userDetails });
-      if (userLoginData?.userDetails?.userId) {
-        apiFunctions.fetchUserProfileByUserLoginId(userLoginData.userDetails.userId).then(res => {
-          if (res?.data && userLoginDataStore?.data?.userDetails) {
-            userLoginDataStore.updateUserData({ userProfileDetails: userLoginDataStore.data.userDetails?.userProfileDetails, ...userLoginDataStore.data.userDetails });
-            addBasicDetailsDialogStore.openDialog();
-          }
-        }).catch((err) => {
-          userLoginDataStore.clearUserData();
-        });
-      }
+    let userData = getUserDataFromLocalStorage();
+    if (userData?.userLoginDetails?.userDetails?.userId && userData?.userLoginDetails?.token) {
+      userLoginDataStore.updateUserData({ userLoginDetails: userData.userLoginDetails, ...userLoginDataStore.data.userDetails });
+      apiFunctions.fetchUserProfileByUserLoginId(userData.userLoginDetails.userDetails.userId).then(res => {
+        if (res?.data?.userId && userLoginDataStore?.data?.userDetails) {
+          userLoginDataStore.updateUserData({ userProfileDetails: res.data, ...userLoginDataStore.data.userDetails });
+        }
+        else {
+          addBasicDetailsDialogStore.openDialog();
+        }
+      }, rej => {
+        addBasicDetailsDialogStore.openDialog();
+      }).catch((err) => {
+        userLoginDataStore.clearUserData();
+      });
     }
   }
   useEffect(() => {

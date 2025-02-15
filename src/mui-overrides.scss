@@ -192,4 +192,13 @@ fieldset {
   box-shadow: var(--shadow-down-s-transparent) !important;
 }
 
+.MuiList-root .MuiMenuItem-root{
+  padding: 0px !important;
+  button {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: start !important;
+    align-items: center !important;
+  }
+}
 /* mui override ends */

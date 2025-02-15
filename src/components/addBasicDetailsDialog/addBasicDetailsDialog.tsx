@@ -90,6 +90,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     labelId="gender"
                     label="Gender"
                     variant="filled"
+                    defaultValue={''}
                     >
                     <MenuItem value={'MALE'}>Male</MenuItem>
                     <MenuItem value={'FEMALE'}>Female</MenuItem>
@@ -99,27 +100,30 @@ const AddBasicDetailsDialog: React.FC = () => {
                     labelId="country"
                     label="Country"
                     variant="filled"
+                    defaultValue={''}
                     >
-                    <MenuItem value={1}>USA</MenuItem>
-                    <MenuItem value={2}>India</MenuItem>
+                    <MenuItem value={'1'}>USA</MenuItem>
+                    <MenuItem value={'2'}>India</MenuItem>
                 </Select>
                 <InputLabel id="state">State</InputLabel>
                 <Select className="w100per thinInput select mb-2"
                     labelId="state"
                     label="State"
                     variant="filled"
+                    defaultValue={''}
                     >
-                    <MenuItem value={1}>Uttar Pradesh</MenuItem>
-                    <MenuItem value={2}>Delhi</MenuItem>
+                    <MenuItem value={'1'}>Uttar Pradesh</MenuItem>
+                    <MenuItem value={'2'}>Delhi</MenuItem>
                 </Select>
                 <InputLabel id="city">City</InputLabel>
                 <Select className="w100per thinInput select mb-2"
                     labelId="city"
                     label="City"
                     variant="filled"
+                    defaultValue={''}
                     >
-                    <MenuItem value={1}>Gorakhpur</MenuItem>
-                    <MenuItem value={2}>Noida</MenuItem>
+                    <MenuItem value={'1'}>Gorakhpur</MenuItem>
+                    <MenuItem value={'2'}>Noida</MenuItem>
                 </Select>
             </DialogContent>
             <DialogActions>

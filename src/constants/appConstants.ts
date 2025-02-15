@@ -9,7 +9,7 @@ const AppText = {
     errorMessage: "Opps! Something went wrong."
 }
 
-const userLoginDataStorageKey = 'userLoginData';
+const userDataStorageKey = 'userLoginData';
 
 const AppValues = {
     defaultLoadingTimer: 500
@@ -17,10 +17,13 @@ const AppValues = {
 
 const getTokenFromLocalStorage = (): String => {
     try {
-        const userLoginDataStr = localStorage.getItem(userLoginDataStorageKey);
-        if (userLoginDataStr) {
-            const userLoginData = JSON.parse(userLoginDataStr);
-            return userLoginData.token;
+        const userDataStr = localStorage.getItem(userDataStorageKey);
+        if (userDataStr) {
+            const userData:{ userLoginDetails: UserLoginRes, userProfileDetails?: UserData } | null = JSON.parse(userDataStr);
+            if(userData?.userLoginDetails?.token){
+                return userData.userLoginDetails.token;
+            }
+            else return '';
         }
         else return '';
     }
@@ -30,11 +33,11 @@ const getTokenFromLocalStorage = (): String => {
     }
 }
 
-const getUserLoginDetailsFromLocalStorage = (): UserLoginRes | null => {
+const getUserDataFromLocalStorage = (): { userLoginDetails: UserLoginRes, userProfileDetails?: UserData } | null => {
     try {
-        const userLoginDataStr = localStorage.getItem(userLoginDataStorageKey);
-        if (userLoginDataStr) {
-            const userLoginData = JSON.parse(userLoginDataStr);
+        const userDataStr = localStorage.getItem(userDataStorageKey);
+        if (userDataStr) {
+            const userLoginData = JSON.parse(userDataStr);
             return userLoginData;
         }
         else return null;
@@ -45,9 +48,9 @@ const getUserLoginDetailsFromLocalStorage = (): UserLoginRes | null => {
     }
 }
 
-const updateUserLoginDataInLocalStorage = (data: UserLoginRes) => {
+const updateUserDataInLocalStorage = (data: { userLoginDetails: UserLoginRes, userProfileDetails?: UserData }) => {
     localStorage.clear();
-    localStorage.setItem(userLoginDataStorageKey, JSON.stringify(data));
+    localStorage.setItem(userDataStorageKey, JSON.stringify(data));
 }
 
 const transformUserDataList = (data: UserData[]): UserData[] => {
@@ -59,7 +62,7 @@ const transformUserDataList = (data: UserData[]): UserData[] => {
 const transformUserData = (data: UserData): UserData => {
     let formattedData: UserData = {
         ...data,
-        userExperience: data.userExperience?sortExperienceByDateAndCurrent(data.userExperience):undefined,
+        userExperience: data.userExperience ? sortExperienceByDateAndCurrent(data.userExperience) : undefined,
     }
     return formattedData;
 }
@@ -80,4 +83,4 @@ const sortExperienceDetailsByDateAndCurrent = (experienceList: UserExperienceDet
     });
 }
 
-export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserLoginDataInLocalStorage, getUserLoginDetailsFromLocalStorage }
+export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserDataInLocalStorage, getUserDataFromLocalStorage }

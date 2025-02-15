@@ -34,12 +34,19 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                 authResult.user.getIdToken().then((token: string) => {
                     apiFunctions.verifyFirebaseToken(token)
                         .then(res => {
-                            if (res && res.data) {
-                                userLoginDataStore.updateUserData({userLoginDetails:res.data, userProfileDetails:userLoginDataStore.data.userDetails?.userProfileDetails});
-                                if(res.data.userDetails?.userId){
-                                    apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails?.userId).then(res=>{
+                            if (res?.data?.userDetails?.userId && res?.data?.token) {
+                                userLoginDataStore.updateUserData({ userLoginDetails: res.data, userProfileDetails: userLoginDataStore?.data?.userDetails?.userProfileDetails });
+                                if (res.data.userDetails?.userId) {
+                                    apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails.userId).then(response => {
+                                        if (response?.data?.userId && userLoginDataStore?.data?.userDetails) {
+                                            userLoginDataStore.updateUserData({ userProfileDetails: response.data, ...userLoginDataStore.data.userDetails })
+                                        }
+                                        else {
+                                            addBasicDetailsDialogStore.openDialog();
+                                        }
+                                    }, rej => {
                                         addBasicDetailsDialogStore.openDialog();
-                                    }).catch(err=>{
+                                    }).catch(err => {
                                         userLoginDataStore.clearUserData();
                                     });
                                 }

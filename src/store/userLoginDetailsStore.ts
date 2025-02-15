@@ -1,6 +1,6 @@
 import { StoreApi, UseBoundStore, create } from "zustand";
 import { UserLoginRes } from "../models/userLoginRes";
-import { updateUserLoginDataInLocalStorage } from "../constants/appConstants";
+import { updateUserDataInLocalStorage } from "../constants/appConstants";
 import { UserData } from "../models/userData";
 
 export interface UserLoginState {
@@ -24,7 +24,7 @@ const useUserLoginDataStore: UseBoundStore<StoreApi<UserLoginDataStore>> = creat
     }
     ),
     updateUserData: (data: { userLoginDetails: UserLoginRes, userProfileDetails?: UserData }) => set((state: { data: UserLoginState }) => {
-        updateUserLoginDataInLocalStorage(data.userLoginDetails);
+        updateUserDataInLocalStorage(data);
         return { data: { isUserLoggedIn: true, userDetails: data } }
     }
     ),
