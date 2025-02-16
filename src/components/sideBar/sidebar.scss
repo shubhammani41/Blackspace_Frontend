@@ -3,6 +3,27 @@
     height: 24px !important;
 }
 
+.sideBarContainer{
+    box-shadow: var(--shadow-right-normal);
+    top: 0px;
+    position: fixed;
+    left: 0px;
+    z-index: 9991;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+}
+
+.sideBarVisible{
+    left: 0px;
+    transition: var(--app-transition);
+}
+
+.sideBarHidden{
+    left: -100%;
+    transition: var(--app-transition);
+}
+
 .w15 {
     width: 15px !important;
 }
@@ -19,87 +40,6 @@
     filter: invert(1);
 }
 
-.sideBarFontClamp{
-    font-size: var(--font-m) !important;
-}
-
-.sideBarIcoClamp1525{
-    width: clamp(15px, 2vw, 25px) !important;
-    height: clamp(15px, 2vw, 25px) !important;
-}
-
-.sideBarIcoClamp2535{
-    width: clamp(25px, 2vw, 35px) !important;
-    height: clamp(25px, 2vw, 35px) !important;
-}
-
-.sideBarContainer{
-    box-shadow: var(--shadow-right-normal);
-    width: 5vw;
-    min-width: 70px;
-    top: 0px;
-    position: fixed;
-    left: 0px;
-    max-width: 100px;
-    z-index: 9991;
-    height: 100%;
-}
-
-.backgroundHider{
-    padding-top: 100px;
-    width: 100%;
-}
-
-.sidebarInner{
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: clamp(50px, 5vw, 100px) 0px;
-}
-
-.sideBarVisible{
-    left: 0px;
-    transition: var(--app-transition);
-}
-
-.sideBarHidden{
-    left: -200px;
-    transition: var(--app-transition);
-}
-
-.menuIconContainer{
-    top: 10px !important;
-    position: fixed;
-    z-index: 9992;
-    height: auto;
-    background: #ffffff00;
-    padding-top: 23px;
-    padding: 12px;
-    width: 5vw;
-    min-width: 70px;
-    left: 0px;
-    max-width: 100px;
-}
-
-.dpNone{
-    display: none;
-}
-
-.whiteText{
-    color: #ffffff;
-}
-
 .dsBlock{
     display: block;
-}
-
-.closeBtn{
-    margin: 20px !important;
-}
-
-.sideBarInnerItemsContainer{
-    gap: 30px;
-}
-
-.sideBarInnerItems{
-    width: 100%;
 }

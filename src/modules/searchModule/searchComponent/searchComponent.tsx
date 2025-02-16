@@ -6,7 +6,7 @@ import { UserData, UserSkill } from "../../../models/userData";
 import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
 import InfiniteScroll from 'react-infinite-scroller';
-import { debounce } from 'lodash';
+import { debounce, divide } from 'lodash';
 import { AppText, AppValues } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
@@ -24,6 +24,7 @@ import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCir
 import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
+import { SideBarInner } from "../../../components/sideBar/sideBarInner/sideBarInner";
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -71,26 +72,26 @@ const SearchComponent: React.FC = () => {
 
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
         // if (searchKeyWord) {
-            setDevListLoading(true);
-            apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
-                if (res?.data?.data && res.data.data.length > 0) {
-                    setTotalElements(res.data.totalElements);
-                    setTimeout(() => {
-                        setDevData(prev => [...prev, ...res.data.data]);
-                    }, defaultTimeout);
-                } else {
-                    setTotalElements(0);
-                    setDevData([]);
-                    setSearchMessage(noProfileSearchMessage);
-                    setHasMore(false);
-                }
-            }).catch(err => {
+        setDevListLoading(true);
+        apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
+            if (res?.data?.data && res.data.data.length > 0) {
+                setTotalElements(res.data.totalElements);
+                setTimeout(() => {
+                    setDevData(prev => [...prev, ...res.data.data]);
+                }, defaultTimeout);
+            } else {
+                setTotalElements(0);
                 setDevData([]);
-                setSearchMessage(errorSearchMessage);
+                setSearchMessage(noProfileSearchMessage);
                 setHasMore(false);
-            })
+            }
+        }).catch(err => {
+            setDevData([]);
+            setSearchMessage(errorSearchMessage);
+            setHasMore(false);
+        })
 
-            setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
         // }
     }, [defaultTimeout, errorSearchMessage])
 
@@ -248,134 +249,141 @@ const SearchComponent: React.FC = () => {
                 </div>
             } */}
             <div className="row gx-0">
-                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
-                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-4">
-                    <TextField
-                        id="searchDev"
-                        label="Search developer profile"
-                        variant="filled"
-                        placeholder="e.g. Shubham Tripathi"
-                        className='w100per'
-                        onChange={debouncedSearchFn}
-                        InputLabelProps={{
-                            style: { color: currentTheme.data.theme.palette?.text?.secondary },
-                        }}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon className="searchIconContainer" style={{ color: currentTheme.data.theme.palette?.text?.secondary }}></SearchIcon>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
+                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
                 </div>
-                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1"></div>
-            </div>
-            <div className="row gx-0">
-                <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
-                </div>
-                {devListLoading || (!devListLoading && devDataList.length > 0) ?
-                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 roundedContainer mb-2">
-                        <InfiniteScroll
-                            pageStart={defaultPageNumber}
-                            loadMore={debouncedLoadMore}
-                            hasMore={hasMore}
-                            useWindow={true} // Set to true to use window scroll, false to use a specific container
-                            threshold={0}>
-                            {devDataList.length > 0 ?
-                                devDataList.map((devData, index) => {
-                                    return (
-                                        <div className="col-12" key={"dev_" + devData.userId}>
-                                            <Accordion style={{ borderRadius: '0px' }} expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
-                                                <AccordionSummary
-                                                    expandIcon={<div className="expandIconContainer">
-                                                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
-                                                    </div>}
-                                                    aria-controls="panel2-content"
-                                                    id={"accordian_" + devData.userId}
-                                                >
+                <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-2 row gx-0">
+                    <div className="col-4 d-none d-md-block">
+                        <div className="roundedContainer me-3" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                            <div className="px-3 pt-2">
+                                <Typography className="headerml" variant="body2">Menu</Typography>
+                            </div>
+                            <SideBarInner></SideBarInner>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-8">
+                        <div className="mb-3">
+                            <TextField
+                                id="searchDev"
+                                helperText="Search developer profile"
+                                variant="filled"
+                                placeholder="e.g. Shubham Tripathi"
+                                className='w100per'
+                                onChange={debouncedSearchFn}
+                                InputLabelProps={{
+                                    style: { color: currentTheme.data.theme.palette?.text?.secondary },
+                                }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon className="searchIconContainer" style={{ color: currentTheme.data.theme.palette?.text?.secondary }}></SearchIcon>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </div>
+                        {devListLoading || (!devListLoading && devDataList.length > 0) ?
+                            <div className="roundedContainer searchProfileContainer">
+                                <InfiniteScroll
+                                    pageStart={defaultPageNumber}
+                                    loadMore={debouncedLoadMore}
+                                    hasMore={hasMore}
+                                    useWindow={true} // Set to true to use window scroll, false to use a specific container
+                                    threshold={0}>
+                                    {devDataList.length > 0 ?
+                                        devDataList.map((devData, index) => {
+                                            return (
+                                                <div className="col-12" key={"dev_" + devData.userId}>
+                                                    <Accordion style={{ borderRadius: '0px' }} expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
+                                                        <AccordionSummary
+                                                            expandIcon={<div className="expandIconContainer">
+                                                                <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
+                                                            </div>}
+                                                            aria-controls="panel2-content"
+                                                            id={"accordian_" + devData.userId}
+                                                        >
 
-                                                    <div className="pinIconContainer">
-                                                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
-                                                    </div>
-                                                    <Card className="w100per ml-neg30">
-                                                        <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
-                                                            <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
-                                                            <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
-                                                                <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
-                                                                    <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
-                                                                    {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
-                                                                </Typography>
-                                                                <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">
-                                                                    {devData.positionName}
-                                                                </Typography>
-                                                                {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj,index) => {
-                                                                    return (<Typography className="ellipsis" variant="body2" color="text.secondary" key={'exp_'+index}>
-                                                                        {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
-                                                                    </Typography>)
-                                                                })}
-                                                                <Typography className="ellipsis" variant="body2" color="text.secondary">
-                                                                    Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
-                                                                </Typography>
+                                                            <div className="pinIconContainer">
+                                                                <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
                                                             </div>
-                                                        </div>
-                                                    </Card>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Card>
-                                                        <CardContent className="p-0">
-                                                            <Typography className="ellipsis" variant="body2" color="text.secondary">
-                                                                Experience: {devData.experience}+ years
-                                                            </Typography>
-                                                            {devData?.skills?.map((skill: UserSkill, index: number) => {
-                                                                return <Chip sx={{ color: currentTheme.data.theme.palette?.text?.disabled }} label={skill.skillName} key={'skill_' + index} />
-                                                            })}
-                                                        </CardContent>
-                                                        <CardActions className="px-0 py-2">
-                                                            <Tooltip title="View">
-                                                                <Button variant="contained" size="small" onClick={() => { goToProfile(devData.userName || '') }}>
-                                                                    <VisibilityRoundedIcon></VisibilityRoundedIcon>&nbsp;View
-                                                                </Button>
-                                                            </Tooltip>
-                                                            <Tooltip title="Download">
-                                                                <Button variant="contained" size="small" onClick={() => { downloadProfile(devData.userName || '') }}>
-                                                                    <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
-                                                                </Button>
-                                                            </Tooltip>
-                                                        </CardActions>
-                                                    </Card>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                            {(index !== devDataList.length - 1) ? <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                                                <hr className="m-0 ms-5 me-5"></hr>
-                                            </div> : null}
+                                                            <Card className="w100per ml-neg30">
+                                                                <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
+                                                                    <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />
+                                                                    <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
+                                                                        <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
+                                                                            <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
+                                                                            {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
+                                                                        </Typography>
+                                                                        <Typography sx={{ color: 'text.primary' }} className="ellipsis" variant="body2" color="text.secondary">
+                                                                            {devData.positionName}
+                                                                        </Typography>
+                                                                        {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
+                                                                            return (<Typography className="ellipsis" variant="body2" color="text.secondary" key={'exp_' + index}>
+                                                                                {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
+                                                                            </Typography>)
+                                                                        })}
+                                                                        <Typography className="ellipsis" variant="body2" color="text.secondary">
+                                                                            Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
+                                                                        </Typography>
+                                                                    </div>
+                                                                </div>
+                                                            </Card>
+                                                        </AccordionSummary>
+                                                        <AccordionDetails>
+                                                            <Card>
+                                                                <CardContent className="p-0">
+                                                                    <Typography className="ellipsis" variant="body2" color="text.secondary">
+                                                                        Experience: {devData.experience}+ years
+                                                                    </Typography>
+                                                                    {devData?.skills?.map((skill: UserSkill, index: number) => {
+                                                                        return <Chip sx={{ color: currentTheme.data.theme.palette?.text?.disabled }} label={skill.skillName} key={'skill_' + index} />
+                                                                    })}
+                                                                </CardContent>
+                                                                <CardActions className="px-0 py-2">
+                                                                    <Tooltip title="View">
+                                                                        <Button variant="contained" size="small" onClick={() => { goToProfile(devData.userName || '') }}>
+                                                                            <VisibilityRoundedIcon></VisibilityRoundedIcon>&nbsp;View
+                                                                        </Button>
+                                                                    </Tooltip>
+                                                                    <Tooltip title="Download">
+                                                                        <Button variant="contained" size="small" onClick={() => { downloadProfile(devData.userName || '') }}>
+                                                                            <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
+                                                                        </Button>
+                                                                    </Tooltip>
+                                                                </CardActions>
+                                                            </Card>
+                                                        </AccordionDetails>
+                                                    </Accordion>
+                                                    {(index !== devDataList.length - 1) ? <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                                                        <hr className="m-0 ms-5 me-5"></hr>
+                                                    </div> : null}
 
-                                        </div>
-                                    )
-                                }) :
-                                <></>
-                            }
-                        </InfiniteScroll>
-                        {devListLoading ? profileSkeletonList : null}
-                    </div> : <></>
-                }
-
-                <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
+                                                </div>
+                                            )
+                                        }) :
+                                        <></>
+                                    }
+                                </InfiniteScroll>
+                                {devListLoading ? profileSkeletonList : null}
+                            </div>
+                            : <></>}
+                        {!devListLoading && devDataList.length < 1 ?
+                            <div className="df jc ac fw">
+                                <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
+                                    {searchMessage}
+                                </Typography>
+                            </div> : null
+                        }
+                        {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
+                            <div className="df jc ac fw m-3" onClick={handleScroll}>
+                                <Tooltip title="Load more">
+                                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                                </Tooltip>
+                            </div> : null}
+                    </div>
+                </div>
+                <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
                 </div>
             </div>
-            {!devListLoading && devDataList.length < 1 ?
-                <div className="df jc ac fw">
-                    <Typography className="ellipsis df jc ac" variant="body2" color="text.secondary">
-                        {searchMessage}
-                    </Typography>
-                </div> : null
-            }
-            {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
-                <div className="df jc ac fw" onClick={handleScroll}>
-                    <Tooltip title="Load more">
-                        <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
-                    </Tooltip>
-                </div> : null}
         </div>
     );
 }

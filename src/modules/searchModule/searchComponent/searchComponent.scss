@@ -1,0 +1,4 @@
+.searchProfileContainer{
+    max-height: calc(100vh - clamp(230px, 30vw, 275px));
+    overflow: auto;
+}

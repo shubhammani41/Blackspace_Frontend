@@ -78,15 +78,15 @@ const AppHeader: React.FC = () => {
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
             {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', paddingBottom: '0px' }}>
                 <div className="row gx-0">
-                    <div className="col-xxl-2 col-xl-2 col-lg-1 d-sm-block">
+                    <div className="col-xxl-1 col-xl-1 col-lg-1 d-sm-block">
 
                     </div>
-                    <div className="col-1 df je ac">
-                        <Button className="mw0px">
+                    <div className="col-1 df je ac ">
+                        <Button className="mw0px d-md-none">
                             <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
                         </Button>
                     </div>
-                    <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10">
+                    <div className="col-xxl-8 col-xl-8 col-lg-8 col-sm-10 col-10">
                         <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                             <div className="df js ac headerInnerLeft">
                                 <img src={LogoTr} className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
@@ -114,7 +114,7 @@ const AppHeader: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
+                    <div className="col-xxl-2 col-xl-2 col-lg-2 col-sm-1 col-1">
 
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import whiteMoon from '../../assets/images/white-moon.svg';
 import yellowSun from '../../assets/images/yellow-sun.svg';
 import useThemeStore, { ThemeMode } from './store/themeStore';
 import { ReactElement, useMemo } from 'react';
-import { SimplePaletteColorOptions } from '@mui/material';
+import { SimplePaletteColorOptions, Typography } from '@mui/material';
 
 const ThemeToggleBtn: React.FC = () => {
     const currentTheme = useThemeStore();
@@ -11,9 +11,9 @@ const ThemeToggleBtn: React.FC = () => {
         currentTheme.toggleTheme();
     }
     const themeMenu = useMemo<ReactElement>(() => {
-        const menu = currentTheme.data.mode === ThemeMode.Light ? <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
+        const menu = currentTheme.data.mode === ThemeMode.Light ?
+            <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
             <div className='df jc ac btnContainer'>
-                {/* <img className='toggleImg' src={whiteMoon}></img> */}
                 <svg className='toggleImg' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#000000">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -24,7 +24,7 @@ const ThemeToggleBtn: React.FC = () => {
                             <path fill={(currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main} d="M405.33,192.001c0,23.562-19.109,42.663-42.672,42.663s-42.663-19.101-42.663-42.663 s19.101-42.663,42.663-42.663S405.33,168.438,405.33,192.001z"></path>
                             <path fill={(currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main} d="M277.332,405.342c0,23.562-19.102,42.655-42.672,42.655c-23.562,0-42.663-19.093-42.663-42.655 c0-23.578,19.101-42.688,42.663-42.688C258.23,362.654,277.332,381.764,277.332,405.342z"></path>
                             <path fill={(currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main} d="M213.278,256c0,41.234-33.429,74.655-74.663,74.655S63.952,297.234,63.952,256 c0-41.233,33.429-74.663,74.663-74.663S213.278,214.767,213.278,256z"></path>
-                        </g> 
+                        </g>
                     </g>
                 </svg>
             </div>
@@ -34,7 +34,7 @@ const ThemeToggleBtn: React.FC = () => {
     return (
         <div onClick={toggle} className='themeToggleBtn'>
             {themeMenu}
-            Toggle Theme
+            <Typography variant="body2">Toggle Theme</Typography>
         </div>
     );
 }

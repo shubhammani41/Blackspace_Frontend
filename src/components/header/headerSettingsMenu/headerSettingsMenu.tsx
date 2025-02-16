@@ -1,6 +1,6 @@
 import React from 'react';
 import './headerSettingsMenu.scss';
-import { Button, Menu, MenuItem, SimplePaletteColorOptions } from '@mui/material';
+import { Button, Menu, MenuItem, SimplePaletteColorOptions, Typography } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { ThemeToggleBtn } from '../../themeToggleBtn/themeToggleBtn';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -42,7 +42,7 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
             <MenuItem>
                 <Button variant="text" style={{ textTransform: 'none' }}>
                     <TuneRoundedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></TuneRoundedIcon>
-                    Settings
+                    <Typography variant="body2">Settings</Typography>
                 </Button>
             </MenuItem>
             <MenuItem>
@@ -55,13 +55,13 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
                     <MenuItem key='settings'>
                         <Button variant="text" style={{ textTransform: 'none' }}>
                             <img className="icon30 p4" src={AvatarAvacadoIcon}></img>
-                            Profile
+                            <Typography variant="body2">Profile</Typography>
                         </Button>
                     </MenuItem>,
                     <MenuItem key='logout'>
                         <Button variant="text" style={{ textTransform: 'none' }} onClick={navigateToLogin}>
                             <img className="icon30 p4" src={ExitDoorIcon}></img>
-                            logout
+                            <Typography variant="body2">logout</Typography>
                         </Button>
                     </MenuItem>
                 ]
@@ -69,7 +69,7 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
                 <MenuItem>
                     <Button variant="text" style={{ textTransform: 'none' }} onClick={openSignInDialog}>
                         <AccountCircleOutlinedIcon sx={{ color: 'text.secondary' }} className="icon30 p4"></AccountCircleOutlinedIcon>
-                        Signin
+                        <Typography variant="body2">Signin</Typography>
                     </Button>
                 </MenuItem>
             }
