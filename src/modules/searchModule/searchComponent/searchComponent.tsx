@@ -214,15 +214,15 @@ const SearchComponent: React.FC = () => {
     }, [hasMore])
 
     useEffect(() => {
-        window.removeEventListener('scrollend', handleScroll);
-        window.addEventListener('scrollend', handleScroll);
+        window.document.getElementById('searchInfiniteScrollContainer')?.removeEventListener('scrollend', handleScroll);
+        window.document.getElementById('searchInfiniteScrollContainer')?.addEventListener('scrollend', handleScroll);
     }, [handleScroll]);
 
     useEffect(() => {
         setDevData([]);
         fetchUserData(pageSize, pageNumber);
         return () => {
-            window.removeEventListener('scrollend', handleScroll);
+            window.document.getElementById('searchInfiniteScrollContainer')?.removeEventListener('scrollend', handleScroll);
             debouncedSearchFn.cancel();
             debouncedLoadMore.cancel();
         }
@@ -284,12 +284,12 @@ const SearchComponent: React.FC = () => {
                             />
                         </div>
                         {devListLoading || (!devListLoading && devDataList.length > 0) ?
-                            <div className="roundedContainer searchProfileContainer">
+                            <div id="searchInfiniteScrollContainer" className="roundedContainer searchProfileContainer">
                                 <InfiniteScroll
                                     pageStart={defaultPageNumber}
                                     loadMore={debouncedLoadMore}
                                     hasMore={hasMore}
-                                    useWindow={true} // Set to true to use window scroll, false to use a specific container
+                                    useWindow={false} // Set to true to use window scroll, false to use a specific container
                                     threshold={0}>
                                     {devDataList.length > 0 ?
                                         devDataList.map((devData, index) => {
