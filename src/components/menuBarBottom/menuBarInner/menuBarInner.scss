@@ -1,0 +1,84 @@
+.menuBarFontClamp{
+    font-size: var(--font-m) !important;
+}
+
+.menuBarIcoClamp1525{
+    width: clamp(15px, 2vw, 25px) !important;
+    height: clamp(15px, 2vw, 25px) !important;
+}
+
+.menuBarIcoClamp2535{
+    width: clamp(25px, 2vw, 35px) !important;
+    height: clamp(25px, 2vw, 35px) !important;
+}
+
+.backgroundHider{
+    padding-top: 100px;
+    width: 100%;
+}
+
+.menuIconContainer{
+    top: 10px !important;
+    position: fixed;
+    z-index: 9992;
+    height: auto;
+    background: #ffffff00;
+    padding-top: 23px;
+    padding: 12px;
+    width: 5vw;
+    min-width: 70px;
+    left: 0px;
+    max-width: 100px;
+}
+
+.dpNone{
+    display: none;
+}
+
+.whiteText{
+    color: #ffffff;
+}
+
+.menuBarInner{
+    overflow-y: auto;
+    overflow-x: hidden;
+    // padding: clamp(50px, 5vw, 100px) 0px;
+}
+
+.menuBarInnerItemsContainer{
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
+
+.menuBarInner.horizontal{
+    width: 100%;
+    .menuBarInnerItemsContainer{
+        gap: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow: auto;
+        .menuBarInnerItems{
+            width: auto;
+            .menuItemLabel{
+                display: none;
+            }
+        }
+    }
+}
+
+.menuBarInnerItems{
+    width: 100%;
+}
+
+.menuBarInnerIcoClamp2535 {
+    width: clamp(25px, 2vw, 35px) !important;
+    height: clamp(25px, 2vw, 35px) !important;
+}

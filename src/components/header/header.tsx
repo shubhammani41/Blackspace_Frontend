@@ -9,7 +9,6 @@ import LogoTr from '../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import useSideBarStore from "../sideBar/store/sideBarStore";
 import SearchIcon from '@mui/icons-material/Search';
 import { ReactComponent as SettingsIcon } from '../../assets/images/settings.svg';
 
@@ -20,7 +19,6 @@ const AppHeader: React.FC = () => {
     const profileSettingsAnchorRef = useRef<HTMLButtonElement>(null);
     const [headerSettingsOpen, setHeaderSettingsOpen] = useState<boolean>(false);
     const [profileSettingsOpen, setProfileSettingsOpen] = useState<boolean>(false);
-    const sideBarStore = useSideBarStore();
     const [isHidden, setIsHidden] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -58,10 +56,6 @@ const AppHeader: React.FC = () => {
         navigate("/home");
     }
 
-    const toggleSideBar = () => {
-        sideBarStore.toggleSideBar();
-    }
-
     const pageName = useMemo<string>(() => {
         const segments = location.pathname.split('/').filter(Boolean);
         const lastSegment = segments[segments.length - 1];
@@ -78,13 +72,7 @@ const AppHeader: React.FC = () => {
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
             {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', paddingBottom: '0px' }}>
                 <div className="row gx-0">
-                    <div className="col-xxl-1 col-xl-1 col-lg-1 d-sm-block">
-
-                    </div>
-                    <div className="col-1 df je ac ">
-                        <Button className="mw0px d-md-none">
-                            <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="sideBarIcoClamp2535" onClick={toggleSideBar}></MenuRoundedIcon>
-                        </Button>
+                    <div className="col-xxl-2 col-xl-2 col-lg-2 col-sm-1 col-1">
                     </div>
                     <div className="col-xxl-8 col-xl-8 col-lg-8 col-sm-10 col-10">
                         <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
@@ -115,7 +103,6 @@ const AppHeader: React.FC = () => {
                         </div>
                     </div>
                     <div className="col-xxl-2 col-xl-2 col-lg-2 col-sm-1 col-1">
-
                     </div>
                 </div>
 

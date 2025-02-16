@@ -3,25 +3,17 @@
     height: 24px !important;
 }
 
-.sideBarContainer{
-    box-shadow: var(--shadow-right-normal);
-    top: 0px;
+.menuBarBottomContainer{
+    top: calc(100% - 50px);
     position: fixed;
     left: 0px;
     z-index: 9991;
-    height: 100%;
     width: 100%;
-    max-width: 500px;
 }
 
-.sideBarVisible{
-    left: 0px;
-    transition: var(--app-transition);
-}
-
-.sideBarHidden{
-    left: -100%;
-    transition: var(--app-transition);
+.menuBarBottomContainerInner{
+    box-shadow: var(--shadow-right-normal);
+    padding-bottom: 15px;
 }
 
 .w15 {

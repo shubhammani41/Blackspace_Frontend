@@ -6,7 +6,6 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
 import { AppHeader } from './components/header/header';
 import { GlobalLoader } from './components/globalLoader/GlobalLoader';
-import { SideBar } from './components/sideBar/sidebar';
 import { SigninDialog } from './components/signinDialog/signinDialog';
 import useUserLoginDataStore from './store/userLoginDetailsStore';
 import { AddBasicDetailsDialog } from './components/addBasicDetailsDialog/addBasicDetailsDialog';
@@ -18,7 +17,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AnimatePresence, motion } from "framer-motion";
 import { SearchComponent } from './modules/searchModule/searchComponent/searchComponent';
 
-const HomeModule = lazy(() => import("./modules/searchModule/searchModule"));
+const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
 const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
 
@@ -66,7 +65,6 @@ const GlobalComponents: React.FC = () => {
   return (
     <div>
       <AppHeader></AppHeader>
-      <SideBar></SideBar>
       <SigninDialog></SigninDialog>
       <AddBasicDetailsDialog></AddBasicDetailsDialog>
     </div>
@@ -94,7 +92,7 @@ const RoutesComponent: React.FC = () => {
         <Route path='/profileSearch'
           element={
             <Suspense fallback={<GlobalLoader></GlobalLoader>}>
-              <AnimationMotionDiv component={SearchComponent}></AnimationMotionDiv>
+              <AnimationMotionDiv component={SearchModule}></AnimationMotionDiv>
             </Suspense>
           }>
         </Route>

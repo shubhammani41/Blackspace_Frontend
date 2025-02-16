@@ -24,7 +24,8 @@ import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCir
 import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
-import { SideBarInner } from "../../../components/sideBar/sideBarInner/sideBarInner";
+import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
+import { MenuBarBottom } from "../../../components/menuBarBottom/menuBarBottom";
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -248,6 +249,7 @@ const SearchComponent: React.FC = () => {
                     </p>
                 </div>
             } */}
+            <MenuBarBottom></MenuBarBottom>
             <div className="row gx-0">
                 <div className="col-xxl-3 col-xl-3 col-lg-2 col-sm-1 col-1">
                 </div>
@@ -257,7 +259,7 @@ const SearchComponent: React.FC = () => {
                             <div className="px-3 pt-2">
                                 <Typography className="headerml" variant="body2">Menu</Typography>
                             </div>
-                            <SideBarInner></SideBarInner>
+                            <MenuBarInner mode="vertical"></MenuBarInner>
                         </div>
                     </div>
                     <div className="col-12 col-md-8">

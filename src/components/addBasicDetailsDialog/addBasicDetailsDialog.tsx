@@ -20,7 +20,7 @@ const AddBasicDetailsDialog: React.FC = () => {
         }
     }
     return <div>
-        <Dialog
+        <Dialog className="fullwidthMobile"
             open={addBasicDetailsDialogStore.data.dialogState}
             onClose={addBasicDetailsDialogStore.closeDialog}
             aria-labelledby="alert-dialog-title"
