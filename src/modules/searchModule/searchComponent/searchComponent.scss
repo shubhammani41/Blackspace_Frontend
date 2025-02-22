@@ -6,3 +6,17 @@
     position: sticky;
     top: calc(80px + 1vw);
 }
+
+.pinIconContainer {
+    position: relative;
+    z-index: 899;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 101%;
+    top: 10px;
+    min-width: 0px;
+  }

@@ -26,6 +26,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
 import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
 import { MenuBarBottom } from "../../../components/menuBarBottom/menuBarBottom";
+import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -304,9 +305,9 @@ const SearchComponent: React.FC = () => {
                                                             id={"accordian_" + devData.userId}
                                                         >
 
-                                                            <div className="pinIconContainer">
-                                                                <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030" onClick={pinProfile}></PushPinRoundedIcon>
-                                                            </div>
+                                                            <Button variant="text" className="pinIconContainer" onClick={pinProfile}>
+                                                                <BookmarkBorderRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></BookmarkBorderRoundedIcon>
+                                                            </Button>
                                                             <Card className="w100per ml-neg30">
                                                                 <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
                                                                     <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} />

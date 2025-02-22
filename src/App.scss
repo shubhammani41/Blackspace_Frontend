@@ -287,24 +287,6 @@ hr.cardContentSeperator {
   height: clamp(20px, 2vw, 30px) !important;
 }
 
-.pinIconContainer {
-  position: relative;
-  transform: rotateZ(45deg);
-  z-index: 899;
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 101%;
-  top: 10px;
-
-  svg.pinned {
-    color: var(--app-info-color-darker) !important;
-  }
-}
-
 .expandIconContainer {
   z-index: 899;
   border-radius: 100%;
