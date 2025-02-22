@@ -214,15 +214,15 @@ const SearchComponent: React.FC = () => {
     }, [hasMore])
 
     useEffect(() => {
-        window.document.getElementById('searchInfiniteScrollContainer')?.removeEventListener('scrollend', handleScroll);
-        window.document.getElementById('searchInfiniteScrollContainer')?.addEventListener('scrollend', handleScroll);
+        window.removeEventListener('scrollend', handleScroll);
+        window.addEventListener('scrollend', handleScroll);
     }, [handleScroll]);
 
     useEffect(() => {
         setDevData([]);
         fetchUserData(pageSize, pageNumber);
         return () => {
-            window.document.getElementById('searchInfiniteScrollContainer')?.removeEventListener('scrollend', handleScroll);
+            window.removeEventListener('scrollend', handleScroll);
             debouncedSearchFn.cancel();
             debouncedLoadMore.cancel();
         }
@@ -255,14 +255,14 @@ const SearchComponent: React.FC = () => {
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-8 col-sm-10 col-10 mb-2 row gx-0">
                     <div className="col-4 d-none d-md-block">
-                        <div className="roundedContainer me-3" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                        <div className="roundedContainer stickyMenu me-3" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                             <div className="px-3 pt-2">
                                 <Typography className="headerml" variant="body2">Menu</Typography>
                             </div>
                             <MenuBarInner mode="vertical"></MenuBarInner>
                         </div>
                     </div>
-                    <div className="col-12 col-md-8">
+                    <div className="col-12 col-md-8 searchProfileContainer">
                         <div className="mb-3">
                             <TextField
                                 id="searchDev"
@@ -284,12 +284,12 @@ const SearchComponent: React.FC = () => {
                             />
                         </div>
                         {devListLoading || (!devListLoading && devDataList.length > 0) ?
-                            <div id="searchInfiniteScrollContainer" className="roundedContainer searchProfileContainer">
+                            <div id="searchInfiniteScrollContainer" className="roundedContainer">
                                 <InfiniteScroll
                                     pageStart={defaultPageNumber}
                                     loadMore={debouncedLoadMore}
                                     hasMore={hasMore}
-                                    useWindow={false} // Set to true to use window scroll, false to use a specific container
+                                    useWindow={true} // Set to true to use window scroll, false to use a specific container
                                     threshold={0}>
                                     {devDataList.length > 0 ?
                                         devDataList.map((devData, index) => {

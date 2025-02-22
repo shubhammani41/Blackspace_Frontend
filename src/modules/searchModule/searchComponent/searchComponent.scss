@@ -1,4 +1,8 @@
 .searchProfileContainer{
-    max-height: calc(100vh - 285px);
-    overflow: auto;
+    margin-bottom: 60px;
+}
+
+.stickyMenu{
+    position: sticky;
+    top: calc(80px + 1vw);
 }
