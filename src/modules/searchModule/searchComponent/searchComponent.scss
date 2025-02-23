@@ -19,4 +19,15 @@
     left: 101%;
     top: 10px;
     min-width: 0px;
-  }
+    svg{
+        stroke: gray;
+        fill: transparent;
+    }
+}
+
+.pinIconContainer.pinned {
+    svg{
+        stroke: gray;
+        fill: gray;
+    }
+}

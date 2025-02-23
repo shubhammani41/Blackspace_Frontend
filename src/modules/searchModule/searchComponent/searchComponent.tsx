@@ -16,7 +16,6 @@ import { createRoot, Root } from "react-dom/client";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
-import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import morpheus from "../../../assets/images/morpheus.png";
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
@@ -26,7 +25,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
 import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
 import { MenuBarBottom } from "../../../components/menuBarBottom/menuBarBottom";
-import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
+import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -304,9 +303,8 @@ const SearchComponent: React.FC = () => {
                                                             aria-controls="panel2-content"
                                                             id={"accordian_" + devData.userId}
                                                         >
-
                                                             <Button variant="text" className="pinIconContainer" onClick={pinProfile}>
-                                                                <BookmarkBorderRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></BookmarkBorderRoundedIcon>
+                                                                <BookmarkRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></BookmarkRoundedIcon>
                                                             </Button>
                                                             <Card className="w100per ml-neg30">
                                                                 <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
