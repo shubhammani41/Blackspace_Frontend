@@ -6,6 +6,8 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Button, Typography } from '@mui/material';
 import './menuBarInner.scss';
 import useThemeStore from '../../themeToggleBtn/store/themeStore';
+import FlameSvg from '../../../assets/images/flame.svg.svg';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export interface MenuBarInnerProps {
     mode: 'vertical'|'horizontal'
@@ -24,15 +26,15 @@ const MenuBarInner: React.FC<MenuBarInnerProps> = (props:MenuBarInnerProps) => {
                 </div>
                 <div className="df js ac menuBarInnerItems">
                     <Button className="mw0px dsBlock">
-                        <PushPinRoundedIcon className="menuBarInnerIcoClamp2535"></PushPinRoundedIcon>
+                        <img src={FlameSvg} alt='Trending' className="menuBarInnerIcoClamp2535"></img>
                     </Button>
-                    <Typography className='menuItemLabel' variant="h5">Pins</Typography>
+                    <Typography className='menuItemLabel' variant="h5">Trending</Typography>
                 </div>
                 <div className="df js ac menuBarInnerItems">
                     <Button className="mw0px dsBlock">
-                        <ArticleRoundedIcon className="menuBarInnerIcoClamp2535"></ArticleRoundedIcon>
+                        <AddBoxIcon className="menuBarInnerIcoClamp2535"></AddBoxIcon>
                     </Button>
-                    <Typography className='menuItemLabel' variant="body2">Posts</Typography>
+                    <Typography className='menuItemLabel' variant="body2">Add Post</Typography>
                 </div>
                 <div className="df js ac menuBarInnerItems">
                     <Button className="mw0px dsBlock">

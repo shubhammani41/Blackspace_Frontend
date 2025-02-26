@@ -91,11 +91,11 @@ const AppHeader: React.FC = () => {
 
     return (
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
-            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', paddingBottom: '0px' }}>
-                <div className="row gx-0">
-                    <div className="col-xxl-2 col-xl-2 col-lg-2 col-sm-1 col-1">
+            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', padding: '0px', paddingTop: '8px' }}>
+                <div className="row gx-0 px-2">
+                    <div className="col-lg-2 col-sm-1 d-sm-block d-none">
                     </div>
-                    <div className="col-xxl-8 col-xl-8 col-lg-8 col-sm-10 col-10">
+                    <div className="col-lg-8 col-sm-10 col-12">
                         <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                             <div className="df js ac headerInnerLeft">
                                 {isBackEnabled ? <ArrowBackRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535 me-1" onClick={goBack}></ArrowBackRoundedIcon> : null}
@@ -126,7 +126,7 @@ const AppHeader: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xxl-2 col-xl-2 col-lg-2 col-sm-1 col-1">
+                    <div className="col-lg-2 col-sm-1 d-sm-block d-none">
                     </div>
                 </div>
 

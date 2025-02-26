@@ -15,6 +15,8 @@
 .menuBarBottomContainerInner{
     box-shadow: var(--shadow-right-normal);
     padding-bottom: 15px;
+    border-radius: var(--app-border-radius-s);
+    overflow: hidden;
 }
 
 .w15 {
