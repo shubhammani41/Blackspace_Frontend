@@ -1,23 +1,23 @@
-.menuBarFontClamp{
+.menuBarFontClamp {
     font-size: var(--font-m) !important;
 }
 
-.menuBarIcoClamp1525{
+.menuBarIcoClamp1525 {
     width: clamp(15px, 2vw, 25px) !important;
     height: clamp(15px, 2vw, 25px) !important;
 }
 
-.menuBarIcoClamp2535{
+.menuBarIcoClamp2535 {
     width: clamp(25px, 2vw, 35px) !important;
     height: clamp(25px, 2vw, 35px) !important;
 }
 
-.backgroundHider{
+.backgroundHider {
     padding-top: 100px;
     width: 100%;
 }
 
-.menuIconContainer{
+.menuIconContainer {
     top: 10px !important;
     position: fixed;
     z-index: 9992;
@@ -31,21 +31,21 @@
     max-width: 100px;
 }
 
-.dpNone{
+.dpNone {
     display: none;
 }
 
-.whiteText{
+.whiteText {
     color: #ffffff;
 }
 
-.menuBarInner{
+.menuBarInner {
     overflow-y: auto;
     overflow-x: hidden;
     // padding: clamp(50px, 5vw, 100px) 0px;
 }
 
-.menuBarInnerItemsContainer{
+.menuBarInnerItemsContainer {
     gap: 12px;
     display: flex;
     flex-direction: column;
@@ -53,11 +53,24 @@
     justify-content: start;
     align-items: start;
     width: 100%;
+
+    .menuBarInnerItems {
+        button {
+            display: flex !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            text-transform: none !important;
+        }
+        .menuItemLabel{
+            padding-left: 5px;
+        }
+    }
 }
 
-.menuBarInner.horizontal{
+.menuBarInner.horizontal {
     width: 100%;
-    .menuBarInnerItemsContainer{
+
+    .menuBarInnerItemsContainer {
         gap: 5px;
         display: flex;
         justify-content: space-between;
@@ -65,20 +78,50 @@
         flex-direction: row;
         flex-wrap: nowrap;
         overflow: auto;
-        .menuBarInnerItems{
+
+        .menuBarInnerItems {
             width: auto;
-            .menuItemLabel{
+
+            .menuItemLabel {
                 display: none;
             }
         }
     }
 }
 
-.menuBarInnerItems{
+.menuBarInnerItems {
     width: 100%;
 }
 
 .menuBarInnerIcoClamp2535 {
     width: clamp(25px, 2vw, 35px) !important;
     height: clamp(25px, 2vw, 35px) !important;
+}
+
+.profileSettingContainer {
+    width: 100%;
+    border-radius: var(--app-border-radius-m) !important;
+    box-shadow: var(--shadow-down-s-transparent) !important;
+    overflow: hidden;
+}
+
+.lightModeBanner {
+    background: rgb(230, 245, 255);
+    background: -moz-linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    background: -webkit-linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    background: linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e6f5ff", endColorstr="#83a7c2", GradientType=1);
+}
+
+.darkModeBanner {
+    background: rgb(34, 60, 79);
+    background: -moz-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    background: -webkit-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    background: linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#223c4f", endColorstr="#10222f", GradientType=1);
+}
+
+.profileannerIconClamp {
+    width: clamp(35px, 3vw, 45px) !important;
+    height: clamp(35px, 3vw, 45px) !important;
 }
