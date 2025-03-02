@@ -1,25 +1,25 @@
 import React from 'react';
-import './headerSettingsMenu.scss';
+import './profileSettingsMenu.scss';
 import { Button, Menu, MenuItem, SimplePaletteColorOptions, Typography } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
-import { ThemeToggleBtn } from '../../themeToggleBtn/themeToggleBtn';
+import { ThemeToggleBtn } from '../themeToggleBtn/themeToggleBtn';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { MatrixEasterEggToggleBtn } from '../../themeToggleBtn/matrixEasterEggToggleBtn';
+import { MatrixEasterEggToggleBtn } from '../themeToggleBtn/matrixEasterEggToggleBtn';
 import { useNavigate } from 'react-router-dom';
-import apiFunctions from '../../../constants/apiFunctions';
-import useSigninDialogStore from '../../signinDialog/store/signinDialogStore';
-import useUserLoginDataStore from '../../../store/userLoginDetailsStore';
-import useThemeStore from '../../themeToggleBtn/store/themeStore';
+import apiFunctions from '../../constants/apiFunctions';
+import useSigninDialogStore from '../signinDialog/store/signinDialogStore';
+import useUserLoginDataStore from '../../store/userLoginDetailsStore';
+import useThemeStore from '../themeToggleBtn/store/themeStore';
 import AvatarAvacadoIcon from '../../../assets/images/avatar-avacado.svg';
 import ExitDoorIcon from '../../../assets/images/exit-door.svg'
 
-export interface HeaderSettingsMenuProp {
+export interface ProfileSettingsMenuProp {
     settingsAnchorRef: React.RefObject<HTMLButtonElement>;
     settingsOpen: boolean;
     handleClose: () => void;
 }
 
-const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSettingsMenuProp) => {
+const ProfileSettingsMenu: React.FC<ProfileSettingsMenuProp> = (props: ProfileSettingsMenuProp) => {
     const signinDialogStore = useSigninDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
     const currentTheme = useThemeStore();
@@ -82,4 +82,4 @@ const HeaderSettingsMenu: React.FC<HeaderSettingsMenuProp> = (props: HeaderSetti
     )
 }
 
-export { HeaderSettingsMenu }
+export { ProfileSettingsMenu }

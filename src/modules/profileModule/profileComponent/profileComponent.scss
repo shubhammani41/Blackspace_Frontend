@@ -1,12 +1,9 @@
-.profileMainInfo {
-    width: 90vw;
-    max-width: 4096px;
-    margin-top: 20px;
+.profileContainer {
+    width: 100%;
 }
 
 .fullSizeCard {
     width: 100% !important;
-    max-width: 90vw !important;
     height: auto !important;
 }
 
@@ -16,4 +13,20 @@
 
 .f100 {
     flex: 0 0 100%;
+}
+
+.headerIcoClamp2535 {
+    width: clamp(25px, 2vw, 35px) !important;
+    height: clamp(25px, 2vw, 35px) !important;
+}
+
+.profileSettingsBtnContainer{
+    position: absolute;
+    bottom: -4px;
+    z-index: 99;
+    left: 45px;
+}
+
+.profileMainInfoContainer{
+    position: relative;
 }

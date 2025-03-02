@@ -1,25 +1,17 @@
-import { AppBar, Button, SimplePaletteColorOptions, Typography } from "@mui/material";
+import { AppBar, Button, Typography } from "@mui/material";
 import './header.scss';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useLocation, useNavigate } from "react-router-dom";
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useEffect, useMemo, useRef, useState } from "react";
 import LogoTr from '../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
-import { HeaderSettingsMenu } from "./headerSettingsMenu/headerSettingsMenu";
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import SearchIcon from '@mui/icons-material/Search';
-import { ReactComponent as SettingsIcon } from '../../assets/images/settings.svg';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const headerSettingsAnchorRef = useRef<HTMLButtonElement>(null);
-    const profileSettingsAnchorRef = useRef<HTMLButtonElement>(null);
-    const [headerSettingsOpen, setHeaderSettingsOpen] = useState<boolean>(false);
-    const [profileSettingsOpen, setProfileSettingsOpen] = useState<boolean>(false);
     const [isHidden, setIsHidden] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -40,17 +32,8 @@ const AppHeader: React.FC = () => {
         };
     }, [lastScrollY]);
 
-    const handleClickHeaderSettings = () => {
-        setHeaderSettingsOpen((prev) => !prev);
-    };
-    const handleCloseHeaderSettings = () => {
-        setHeaderSettingsOpen(false);
-    };
     const handleSearchClick = () => {
         navigate('/profileSearch');
-    };
-    const handleCloseProfileSettings = () => {
-        setProfileSettingsOpen(false);
     };
 
     const navigateToHome = () => {
@@ -111,10 +94,13 @@ const AppHeader: React.FC = () => {
                                 {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName != '' ? pageName : 'Home'}</Typography> : null}
                             </div>
                             <div className="df je ac headerInnerRight">
-                                <Button onClick={handleSearchClick} ref={profileSettingsAnchorRef} className="mw0px" style={{ padding: '4px' }}>
+                                <Button onClick={handleSearchClick} className="mw0px" style={{ padding: '4px' }}>
                                     <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></SearchIcon>
                                 </Button>
-                                <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px" style={{ padding: '4px' }}>
+                                <Button className="mw0px" style={{ padding: '4px' }}>
+                                    <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2535"></NotificationsRoundedIcon>
+                                </Button>
+                                {/* <Button onClick={handleClickHeaderSettings} ref={headerSettingsAnchorRef} className="mw0px" style={{ padding: '4px' }}>
                                     <svg className="headerIcoClamp2535" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                                         <g id="SVGRepo_iconCarrier">
@@ -122,16 +108,12 @@ const AppHeader: React.FC = () => {
                                             <path fill={(currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main} d="M12 15.25C13.7949 15.25 15.25 13.7949 15.25 12C15.25 10.2051 13.7949 8.75 12 8.75C10.2051 8.75 8.75 10.2051 8.75 12C8.75 13.7949 10.2051 15.25 12 15.25Z"></path>
                                         </g>
                                     </svg>
-                                </Button>
+                                </Button> */}
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-2 col-sm-1 d-sm-block d-none">
                     </div>
-                </div>
-
-                <div onClick={handleCloseHeaderSettings}>
-                    <HeaderSettingsMenu settingsAnchorRef={headerSettingsAnchorRef} settingsOpen={headerSettingsOpen} handleClose={handleCloseHeaderSettings}></HeaderSettingsMenu>
                 </div>
             </AppBar> : <></>}
 

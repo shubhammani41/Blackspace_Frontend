@@ -27,13 +27,13 @@ const MenuBarInner: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
             <div className="df js ac menuBarInnerItems">
                 <Button className="mw0px">
                     <AccountCircleRoundedIcon className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2535'}></AccountCircleRoundedIcon>
-                    <Typography className='menuItemLabel' variant="body2">{userLoginDataStore?.data.userDetails?.userProfileDetails?.firstName || 'Add more info'}</Typography>
+                    <Typography className='menuItemLabel leftAlignedText' variant="body2">{userLoginDataStore?.data.userDetails?.userProfileDetails?.firstName || 'Tell us more about yourself!'}</Typography>
                 </Button>
             </div> :
             <div className="df js ac menuBarInnerItems">
                 <Button className="mw0px">
                     <AccountCircleRoundedIcon className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2535'}></AccountCircleRoundedIcon>
-                    <Typography className='menuItemLabel' variant="body2">You gotta signin first!</Typography>
+                    <Typography className='menuItemLabel leftAlignedText' variant="body2">You gotta signin first!</Typography>
                 </Button>
             </div>
         }
