@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
 import "./profileComponent.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
@@ -16,6 +16,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 const ProfileComponent: React.FC = () => {
     const { userName } = useParams<{ userName: string }>();
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
     const [expData, setExpData] = useState<UserExperienceDetails[]>();
@@ -51,6 +52,10 @@ const ProfileComponent: React.FC = () => {
         }
     }, [defaultTimeout]);
 
+    const goToProfileSettings = () => {
+        navigate('/profile/profileSettings');
+    }
+
     useEffect(() => {
         if (userName) {
             fetchUserData(userName);
@@ -74,14 +79,13 @@ const ProfileComponent: React.FC = () => {
                                     <Card>
                                         <div className="df jsb as m-2 profileMainInfoContainer">
                                             <div className="df je as gp30px profileSettingsBtnContainer">
-                                                <Button className="mw0px" style={{ padding: '4px' }}>
-                                                    {/* <MenuRoundedIcon className="headerIcoClamp2535"></MenuRoundedIcon> */}
+                                                <Button className="mw0px" style={{ padding: '4px' }} onClick={goToProfileSettings}>
                                                     <svg className="headerIcoClamp2535" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} width="256px" height="256px" viewBox="0 0 24 24" id="menu-alt-4" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
-                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                                                         <g id="SVGRepo_iconCarrier">
-                                                        <circle id="primary" cx="12" cy="12" r="9" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} stroke={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} stroke-linecap='round' stroke-linejoin='round' stroke-width='2'></circle>
-                                                            <path id="secondary" d="M8,9h8M8,12h8M8,15h8" fill='none' stroke='#ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'></path>
+                                                        <circle id="primary" cx="12" cy="12" r="9" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} stroke={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'></circle>
+                                                            <path id="secondary" d="M8,9h8M8,12h8M8,15h8" fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'></path>
                                                         </g>
                                                     </svg>
                                                 </Button>
@@ -95,8 +99,8 @@ const ProfileComponent: React.FC = () => {
                                                     <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
                                                         {devData?.positionName}
                                                     </Typography>
-                                                    {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map(obj => {
-                                                        return (<Typography className="ellipsis" variant="body2" color="text.secondary">
+                                                    {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj,index) => {
+                                                        return (<Typography key={'exp_'+index} className="ellipsis" variant="body2" color="text.secondary">
                                                             {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
                                                         </Typography>)
                                                     })}

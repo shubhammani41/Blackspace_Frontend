@@ -1,12 +1,11 @@
-import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, SimplePaletteColorOptions, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import clubbedToDeath from '../../../assets/audio/clubbedToDeath.mp3';
 import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
 import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
 import InfiniteScroll from 'react-infinite-scroller';
-import { debounce, divide } from 'lodash';
+import { debounce } from 'lodash';
 import { AppText, AppValues } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
@@ -17,8 +16,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
-import morpheus from "../../../assets/images/morpheus.png";
-import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
+import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -52,12 +50,6 @@ const SearchComponent: React.FC = () => {
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const currentTheme = useThemeStore();
-    const setRedTheme = () => {
-        currentTheme.setRedTheme();
-    }
-    const setBlueTheme = () => {
-        currentTheme.setBlueTheme();
-    }
 
     const profileSkeletonList: ReactElement[] = useMemo(() => {
         return Array(3).fill(1).map((val, index) => {
@@ -67,7 +59,7 @@ const SearchComponent: React.FC = () => {
 
     const goToProfile = (userName: string) => {
         if (userName && userName.trim() !== '') {
-            navigate(`/profile/${userName}`);
+            navigate(`/profile/viewProfile/${userName}`);
         }
     }
 
@@ -230,25 +222,6 @@ const SearchComponent: React.FC = () => {
 
     return (
         <div className="mainContainer">
-            {/* {(currentTheme.data.mode === ThemeMode.Blue || currentTheme.data.mode === ThemeMode.Red) ?
-                <div className='df jc ac app-header fw'>
-                    <div className="f100 df jc ac">
-                        <img className="morpheusThemer" src={morpheus}></img>
-                    </div>
-                    <div className="f100 df jc ac">
-                        <button className="redPillThemeBtn" onClick={setRedTheme}></button>
-                        <button className="bluePillThemeBtn" onClick={setBlueTheme}></button>
-                    </div>
-                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                        Welcome, Neo. Choose a pill.
-                    </p>
-                </div> :
-                <div className='df jc ac app-header fw'>
-                    <p className='header f100 df jc ac' style={{ color: (currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main }}>
-                        Welcome to Blackspace.
-                    </p>
-                </div>
-            } */}
             <MenuBarBottom></MenuBarBottom>
             <div className="row gx-0 px-2">
                 <div className="col-xl-3 col-lg-2 col-sm-1 d-sm-block d-none">

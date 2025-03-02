@@ -96,7 +96,7 @@ const RoutesComponent: React.FC = () => {
             </Suspense>
           }>
         </Route>
-        <Route path='/profile/:userName'
+        <Route path='/profile/*'
           element={
             <Suspense fallback={<GlobalLoader></GlobalLoader>}>
               <AnimationMotionDiv component={ProfileModule}></AnimationMotionDiv>
@@ -124,6 +124,7 @@ const AnimationMotionDiv: React.FC<AnimationMotionDivProps> = (props: AnimationM
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 100 }}
       transition={{ duration: 0.3 }}
+      style={{ position: "absolute", width: "100%", height: '100%' }}
     >
       <props.component />
     </motion.div>
