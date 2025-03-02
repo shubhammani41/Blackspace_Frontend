@@ -74,7 +74,7 @@ const AppHeader: React.FC = () => {
 
     return (
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
-            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', padding: '0px', paddingTop: '8px' }}>
+            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', padding: '0px', paddingRight:'0px !important', paddingTop: '8px' }}>
                 <div className="row gx-0 px-2">
                     <div className="col-lg-2 col-sm-1 d-sm-block d-none">
                     </div>

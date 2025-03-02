@@ -7,3 +7,22 @@
     // backdrop-filter: blur(5px);
     z-index: -1;
 }
+
+.dialogIcoClamp2535 {
+    width: clamp(25px, 2vw, 35px) !important;
+    height: clamp(25px, 2vw, 35px) !important;
+}
+
+.dialogHeader{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    text-align: left;
+    .headerTitle{
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        margin: -8px 8px 8px;
+        font-size: var(--font-xl) !important;
+    }
+}

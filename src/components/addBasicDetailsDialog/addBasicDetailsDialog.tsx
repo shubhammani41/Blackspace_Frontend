@@ -5,16 +5,17 @@ import moment from "moment";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import apiFunctions from "../../constants/apiFunctions";
 import useUserLoginDataStore from "../../store/userLoginDetailsStore";
-
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import './addBasicDetailsDialog.scss';
 const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
     const currentTheme = useThemeStore();
-    const saveBasicDetailsByUserLoginId = async()=>{
-        if(userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId){
-            apiFunctions.saveBasicDetailsByUserLoginId({firstName:"name"}).then(res=>{
+    const saveBasicDetailsByUserLoginId = async () => {
+        if (userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId) {
+            apiFunctions.saveBasicDetailsByUserLoginId({ firstName: "name" }).then(res => {
                 addBasicDetailsDialogStore.closeDialog();
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err);
             })
         }
@@ -28,12 +29,15 @@ const AddBasicDetailsDialog: React.FC = () => {
         >
             <div className="addBasicDetailsDialogBackdrop" />
             <DialogTitle>
-                <p className='p0m0 header f100 df jc ac' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                    Mind telling us more about yourself ?
-                </p>
+                <div className="dialogHeader">
+                    <p className='headerTitle' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                        Mind telling us more about yourself ?
+                    </p>
+                    <CloseRoundedIcon className="dialogIcoClamp2535" onClick={addBasicDetailsDialogStore.closeDialog}></CloseRoundedIcon>
+                </div>
             </DialogTitle>
             <DialogContent>
-            <TextField
+                <TextField
                     id="userName"
                     label="User Name"
                     variant="filled"
@@ -91,7 +95,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="Gender"
                     variant="filled"
                     defaultValue={''}
-                    >
+                >
                     <MenuItem value={'MALE'}>Male</MenuItem>
                     <MenuItem value={'FEMALE'}>Female</MenuItem>
                 </Select>
@@ -101,7 +105,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="Country"
                     variant="filled"
                     defaultValue={''}
-                    >
+                >
                     <MenuItem value={'1'}>USA</MenuItem>
                     <MenuItem value={'2'}>India</MenuItem>
                 </Select>
@@ -111,7 +115,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="State"
                     variant="filled"
                     defaultValue={''}
-                    >
+                >
                     <MenuItem value={'1'}>Uttar Pradesh</MenuItem>
                     <MenuItem value={'2'}>Delhi</MenuItem>
                 </Select>
@@ -121,7 +125,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="City"
                     variant="filled"
                     defaultValue={''}
-                    >
+                >
                     <MenuItem value={'1'}>Gorakhpur</MenuItem>
                     <MenuItem value={'2'}>Noida</MenuItem>
                 </Select>
