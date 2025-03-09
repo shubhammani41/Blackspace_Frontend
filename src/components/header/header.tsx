@@ -91,7 +91,7 @@ const AppHeader: React.FC = () => {
                                     </Typography>
                                     <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
                                 </div> : null}
-                                {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.secondary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
+                                {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
                             </div>
                             <div className="df je ac headerInnerRight">
                                 <Button onClick={handleSearchClick} className="mw0px" style={{ padding: '4px' }}>

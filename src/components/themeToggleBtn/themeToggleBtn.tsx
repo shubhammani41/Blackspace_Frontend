@@ -15,7 +15,7 @@ const ThemeToggleBtn: React.FC = () => {
             <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
             <div className='df jc ac btnContainer'>
                 <svg className='toggleImg' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#000000">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
                         <path fill={(currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).light} d="M512,256c0,141.373-114.623,255.996-256.004,255.996S0,397.373,0,256 C0,114.619,114.615,0.004,255.996,0.004S512,114.619,512,256z"></path>
                         <g>

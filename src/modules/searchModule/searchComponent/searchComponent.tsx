@@ -245,7 +245,7 @@ const SearchComponent: React.FC = () => {
                                 className='w100per'
                                 onChange={debouncedSearchFn}
                                 InputLabelProps={{
-                                    style: { color: currentTheme.data.theme.palette?.text?.secondary },
+                                    style: { color: currentTheme.data.theme.palette?.text?.primary },
                                 }}
                                 InputProps={{
                                     startAdornment: (
