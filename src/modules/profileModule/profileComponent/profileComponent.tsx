@@ -80,7 +80,7 @@ const ProfileComponent: React.FC = () => {
                                         <div className="df jsb as m-2 profileMainInfoContainer">
                                             <div className="df je as gp30px profileSettingsBtnContainer">
                                                 <Button className="mw0px" style={{ padding: '4px' }} onClick={goToProfileSettings}>
-                                                    <svg className="headerIcoClamp2535" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} width="256px" height="256px" viewBox="0 0 24 24" id="menu-alt-4" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg className="headerIcoClamp2830" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} width="256px" height="256px" viewBox="0 0 24 24" id="menu-alt-4" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
                                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                                         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                                                         <g id="SVGRepo_iconCarrier">

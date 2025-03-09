@@ -4,19 +4,28 @@
 }
 
 .menuBarBottomContainer{
-    top: calc(100% - 50px);
+    bottom: 0px;
     position: fixed;
     left: 0px;
     z-index: 9991;
     width: 100%;
-    padding: 5px 5px 0px;
+    transition: all 0.4s ease-in-out;
+    padding-bottom: 8px;
+    .menuBarBottomContainerInner{
+        box-shadow: var(--shadow-right-normal);
+        border-radius: var(--app-border-radius-s);
+        overflow: hidden;
+        padding: 2px;
+    }
 }
 
-.menuBarBottomContainerInner{
-    box-shadow: var(--shadow-right-normal);
-    padding-bottom: 15px;
-    border-radius: var(--app-border-radius-s);
-    overflow: hidden;
+.menuBarBottomContainer.bottomBarHidden{
+    transform: translateY(20px);
+    .menuBarBottomContainerInner{
+        padding: 0px 2px 2px;
+        transition: all 0.4s ease-in-out;
+    }
+    transition: all 0.4s ease-in-out;
 }
 
 .w15 {

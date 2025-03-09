@@ -14,10 +14,10 @@ const SearchSkeleton: React.FC = () => {
                 <AccordionSummary
                     aria-controls="panel2-content"
                     expandIcon={<div className="expandIconContainer invisibile">
-                        <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
+                        <ArrowDropDownIcon className="headerIcoClamp2830" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
                     </div>}>
                     <div className="pinIconContainer invisibile">
-                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></PushPinRoundedIcon>
+                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2426"></PushPinRoundedIcon>
                     </div>
                     <Card className="w100per ml-neg30">
                         <div className="df js ac gp30px ps-1">

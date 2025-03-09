@@ -33,7 +33,7 @@ const AddBasicDetailsDialog: React.FC = () => {
                     <p className='headerTitle' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                         Mind telling us more about yourself ?
                     </p>
-                    <CloseRoundedIcon className="dialogIcoClamp2535" onClick={addBasicDetailsDialogStore.closeDialog}></CloseRoundedIcon>
+                    <CloseRoundedIcon className="dialogIcoClamp2830" onClick={addBasicDetailsDialogStore.closeDialog}></CloseRoundedIcon>
                 </div>
             </DialogTitle>
             <DialogContent>

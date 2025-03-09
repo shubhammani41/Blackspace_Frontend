@@ -271,13 +271,13 @@ const SearchComponent: React.FC = () => {
                                                     <Accordion style={{ borderRadius: '0px' }} expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
                                                         <AccordionSummary
                                                             expandIcon={<div className="expandIconContainer">
-                                                                <ArrowDropDownIcon className="headerIcoClamp2535" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
+                                                                <ArrowDropDownIcon className="headerIcoClamp2830" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
                                                             </div>}
                                                             aria-controls="panel2-content"
                                                             id={"accordian_" + devData.userId}
                                                         >
                                                             <Button variant="text" className="pinIconContainer" onClick={pinProfile}>
-                                                                <BookmarkRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2030"></BookmarkRoundedIcon>
+                                                                <BookmarkRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2426"></BookmarkRoundedIcon>
                                                             </Button>
                                                             <Card className="w100per ml-neg30">
                                                                 <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
@@ -350,7 +350,7 @@ const SearchComponent: React.FC = () => {
                         {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
                             <div className="df jc ac fw m-3" onClick={handleScroll}>
                                 <Tooltip title="Load more">
-                                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2535"></ArrowDropDownCircleRoundedIcon>
+                                    <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2830"></ArrowDropDownCircleRoundedIcon>
                                 </Tooltip>
                             </div> : null}
                     </div>
