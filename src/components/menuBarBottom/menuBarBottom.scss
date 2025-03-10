@@ -15,14 +15,15 @@
         box-shadow: var(--shadow-right-normal);
         border-radius: var(--app-border-radius-s);
         overflow: hidden;
-        padding: 2px;
+        padding: 8px 8px;
+        transition: all 0.4s ease-in-out;
     }
 }
 
 .menuBarBottomContainer.bottomBarHidden{
     transform: translateY(20px);
     .menuBarBottomContainerInner{
-        padding: 0px 2px 2px;
+        padding: 2px 8px 12px;
         transition: all 0.4s ease-in-out;
     }
     transition: all 0.4s ease-in-out;

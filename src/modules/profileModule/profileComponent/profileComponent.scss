@@ -1,5 +1,10 @@
-.profileContainer {
-    width: 100%;
+.profileContainer{
+    margin-bottom: 60px;
+}
+
+.stickyMenu{
+    position: sticky;
+    top: calc(80px + 1vw);
 }
 
 .fullSizeCard {

@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
 import "./profileComponent.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
@@ -11,10 +11,11 @@ import moment from "moment";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import apiFunctions from "../../../constants/apiFunctions";
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import { MenuBarBottom } from "../../../components/menuBarBottom/menuBarBottom";
+import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
 
 const ProfileComponent: React.FC = () => {
-    const { userName } = useParams<{ userName: string }>();
+    const [searchParams] = useSearchParams();
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
@@ -57,147 +58,151 @@ const ProfileComponent: React.FC = () => {
     }
 
     useEffect(() => {
+        const userName = searchParams.get('userName');
         if (userName) {
             fetchUserData(userName);
         }
-    }, [userName, fetchUserData]);
+    }, [searchParams,fetchUserData]);
 
     return (
-        <div className="mainContainer df jc ac">
-            <div className="row gx-0 profileContainer px-2">
-                <div className="col-xl-3 col-lg-2 col-sm-1 d-sm-block d-none"></div>
-                <div className="col-xl-6 col-lg-8 col-sm-10 col-12 mb-2 gx-0">
-                    {userDataLoading ? <SearchSkeleton></SearchSkeleton> :
-                        <React.Fragment>
-                            {devData != null ? <React.Fragment>
-                                <div className='df js ac f100'>
-                                    <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                        Profile
-                                    </p>
-                                </div>
-                                <div className="fullSizeCard roundedContainer f100 mb20">
-                                    <Card>
-                                        <div className="df jsb as m-2 profileMainInfoContainer">
-                                            <div className="df je as gp30px profileSettingsBtnContainer">
-                                                <Button className="mw0px" style={{ padding: '4px' }} onClick={goToProfileSettings}>
-                                                    <svg className="headerIcoClamp2830" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} width="256px" height="256px" viewBox="0 0 24 24" id="menu-alt-4" data-name="Line Color" xmlns="http://www.w3.org/2000/svg">
-                                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                                                        <g id="SVGRepo_iconCarrier">
-                                                        <circle id="primary" cx="12" cy="12" r="9" fill={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} stroke={(currentTheme.data.theme.palette?.primary as SimplePaletteColorOptions).main} strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'></circle>
-                                                            <path id="secondary" d="M8,9h8M8,12h8M8,15h8" fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'></path>
-                                                        </g>
-                                                    </svg>
-                                                </Button>
-                                            </div>
-                                            <div className="df js ac gp30px">
-                                                <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
-                                                <div>
-                                                    <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
-                                                        {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
-                                                    </Typography>
-                                                    <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
-                                                        {devData?.positionName}
-                                                    </Typography>
-                                                    {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj,index) => {
-                                                        return (<Typography key={'exp_'+index} className="ellipsis" variant="body2" color="text.secondary">
-                                                            {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
-                                                        </Typography>)
-                                                    })}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <CardContent>
-                                            {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                Socials: {devData.websiteUrl}
-                                            </Typography> : null}
-                                            <Typography className="w90per" variant="body2" color="text.secondary">
-                                                Experience: {devData?.experience} years
-                                            </Typography>
-                                            <Typography className="w90per" variant="body2" color="text.secondary">
-                                                Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Tooltip title="Download">
-                                                <Button variant="contained" size="small">
-                                                    <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
-                                                </Button>
-                                            </Tooltip>
-                                        </CardActions>
-                                    </Card>
-                                </div>
-                            </React.Fragment> : <></>}
-
-                            {(devData && devData?.skills !== null) ? <React.Fragment>
-                                <div className='df js ac f100'>
-                                    <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                        Skills
-                                    </p>
-                                </div>
-                                <div className="fullSizeCard roundedContainer f100 mb20">
-                                    <Card>
-                                        <CardContent>
-                                            {devData?.skills?.map((skill, index) =>
-                                                <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
-                                                    &#x2022; {skill.skillName}
-                                                </Typography>)
-                                            }
-                                        </CardContent>
-                                    </Card>
-                                </div>
-                            </React.Fragment> : <></>}
-
-                            <React.Fragment>
-                                {(expData != null && expData.length) ?
-                                    <React.Fragment>
+        <div className="mainContainer">
+            <MenuBarBottom></MenuBarBottom>
+            <div className="row gx-0 px-2">
+                <div className="col-xl-3 col-lg-2 col-sm-1 d-sm-block d-none">
+                </div>
+                <div className="col-xl-6 col-lg-8 col-sm-10 col-12 mb-2 row gx-0">
+                    <div className="col-4 d-none d-md-block">
+                        <div className="roundedContainer stickyMenu me-3" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                            <div className="px-3 pt-2">
+                                <Typography className="headerml" variant="body2">Menu</Typography>
+                            </div>
+                            <MenuBarInner mode="vertical"></MenuBarInner>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-8 profileContainer">
+                        <div className="mb-3">
+                            {userDataLoading ? <SearchSkeleton></SearchSkeleton> :
+                                <React.Fragment>
+                                    {devData != null ? <React.Fragment>
                                         <div className='df js ac f100'>
                                             <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                                Experience
+                                                Profile
+                                            </p>
+                                        </div>
+                                        <div className="fullSizeCard roundedContainer f100 mb20">
+                                            <Card>
+                                                <div className="df jsb as m-2 profileMainInfoContainer">
+                                                    <div className="df js ac gp30px">
+                                                        <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
+                                                        <div>
+                                                            <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
+                                                                {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
+                                                            </Typography>
+                                                            <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
+                                                                {devData?.positionName}
+                                                            </Typography>
+                                                            {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
+                                                                return (<Typography key={'exp_' + index} className="ellipsis" variant="body2" color="text.secondary">
+                                                                    {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
+                                                                </Typography>)
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <CardContent>
+                                                    {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                        Socials: {devData.websiteUrl}
+                                                    </Typography> : null}
+                                                    <Typography className="w90per" variant="body2" color="text.secondary">
+                                                        Experience: {devData?.experience} years
+                                                    </Typography>
+                                                    <Typography className="w90per" variant="body2" color="text.secondary">
+                                                        Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions>
+                                                    <Tooltip title="Download">
+                                                        <Button variant="contained" size="small">
+                                                            <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
+                                                        </Button>
+                                                    </Tooltip>
+                                                </CardActions>
+                                            </Card>
+                                        </div>
+                                    </React.Fragment> : <></>}
+
+                                    {(devData && devData?.skills !== null) ? <React.Fragment>
+                                        <div className='df js ac f100'>
+                                            <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                Skills
                                             </p>
                                         </div>
                                         <div className="fullSizeCard roundedContainer f100 mb20">
                                             <Card>
                                                 <CardContent>
-                                                    {expData?.map((expObj, index) => {
-                                                        return (
-                                                            <div key={index}>
-                                                                <div className="df jsb ac fw">
-                                                                    <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
-                                                                        {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
-                                                                    </Typography>
-                                                                    <div className="df js ac fw">
-                                                                        <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
-                                                                            {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
-                                                                        </Typography>
-                                                                        {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
-                                                                            &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
-                                                                        </Typography> : null}
-                                                                    </div>
-                                                                </div>
-                                                                <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                    Responsibilities & Roles:
-                                                                </Typography>
-                                                                {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                    &#x2022; {expObj.description1}</Typography> : null}
-                                                                {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                    &#x2022; {expObj.description2}</Typography> : null}
-                                                                {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                    &#x2022; {expObj.description3}</Typography> : null}
-                                                                {index < expData.length - 1 ? <hr style={{ color: (currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main }}></hr> : <></>}
-                                                            </div>
-                                                        )
-                                                    })}
-
+                                                    {devData?.skills?.map((skill, index) =>
+                                                        <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
+                                                            &#x2022; {skill.skillName}
+                                                        </Typography>)
+                                                    }
                                                 </CardContent>
                                             </Card>
                                         </div>
-                                    </React.Fragment> : <div></div>}
-                            </React.Fragment>
-                        </React.Fragment>
-                    }
+                                    </React.Fragment> : <></>}
+
+                                    <React.Fragment>
+                                        {(expData != null && expData.length) ?
+                                            <React.Fragment>
+                                                <div className='df js ac f100'>
+                                                    <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                        Experience
+                                                    </p>
+                                                </div>
+                                                <div className="fullSizeCard roundedContainer f100 mb20">
+                                                    <Card>
+                                                        <CardContent>
+                                                            {expData?.map((expObj, index) => {
+                                                                return (
+                                                                    <div key={index}>
+                                                                        <div className="df jsb ac fw">
+                                                                            <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
+                                                                                {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
+                                                                            </Typography>
+                                                                            <div className="df js ac fw">
+                                                                                <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
+                                                                                </Typography>
+                                                                                {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
+                                                                                </Typography> : null}
+                                                                            </div>
+                                                                        </div>
+                                                                        <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            Responsibilities & Roles:
+                                                                        </Typography>
+                                                                        {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description1}</Typography> : null}
+                                                                        {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description2}</Typography> : null}
+                                                                        {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description3}</Typography> : null}
+                                                                        {index < expData.length - 1 ? <hr style={{ color: (currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main }}></hr> : <></>}
+                                                                    </div>
+                                                                )
+                                                            })}
+
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </React.Fragment> : <div></div>}
+                                    </React.Fragment>
+                                </React.Fragment>
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div className="col-xl-3 col-lg-2 col-sm-1 d-sm-block d-none"></div>
+                <div className="col-xl-3 col-lg-2 col-sm-1 d-sm-block d-none">
+                </div>
             </div>
         </div>
     )

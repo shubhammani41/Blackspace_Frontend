@@ -59,7 +59,7 @@ const SearchComponent: React.FC = () => {
 
     const goToProfile = (userName: string) => {
         if (userName && userName.trim() !== '') {
-            navigate(`/profile/viewProfile/${userName}`);
+            navigate(`/profile/viewProfile?userName=${userName}`);
         }
     }
 

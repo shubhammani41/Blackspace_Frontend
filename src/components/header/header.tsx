@@ -8,6 +8,7 @@ import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -94,14 +95,14 @@ const AppHeader: React.FC = () => {
                                 {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
                             </div>
                             <div className="df je ac headerInnerRight">
-                                <Button onClick={handleSearchClick} className="mw0px" style={{ padding: '4px' }}>
+                                <Button onClick={handleSearchClick} className="mw0px">
                                     <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></SearchIcon>
                                 </Button>
-                                <Button className="mw0px" style={{ padding: '4px' }}>
+                                <Button className="mw0px">
                                     <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></NotificationsRoundedIcon>
                                 </Button>
-                                <Button className="mw0px threeDotVerticalIcon" style={{ padding: '4px' }}>
-                                    <svg className="headerIcoClamp2830" width="256px" height="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)">
+                                <Button className="mw0px">
+                                    {/* <svg className="headerIcoClamp2830" width="256px" height="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)">
                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                                         <g id="SVGRepo_iconCarrier">
@@ -109,7 +110,8 @@ const AppHeader: React.FC = () => {
                                             <path d="M21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill={currentTheme.data.theme.palette?.text?.secondary}></path>
                                             <path opacity="0.5" d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" fill={currentTheme.data.theme.palette?.text?.secondary}></path>
                                         </g>
-                                    </svg>
+                                    </svg> */}
+                                    <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></MenuRoundedIcon>
                                 </Button>
                             </div>
                         </div>

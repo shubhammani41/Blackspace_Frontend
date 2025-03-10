@@ -89,6 +89,12 @@
     }
 }
 
+.menuBarInner.vertical {
+    .menuBarInnerItemsContainer { 
+        padding: 12px;
+    }
+}
+
 .menuBarInnerItems {
     width: 100%;
 }

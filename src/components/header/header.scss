@@ -82,10 +82,12 @@
 }
 
 .headerInnerRight {
-    width: 75px;
+    gap: 0px;
+    button{
+        padding: 2px;
+    }
 }
 
-.threeDotVerticalIcon{
-    padding: 0px !important;
-    margin-left: -4px !important;
-}
+.mw0px {
+    min-width: 0px !important;
+  }
