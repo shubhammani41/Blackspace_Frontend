@@ -22,6 +22,7 @@ import zIndex from '@mui/material/styles/zIndex';
 const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
 const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
+const SettingsModule = lazy(() => import("./modules/settingsModule/settingsModule"));
 
 const App: React.FC = () => {
   const themeStore = useThemeStore();
@@ -77,8 +78,8 @@ const RoutesComponent: React.FC = () => {
   const location = useLocation();
   const AnimatePresenceFixedType = AnimatePresence as ElementType;
   const pageVariants = {
-    initial: { x: "50%", opacity: 0, scale:0.98 }, // New screen starts off-screen (right)
-    animate: { x: "0%", opacity: 1, scale:1 },  // Moves into view
+    initial: { x: "50%", opacity: 0, scale: 0.98 }, // New screen starts off-screen (right)
+    animate: { x: "0%", opacity: 1, scale: 1 },  // Moves into view
     exit: { x: "-50%", opacity: 0, scale: 0.98 }, // Old screen slides out (left)
   };
   return (
@@ -120,6 +121,13 @@ const RoutesComponent: React.FC = () => {
             element={
               <Suspense fallback={<GlobalLoader></GlobalLoader>}>
                 <ProfileModule></ProfileModule>
+              </Suspense>
+            }>
+          </Route>
+          <Route path='/settings/*'
+            element={
+              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+                <SettingsModule></SettingsModule>
               </Suspense>
             }>
           </Route>

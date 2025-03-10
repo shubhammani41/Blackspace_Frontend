@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import './profileSettings.scss';
+import './settingsComponent.scss';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
-import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
 import { MenuBarBottom } from "../../../components/menuBarBottom/menuBarBottom";
+import { MenuBarInner } from "../../../components/menuBarBottom/menuBarInner/menuBarInner";
 
-const ProfileSettingsComponent: React.FC = () => {
+const SettingsComponent: React.FC = () => {
     const currentTheme = useThemeStore();
 
     return (
@@ -23,9 +23,9 @@ const ProfileSettingsComponent: React.FC = () => {
                             <MenuBarInner mode="vertical"></MenuBarInner>
                         </div>
                     </div>
-                    <div className="col-12 col-md-8 profileSettingsContainer">
-                        <div className="roundedContainer">
-                            
+                    <div className="col-12 col-md-8 settingsContainer">
+                        <div className="mb-3">
+                            {/* settings ui will go here */}
                         </div>
                     </div>
                 </div>
@@ -36,4 +36,4 @@ const ProfileSettingsComponent: React.FC = () => {
     );
 }
 
-export { ProfileSettingsComponent };
+export { SettingsComponent };

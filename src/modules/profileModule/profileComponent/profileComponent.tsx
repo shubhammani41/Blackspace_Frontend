@@ -53,10 +53,6 @@ const ProfileComponent: React.FC = () => {
         }
     }, [defaultTimeout]);
 
-    const goToProfileSettings = () => {
-        navigate('/profile/profileSettings');
-    }
-
     useEffect(() => {
         const userName = searchParams.get('userName');
         if (userName) {
