@@ -1,4 +1,4 @@
-import { AppBar, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import './header.scss';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import { MainBarLayoutComponent } from "../layoutComponents/mainBarLayoutComponent/mainBarLayoutComponent";
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -79,42 +80,35 @@ const AppHeader: React.FC = () => {
 
     return (
         <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
-            {location.pathname !== '/signin' ? <AppBar sx={{ backgroundColor: 'background.default', padding: '0px', paddingRight:'0px !important', paddingTop: '8px' }}>
-                <div className="row gx-0 px-2">
-                    <div className="col-lg-2 col-sm-1 d-sm-block d-none">
-                    </div>
-                    <div className="col-lg-8 col-sm-10 col-12">
-                        <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                            <div className="df js ac headerInnerLeft">
-                                {isBackEnabled ? <ArrowBackRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830 me-1" onClick={goBack}></ArrowBackRoundedIcon> : null}
-                                {!isBackEnabled ? <div>
-                                    <img src={LogoTr} alt="home" className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
-                                        onClick={navigateToHome}></img>
-                                    <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
-                                        onClick={navigateToHome}>
-                                        Blackspace
-                                    </Typography>
-                                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
-                                </div> : null}
-                                {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
-                            </div>
-                            <div className="df je ac headerInnerRight">
-                                <Button onClick={handleSearchClick} className="mw0px">
-                                    <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></SearchIcon>
-                                </Button>
-                                <Button className="mw0px">
-                                    <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></NotificationsRoundedIcon>
-                                </Button>
-                                <Button className="mw0px" onClick={navigateToSettings}>
-                                    <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></MenuRoundedIcon>
-                                </Button>
-                            </div>
+            {location.pathname !== '/signin' ?
+                <MainBarLayoutComponent>
+                    <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                        <div className="df js ac headerInnerLeft">
+                            {isBackEnabled ? <ArrowBackRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830 me-1" onClick={goBack}></ArrowBackRoundedIcon> : null}
+                            {!isBackEnabled ? <div>
+                                <img src={LogoTr} alt="home" className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                    onClick={navigateToHome}></img>
+                                <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
+                                    onClick={navigateToHome}>
+                                    Blackspace
+                                </Typography>
+                                <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
+                            </div> : null}
+                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
+                        </div>
+                        <div className="df je ac headerInnerRight">
+                            <Button onClick={handleSearchClick} className="mw0px">
+                                <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></SearchIcon>
+                            </Button>
+                            <Button className="mw0px">
+                                <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></NotificationsRoundedIcon>
+                            </Button>
+                            <Button className="mw0px" onClick={navigateToSettings}>
+                                <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></MenuRoundedIcon>
+                            </Button>
                         </div>
                     </div>
-                    <div className="col-lg-2 col-sm-1 d-sm-block d-none">
-                    </div>
-                </div>
-            </AppBar> : <></>}
+                </MainBarLayoutComponent> : <></>}
 
         </div>
     )
