@@ -15,9 +15,7 @@ import useAddBasicDetailsDialogStore from './components/addBasicDetailsDialog/st
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AnimatePresence, motion } from "framer-motion";
-import { SearchComponent } from './modules/searchModule/searchComponent/searchComponent';
-import { Scale } from '@mui/icons-material';
-import zIndex from '@mui/material/styles/zIndex';
+import { useMotionFramerStore } from './store/motionFramerAnimationStore';
 
 const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -28,6 +26,7 @@ const App: React.FC = () => {
   const themeStore = useThemeStore();
   const userLoginDataStore = useUserLoginDataStore();
   const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
+
   const verifyUserDataFromLocalAndSignin = () => {
     let userData = getUserDataFromLocalStorage();
     if (userData?.userLoginDetails?.userDetails?.userId && userData?.userLoginDetails?.token) {
@@ -48,7 +47,10 @@ const App: React.FC = () => {
   }
   useEffect(() => {
     verifyUserDataFromLocalAndSignin();
-  }, [])
+  }, []);
+
+
+
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={createTheme(themeStore.data.theme)}>
@@ -76,17 +78,13 @@ const GlobalComponents: React.FC = () => {
 
 const RoutesComponent: React.FC = () => {
   const location = useLocation();
+  const motionFramerStore = useMotionFramerStore();
   const AnimatePresenceFixedType = AnimatePresence as ElementType;
-  const pageVariants = {
-    initial: { x: "50%", opacity: 0, scale: 0.98 }, // New screen starts off-screen (right)
-    animate: { x: "0%", opacity: 1, scale: 1 },  // Moves into view
-    exit: { x: "-50%", opacity: 0, scale: 0.98 }, // Old screen slides out (left)
-  };
   return (
     <AnimatePresenceFixedType mode="popLayout">
       <motion.div
         key={location.pathname} // Makes sure animations work per route
-        variants={pageVariants}
+        variants={motionFramerStore.data.framerConfig}
         initial="initial"
         animate="animate"
         exit="exit"

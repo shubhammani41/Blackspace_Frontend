@@ -6,10 +6,10 @@ import { useEffect, useMemo, useState } from "react";
 import LogoTr from '../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../themeToggleBtn/store/themeStore";
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { MainBarLayoutComponent } from "../layoutComponents/mainBarLayoutComponent/mainBarLayoutComponent";
+import { BackButtonComponent } from "../backButtonComponent/backButtonComponent";
 
 const AppHeader: React.FC = () => {
     const location = useLocation();
@@ -45,9 +45,7 @@ const AppHeader: React.FC = () => {
     const navigateToHome = () => {
         navigate("/home");
     }
-    const goBack = () => {
-        navigate(-1);
-    }
+    
 
     const pageName = useMemo<string>(() => {
         const segments = location.pathname.split('/').filter(Boolean);
@@ -84,16 +82,18 @@ const AppHeader: React.FC = () => {
                 <MainBarLayoutComponent>
                     <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
                         <div className="df js ac headerInnerLeft">
-                            {isBackEnabled ? <ArrowBackRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830 me-1" onClick={goBack}></ArrowBackRoundedIcon> : null}
-                            {!isBackEnabled ? <div>
-                                <img src={LogoTr} alt="home" className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
-                                    onClick={navigateToHome}></img>
-                                <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
-                                    onClick={navigateToHome}>
-                                    Blackspace
-                                </Typography>
-                                <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
-                            </div> : null}
+                            {isBackEnabled ?
+                                <BackButtonComponent></BackButtonComponent>
+                                :
+                                <div>
+                                    <img src={LogoTr} alt="home" className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                        onClick={navigateToHome}></img>
+                                    <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
+                                        onClick={navigateToHome}>
+                                        Blackspace
+                                    </Typography>
+                                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
+                                </div>}
                             {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
                         </div>
                         <div className="df je ac headerInnerRight">
