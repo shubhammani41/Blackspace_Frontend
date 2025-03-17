@@ -1,4 +1,4 @@
-import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, Paper, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
@@ -241,7 +241,7 @@ const SearchComponent: React.FC = () => {
                 />
             </div>
             {devListLoading || (!devListLoading && devDataList.length > 0) ?
-                <div id="searchInfiniteScrollContainer" className="roundedContainer">
+                <Paper id="searchInfiniteScrollContainer" className="roundedContainer">
                     <InfiniteScroll
                         pageStart={defaultPageNumber}
                         loadMore={debouncedLoadMore}
@@ -322,7 +322,7 @@ const SearchComponent: React.FC = () => {
                         }
                     </InfiniteScroll>
                     {devListLoading ? profileSkeletonList : null}
-                </div>
+                </Paper>
                 : <></>}
             {!devListLoading && devDataList.length < 1 ?
                 <div className="df jc ac fw">
