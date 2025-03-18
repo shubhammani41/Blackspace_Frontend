@@ -61,7 +61,8 @@
             align-items: center !important;
             text-transform: none !important;
         }
-        .menuItemLabel{
+
+        .menuItemLabel {
             padding-left: 5px;
         }
     }
@@ -90,25 +91,22 @@
 }
 
 .menuBarInner.vertical {
-    .menuBarInnerItemsContainer { 
+    .menuBarInnerItemsContainer {
         padding: 12px;
     }
 }
 
 .menuBarInnerItems {
     width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-transform: none;
 }
 
 .menuBarInnerIcoClamp2830 {
     width: clamp(28px, 2vw, 30px) !important;
     height: clamp(28px, 2vw, 30px) !important;
-}
-
-.profileSettingContainer {
-    width: 100%;
-    border-radius: var(--app-border-radius-m) !important;
-    box-shadow: var(--shadow-down-s-transparent) !important;
-    overflow: hidden;
 }
 
 .lightModeBanner {
@@ -117,14 +115,42 @@
     background: -webkit-linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
     background: linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e6f5ff", endColorstr="#83a7c2", GradientType=1);
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
 }
 
 .darkModeBanner {
-    background: rgb(34, 60, 79);
+    background: rgb(34, 60, 79) !important;
     background: -moz-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
     background: -webkit-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
     background: linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#223c4f", endColorstr="#10222f", GradientType=1);
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.lightModeBanner:hover {
+    background: rgb(199, 213, 221);
+    background: -moz-linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    background: -webkit-linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    background: linear-gradient(102deg, rgba(230, 245, 255, 1) 0%, rgba(196, 217, 233, 1) 50%, rgba(131, 167, 194, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e6f5ff", endColorstr="#83a7c2", GradientType=1);
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.darkModeBanner:hover {
+    background: rgb(23, 41, 54) !important;
+    background: -moz-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    background: -webkit-linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    background: linear-gradient(102deg, rgba(34, 60, 79, 1) 0%, rgba(27, 51, 69, 1) 50%, rgba(16, 34, 47, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#223c4f", endColorstr="#10222f", GradientType=1);
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
 }
 
 .profileannerIconClamp {
@@ -132,6 +158,6 @@
     height: clamp(35px, 3vw, 45px) !important;
 }
 
-.leftAlignedText{
+.leftAlignedText {
     text-align: left;
 }
