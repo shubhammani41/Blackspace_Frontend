@@ -1,11 +1,9 @@
 import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, Paper, TextField, Tooltip, Typography } from "@mui/material";
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
 import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
-import InfiniteScroll from 'react-infinite-scroller';
-import { debounce } from 'lodash';
 import { AppText, AppValues } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
@@ -17,12 +15,12 @@ import jsPDF from "jspdf";
 import moment from "moment";
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
-import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
 import Accordion from '@mui/material/Accordion';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import apiFunctions from "../../../constants/apiFunctions";
 import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 import { MainLayoutComponent } from "../../../components/layoutComponents/mainLayoutComponent/mainLayoutComponent";
+import { InfiniteScrollComponent } from "../../../components/infiniteScroll/infiniteScrollComponent";
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -30,6 +28,7 @@ const SearchComponent: React.FC = () => {
     const defaultSearchKeyWord: string = "";
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const noProfileSearchMessage: string = "Sorry! No profiles found.";
+    const defaultSearchMessage: string = "Search results will appear here."
     const errorSearchMessage: string = AppText.errorMessage;
     const navigate = useNavigate();
     const [devDataList, setDevData] = useState<UserData[]>([]);
@@ -46,6 +45,10 @@ const SearchComponent: React.FC = () => {
     const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
     const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [timeOutSearchFn, setTimeOutSearchFn] = useState(
+        setTimeout(() => {
+        }, defaultTimeout)
+    )
 
     const currentTheme = useThemeStore();
 
@@ -62,79 +65,63 @@ const SearchComponent: React.FC = () => {
     }
 
     const fetchUserData = useCallback(async (pageSize: number, pageNumber: number, searchKeyWord: string = '') => {
-        // if (searchKeyWord) {
-        setDevListLoading(true);
-        apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
-            if (res?.data?.data && res.data.data.length > 0) {
-                setTotalElements(res.data.totalElements);
-                setTimeout(() => {
-                    setDevData(prev => [...prev, ...res.data.data]);
-                }, defaultTimeout);
-            } else {
-                setTotalElements(0);
-                setDevData([]);
-                setSearchMessage(noProfileSearchMessage);
-                setHasMore(false);
-            }
-        }).catch(err => {
+        if (!searchKeyWord) {
+            setTotalElements(0);
             setDevData([]);
-            setSearchMessage(errorSearchMessage);
             setHasMore(false);
-        })
-
-        setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
-        // }
-    }, [defaultTimeout, errorSearchMessage])
-
-    const searchFn = useCallback((event: any) => {
-        setSearchKeyWord(event.target.value);
-        setDevData([]);
-        setPageNumber(defaultPageNumber);
-        setPageSize(defaultPageSize);
-        setSearchMessage('');
-        setTotalElements(0);
-        if (event.target.value.length > 2) {
-            fetchUserData(defaultPageSize, defaultPageNumber, event.target.value);
+            return;
         }
-    }, [fetchUserData])
-
-    const debouncedSearchFn = useMemo(() => {
-        return debounce(searchFn, defaultTimeout);
-    }, [defaultTimeout, searchFn])
-
-    const loadMore = useMemo(() => {
-        return () => {
-            setPageNumber(prevPageNumber => {
-                setHasMore(prevHasMore => {
-                    if (prevHasMore) {
-                        fetchUserData(pageSize, prevPageNumber + 1, searchKeyWord);
-                    }
-                    return false;
-                });
-                return prevPageNumber + 1;
+        if ((pageNumber === 0) || (pageNumber * pageSize < totalElements)) {
+            setDevListLoading(true);
+            await apiFunctions.fetchUserList(pageSize, pageNumber, searchKeyWord).then(res => {
+                if (res?.data?.data && res.data.data.length > 0) {
+                    setTotalElements(res.data.totalElements);
+                    setTimeout(() => {
+                        setDevData(prev => [...prev, ...res.data.data]);
+                    }, defaultTimeout);
+                    setSearchMessage('');
+                    setHasMore(true);
+                } else {
+                    setTotalElements(0);
+                    setDevData([]);
+                    setSearchMessage(noProfileSearchMessage);
+                    setHasMore(false);
+                }
+            }).catch(err => {
+                setDevData([]);
+                setSearchMessage(errorSearchMessage);
+                setHasMore(false);
             })
+            setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
         }
-    }, [searchKeyWord, fetchUserData, pageSize]);
+        else {
+            setHasMore(false);
+        }
+    }, [defaultTimeout, errorSearchMessage, totalElements]);
 
-    const debouncedLoadMore = useMemo(() => {
-        return debounce(loadMore, defaultTimeout)
-    }, [loadMore, defaultTimeout])
+    const debouncedSearchFn = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        clearTimeout(timeOutSearchFn);
+        setTimeOutSearchFn(
+            setTimeout(() => {
+                setDevData([]);
+                setSearchKeyWord(event?.target?.value ?? '');
+                setPageNumber(defaultPageNumber);
+                setPageSize(defaultPageSize);
+                setTotalElements(0);
+                fetchUserData(defaultPageSize, 0, event?.target?.value ?? '');
+            }, defaultTimeout)
+        );
+    }, [fetchUserData, timeOutSearchFn, defaultTimeout]);
+
+    const onSCrollEnd = useCallback(() => {
+        fetchUserData(pageSize, pageNumber + 1, searchKeyWord);
+        setPageNumber(pageNumber + 1);
+    }, [pageNumber, pageSize, searchKeyWord, fetchUserData]);
 
     const handleExpansion =
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
-
-    const handleScroll = useCallback(() => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            console.log(pageNumber, pageSize, totalElements);
-            if ((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) {
-                setHasMore(true);
-            } else {
-                setHasMore(false);
-            }
-        }
-    }, [pageNumber, pageSize, totalElements]);
 
     const downloadProfile = (userName: string) => {
         if (root) {
@@ -193,29 +180,21 @@ const SearchComponent: React.FC = () => {
     }
 
     useEffect(() => {
+        if (!searchKeyWord) {
+            setSearchMessage(defaultSearchMessage);
+        }
+    }, [searchKeyWord])
+
+    useEffect(() => {
         if (isPDFLoaded) {
             generateAndDownloadPdf();
             setIsPDFLoaded(false);
         }
-    }, [isPDFLoaded])
-
-    useEffect(() => {
-        console.log(hasMore);
-    }, [hasMore])
-
-    useEffect(() => {
-        window.removeEventListener('scrollend', handleScroll);
-        window.addEventListener('scrollend', handleScroll);
-    }, [handleScroll]);
+    }, [isPDFLoaded, generateAndDownloadPdf]);
 
     useEffect(() => {
         setDevData([]);
         fetchUserData(pageSize, pageNumber);
-        return () => {
-            window.removeEventListener('scrollend', handleScroll);
-            debouncedSearchFn.cancel();
-            debouncedLoadMore.cancel();
-        }
     }, []);
 
     return (
@@ -241,13 +220,8 @@ const SearchComponent: React.FC = () => {
                 />
             </div>
             {devListLoading || (!devListLoading && devDataList.length > 0) ?
-                <Paper id="searchInfiniteScrollContainer" className="roundedContainer">
-                    <InfiniteScroll
-                        pageStart={defaultPageNumber}
-                        loadMore={debouncedLoadMore}
-                        hasMore={hasMore}
-                        useWindow={true} // Set to true to use window scroll, false to use a specific container
-                        threshold={0}>
+                <InfiniteScrollComponent onScrollEnd={onSCrollEnd} hasMore={hasMore}>
+                    <Paper id="searchInfiniteScrollContainer" className="roundedContainer">
                         {devDataList.length > 0 ?
                             devDataList.map((devData, index) => {
                                 return (
@@ -320,9 +294,9 @@ const SearchComponent: React.FC = () => {
                             }) :
                             <></>
                         }
-                    </InfiniteScroll>
-                    {devListLoading ? profileSkeletonList : null}
-                </Paper>
+                        {devListLoading ? profileSkeletonList : null}
+                    </Paper>
+                </InfiniteScrollComponent>
                 : <></>}
             {!devListLoading && devDataList.length < 1 ?
                 <div className="df jc ac fw">
@@ -331,12 +305,6 @@ const SearchComponent: React.FC = () => {
                     </Typography>
                 </div> : null
             }
-            {((pageNumber + 1) * pageSize <= totalElements && pageSize <= totalElements) ?
-                <div className="df jc ac fw m-3" onClick={handleScroll}>
-                    <Tooltip title="Load more">
-                        <ArrowDropDownCircleRoundedIcon className="headerIcoClamp2830"></ArrowDropDownCircleRoundedIcon>
-                    </Tooltip>
-                </div> : null}
         </MainLayoutComponent>
     );
 }
