@@ -6,7 +6,7 @@ import { UserLoginRes } from "../models/userLoginRes";
 const AppText = {
     loadingMessage: "Hold on a sec.",
     successMessage: "There you go.",
-    errorMessage: "Opps! Something went wrong."
+    errorMessage: "Oops! Something went wrong."
 }
 
 const userDataStorageKey = 'userLoginData';
