@@ -96,14 +96,14 @@ const SearchComponent: React.FC = () => {
     }, [defaultTimeout, errorSearchMessage, totalElements]);
 
     const debouncedSearch = useDebounce(fetchUserData, defaultTimeout);
-    const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setDevData([]);
         setSearchKeyWord(event?.target?.value ?? '');
         setPageNumber(defaultPageNumber);
         setPageSize(defaultPageSize);
         setTotalElements(0);
         debouncedSearch(pageSize, defaultPageNumber, event?.target?.value ?? '');
-    };
+    },[pageSize, debouncedSearch]);
 
     const onSCrollEnd = useCallback(() => {
         fetchUserData(pageSize, pageNumber + 1, searchKeyWord);
