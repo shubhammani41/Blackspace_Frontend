@@ -2,6 +2,7 @@ import moment from "moment";
 import { UserData, UserExperience } from "../models/userData";
 import { UserExperienceDetails } from "../models/userExperience";
 import { UserLoginRes } from "../models/userLoginRes";
+import { useCallback, useState } from "react";
 
 const AppText = {
     loadingMessage: "Hold on a sec.",
@@ -19,8 +20,8 @@ const getTokenFromLocalStorage = (): String => {
     try {
         const userDataStr = localStorage.getItem(userDataStorageKey);
         if (userDataStr) {
-            const userData:{ userLoginDetails: UserLoginRes, userProfileDetails?: UserData } | null = JSON.parse(userDataStr);
-            if(userData?.userLoginDetails?.token){
+            const userData: { userLoginDetails: UserLoginRes, userProfileDetails?: UserData } | null = JSON.parse(userDataStr);
+            if (userData?.userLoginDetails?.token) {
                 return userData.userLoginDetails.token;
             }
             else return '';
@@ -83,4 +84,17 @@ const sortExperienceDetailsByDateAndCurrent = (experienceList: UserExperienceDet
     });
 }
 
-export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserDataInLocalStorage, getUserDataFromLocalStorage }
+const useDebounce = (fn: (...args: any[]) => any, timeOutMs: number) => {
+    const [timeOutFn, setTimeOutFn] = useState(setTimeout(() => null, 0));
+    const debouncedFn = useCallback((...args: any[]) => {
+        clearTimeout(timeOutFn);
+        setTimeOutFn(
+            setTimeout(() => {
+                fn(...args);
+            }, timeOutMs)
+        );
+    }, [timeOutFn, fn, timeOutMs]);
+    return debouncedFn;
+};
+
+export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserDataInLocalStorage, getUserDataFromLocalStorage, useDebounce }

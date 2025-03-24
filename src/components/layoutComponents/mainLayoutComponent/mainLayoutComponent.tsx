@@ -30,8 +30,11 @@ const MainLayoutComponent: React.FC<MainLayoutComponentProps> = (props: MainLayo
                         <>
                             <div className="col-4 d-none d-md-block">
                                 <div className="roundedContainer stickyMenu me-3" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                                    <div className="px-3 pt-2">
+                                    <div className="px-3 pt-3 pb-2">
                                         <Typography className="headerml" variant="body2">Menu</Typography>
+                                        <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                                            <hr className="m-0 mt-3"></hr>
+                                        </div>
                                     </div>
                                     <MenuBarInner mode="vertical"></MenuBarInner>
                                 </div>

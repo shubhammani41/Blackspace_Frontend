@@ -1,10 +1,10 @@
 import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, Paper, TextField, Tooltip, Typography } from "@mui/material";
-import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import './searchComponent.scss';
 import { UserData, UserSkill } from "../../../models/userData";
 import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
-import { AppText, AppValues } from "../../../constants/appConstants";
+import { AppText, AppValues, useDebounce } from "../../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from '@mui/icons-material/Visibility';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
@@ -45,10 +45,6 @@ const SearchComponent: React.FC = () => {
     const root = document.getElementById('root');
     const downloadContainer = useRef<Root>();
     const [expanded, setExpanded] = React.useState<string | false>(false);
-    const [timeOutSearchFn, setTimeOutSearchFn] = useState(
-        setTimeout(() => {
-        }, defaultTimeout)
-    )
 
     const currentTheme = useThemeStore();
 
@@ -99,19 +95,15 @@ const SearchComponent: React.FC = () => {
         }
     }, [defaultTimeout, errorSearchMessage, totalElements]);
 
-    const debouncedSearchFn = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        clearTimeout(timeOutSearchFn);
-        setTimeOutSearchFn(
-            setTimeout(() => {
-                setDevData([]);
-                setSearchKeyWord(event?.target?.value ?? '');
-                setPageNumber(defaultPageNumber);
-                setPageSize(defaultPageSize);
-                setTotalElements(0);
-                fetchUserData(defaultPageSize, 0, event?.target?.value ?? '');
-            }, defaultTimeout)
-        );
-    }, [fetchUserData, timeOutSearchFn, defaultTimeout]);
+    const debouncedSearch = useDebounce(fetchUserData, defaultTimeout);
+    const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDevData([]);
+        setSearchKeyWord(event?.target?.value ?? '');
+        setPageNumber(defaultPageNumber);
+        setPageSize(defaultPageSize);
+        setTotalElements(0);
+        debouncedSearch(pageSize, defaultPageNumber, event?.target?.value ?? '');
+    };
 
     const onSCrollEnd = useCallback(() => {
         fetchUserData(pageSize, pageNumber + 1, searchKeyWord);
@@ -206,7 +198,7 @@ const SearchComponent: React.FC = () => {
                     variant="filled"
                     placeholder="e.g. Shubham Tripathi"
                     className='w100per'
-                    onChange={debouncedSearchFn}
+                    onChange={onSearch}
                     InputLabelProps={{
                         style: { color: currentTheme.data.theme.palette?.text?.primary },
                     }}
