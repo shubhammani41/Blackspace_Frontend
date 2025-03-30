@@ -1,6 +1,6 @@
 import React from 'react';
 import './profileSettingsMenu.scss';
-import { Button, Menu, MenuItem, Paper, SimplePaletteColorOptions, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { ThemeToggleBtn } from '../themeToggleBtn/themeToggleBtn';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import apiFunctions from '../../constants/apiFunctions';
 import useSigninDialogStore from '../signinDialog/store/signinDialogStore';
 import useUserLoginDataStore from '../../store/userLoginDetailsStore';
-import useThemeStore from '../themeToggleBtn/store/themeStore';
 import AvatarAvacadoIcon from '../../assets/images/avatar-avacado.svg';
 import ExitDoorIcon from '../../assets/images/exit-door.svg';
 
@@ -41,11 +40,11 @@ const ProfileSettingsMenu: React.FC = () => {
                 {userLoginDataStore?.data.isUserLoggedIn ?
                     [
                         <Button key='settings' variant="text" style={{ textTransform: 'none' }}>
-                            <img className="icon30 p4" src={AvatarAvacadoIcon}></img>
+                            <img className="icon30 p4" alt='profile' src={AvatarAvacadoIcon}></img>
                             <Typography variant="body2">Profile</Typography>
                         </Button>,
                         <Button key='logout' variant="text" style={{ textTransform: 'none' }} onClick={navigateToLogin}>
-                            <img className="icon30 p4" src={ExitDoorIcon}></img>
+                            <img className="icon30 p4" alt='logout' src={ExitDoorIcon}></img>
                             <Typography variant="body2">logout</Typography>
                         </Button>
                     ]

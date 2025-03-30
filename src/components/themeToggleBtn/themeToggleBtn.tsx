@@ -1,5 +1,4 @@
 import './themeToggleBtn.scss';
-import whiteMoon from '../../assets/images/white-moon.svg';
 import yellowSun from '../../assets/images/yellow-sun.svg';
 import useThemeStore, { ThemeMode } from './store/themeStore';
 import { ReactElement, useMemo } from 'react';
@@ -12,7 +11,7 @@ const ThemeToggleBtn: React.FC = () => {
     }
     const themeMenu = useMemo<ReactElement>(() => {
         const menu = currentTheme.data.mode === ThemeMode.Light ?
-            <div className='df jc ac btnContainer'><img className='toggleImg' src={yellowSun}></img></div> :
+            <div className='df jc ac btnContainer'><img className='toggleImg' alt='light' src={yellowSun}></img></div> :
             <div className='df jc ac btnContainer'>
                 <svg className='toggleImg' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#000000">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
