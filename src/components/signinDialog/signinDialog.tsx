@@ -15,7 +15,7 @@ const SigninDialog: React.FC = () => {
     const currentTheme = useThemeStore();
     return (
         <div>
-            <Dialog
+            <Dialog className="fullwidthMobile"
                 open={signinDialogStore.data.dialogState}
                 onClose={signinDialogStore.closeDialog}
                 aria-labelledby="alert-dialog-title"

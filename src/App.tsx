@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMotionFramerStore } from './store/motionFramerAnimationStore';
+import useSigninDialogStore from './components/signinDialog/store/signinDialogStore';
 
 const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   const themeStore = useThemeStore();
   const userLoginDataStore = useUserLoginDataStore();
   const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
+  const signinDialog = useSigninDialogStore();
 
   const verifyUserDataFromLocalAndSignin = () => {
     let userData = getUserDataFromLocalStorage();
@@ -39,10 +41,17 @@ const App: React.FC = () => {
           addBasicDetailsDialogStore.openDialog();
         }
       }, rej => {
-        addBasicDetailsDialogStore.openDialog();
-      }).catch((err) => {
-        userLoginDataStore.clearUserData();
+        if (rej === 'error') {
+          userLoginDataStore.clearUserData();
+          signinDialog.openDialog();
+        }
+        else {
+          addBasicDetailsDialogStore.openDialog();
+        }
       });
+    }
+    else{
+      signinDialog.openDialog();
     }
   }
   useEffect(() => {

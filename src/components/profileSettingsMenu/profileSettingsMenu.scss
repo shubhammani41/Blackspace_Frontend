@@ -1,0 +1,23 @@
+.settingContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    button {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .themeToggleBtn{
+            width: 100%;
+            justify-content: start;
+        }
+    }
+}
+
+.roundedContainer {
+    border-radius: var(--app-border-radius-m) !important;
+    box-shadow: var(--shadow-down-s-transparent) !important;
+    overflow: hidden;
+}

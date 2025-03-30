@@ -24,8 +24,9 @@ const useUserLoginDataStore: UseBoundStore<StoreApi<UserLoginDataStore>> = creat
     }
     ),
     updateUserData: (data: { userLoginDetails: UserLoginRes, userProfileDetails?: UserData }) => set((state: { data: UserLoginState }) => {
+        const loggedInState = (data?.userLoginDetails?.userDetails?.userId && data?.userLoginDetails?.token) ? true : false;
         updateUserDataInLocalStorage(data);
-        return { data: { isUserLoggedIn: true, userDetails: data } }
+        return { data: { isUserLoggedIn: loggedInState, userDetails: data } }
     }
     ),
 }));

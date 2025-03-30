@@ -34,7 +34,7 @@ const ThemeToggleBtn: React.FC = () => {
     return (
         <div onClick={toggle} className='themeToggleBtn'>
             {themeMenu}
-            <Typography variant="body2">Toggle Theme</Typography>
+            <Typography variant="body2">{currentTheme.data.mode==='LIGHT'?'Switch to dark mode':'Switch to light mode'}</Typography>
         </div>
     );
 }

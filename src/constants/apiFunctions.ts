@@ -69,7 +69,7 @@ const apiFunctions = {
                     reject(response);
                 }
             }).catch(err => {
-                reject(err);
+                reject("error");
             });
         });
     },

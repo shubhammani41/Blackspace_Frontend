@@ -43,18 +43,30 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                                         }
                                         else {
                                             addBasicDetailsDialogStore.openDialog();
+                                            if (props?.onSuccess) {
+                                                props.onSuccess(res);
+                                            }
+                                            if (props?.redirectURL) {
+                                                navigate(props.redirectURL);
+                                            }
                                         }
                                     }, rej => {
-                                        addBasicDetailsDialogStore.openDialog();
-                                    }).catch(err => {
-                                        userLoginDataStore.clearUserData();
-                                    });
-                                }
-                                if (props?.onSuccess) {
-                                    props.onSuccess(res);
-                                }
-                                if (props?.redirectURL) {
-                                    navigate(props.redirectURL);
+                                        if (rej === 'error') {
+                                            userLoginDataStore.clearUserData();
+                                            if (props?.onFail) {
+                                                props.onFail(res);
+                                            }
+                                        }
+                                        else {
+                                            addBasicDetailsDialogStore.openDialog();
+                                            if (props?.onSuccess) {
+                                                props.onSuccess(res);
+                                            }
+                                            if (props?.redirectURL) {
+                                                navigate(props.redirectURL);
+                                            }
+                                        }
+                                    })
                                 }
                             }
                             else {

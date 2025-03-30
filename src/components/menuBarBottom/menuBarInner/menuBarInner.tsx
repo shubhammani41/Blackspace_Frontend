@@ -42,7 +42,7 @@ const MenuBarInner: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
     </>
 
     return (
-        <div className={"menuBarInner" + (props.mode === "horizontal" ? " horizontal" : " vertical")} style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+        <div className={"menuBarInner" + (props.mode === "horizontal" ? " horizontal" : " vertical")}>
             <div className="df ac jc fw menuBarInnerItemsContainer">
                 <Button className="mw0px menuBarInnerItems">
                     <HomeRoundedIcon sx={{ color: 'text.secondary' }} className="menuBarInnerIcoClamp2830"></HomeRoundedIcon>
