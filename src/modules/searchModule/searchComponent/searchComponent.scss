@@ -1,23 +1,32 @@
+.profileSearchContainer {
+    .MuiPaper-root {
+        padding: 4px 8px !important;
+    }
+}
+
+.bkMarkBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pinIconContainer {
-    position: relative;
-    z-index: 899;
     border-radius: 100%;
     width: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    left: 101%;
-    top: 10px;
     min-width: 0px;
-    svg{
+
+    svg {
         stroke: gray;
         fill: transparent;
     }
 }
 
 .pinIconContainer.pinned {
-    svg{
+    svg {
         stroke: gray;
         fill: gray;
     }
