@@ -21,6 +21,7 @@ import apiFunctions from "../../../constants/apiFunctions";
 import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 import { MainLayoutComponent } from "../../../components/layoutComponents/mainLayoutComponent/mainLayoutComponent";
 import { InfiniteScrollComponent } from "../../../components/infiniteScroll/infiniteScrollComponent";
+import { s3BaseUrl } from "../../../constants/sensitiveConstants";
 
 const SearchComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -230,7 +231,7 @@ const SearchComponent: React.FC = () => {
                                                     <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
                                                         <div className={styles.avatarContainer}>
                                                             {devData.profilePictureUrl ?
-                                                                <Avatar className={styles.avatar100} alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} /> :
+                                                                <Avatar className={styles.avatar100} alt={devData.firstName || ""} src={s3BaseUrl+devData.profilePictureUrl || ""} /> :
                                                                 <div className={styles.avatar100}>
                                                                     <p>{devData.firstName || ""}</p>
                                                                 </div>
