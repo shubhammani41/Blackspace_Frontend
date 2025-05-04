@@ -5,6 +5,7 @@
 @import './mui-overrides.scss';
 @import './bootstrapOverrides.scss';
 @import 'firebaseui/dist/firebaseui.css';
+@import './firebaseui-override.scss';
 
 @font-face {
   font-family: 'Nunito';
@@ -236,26 +237,6 @@ body * {
 .iconTp2n {
   position: relative;
   top: -2px;
-}
-
-.avatarContainer {
-  padding: 11%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  align-items: center;
-  overflow: hidden;
-
-  .avatar100 {
-    width: 100% !important;
-    height: 100% !important;
-    position: absolute;
-    top: 0px;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
 }
 
 .icon40Btn {

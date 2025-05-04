@@ -16,12 +16,11 @@ const SearchSkeleton: React.FC = () => {
                     expandIcon={<div className="expandIconContainer invisibile">
                         <ArrowDropDownIcon className="headerIcoClamp2830" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
                     </div>}>
-                    <div className="pinIconContainer invisibile">
-                        <PushPinRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2426"></PushPinRoundedIcon>
-                    </div>
-                    <Card className="w100per ml-neg30">
+                    <Card className="w100per">
                         <div className="df js ac gp30px ps-1">
-                            <Skeleton variant="circular" className="avatar100" width={100} height={100} animation="wave" />
+                            <div className="avatarSkeletonContainer">
+                                <Skeleton variant="circular" className="avatarSkeleton100" width={100} height={100} animation="wave" />
+                            </div>
                             <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
                                 <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
                                 <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
@@ -29,6 +28,9 @@ const SearchSkeleton: React.FC = () => {
                             </div>
                         </div>
                     </Card>
+                    <div className="rightBtn">
+
+                    </div>
                 </AccordionSummary>
             </Accordion>
         </div>
