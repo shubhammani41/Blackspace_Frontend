@@ -214,13 +214,6 @@ body * {
   }
 }
 
-.searchIconContainer {
-  width: clamp(28px, 2vw, 30px) !important;
-  height: clamp(28px, 2vw, 30px) !important;
-  position: relative;
-  top: -7px;
-}
-
 .icon30 {
   width: 30px !important;
   height: 30px !important
@@ -263,16 +256,6 @@ hr.cardContentSeperator {
 .headerIcoClamp2426 {
   width: clamp(24px, 2vw, 26px) !important;
   height: clamp(24px, 2vw, 26px) !important;
-}
-
-.expandIconContainer {
-  z-index: 899;
-  border-radius: 100%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .morpheusThemer {
@@ -328,4 +311,8 @@ input:focus:-webkit-autofill {
   background-color: transparent !important;
   box-shadow: 0 0 0px 1000px transparent inset !important;
   color: var(--app-verified-color) !important;
+}
+
+.w100per{
+  width: 100%;
 }

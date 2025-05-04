@@ -1,5 +1,5 @@
 import React from "react";
-import './settingsComponent.scss';
+import styles from './settingsComponent.module.scss';
 import { MainLayoutComponent } from "../../../components/layoutComponents/mainLayoutComponent/mainLayoutComponent";
 import { ProfileSettingsMenu } from "../../../components/profileSettingsMenu/profileSettingsMenu";
 

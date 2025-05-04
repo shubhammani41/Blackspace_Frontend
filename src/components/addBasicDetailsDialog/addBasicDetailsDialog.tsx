@@ -6,7 +6,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers";
 import apiFunctions from "../../constants/apiFunctions";
 import useUserLoginDataStore from "../../store/userLoginDetailsStore";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import './addBasicDetailsDialog.scss';
+import styles from './addBasicDetailsDialog.module.scss';
 const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
@@ -27,13 +27,13 @@ const AddBasicDetailsDialog: React.FC = () => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <div className="addBasicDetailsDialogBackdrop" />
+            <div className={styles.addBasicDetailsDialogBackdrop} />
             <DialogTitle>
-                <div className="dialogHeader">
-                    <p className='headerTitle' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                <div className={styles.dialogHeader}>
+                    <p className={styles.headerTitle} style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
                         Mind telling us more about yourself ?
                     </p>
-                    <CloseRoundedIcon className="dialogIcoClamp2830" onClick={addBasicDetailsDialogStore.closeDialog}></CloseRoundedIcon>
+                    <CloseRoundedIcon className={styles.dialogIcoClamp2830} onClick={addBasicDetailsDialogStore.closeDialog}></CloseRoundedIcon>
                 </div>
             </DialogTitle>
             <DialogContent>

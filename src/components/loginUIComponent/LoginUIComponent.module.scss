@@ -27,7 +27,7 @@
     background-color: #ededed !important;
 }
 
-.firebaseui-idp-phone{
+.firebaseui-idp-phone {
     background-color: #949494 !important;
 }
 
@@ -118,4 +118,44 @@
 
 .firebaseui-relative-wrapper {
     overflow: hidden;
+}
+
+.hidden {
+    opacity: 0 !important;
+    transform: scale(0.7);
+
+    * {
+        opacity: 0 !important;
+    }
+
+    transition: ease-in-out 1s;
+}
+
+.errorText {
+    color: var(--app-error-color) !important;
+}
+
+.textwrapNone {
+    text-wrap: nowrap;
+}
+
+.loginLogoIco {
+    width: 10vw !important;
+    height: 10vw !important;
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 100px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.logoIcoInvert {
+    filter: invert(1);
+}
+
+.logoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: calc(50px + 1vw);
 }

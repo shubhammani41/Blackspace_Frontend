@@ -1,6 +1,6 @@
 
 import { LoginUIComponent } from "../../../components/loginUIComponent/LoginUIComponent";
-import "./LoginComponent.scss";
+import styles from "./LoginComponent.module.scss";
 import { Card, CardContent } from '@mui/material';
 import LogoTr from '../../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";
@@ -24,8 +24,8 @@ const LoginComponent = () => {
             <div className='row gx-0'>
                 <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
                 </div>
-                <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 logoContainer">
-                    <img src={LogoTr} className={"loginLogoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                <div className={`col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 ${styles.logoContainer}`}>
+                    <img src={LogoTr} className={styles.loginLogoIco + ' ' + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? styles.logoIcoInvert : '')}
                         onClick={navigateToHome}></img>
                 </div>
                 <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
@@ -34,7 +34,7 @@ const LoginComponent = () => {
             <div className='row gx-0'>
                 <div className="col-xxl-4 col-xl-4 col-lg-3 col-sm-2 col-1">
                 </div>
-                <div className="col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 loginCardContainer">
+                <div className={`col-xxl-4 col-xl-4 col-lg-6 col-sm-8 col-10 ${styles.loginCardContainer}`}>
                     <Card className='pb5 roundedContainer'>
                         <CardContent className="pb3px pt3px">
                             <LoginUIComponent onFail={onFail} redirectURL="/home"></LoginUIComponent>

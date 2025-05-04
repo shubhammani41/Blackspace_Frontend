@@ -110,13 +110,13 @@ const RoutesComponent: React.FC = () => {
               <Navigate to="/profileSearch" />
             }>
           </Route>
-          <Route path='/signin'
+          {/* <Route path='/signin'
             element={
               <Suspense fallback={<GlobalLoader></GlobalLoader>}>
                 <AuthModule></AuthModule>
               </Suspense>
             }>
-          </Route>
+          </Route> */}
           <Route path='/profileSearch'
             element={
               <Suspense fallback={<GlobalLoader></GlobalLoader>}>

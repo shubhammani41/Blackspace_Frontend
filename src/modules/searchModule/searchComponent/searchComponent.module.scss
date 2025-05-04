@@ -39,19 +39,41 @@
     position: relative;
     align-items: center;
     overflow: hidden;
-  
+
     .avatar100 {
-      width: 100% !important;
-      height: 100% !important;
-      position: absolute;
-      top: 0px;
-      img {
-        width: 100%;
-        height: 100%;
-      }
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 
 .profileSummaryContainer {
     width: 70vw;
+}
+
+.w100per {
+    width: 100%;
+}
+
+.searchIconContainer {
+    width: clamp(28px, 2vw, 30px) !important;
+    height: clamp(28px, 2vw, 30px) !important;
+    position: relative;
+    top: -7px;
+}
+
+.expandIconContainer {
+    z-index: 899;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

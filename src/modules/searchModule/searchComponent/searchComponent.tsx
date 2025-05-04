@@ -1,6 +1,6 @@
 import { AccordionDetails, AccordionSummary, Avatar, Button, Card, CardActions, CardContent, Chip, InputAdornment, Paper, TextField, Tooltip, Typography } from "@mui/material";
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import './searchComponent.scss';
+import styles from './searchComponent.module.scss';
 import { UserData, UserSkill } from "../../../models/userData";
 import { SearchSkeleton } from "../searchSkeleton/searchSkeleton";
 import SearchIcon from '@mui/icons-material/Search';
@@ -163,11 +163,11 @@ const SearchComponent: React.FC = () => {
         event.stopPropagation();
         event.preventDefault();
         const pin = event.currentTarget;
-        if (pin && pin.classList.contains("pinned")) {
-            pin.classList.remove("pinned");
+        if (pin && pin.classList.contains(styles.pinned)) {
+            pin.classList.remove(styles.pinned);
         }
         else {
-            pin.classList.add("pinned");
+            pin.classList.add(styles.pinned);
         }
     }
 
@@ -197,7 +197,7 @@ const SearchComponent: React.FC = () => {
                     helperText="Search developer profile"
                     variant="filled"
                     placeholder="e.g. Shubham Tripathi"
-                    className='w100per'
+                    className={styles.w100per}
                     onChange={onSearch}
                     InputLabelProps={{
                         style: { color: currentTheme.data.theme.palette?.text?.primary },
@@ -205,7 +205,7 @@ const SearchComponent: React.FC = () => {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <SearchIcon className="searchIconContainer" style={{ color: currentTheme.data.theme.palette?.text?.secondary }}></SearchIcon>
+                                <SearchIcon className={styles.searchIconContainer} style={{ color: currentTheme.data.theme.palette?.text?.secondary }}></SearchIcon>
                             </InputAdornment>
                         ),
                     }}
@@ -213,14 +213,14 @@ const SearchComponent: React.FC = () => {
             </div>
             {devListLoading || (!devListLoading && devDataList.length > 0) ?
                 <InfiniteScrollComponent onScrollEnd={onSCrollEnd} hasMore={hasMore}>
-                    <Paper id="searchInfiniteScrollContainer" className="roundedContainer profileSearchContainer">
+                    <Paper id="searchInfiniteScrollContainer" className={`roundedContainer ${styles.profileSearchContainer}`}>
                         {devDataList.length > 0 ?
                             devDataList.map((devData, index) => {
                                 return (
                                     <div className="col-12" key={"dev_" + devData.userId}>
                                         <Accordion style={{ borderRadius: '0px' }} expanded={expanded === "accordian_" + devData.userId} onChange={handleExpansion("accordian_" + devData.userId)}>
                                             <AccordionSummary
-                                                expandIcon={<div className="expandIconContainer">
+                                                expandIcon={<div className={styles.expandIconContainer}>
                                                     <ArrowDropDownIcon className="headerIcoClamp2830" style={{ color: currentTheme.data.theme.palette?.text?.secondary }} />
                                                 </div>}
                                                 aria-controls="panel2-content"
@@ -228,15 +228,15 @@ const SearchComponent: React.FC = () => {
                                             >
                                                 <Card className="w100per">
                                                     <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
-                                                        <div className="avatarContainer">
+                                                        <div className={styles.avatarContainer}>
                                                             {devData.profilePictureUrl ?
-                                                                <Avatar className="avatar100" alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} /> :
-                                                                <div className="avatar100">
+                                                                <Avatar className={styles.avatar100} alt={devData.firstName || ""} src={devData.profilePictureUrl || ""} /> :
+                                                                <div className={styles.avatar100}>
                                                                     <p>{devData.firstName || ""}</p>
                                                                 </div>
                                                             }
                                                         </div>
-                                                        <div className="profileSummaryContainer" style={{ overflow: "hidden" }}>
+                                                        <div className={styles.profileSummaryContainer} style={{ overflow: "hidden" }}>
                                                             <Typography sx={{ color: 'text.primary' }} className="ellipsis" gutterBottom variant="h5" component="div">
                                                                 <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
                                                                 {devData.firstName ? devData.firstName : ""} {devData.lastName ? devData.lastName : ""}
@@ -255,8 +255,8 @@ const SearchComponent: React.FC = () => {
                                                         </div>
                                                     </div>
                                                 </Card>
-                                                <div className="bkMarkBtnContainer">
-                                                    <Button variant="text" className="pinIconContainer" onClick={pinProfile}>
+                                                <div className={styles.bkMarkBtnContainer}>
+                                                    <Button variant="text" className={styles.pinIconContainer} onClick={pinProfile}>
                                                         <BookmarkRoundedIcon style={{ color: '#aaaaaa' }} className="headerIcoClamp2426"></BookmarkRoundedIcon>
                                                     </Button>
                                                 </div>
