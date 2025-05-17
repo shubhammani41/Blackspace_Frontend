@@ -37,17 +37,17 @@ const TabsComponent: React.FC<TabsComponentProps> = (props: TabsComponentProps) 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={activeTabIndex} onChange={handleChange}>
                     {
-                        children.map(child => {
-                            return <Tab label={child.props.label} />
+                        children.map((child,index) => {
+                            return <Tab key={index} label={child.props.label} />
                         })
                     }
                 </Tabs>
             </Box>
             <div className={style.tabContainer}>
                 {
-                    children.map(child => {
+                    children.map((child,index) => {
                         return (
-                            <TabComponent {...child.props} activeTabIndex={activeTabIndex}></TabComponent>
+                            <TabComponent key={index} {...child.props} activeTabIndex={activeTabIndex}></TabComponent>
                         )
                     })
                 }
