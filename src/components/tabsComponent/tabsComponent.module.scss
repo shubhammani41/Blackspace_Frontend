@@ -1,0 +1,29 @@
+.tabContainer {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+/* All tabs share these base styles */
+.tab {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  will-change: opacity, transform;
+}
+
+/* Inactive tab */
+.inActiveTab {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* Active tab */
+.activeTab {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}

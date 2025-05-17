@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tooltip, Typography } from "@mui/material";
-import "./profileComponent.scss";
+import { Avatar, Box, Button, Card, CardActions, CardContent, SimplePaletteColorOptions, Tab, Tabs, Tooltip, Typography } from "@mui/material";
+import style from "./profileComponent.module.scss";
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { AppValues } from "../../../constants/appConstants";
@@ -12,6 +12,7 @@ import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import apiFunctions from "../../../constants/apiFunctions";
 import { MainLayoutComponent } from "../../../components/layoutComponents/mainLayoutComponent/mainLayoutComponent";
+import { TabComponent, TabsComponent } from "../../../components/tabsComponent/tabsComponent";
 
 const ProfileComponent: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -69,9 +70,9 @@ const ProfileComponent: React.FC = () => {
                                     Profile
                                 </p>
                             </div>
-                            <div className="fullSizeCard roundedContainer f100 mb20">
+                            <div className="roundedContainer f100 mb20">
                                 <Card>
-                                    <div className="df jsb as m-2 profileMainInfoContainer">
+                                    <div className={"df jsb as m-2 " + style.profileMainInfoContainer}>
                                         <div className="df js ac gp30px">
                                             <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
                                             <div>
@@ -110,72 +111,146 @@ const ProfileComponent: React.FC = () => {
                                 </Card>
                             </div>
                         </React.Fragment> : <></>}
+                        <TabsComponent>
+                            <TabComponent index={0} label="Posts">
+                                <div>
+                                    posts
+                                </div>
+                            </TabComponent>
+                            <TabComponent index={1} label="Details">
+                                <div>
+                                    {(devData && devData?.skills !== null) ? <React.Fragment>
+                                        <div className='df js ac f100'>
+                                            <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                Skills
+                                            </p>
+                                        </div>
+                                        <div className="fullSizeCard roundedContainer f100 mb20">
+                                            <Card>
+                                                <CardContent>
+                                                    {devData?.skills?.map((skill, index) =>
+                                                        <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
+                                                            &#x2022; {skill.skillName}
+                                                        </Typography>)
+                                                    }
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+                                    </React.Fragment> : <></>}
 
-                        {(devData && devData?.skills !== null) ? <React.Fragment>
-                            <div className='df js ac f100'>
-                                <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                    Skills
-                                </p>
-                            </div>
-                            <div className="fullSizeCard roundedContainer f100 mb20">
-                                <Card>
-                                    <CardContent>
-                                        {devData?.skills?.map((skill, index) =>
-                                            <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
-                                                &#x2022; {skill.skillName}
-                                            </Typography>)
-                                        }
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </React.Fragment> : <></>}
+                                    <React.Fragment>
+                                        {(expData != null && expData.length) ?
+                                            <React.Fragment>
+                                                <div className='df js ac f100'>
+                                                    <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                        Experience
+                                                    </p>
+                                                </div>
+                                                <div className="fullSizeCard roundedContainer f100 mb20">
+                                                    <Card>
+                                                        <CardContent>
+                                                            {expData?.map((expObj, index) => {
+                                                                return (
+                                                                    <div key={index}>
+                                                                        <div className="df jsb ac fw">
+                                                                            <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
+                                                                                {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
+                                                                            </Typography>
+                                                                            <div className="df js ac fw">
+                                                                                <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
+                                                                                </Typography>
+                                                                                {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
+                                                                                </Typography> : null}
+                                                                            </div>
+                                                                        </div>
+                                                                        <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            Responsibilities & Roles:
+                                                                        </Typography>
+                                                                        {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description1}</Typography> : null}
+                                                                        {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description2}</Typography> : null}
+                                                                        {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description3}</Typography> : null}
+                                                                        {index < expData.length - 1 ? <hr style={{ color: (currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main }}></hr> : <></>}
+                                                                    </div>
+                                                                )
+                                                            })}
 
-                        <React.Fragment>
-                            {(expData != null && expData.length) ?
-                                <React.Fragment>
-                                    <div className='df js ac f100'>
-                                        <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                            Experience
-                                        </p>
-                                    </div>
-                                    <div className="fullSizeCard roundedContainer f100 mb20">
-                                        <Card>
-                                            <CardContent>
-                                                {expData?.map((expObj, index) => {
-                                                    return (
-                                                        <div key={index}>
-                                                            <div className="df jsb ac fw">
-                                                                <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
-                                                                    {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
-                                                                </Typography>
-                                                                <div className="df js ac fw">
-                                                                    <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
-                                                                        {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
-                                                                    </Typography>
-                                                                    {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
-                                                                        &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
-                                                                    </Typography> : null}
-                                                                </div>
-                                                            </div>
-                                                            <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                Responsibilities & Roles:
-                                                            </Typography>
-                                                            {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                &#x2022; {expObj.description1}</Typography> : null}
-                                                            {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                &#x2022; {expObj.description2}</Typography> : null}
-                                                            {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                                &#x2022; {expObj.description3}</Typography> : null}
-                                                            {index < expData.length - 1 ? <hr style={{ color: (currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main }}></hr> : <></>}
-                                                        </div>
-                                                    )
-                                                })}
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </React.Fragment> : <div></div>}
+                                    </React.Fragment>{(devData && devData?.skills !== null) ? <React.Fragment>
+                                        <div className='df js ac f100'>
+                                            <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                Skills
+                                            </p>
+                                        </div>
+                                        <div className="fullSizeCard roundedContainer f100 mb20">
+                                            <Card>
+                                                <CardContent>
+                                                    {devData?.skills?.map((skill, index) =>
+                                                        <Typography key={"skill_" + index} className="w90per" variant="body2" color="text.secondary">
+                                                            &#x2022; {skill.skillName}
+                                                        </Typography>)
+                                                    }
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+                                    </React.Fragment> : <></>}
 
-                                            </CardContent>
-                                        </Card>
-                                    </div>
-                                </React.Fragment> : <div></div>}
-                        </React.Fragment>
+                                    <React.Fragment>
+                                        {(expData != null && expData.length) ?
+                                            <React.Fragment>
+                                                <div className='df js ac f100'>
+                                                    <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                                        Experience
+                                                    </p>
+                                                </div>
+                                                <div className="fullSizeCard roundedContainer f100 mb20">
+                                                    <Card>
+                                                        <CardContent>
+                                                            {expData?.map((expObj, index) => {
+                                                                return (
+                                                                    <div key={index}>
+                                                                        <div className="df jsb ac fw">
+                                                                            <Typography sx={{ color: 'text.primary' }} className="w50per" gutterBottom variant="h5" component="div">
+                                                                                {expObj?.organizationDetails?.organizationName ? expObj.organizationDetails.organizationName : (expObj.organizationName || "")}
+                                                                            </Typography>
+                                                                            <div className="df js ac fw">
+                                                                                <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    {expObj?.fromDate ? moment(expObj.fromDate).format('DD MMMM YYYY') : <></>}
+                                                                                </Typography>
+                                                                                {(!expObj?.isCurrentOrganization && expObj?.toDate) ? <Typography sx={{ color: 'text.primary' }} className="w180p" variant="body2" color="text.secondary">
+                                                                                    &nbsp;{"- " + (expObj?.toDate ? moment(expObj.toDate).format('DD MMMM YYYY') : <></>)}
+                                                                                </Typography> : null}
+                                                                            </div>
+                                                                        </div>
+                                                                        <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            Responsibilities & Roles:
+                                                                        </Typography>
+                                                                        {expObj?.description1 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description1}</Typography> : null}
+                                                                        {expObj?.description2 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description2}</Typography> : null}
+                                                                        {expObj?.description3 ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                                            &#x2022; {expObj.description3}</Typography> : null}
+                                                                        {index < expData.length - 1 ? <hr style={{ color: (currentTheme.data.theme.palette?.secondary as SimplePaletteColorOptions).main }}></hr> : <></>}
+                                                                    </div>
+                                                                )
+                                                            })}
+
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </React.Fragment> : <div></div>}
+                                    </React.Fragment>
+                                </div>
+                            </TabComponent>
+                        </TabsComponent>
                     </React.Fragment>
                 }
             </div>
