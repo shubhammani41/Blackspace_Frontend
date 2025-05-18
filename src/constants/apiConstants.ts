@@ -41,6 +41,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "POST",
         "access": "private",
         "url": "/saveBasicDetailsByUserLoginId"
+    },
+    getProfilePublicPostsByUserId: {
+        "type": "PUBLIC",
+        "access": "public",
+        "url": "/public/getProfilePublicPostsByUserId"
     }
 }
 

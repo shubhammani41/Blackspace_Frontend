@@ -2,7 +2,7 @@ export enum PostVisibility {
     'PUBLIC', 'PRIVATE', 'FRIENDS'
 }
 export enum MediaType {
-    'IMAGE', 'VIDEO', 'GIF'
+    IMAGE = 'IMAGE', VIDEO = 'VIDEO', GIF = 'GIF'
 }
 export enum Reaction {
     'LIKE', 'DISLIKE', 'NONE'
@@ -41,9 +41,9 @@ export interface PostHashtag {
 }
 
 export interface PostDetails extends Post {
-    postContent: PostContent[];
-    postView: PostView[];
-    postHashtag: PostHashtag[];
+    postContents: PostContent[];
+    postViews: PostView[];
+    postHashtags: PostHashtag[];
 }
 
 export const mockPosts: PostDetails[] = [
@@ -54,7 +54,7 @@ export const mockPosts: PostDetails[] = [
         visibility: PostVisibility.PUBLIC,
         createdDate: new Date("2024-09-01T18:30:00"),
 
-        postContent: [
+        postContents: [
             {
                 postId: 1,
                 contentId: 11,
@@ -66,7 +66,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postView: [
+        postViews: [
             {
                 viewId: 1,
                 postId: 1,
@@ -83,7 +83,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postHashtag: [
+        postHashtags: [
             { postId: 1, hashtagId: 201, hashtag: "sunset" },
             { postId: 1, hashtagId: 202, hashtag: "peace" },
         ],
@@ -95,7 +95,7 @@ export const mockPosts: PostDetails[] = [
         visibility: PostVisibility.FRIENDS,
         createdDate: new Date("2024-09-03T14:00:00"),
 
-        postContent: [
+        postContents: [
             {
                 postId: 2,
                 contentId: 21,
@@ -116,7 +116,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postView: [
+        postViews: [
             {
                 viewId: 3,
                 postId: 2,
@@ -126,7 +126,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postHashtag: [
+        postHashtags: [
             { postId: 2, hashtagId: 203, hashtag: "beach" },
             { postId: 2, hashtagId: 204, hashtag: "vacation" },
         ],
@@ -138,7 +138,7 @@ export const mockPosts: PostDetails[] = [
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
 
-        postContent: [
+        postContents: [
             {
                 postId: 3,
                 contentId: 31,
@@ -150,7 +150,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postView: [
+        postViews: [
             {
                 viewId: 4,
                 postId: 3,
@@ -160,7 +160,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postHashtag: [
+        postHashtags: [
             { postId: 3, hashtagId: 205, hashtag: "cinematic" },
             { postId: 3, hashtagId: 206, hashtag: "video" },
         ],
@@ -172,7 +172,7 @@ export const mockPosts: PostDetails[] = [
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
 
-        postContent: [
+        postContents: [
             {
                 postId: 3,
                 contentId: 31,
@@ -184,7 +184,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postView: [
+        postViews: [
             {
                 viewId: 4,
                 postId: 3,
@@ -194,7 +194,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postHashtag: [
+        postHashtags: [
             { postId: 3, hashtagId: 205, hashtag: "cinematic" },
             { postId: 3, hashtagId: 206, hashtag: "video" },
         ],
@@ -206,7 +206,7 @@ export const mockPosts: PostDetails[] = [
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
 
-        postContent: [
+        postContents: [
             {
                 postId: 3,
                 contentId: 31,
@@ -218,7 +218,7 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postView: [
+        postViews: [
             {
                 viewId: 4,
                 postId: 3,
@@ -228,9 +228,50 @@ export const mockPosts: PostDetails[] = [
             },
         ],
 
-        postHashtag: [
+        postHashtags: [
+            { postId: 3, hashtagId: 205, hashtag: "cinematic" },
+            { postId: 3, hashtagId: 206, hashtag: "video" },
+        ],
+    },
+    {
+        postId: 3,
+        userId: 103,
+        postCaption: "Check out this short cinematic 🌌",
+        visibility: PostVisibility.PRIVATE,
+        createdDate: new Date("2024-09-05T21:30:00"),
+
+        postContents: [
+            {
+                postId: 3,
+                contentId: 31,
+                mediaLink: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+                mediaType: MediaType.VIDEO,
+                mediaDuration: 12,
+                thumbnailLink: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217",
+                createdDate: new Date("2024-09-05T21:30:00"),
+            },
+        ],
+
+        postViews: [
+            {
+                viewId: 4,
+                postId: 3,
+                userId: 102,
+                reaction: Reaction.DISLIKE,
+                viewedAt: new Date("2024-09-05T22:00:00"),
+            },
+        ],
+
+        postHashtags: [
             { postId: 3, hashtagId: 205, hashtag: "cinematic" },
             { postId: 3, hashtagId: 206, hashtag: "video" },
         ],
     },
 ];
+
+export interface PostListReponse {
+    data: PostDetails[],
+    pageSize: number
+    totalElements: number
+    totalPages: number
+}

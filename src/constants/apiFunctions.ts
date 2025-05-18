@@ -1,5 +1,6 @@
 import axiosInstance from "../config/axiosConfig";
 import { firebaseAuth } from "../config/firebaseConfig";
+import { PostListReponse } from "../models/postData";
 import { UserData, UserListResponse } from "../models/userData";
 import { UserExperienceDetails } from "../models/userExperience";
 import { UserLoginReq } from "../models/userLoginReq";
@@ -116,7 +117,28 @@ const apiFunctions = {
                 reject(err);
             });
         });
-    }
+    },
+    fetchProfilePublicPosts: async (pageSize: number, pageNumber: number, userId: number): Promise<{ data: PostListReponse }> => {
+        return new Promise<{ data: PostListReponse }>((resolve, reject) => {
+            let url = "";
+            if (userId) {
+                url = apiConstants.getProfilePublicPostsByUserId.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&userId=${userId}`;
+                axiosInstance.get(url).then((response: { data: PostListReponse }) => {
+                if (response?.data?.data) {
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+            }
+            else {
+                reject("Invalid user id");
+            }
+        });
+    },
 }
 
 export default apiFunctions;

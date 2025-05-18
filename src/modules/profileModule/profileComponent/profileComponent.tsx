@@ -14,6 +14,7 @@ import { MainLayoutComponent } from "../../../components/layoutComponents/mainLa
 import { TabComponent, TabsComponent } from "../../../components/tabsComponent/tabsComponent";
 import { ProfileDetailsComponent } from "../profileDetailsComponent/profileDetailsComponent";
 import { ProfilePostsComponent } from "../profilePostsComponent/profilePostsComponent";
+import { PostDetails } from "../../../models/postData";
 
 const ProfileComponent: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -22,6 +23,14 @@ const ProfileComponent: React.FC = () => {
     const [devData, setDevData] = useState<UserData>();
     const [expData, setExpData] = useState<UserExperienceDetails[]>();
     const currentTheme = useThemeStore();
+    const [profilePosts, setProfilePosts] = useState<PostDetails[]>([]);
+    useEffect(() => {
+        apiFunctions.fetchProfilePublicPosts(12, 0, 1).then((res)=>{
+            if(res.data.data){
+                setProfilePosts(res.data.data);
+            }
+        })
+    }, []);
 
     const fetchUserData = useCallback(async (userName: string) => {
         if (userName && userName.trim() !== '') {
@@ -114,7 +123,7 @@ const ProfileComponent: React.FC = () => {
                         </React.Fragment> : <></>}
                         <TabsComponent>
                             <TabComponent index={0} label="Posts">
-                                <ProfilePostsComponent profilePosts={[]}></ProfilePostsComponent>
+                                <ProfilePostsComponent profilePosts={profilePosts}></ProfilePostsComponent>
                             </TabComponent>
                             <TabComponent index={1} label="Details">
                                 <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>

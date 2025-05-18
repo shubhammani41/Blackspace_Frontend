@@ -1,7 +1,8 @@
 import style from './galleryMediaPreview.module.scss';
 import React from "react";
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
-import { MediaType } from '../../models/profilePosts';
+import { MediaType } from '../../models/postData';
+import { s3BaseUrl } from '../../constants/sensitiveConstants';
 
 export interface GalleryMediaPreviewProps {
     mediaType: MediaType;
@@ -14,7 +15,7 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
     if (mediaType === MediaType.IMAGE) {
         return (
             <img
-                src={mediaLink}
+                src={s3BaseUrl + (thumbnailLink || mediaLink)}
                 alt="media"
                 className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
             />
@@ -25,13 +26,13 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
             <>
                 {thumbnailLink ? (
                     <img
-                        src={thumbnailLink}
+                        src={s3BaseUrl + thumbnailLink}
                         alt="video thumbnail"
                         className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
                     />
                 ) : (
                     <video
-                        src={mediaLink}
+                        src={s3BaseUrl + mediaLink}
                         muted
                         autoPlay
                         loop

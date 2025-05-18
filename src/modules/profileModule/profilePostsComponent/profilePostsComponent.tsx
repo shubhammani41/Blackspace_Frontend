@@ -1,5 +1,5 @@
 import { GalleryComponent } from '../../../components/galleryComponent/galleryComponent';
-import { mockPosts, PostDetails } from '../../../models/profilePosts';
+import { mockPosts, PostDetails } from '../../../models/postData';
 import style from './profilePostsComponent.module.scss';
 
 export interface ProfilePostsProps {
@@ -7,11 +7,10 @@ export interface ProfilePostsProps {
 }
 
 const ProfilePostsComponent: React.FC<ProfilePostsProps> = (props: ProfilePostsProps) => {
-    let { profilePosts } = props;
-    profilePosts = mockPosts;
+    // const { profilePosts } = props;
     return (
         <div className="mt-4">
-            <GalleryComponent galleryItems={profilePosts.map(({ postContent: [first] }) => ({
+            <GalleryComponent galleryItems={props.profilePosts.map(({ postContents: [first] }) => ({
                 mediaLink: first.mediaLink,
                 mediaType: first.mediaType,
                 thumbnailLink: first.thumbnailLink,
