@@ -1,38 +1,44 @@
 import style from './galleryMediaPreview.module.scss';
 import React from "react";
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
-import { MediaType } from '../../models/postData';
+import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
 
 export interface GalleryMediaPreviewProps {
-    mediaType: MediaType;
-    mediaLink: string;
-    thumbnailLink?: string;
+    previewItems: PostDetails;
 }
 
 const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryMediaPreviewProps) => {
-    const { mediaType, mediaLink, thumbnailLink } = props;
-    if (mediaType === MediaType.IMAGE) {
+    if (props.previewItems.postContents[0].mediaType === MediaType.IMAGE) {
         return (
-            <img
-                src={s3BaseUrl + (thumbnailLink || mediaLink)}
-                alt="media"
-                className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
-            />
+            <div>
+                <img
+                    src={s3BaseUrl + (props.previewItems.postContents[0].thumbnailLink || props.previewItems.postContents[0].mediaLink)}
+                    alt="media"
+                    className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+                />
+                <div className={style.countCircleContainer}>
+                    {
+                        props.previewItems.postContents.length < 10 ?
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                    }
+                </div>
+            </div>
         );
     }
-    if (mediaType === MediaType.VIDEO) {
+    if (props.previewItems.postContents[0].mediaType === MediaType.VIDEO) {
         return (
-            <>
-                {thumbnailLink ? (
+            <div>
+                {props.previewItems.postContents[0].thumbnailLink ? (
                     <img
-                        src={s3BaseUrl + thumbnailLink}
+                        src={s3BaseUrl + props.previewItems.postContents[0].thumbnailLink}
                         alt="video thumbnail"
                         className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
                     />
                 ) : (
                     <video
-                        src={s3BaseUrl + mediaLink}
+                        src={s3BaseUrl + props.previewItems.postContents[0].mediaLink}
                         muted
                         autoPlay
                         loop
@@ -41,9 +47,16 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
                         className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
                     />
                 )}
+                 <div className={style.countCircleContainer}>
+                    {
+                        props.previewItems.postContents.length < 10 ?
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                    }
+                </div>
                 <PlayCircleRoundedIcon className={style.galleryPlayIcon}
                 />
-            </>
+            </div>
         );
     }
     return null;

@@ -25,12 +25,14 @@ const ProfileComponent: React.FC = () => {
     const currentTheme = useThemeStore();
     const [profilePosts, setProfilePosts] = useState<PostDetails[]>([]);
     useEffect(() => {
-        apiFunctions.fetchProfilePublicPosts(12, 0, 1).then((res)=>{
+        if(devData?.userId){
+            apiFunctions.fetchProfilePublicPosts(12, 0, devData.userId).then((res)=>{
             if(res.data.data){
                 setProfilePosts(res.data.data);
             }
         })
-    }, []);
+        }
+    }, [devData]);
 
     const fetchUserData = useCallback(async (userName: string) => {
         if (userName && userName.trim() !== '') {

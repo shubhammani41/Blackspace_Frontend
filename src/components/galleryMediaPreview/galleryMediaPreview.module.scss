@@ -6,3 +6,23 @@
     width: 40px;
     height: 40px;
 }
+
+.countCircleContainer{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.countCircle{
+    width: clamp(8px, 0.6vw, 10px);
+    height: clamp(8px, 0.6vw, 10px);
+    border-radius: 100%;
+    background: #ffffffbd;
+    position: relative;
+    box-shadow: 0px 0px 6px 2px #00000096;
+    margin: clamp(2px, 0.3vw, 3px);
+}
