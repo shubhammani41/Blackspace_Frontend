@@ -89,7 +89,7 @@ const SearchComponent: React.FC = () => {
                 setSearchMessage(errorSearchMessage);
                 setHasMore(false);
             })
-            // setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+            setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
         }
         else {
             setHasMore(false);
