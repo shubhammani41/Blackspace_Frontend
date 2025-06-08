@@ -13,7 +13,7 @@
 
 .gp30px {
     gap: clamp(5px, 2vw, 20px) !important;
-  }
+}
 
 .mrg {
     margin: 0px 10px 0px 10px;
@@ -24,23 +24,59 @@
     height: auto;
 }
 
-.avatarSkeletonContainer {
-    padding: 11%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    overflow: hidden;
-  
-    .avatarSkeleton100 {
-      width: 100% !important;
-      height: 100% !important;
-      position: absolute;
-      top: 0px;
-      img {
+@media (max-width: 600px) {
+    .avatarSkeletonContainer {
+        padding: 15%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 769px) {
+    .avatarSkeletonContainer {
+        padding: 10%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1800px) {
+    .avatarSkeletonContainer {
+        padding: 12%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 1800px) {
+    .avatarSkeletonContainer {
+        padding: 9%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        overflow: hidden;
+    }
+}
+
+.avatarSkeleton100 {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    top: 0px;
+
+    img {
         width: 100%;
         height: 100%;
-      }
     }
 }
 
@@ -56,7 +92,7 @@
     flex: 0.8;
 }
 
-.rightBtn{
+.rightBtn {
     width: 30px;
     height: 30px;
 }
@@ -67,4 +103,8 @@
 
 .w100per {
     width: 100%;
+}
+
+.card_content_container {
+    min-height: 85px;
 }

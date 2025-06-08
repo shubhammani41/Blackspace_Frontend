@@ -89,7 +89,7 @@ const SearchComponent: React.FC = () => {
                 setSearchMessage(errorSearchMessage);
                 setHasMore(false);
             })
-            setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
+            // setTimeout(() => { setDevListLoading(false) }, defaultTimeout);
         }
         else {
             setHasMore(false);
@@ -228,7 +228,7 @@ const SearchComponent: React.FC = () => {
                                                 id={"accordian_" + devData.userId}
                                             >
                                                 <Card className="w100per">
-                                                    <div className="df js ac gp30px ps-1" style={{ minHeight: '85px' }}>
+                                                    <div className={'df js ac gp30px ps-1 ' + styles.card_content_container}>
                                                         <div className={styles.avatarContainer}>
                                                             {devData.profilePictureUrl ?
                                                                 <Avatar className={styles.avatar100} alt={devData.firstName || ""} src={s3BaseUrl+devData.profilePictureUrl || ""} /> :
