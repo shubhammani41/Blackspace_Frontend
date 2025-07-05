@@ -9,7 +9,7 @@ export interface ProfilePostsProps {
 const ProfilePostsComponent: React.FC<ProfilePostsProps> = (props: ProfilePostsProps) => {
     // const { profilePosts } = props;
     return (
-        <div className="mt-4">
+        <div className="mt-2">
             <GalleryComponent galleryItems={props.profilePosts}></GalleryComponent>
         </div>
     )

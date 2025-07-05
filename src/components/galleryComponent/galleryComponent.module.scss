@@ -3,3 +3,9 @@
     overflow: hidden;
     padding-bottom: 125%;
 }
+
+.headerIcoClamp2830
+ {
+    width: clamp(28px, 2vw, 30px) !important;
+    height: clamp(28px, 2vw, 30px) !important;
+}

@@ -22,6 +22,7 @@ const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
 const AuthModule = lazy(() => import("./modules/authModule/authModule"));
 const SettingsModule = lazy(() => import("./modules/settingsModule/settingsModule"));
+const FeedModule = lazy(()=> import("./modules/feedModule/feedModule"));
 
 const App: React.FC = () => {
   const themeStore = useThemeStore();
@@ -107,7 +108,9 @@ const RoutesComponent: React.FC = () => {
         <Routes location={location} key={location.pathname}>
           <Route path='/'
             element={
-              <Navigate to="/profileSearch" />
+              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+                <FeedModule></FeedModule>
+              </Suspense>
             }>
           </Route>
           {/* <Route path='/signin'

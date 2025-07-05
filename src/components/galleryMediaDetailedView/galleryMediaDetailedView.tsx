@@ -1,14 +1,14 @@
-import style from './galleryMediaPreview.module.scss';
+import style from './galleryMediaDetailedView.module.scss';
 import React from "react";
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
 
-export interface GalleryMediaPreviewProps {
+export interface GalleryMediaDetailedViewProps {
     previewItems: PostDetails;
 }
 
-const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryMediaPreviewProps) => {
+const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props: GalleryMediaDetailedViewProps) => {
     if (props.previewItems.postContents[0].mediaType === MediaType.IMAGE) {
         return (
             <div>
@@ -54,7 +54,7 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
                         Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
                     }
                 </div>
-                <PlayArrowRoundedIcon className={style.galleryPlayIcon}
+                <PlayCircleRoundedIcon className={style.galleryPlayIcon}
                 />
             </div>
         );
@@ -62,4 +62,4 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
     return null;
 };
 
-export { GalleryMediaPreview };
+export { GalleryMediaDetailedView };
