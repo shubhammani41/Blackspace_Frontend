@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import useSigninDialogStore from "./store/signinDialogStore";
 import './signinDialog.scss';
-import { LoginUIComponent } from "../loginUIComponent/LoginUIComponent";
+import { LoginUIComponent } from "../loginUIComponent/loginUIComponent";
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 
 const SigninDialog: React.FC = () => {

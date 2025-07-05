@@ -20,7 +20,7 @@ import useSigninDialogStore from './components/signinDialog/store/signinDialogSt
 
 const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
-const AuthModule = lazy(() => import("./modules/AuthModule/AuthModule"));
+const AuthModule = lazy(() => import("./modules/authModule/authModule"));
 const SettingsModule = lazy(() => import("./modules/settingsModule/settingsModule"));
 
 const App: React.FC = () => {

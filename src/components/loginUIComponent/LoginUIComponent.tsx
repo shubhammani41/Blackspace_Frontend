@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import * as firebaseui from 'firebaseui';
 import firebase from 'firebase/compat/app';
 import { useNavigate } from 'react-router-dom';
-import styles from "./LoginUIComponent.module.scss";
+import styles from "./loginUIComponent.module.scss";
 import useUserLoginDataStore from '../../store/userLoginDetailsStore';
 import apiFunctions from '../../constants/apiFunctions';
 import useAddBasicDetailsDialogStore from '../addBasicDetailsDialog/store/addBasicDetailsDialogStotre';

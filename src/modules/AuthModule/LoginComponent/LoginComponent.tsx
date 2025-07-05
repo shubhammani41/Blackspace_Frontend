@@ -1,6 +1,6 @@
 
-import { LoginUIComponent } from "../../../components/loginUIComponent/LoginUIComponent";
-import styles from "./LoginComponent.module.scss";
+import { LoginUIComponent } from "../../../components/loginUIComponent/loginUIComponent";
+import styles from "./loginComponent.module.scss";
 import { Card, CardContent } from '@mui/material';
 import LogoTr from '../../../assets/images/logoTr.png';
 import useThemeStore, { ThemeMode } from "../../../components/themeToggleBtn/store/themeStore";

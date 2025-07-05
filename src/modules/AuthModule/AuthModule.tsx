@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { LoginComponent } from "./LoginComponent/LoginComponent";
+import { LoginComponent } from "./loginComponent/loginComponent";
 
 const AuthModule: React.FC = () => {
     return (
