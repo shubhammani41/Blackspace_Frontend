@@ -15,9 +15,15 @@ import { TabComponent, TabsComponent } from "../../../components/tabsComponent/t
 import { ProfileDetailsComponent } from "../profileDetailsComponent/profileDetailsComponent";
 import { ProfilePostsComponent } from "../profilePostsComponent/profilePostsComponent";
 import { PostDetails } from "../../../models/postData";
+import { ViewType } from "../../../components/galleryComponent/galleryComponent";
 
-const ProfileComponent: React.FC = () => {
+export interface ProfileComponentProps {
+    postDetailView?: boolean;
+}
+
+const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileComponentProps) => {
     const [searchParams] = useSearchParams();
+    const [postIndex, setPostIndex] = useState(0);
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
     const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
@@ -66,75 +72,91 @@ const ProfileComponent: React.FC = () => {
 
     useEffect(() => {
         const userName = searchParams.get('userName');
+        const postIndex = searchParams.get('postIndex');
         if (userName) {
             fetchUserData(userName);
+        }
+        if (postIndex) {
+            const index = Number(postIndex);
+            setPostIndex(isNaN(index) ? 0 : index);
         }
     }, [searchParams, fetchUserData]);
 
     return (
         <MainLayoutComponent>
             <div className="mb-3">
-                {userDataLoading ? <SearchSkeleton></SearchSkeleton> :
-                    <React.Fragment>
-                        {devData != null ? <React.Fragment>
-                            <div className='df js ac f100'>
-                                <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                    Profile
-                                </p>
-                            </div>
-                            <div className="roundedContainer f100 mb20">
-                                <Card>
-                                    <div className={"df jsb as m-2 " + style.profileMainInfoContainer}>
-                                        <div className="df js ac gp30px">
-                                            <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
-                                            <div>
-                                                <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
-                                                    {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
-                                                </Typography>
-                                                <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
-                                                    {devData?.positionName}
-                                                </Typography>
-                                                {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
-                                                    return (<Typography key={'exp_' + index} className="ellipsis" variant="body2" color="text.secondary">
-                                                        {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
-                                                    </Typography>)
-                                                })}
-                                            </div>
-                                        </div>
+                {
+                    !props.postDetailView ?
+                        (userDataLoading ? <SearchSkeleton></SearchSkeleton> :
+                            <React.Fragment>
+                                {devData != null ? <React.Fragment>
+                                    <div className='df js ac f100'>
+                                        <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                            Profile
+                                        </p>
                                     </div>
-                                    <CardContent>
-                                        {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                            Socials: {devData.websiteUrl}
-                                        </Typography> : null}
-                                        <Typography className="w90per" variant="body2" color="text.secondary">
-                                            Experience: {devData?.experience} years
-                                        </Typography>
-                                        <Typography className="w90per" variant="body2" color="text.secondary">
-                                            Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Tooltip title="Download">
-                                            <Button variant="contained" size="small">
-                                                <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
-                                            </Button>
-                                        </Tooltip>
-                                    </CardActions>
-                                </Card>
-                            </div>
-                        </React.Fragment> : <></>}
-                        <div className={`${style.postTabContainer}`}>
-                            <TabsComponent>
-                                <TabComponent index={0} label="Posts">
-                                    <ProfilePostsComponent profilePosts={profilePosts} accountDetails={{userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl}}></ProfilePostsComponent>
-                                </TabComponent>
-                                <TabComponent index={1} label="Details">
-                                    <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
-                                </TabComponent>
-                            </TabsComponent>
-                        </div>
-                    </React.Fragment>
+                                    <div className="roundedContainer f100 mb20">
+                                        <Card>
+                                            <div className={"df jsb as m-2 " + style.profileMainInfoContainer}>
+                                                <div className="df js ac gp30px">
+                                                    <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
+                                                    <div>
+                                                        <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
+                                                            {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
+                                                        </Typography>
+                                                        <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
+                                                            {devData?.positionName}
+                                                        </Typography>
+                                                        {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
+                                                            return (<Typography key={'exp_' + index} className="ellipsis" variant="body2" color="text.secondary">
+                                                                {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
+                                                            </Typography>)
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <CardContent>
+                                                {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                    Socials: {devData.websiteUrl}
+                                                </Typography> : null}
+                                                <Typography className="w90per" variant="body2" color="text.secondary">
+                                                    Experience: {devData?.experience} years
+                                                </Typography>
+                                                <Typography className="w90per" variant="body2" color="text.secondary">
+                                                    Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Tooltip title="Download">
+                                                    <Button variant="contained" size="small">
+                                                        <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
+                                                    </Button>
+                                                </Tooltip>
+                                            </CardActions>
+                                        </Card>
+                                    </div>
+                                </React.Fragment> : <></>}
+                                <div className={`${style.postTabContainer}`}>
+                                    <TabsComponent>
+                                        <TabComponent index={0} label="Posts">
+                                            <ProfilePostsComponent profilePosts={profilePosts} accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}></ProfilePostsComponent>
+                                        </TabComponent>
+                                        <TabComponent index={1} label="Details">
+                                            <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
+                                        </TabComponent>
+                                    </TabsComponent>
+                                </div>
+                            </React.Fragment>
+                        ) :
+                        <ProfilePostsComponent
+                            profilePosts={profilePosts}
+                            accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}
+                            postIndex={postIndex}
+                            viewMode={ViewType.DETAILED}
+                        ></ProfilePostsComponent>
+
                 }
+
             </div>
         </MainLayoutComponent>
     )
