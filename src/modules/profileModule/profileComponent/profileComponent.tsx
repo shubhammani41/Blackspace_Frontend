@@ -142,7 +142,9 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
                                             <ProfilePostsComponent profilePosts={profilePosts} accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}></ProfilePostsComponent>
                                         </TabComponent>
                                         <TabComponent index={1} label="Details">
-                                            <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
+                                            <div className="mx-3">
+                                                <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
+                                            </div>
                                         </TabComponent>
                                     </TabsComponent>
                                 </div>
