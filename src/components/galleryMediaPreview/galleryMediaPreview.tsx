@@ -20,8 +20,8 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
                 <div className={style.countCircleContainer}>
                     {
                         props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
-                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>)
                     }
                 </div>
             </div>
@@ -50,8 +50,8 @@ const GalleryMediaPreview: React.FC<GalleryMediaPreviewProps> = (props: GalleryM
                  <div className={style.countCircleContainer}>
                     {
                         props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
-                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>)
                     }
                 </div>
                 <PlayArrowRoundedIcon className={style.galleryPlayIcon}

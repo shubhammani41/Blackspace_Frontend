@@ -1,3 +1,11 @@
-.profileMainInfoContainer{
+.profileMainInfoContainer {
     position: relative;
+}
+
+@media (max-width: 768px) {
+    .postTabContainer {
+        position: absolute;
+        width: 100vw;
+        left: 0px;
+    }
 }

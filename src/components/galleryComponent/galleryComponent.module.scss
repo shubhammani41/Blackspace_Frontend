@@ -9,3 +9,15 @@
     width: clamp(28px, 2vw, 30px) !important;
     height: clamp(28px, 2vw, 30px) !important;
 }
+
+.detailedView{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.fullWidth{
+    width: 100%;
+}

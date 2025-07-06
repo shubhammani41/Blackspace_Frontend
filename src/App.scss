@@ -82,6 +82,10 @@
   --app-border-radius-xs: 32px;
 }
 
+html{
+  scroll-behavior: auto !important;
+}
+
 body {
   margin: 0px;
   padding: 0px;

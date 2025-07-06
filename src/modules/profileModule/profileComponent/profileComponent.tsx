@@ -25,12 +25,12 @@ const ProfileComponent: React.FC = () => {
     const currentTheme = useThemeStore();
     const [profilePosts, setProfilePosts] = useState<PostDetails[]>([]);
     useEffect(() => {
-        if(devData?.userId){
-            apiFunctions.fetchProfilePublicPosts(12, 0, devData.userId).then((res)=>{
-            if(res.data.data){
-                setProfilePosts(res.data.data);
-            }
-        })
+        if (devData?.userId) {
+            apiFunctions.fetchProfilePublicPosts(12, 0, devData.userId).then((res) => {
+                if (res.data.data) {
+                    setProfilePosts(res.data.data);
+                }
+            })
         }
     }, [devData]);
 
@@ -123,14 +123,16 @@ const ProfileComponent: React.FC = () => {
                                 </Card>
                             </div>
                         </React.Fragment> : <></>}
-                        <TabsComponent>
-                            <TabComponent index={0} label="Posts">
-                                <ProfilePostsComponent profilePosts={profilePosts}></ProfilePostsComponent>
-                            </TabComponent>
-                            <TabComponent index={1} label="Details">
-                                <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
-                            </TabComponent>
-                        </TabsComponent>
+                        <div className={`${style.postTabContainer}`}>
+                            <TabsComponent>
+                                <TabComponent index={0} label="Posts">
+                                    <ProfilePostsComponent profilePosts={profilePosts} accountDetails={{userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl}}></ProfilePostsComponent>
+                                </TabComponent>
+                                <TabComponent index={1} label="Details">
+                                    <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
+                                </TabComponent>
+                            </TabsComponent>
+                        </div>
                     </React.Fragment>
                 }
             </div>

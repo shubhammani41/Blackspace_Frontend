@@ -4,8 +4,14 @@ import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
 
+export interface GalleryAccountDetails{
+    userName?: string;
+    userId?: number;
+    profilePictureUrl?: string;
+}
 export interface GalleryMediaDetailedViewProps {
     previewItems: PostDetails;
+    accountDetails: GalleryAccountDetails;
 }
 
 const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props: GalleryMediaDetailedViewProps) => {
@@ -20,8 +26,8 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                 <div className={style.countCircleContainer}>
                     {
                         props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
-                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>)
                     }
                 </div>
             </div>
@@ -50,8 +56,8 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                  <div className={style.countCircleContainer}>
                     {
                         props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div className={style.countCircle}></div>) :
-                        Array.from({ length: 9 }, (_, i) => <div className={style.countCircle}></div>)
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>) :
+                        Array.from({ length: 9 }, (_, i) => <div key={'count_circle_'+i} className={style.countCircle}></div>)
                     }
                 </div>
                 <PlayCircleRoundedIcon className={style.galleryPlayIcon}

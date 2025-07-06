@@ -13,7 +13,7 @@ const MenuBarBottom: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            if (currentScrollY > lastScrollY && currentScrollY > 10) {
                 setIsHidden(true);
             } else {
                 setIsHidden(false);
@@ -28,7 +28,7 @@ const MenuBarBottom: React.FC = () => {
     }, [lastScrollY]);
 
     return (
-        <div className={"menuBarBottomContainer row gx-0 px-2" + (isHidden ? " bottomBarHidden" : "")} style={{ "backgroundColor": currentTheme.data.theme.palette?.background?.default }}>
+        <div className={"menuBarBottomContainer row gx-0 px-2" + (isHidden ? " bottomBarHidden" : "")} style={{ "backgroundColor": 'transparent' }}>
             <MainBarLayoutComponent position='BOTTOM'>
                 <div className="menuBarBottomContainerInner df js as d-md-none" style={{ "backgroundColor": currentTheme.data.theme.palette?.background?.paper }}>
                     <MenuBarInner mode="horizontal"></MenuBarInner>

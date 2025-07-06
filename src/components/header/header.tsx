@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import './header.scss';
+import style from './header.module.scss';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -20,7 +20,7 @@ const AppHeader: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            if (currentScrollY > lastScrollY && currentScrollY > 10) {
                 setIsHidden(true);
             } else {
                 setIsHidden(false);
@@ -45,7 +45,7 @@ const AppHeader: React.FC = () => {
     const navigateToHome = () => {
         navigate("/home");
     }
-    
+
 
     const pageName = useMemo<string>(() => {
         const segments = location.pathname.split('/').filter(Boolean);
@@ -77,34 +77,34 @@ const AppHeader: React.FC = () => {
     }, [currentTheme]);
 
     return (
-        <div className={"headerContainer" + (isHidden ? " headerHidden" : "")}>
+        <div className={style.headerContainer + (isHidden ? (" " + style.headerHidden) : "")}>
             {location.pathname !== '/signin' ?
                 <MainBarLayoutComponent>
-                    <div className="headerInner df jsb ac" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
-                        <div className="df js ac headerInnerLeft">
+                    <div className={`${style.headerInner}`} style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
+                        <div className={`${style.headerInnerLeft}`}>
                             {isBackEnabled ?
                                 <BackButtonComponent></BackButtonComponent>
                                 :
-                                <div>
-                                    <img src={LogoTr} alt="home" className={"icon30 logoIco " + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? 'logoIcoInvert' : '')}
+                                <div className={style.logoContainer}>
+                                    <img src={LogoTr} alt="home" className={`${style.icon30} ${style.logoIco} ${((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? style.logoIcoInvert : '')}`}
                                         onClick={navigateToHome}></img>
-                                    <Typography sx={{ color: 'text.primary' }} className="ellipsis crPointer headerFontClamp d-none d-sm-block ms-2" variant="body1" color="text.secondary"
+                                    <Typography sx={{ color: 'text.primary' }} className={`${style.ellipsis} ${style.crPointer} ${style.headerFontClamp} d-none d-sm-block ms-2`} variant="body1" color="text.secondary"
                                         onClick={navigateToHome}>
                                         Blackspace
                                     </Typography>
-                                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className="w15 h15 headerIcoClamp1525"></ArrowForwardIosIcon>
+                                    <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} className={`${style.w15} ${style.h15} ${style.headerIcoClamp1525}`}></ArrowForwardIosIcon>
                                 </div>}
-                            {location?.pathname ? <Typography className="ellipsis fw300 headerFontClamp" color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
+                            {location?.pathname ? <Typography className={`${style.ellipsis} ${style.fw300} ${style.headerFontClamp}`} color="text.primary">{pageName !== '' ? pageName : 'Home'}</Typography> : null}
                         </div>
-                        <div className="df je ac headerInnerRight">
-                            <Button onClick={handleSearchClick} className="mw0px">
-                                <SearchIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></SearchIcon>
+                        <div className={`${style.headerInnerRight}`}>
+                            <Button onClick={handleSearchClick} className={`${style.mw0px}`}>
+                                <SearchIcon sx={{ color: 'text.secondary' }} className={`${style.headerIcoClamp2830}`}></SearchIcon>
                             </Button>
-                            <Button className="mw0px">
-                                <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></NotificationsRoundedIcon>
+                            <Button className={`${style.mw0px}`}>
+                                <NotificationsRoundedIcon sx={{ color: 'text.secondary' }} className={`${style.headerIcoClamp2830}`}></NotificationsRoundedIcon>
                             </Button>
-                            <Button className="mw0px" onClick={navigateToSettings}>
-                                <MenuRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830"></MenuRoundedIcon>
+                            <Button className={`${style.mw0px}`} onClick={navigateToSettings}>
+                                <MenuRoundedIcon sx={{ color: 'text.secondary' }} className={`${style.headerIcoClamp2830}`}></MenuRoundedIcon>
                             </Button>
                         </div>
                     </div>
