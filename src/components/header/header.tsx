@@ -77,7 +77,7 @@ const AppHeader: React.FC = () => {
     }, [currentTheme]);
 
     return (
-        <div className={style.headerContainer + (isHidden ? (" " + style.headerHidden) : "")}>
+        <div className={style.headerContainer + (isHidden ? (" " + style.headerHidden) : "")} style={{background: currentTheme.data.theme.palette?.background?.default}}>
             {location.pathname !== '/signin' ?
                 <MainBarLayoutComponent>
                     <div className={`${style.headerInner}`} style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper }}>
