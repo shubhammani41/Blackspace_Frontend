@@ -62,17 +62,24 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
     const handleTouchMove = useCallback((e: React.TouchEvent) => {
         if (currentTouchX && e?.touches[0]?.clientX && shouldAllowScroll && mediaRefs.current[0]) {
             const touchDiff = e.touches[0].clientX - currentTouchX;
-            mediaRefs.current[0].classList.remove('smoothScroll');
+            mediaRefs.current[0].classList.remove(`${style.smoothScroll}`);
             const marginLeft = Number(window.getComputedStyle(mediaRefs.current[0]).marginLeft.split('px')[0]);
             const eleWidth = Number(window.getComputedStyle(mediaRefs.current[0]).width.split('px')[0]);
             const calMargin = marginLeft + touchDiff;
-            const minMargin = eleWidth * (mediaRefs.current.length - 1) * (-1);
-            const maxMargin = 0;
+            const minMargin = eleWidth * ((mediaIndex<(mediaRefs.current.length-1))?mediaIndex+1:(mediaRefs.current.length-1)) * (-1);
+            const maxMargin = eleWidth * (mediaIndex?mediaIndex-1:0) * (-1);
+            const thresholdLeftScrollMin = eleWidth * (mediaIndex + 0.50);
+            const thresholdRightScrollMin = eleWidth * ((mediaIndex - 1) + 0.50)
             let finalMarginVal = Math.min(Math.max(calMargin, minMargin), maxMargin);
             mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
-            if (Math.abs(finalMarginVal) > (0.35 + (0.25 * (mediaIndex + 1))) * eleWidth) {
+            if (Math.abs(finalMarginVal) > thresholdLeftScrollMin) {
                 mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
                 setMediaIndex(prev => prev + 1);
+                setshouldAllowScroll(false);
+            }
+            if (Math.abs(finalMarginVal) < thresholdRightScrollMin) {
+                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+                setMediaIndex(prev => prev - 1);
                 setshouldAllowScroll(false);
             }
             setCurrentTouchX(e.touches[0].clientX);
@@ -80,8 +87,15 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
     }, [currentTouchX, mediaRefs, mediaIndex, shouldAllowScroll]);
 
     const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+        if (mediaRefs?.current[0]) {
+            mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+            const eleWidth = Number(window.getComputedStyle(mediaRefs.current[0]).width.split('px')[0]);
+            const finalMarginVal = eleWidth * mediaIndex * (-1);
+            mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
+        }
+        setCurrentTouchX(0);
         setshouldAllowScroll(true);
-    }, [mediaRefs, currentTouchX]);
+    }, [mediaRefs, mediaIndex]);
     return (
         <div>
             <div className={'df js ac gp30px ps-1 ' + style.card_content_container}>
