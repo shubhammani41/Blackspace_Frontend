@@ -8,9 +8,9 @@
 }
 
 .countCircleContainer {
-    position: absolute;
+    position: relative;
     left: 0px;
-    bottom: 5px;
+    bottom: 17px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -36,15 +36,18 @@
     top: 0px;
     z-index: 9;
     width: 100%;
+    background: #ffffff;
+    background: linear-gradient(180deg, rgb(255 255 255 / 14%) 0%, rgba(255, 255, 255, 0.06) 33%, rgba(255, 255, 255, 0) 100%);
+    color: white !important;
 }
 
-.card_content_left{
+.card_content_left {
     display: flex;
     justify-content: start;
     align-items: center;
 }
 
-.card_content_right{
+.card_content_right {
     display: flex;
     justify-content: end;
     align-items: center;
@@ -82,12 +85,26 @@
 }
 
 .postDetailsBottom {
-    margin: 5px;
+    margin: -7px 5px 10px;
 }
 
 .postBottonActionContainer {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.actionLeftContainer {
+    display: flex;
     justify-content: start;
+    align-items: center;
+    gap: 12px;
+}
+
+.actionRightContainer {
+    display: flex;
+    justify-content: end;
     align-items: center;
     gap: 12px;
 }
@@ -106,6 +123,9 @@
     .reactionsIco:not(:last-child) {
         margin-right: -20px;
     }
+    .reactionsIco {
+        margin-top: -5px;
+    }
 }
 
 .commentActionContainer {
@@ -114,14 +134,66 @@
     align-items: center;
 }
 
-.mediaContainer{
+.carouselMediaContainer {
+    display: flex;
+    overflow: hidden;
+}
+
+.mediaContainer {
     padding-bottom: 125%;
     position: relative;
-    img, video{
+    flex: 0 0 auto;
+    width: 100%;
+
+    img,
+    video {
         position: absolute;
+        background: black;
     }
 }
 
-.postCaptionUserName{
+.leftArrowContainer {
+    position: absolute;
+    bottom: calc(50% + 28px);
+    left: 0px;
+    background: #ffffff;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.06) 33%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 50%;
+    padding: 5px
+}
+
+.rightArrowContainer {
+    position: absolute;
+    bottom: calc(50% + 28px);
+    right: 0px;
+    background: #ffffff;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.06) 33%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 50%;
+    padding: 5px
+}
+
+.postCaptionUserName {
     font-weight: 900;
+}
+
+.pinIconContainer {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0px;
+
+    svg {
+        stroke: gray;
+        fill: transparent;
+    }
+}
+
+.pinIconContainer.pinned {
+    svg {
+        stroke: gray;
+        fill: gray;
+    }
 }
