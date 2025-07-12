@@ -1,5 +1,5 @@
 import style from './galleryMediaDetailedView.module.scss';
-import React from "react";
+import React, { useState } from "react";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
@@ -35,6 +35,23 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             pin.classList.add(style.pinned);
         }
     }
+    const [mediaIndex, setMediaIndex] = useState(0);
+    const slideToNext = () => {
+        setMediaIndex(prev => {
+            if (prev === props?.previewItems?.postContents?.length - 1) {
+                return prev;
+            }
+            return prev + 1;
+        });
+    }
+    const slideToPrevious = () => {
+        setMediaIndex(prev => {
+            if (prev === 0) {
+                return prev;
+            }
+            return prev - 1;
+        });
+    }
     return (
         <div>
             <div className={'df js ac gp30px ps-1 ' + style.card_content_container}>
@@ -48,7 +65,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                     <div className={style.profileSummaryContainer} style={{ overflow: "hidden" }}>
                         <Typography sx={{ color: 'text.primary' }} className={"ellipsis " + style.postDetailTop} gutterBottom variant="h5" component="div">
                             <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
-                            <span style={{color: 'white'}}>
+                            <span style={{ color: 'white' }}>
                                 {props?.accountDetails?.userName ? props.accountDetails.userName : ""}
                             </span>
                         </Typography>
@@ -60,9 +77,12 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             </div>
             <div className={style.carouselMediaContainer}>
                 {
-                    props.previewItems.postContents.map((media) => {
+                    props.previewItems.postContents.map((media, index) => {
                         return ((media.mediaType === MediaType.IMAGE) ?
-                            <div className={style.mediaContainer}>
+                            <div className={style.mediaContainer}
+                                style={{
+                                    marginLeft: index === 0 ? `-${mediaIndex * 100}%` : undefined
+                                }}>
                                 <img
                                     src={s3BaseUrl + (media.thumbnailLink || media.mediaLink)}
                                     alt="media"
@@ -71,7 +91,10 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
 
                             </div> :
                             (media.mediaType === MediaType.VIDEO) ?
-                                <div className={style.mediaContainer}>
+                                <div className={style.mediaContainer}
+                                    style={{
+                                        marginLeft: index === 0 ? `-${mediaIndex * 100}%` : undefined
+                                    }}>
                                     {media.thumbnailLink ? (
                                         <img
                                             src={s3BaseUrl + media.thumbnailLink}
@@ -96,16 +119,18 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                     })
                 }
             </div>
-            <div className={style.leftArrowContainer}>
-                <ArrowBackIosRoundedIcon className={style.IcoClamp2830} style={{color: 'white'}}></ArrowBackIosRoundedIcon>
-            </div>
-            <div className={style.rightArrowContainer}>
-                <ArrowForwardIosRoundedIcon className={style.IcoClamp2830} style={{color: 'white'}}></ArrowForwardIosRoundedIcon>
-            </div>
+            {mediaIndex > 0 ?
+                <div className={style.leftArrowContainer}>
+                    <ArrowBackIosRoundedIcon className={style.IcoClamp2830} style={{ color: 'white' }} onClick={slideToPrevious}></ArrowBackIosRoundedIcon>
+                </div> : <></>}
+            {mediaIndex < props?.previewItems?.postContents.length - 1 ?
+                <div className={style.rightArrowContainer}>
+                    <ArrowForwardIosRoundedIcon className={style.IcoClamp2830} style={{ color: 'white' }} onClick={slideToNext}></ArrowForwardIosRoundedIcon>
+                </div> : <></>}
             <div className={style.countCircleContainer}>
                 {
                     props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_' + i} className={style.countCircle}></div>) :
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_' + i} className={`${style.countCircle} ${i===mediaIndex? style.activeCicle: ''}`}></div>) :
                         Array.from({ length: 9 }, (_, i) => <div key={'count_circle_' + i} className={style.countCircle}></div>)
                 }
             </div>
