@@ -97,4 +97,26 @@ const useDebounce = (fn: (...args: any[]) => any, timeOutMs: number) => {
     return debouncedFn;
 };
 
-export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserDataInLocalStorage, getUserDataFromLocalStorage, useDebounce }
+const timeAgo = (dateInput: Date | string | null | undefined): string => {
+    if (!dateInput) return '';
+
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return '';
+
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (minutes < 5) return 'just now';
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+    if (days < 7) return `${days} day${days !== 1 ? 's' : ''} ago`;
+    if (days < 180) return 'a while ago';
+
+    return 'a long time ago';
+}
+
+export { AppText, AppValues, transformUserDataList, transformUserData, sortExperienceByDateAndCurrent, sortExperienceDetailsByDateAndCurrent, getTokenFromLocalStorage, updateUserDataInLocalStorage, getUserDataFromLocalStorage, useDebounce, timeAgo }

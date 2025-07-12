@@ -150,13 +150,14 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
                                 </div>
                             </React.Fragment>
                         ) :
-                        <ProfilePostsComponent
-                            profilePosts={profilePosts}
-                            accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}
-                            postIndex={postIndex}
-                            viewMode={ViewType.DETAILED}
-                        ></ProfilePostsComponent>
-
+                        <div className={`${style.postTabContainer} ${style.detailPostTabContainer}`}>
+                            <ProfilePostsComponent
+                                profilePosts={profilePosts}
+                                accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}
+                                postIndex={postIndex}
+                                viewMode={ViewType.DETAILED}
+                            ></ProfilePostsComponent>
+                        </div>
                 }
 
             </div>

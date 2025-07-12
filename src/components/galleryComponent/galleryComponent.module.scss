@@ -4,13 +4,17 @@
     padding-bottom: 125%;
 }
 
-.headerIcoClamp2830
- {
+.galleryDetailedPreviewContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+.headerIcoClamp2830 {
     width: clamp(28px, 2vw, 30px) !important;
     height: clamp(28px, 2vw, 30px) !important;
 }
 
-.detailedView{
+.detailedView {
     display: flex;
     justify-content: center;
     align-items: start;
@@ -18,6 +22,6 @@
     flex-wrap: wrap;
 }
 
-.fullWidth{
+.fullWidth {
     width: 100%;
 }

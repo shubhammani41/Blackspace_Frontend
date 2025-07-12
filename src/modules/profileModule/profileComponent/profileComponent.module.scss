@@ -9,3 +9,10 @@
         left: 0px;
     }
 }
+
+@media (max-width: 768px) {
+    .detailPostTabContainer {
+        top: 66px;
+        padding-bottom: 70px;
+    }
+}

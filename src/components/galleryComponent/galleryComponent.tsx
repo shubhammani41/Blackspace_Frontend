@@ -62,7 +62,7 @@ const GalleryComponent: React.FC<GalleryComponentProps> = (props: GalleryCompone
                 {galleryItems.map((item, index) => {
                     return (
                         <div key={'gallery_item_detail' + index} className={`${style.fullWidth} ${props.viewType}`} ref={(el) => (itemRefs.current[index] = el)}>
-                            <div className={style.galleryPreviewContainer} onClick={() => onClickDetailedItem(item, itemRefs.current, index)}>
+                            <div className={style.galleryDetailedPreviewContainer} onClick={() => onClickDetailedItem(item, itemRefs.current, index)}>
                                 <GalleryMediaDetailedView previewItems={item} accountDetails={props.accountDetails}></GalleryMediaDetailedView>
                             </div>
                         </div>
