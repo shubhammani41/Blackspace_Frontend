@@ -1,5 +1,5 @@
 import style from './galleryMediaDetailedView.module.scss';
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
@@ -24,6 +24,10 @@ export interface GalleryMediaDetailedViewProps {
 }
 
 const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props: GalleryMediaDetailedViewProps) => {
+    const [mediaIndex, setMediaIndex] = useState(0);
+    const mediaRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [currentTouchX, setCurrentTouchX] = useState<number>(0);
+    const [shouldAllowScroll, setshouldAllowScroll] = useState<boolean>(true);
     const pinProfile = (event: any) => {
         event.stopPropagation();
         event.preventDefault();
@@ -35,7 +39,6 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             pin.classList.add(style.pinned);
         }
     }
-    const [mediaIndex, setMediaIndex] = useState(0);
     const slideToNext = () => {
         setMediaIndex(prev => {
             if (prev === props?.previewItems?.postContents?.length - 1) {
@@ -52,6 +55,33 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             return prev - 1;
         });
     }
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setCurrentTouchX(e?.touches[0]?.clientX ?? 0);
+    };
+
+    const handleTouchMove = useCallback((e: React.TouchEvent) => {
+        if (currentTouchX && e?.touches[0]?.clientX && shouldAllowScroll && mediaRefs.current[0]) {
+            const touchDiff = e.touches[0].clientX - currentTouchX;
+            mediaRefs.current[0].classList.remove('smoothScroll');
+            const marginLeft = Number(window.getComputedStyle(mediaRefs.current[0]).marginLeft.split('px')[0]);
+            const eleWidth = Number(window.getComputedStyle(mediaRefs.current[0]).width.split('px')[0]);
+            const calMargin = marginLeft + touchDiff;
+            const minMargin = eleWidth * (mediaRefs.current.length - 1) * (-1);
+            const maxMargin = 0;
+            let finalMarginVal = Math.min(Math.max(calMargin, minMargin), maxMargin);
+            mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
+            if (Math.abs(finalMarginVal) > (0.35 + (0.25 * (mediaIndex + 1))) * eleWidth) {
+                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+                setMediaIndex(prev => prev + 1);
+                setshouldAllowScroll(false);
+            }
+            setCurrentTouchX(e.touches[0].clientX);
+        }
+    }, [currentTouchX, mediaRefs, mediaIndex, shouldAllowScroll]);
+
+    const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+        setshouldAllowScroll(true);
+    }, [mediaRefs, currentTouchX]);
     return (
         <div>
             <div className={'df js ac gp30px ps-1 ' + style.card_content_container}>
@@ -79,10 +109,14 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                 {
                     props.previewItems.postContents.map((media, index) => {
                         return ((media.mediaType === MediaType.IMAGE) ?
-                            <div className={style.mediaContainer}
+                            <div key={'media_' + index} className={style.mediaContainer}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
                                 style={{
                                     marginLeft: index === 0 ? `-${mediaIndex * 100}%` : undefined
-                                }}>
+                                }}
+                                ref={(el) => (mediaRefs.current[index] = el)}>
                                 <img
                                     src={s3BaseUrl + (media.thumbnailLink || media.mediaLink)}
                                     alt="media"
@@ -91,7 +125,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
 
                             </div> :
                             (media.mediaType === MediaType.VIDEO) ?
-                                <div className={style.mediaContainer}
+                                <div key={'media_' + index} className={style.mediaContainer}
                                     style={{
                                         marginLeft: index === 0 ? `-${mediaIndex * 100}%` : undefined
                                     }}>
@@ -130,7 +164,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             <div className={style.countCircleContainer}>
                 {
                     props.previewItems.postContents.length < 10 ?
-                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_' + i} className={`${style.countCircle} ${i===mediaIndex? style.activeCicle: ''}`}></div>) :
+                        Array.from({ length: props.previewItems.postContents.length }, (_, i) => <div key={'count_circle_' + i} className={`${style.countCircle} ${i === mediaIndex ? style.activeCicle : ''}`}></div>) :
                         Array.from({ length: 9 }, (_, i) => <div key={'count_circle_' + i} className={style.countCircle}></div>)
                 }
             </div>
