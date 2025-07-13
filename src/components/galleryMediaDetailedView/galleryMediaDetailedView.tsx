@@ -209,7 +209,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                     </div>
                     <div className={style.profileSummaryContainer} style={{ overflow: "hidden" }}>
                         <Typography sx={{ color: 'text.primary' }} className={"ellipsis " + style.postDetailTop} gutterBottom variant="h5" component="div">
-                            <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '-2px' }}></VerifiedRoundedIcon>
+                            <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '0px' }}></VerifiedRoundedIcon>
                             <span style={{ color: 'white' }}>
                                 {props?.accountDetails?.userName ? props.accountDetails.userName : ""}
                             </span>
