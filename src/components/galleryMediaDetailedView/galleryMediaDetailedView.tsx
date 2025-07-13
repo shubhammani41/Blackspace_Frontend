@@ -71,7 +71,24 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         const videoEl = parentEl?.firstChild as HTMLVideoElement;
         const playBtn = parentEl?.children[1] as SVGSVGElement;
         const pauseBtn = parentEl?.children[2] as SVGSVGElement;
-        videoEl.play();
+        videoEl.play()
+            .then(() => {
+                const parent = videoEl.parentElement;
+                if (!parent) return;
+                const existingOverlay = parent.querySelector(`${style.video_error_overlay}`);
+                if (existingOverlay) {
+                    parent.removeChild(existingOverlay);
+                }
+            })
+            .catch((err) => {
+                const parent = videoEl.parentElement;
+                if (!parent) return;
+                if (parent.querySelector(`${style.video_error_overlay}`)) return;
+                const overlay = document.createElement('div');
+                overlay.className = `${style.video_error_overlay}`;
+                overlay.textContent = '⚠️ Failed to play video';
+                parent.appendChild(overlay);
+            });
         playBtn.style.display = 'none';
         pauseBtn.style.display = '';
     }
@@ -165,27 +182,51 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         };
     }, [shouldAllowScrollY]);
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry) {
-                        const videoEl = entry.target.firstChild as HTMLVideoElement;
-                        const isVisible = entry.isIntersecting && entry.intersectionRatio > 0.6;
+        const screenWidth = window.innerWidth;
+        const threshold: number[] = screenWidth > 1200
+            ? [0.6, 0.8, 1]  // Large screens — require more visibility
+            : [0.4, 0.6, 0.8]; // Smaller screens — allow earlier play
 
-                        if (isVisible) {
-                            videoEl.play();
-                            (entry.target.children[1] as SVGSVGElement).style.display = 'none';
-                            (entry.target.children[2] as SVGSVGElement).style.display = '';
-                        } else {
-                            videoEl.pause();
-                            (entry.target.children[1] as SVGSVGElement).style.display = '';
-                            (entry.target.children[2] as SVGSVGElement).style.display = 'none';
-                        }
-                    }
-                });
-            },
-            { threshold: 0.6 }
-        );
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const container = entry.target as HTMLElement;
+
+                const videoEl = container.firstElementChild as HTMLVideoElement | null;
+                const playIcon = container.children[1] as SVGSVGElement | null;
+                const pauseIcon = container.children[2] as SVGSVGElement | null;
+
+                const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.6;
+
+                if (!videoEl || !playIcon || !pauseIcon) return;
+
+                if (isVisible) {
+                    videoEl.play()
+                        .then(() => {
+                            const parent = videoEl.parentElement;
+                            if (!parent) return;
+                            const existingOverlay = parent.querySelector(`${style.video_error_overlay}`);
+                            if (existingOverlay) {
+                                parent.removeChild(existingOverlay);
+                            }
+                        })
+                        .catch((err) => {
+                            const parent = videoEl.parentElement;
+                            if (!parent) return;
+                            if (parent.querySelector(`${style.video_error_overlay}`)) return;
+                            const overlay = document.createElement('div');
+                            overlay.className = `${style.video_error_overlay}`;
+                            overlay.textContent = '⚠️ Failed to play video';
+                            parent.appendChild(overlay);
+                        });
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = '';
+                } else {
+                    videoEl.pause();
+                    playIcon.style.display = '';
+                    pauseIcon.style.display = 'none';
+                }
+            });
+        }, { threshold });
 
         mediaRefs.current.forEach((el) => {
             if (el && el.firstChild instanceof HTMLVideoElement) observer.observe(el);
@@ -263,7 +304,10 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                                             preload="metadata"
                                             className="top-0 start-0 w-100 h-100 object-fit-cover"
                                         >
-                                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                                            <source 
+                                            src={s3BaseUrl + (media.thumbnailLink || media.mediaLink)} 
+                                            // src = "https://www.w3schools.com/html/mov_bbb.mp4"
+                                            type="video/mp4" />
                                         </video>
                                     )}
                                     <PlayArrowRoundedIcon className={`${style.galleryPlayIcon}`} onClick={playMedia} />

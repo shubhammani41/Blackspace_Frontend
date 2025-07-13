@@ -212,3 +212,15 @@
 .video_player_container {
     position: absolute;
 }
+
+.video_error_overlay {
+    color: white;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: black;
+}
