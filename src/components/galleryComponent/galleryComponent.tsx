@@ -2,7 +2,7 @@ import { PostDetails } from '../../models/postData';
 import { GalleryAccountDetails, GalleryMediaDetailedView } from '../galleryMediaDetailedView/galleryMediaDetailedView';
 import { GalleryMediaPreview } from '../galleryMediaPreview/galleryMediaPreview';
 import style from './galleryComponent.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export enum ViewType {
     "MINI",

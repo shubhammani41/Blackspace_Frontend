@@ -151,6 +151,7 @@
     position: relative;
     flex: 0 0 auto;
     width: 100%;
+
     img,
     video {
         position: absolute;
@@ -158,7 +159,7 @@
     }
 }
 
-.mediaContainer.smoothScroll{
+.mediaContainer.smoothScroll {
     transition: 150ms ease-in-out;
 }
 
@@ -206,4 +207,8 @@
         stroke: gray;
         fill: gray;
     }
+}
+
+.video_player_container {
+    position: absolute;
 }

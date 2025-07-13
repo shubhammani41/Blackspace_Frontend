@@ -1,6 +1,7 @@
 import style from './galleryMediaDetailedView.module.scss';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import { MediaType, PostDetails } from '../../models/postData';
 import { s3BaseUrl } from '../../constants/sensitiveConstants';
 import { Avatar, Button, Typography } from '@mui/material';
@@ -43,6 +44,9 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         }
     }
     const slideToNext = () => {
+        if (mediaRefs?.current[0]?.classList) {
+            mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+        }
         setMediaIndex(prev => {
             if (prev === props?.previewItems?.postContents?.length - 1) {
                 return prev;
@@ -51,6 +55,9 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         });
     }
     const slideToPrevious = () => {
+        if (mediaRefs?.current[0]?.classList) {
+            mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+        }
         setMediaIndex(prev => {
             if (prev === 0) {
                 return prev;
@@ -59,14 +66,49 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         });
     }
 
-    const resetCurrentMediaPos = useCallback(() => {
+    const playMedia = (e: React.MouseEvent<SVGSVGElement>) => {
+        const parentEl = (e.currentTarget as SVGSVGElement).parentElement;
+        const videoEl = parentEl?.firstChild as HTMLVideoElement;
+        const playBtn = parentEl?.children[1] as SVGSVGElement;
+        const pauseBtn = parentEl?.children[2] as SVGSVGElement;
+        videoEl.play();
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = '';
+    }
+
+    const pauseMedia = (e: React.MouseEvent<SVGSVGElement>) => {
+        const parentEl = (e.currentTarget as SVGSVGElement).parentElement;
+        const videoEl = parentEl?.firstChild as HTMLVideoElement;
+        const playBtn = parentEl?.children[1] as SVGSVGElement;
+        const pauseBtn = parentEl?.children[2] as SVGSVGElement;
+        videoEl.pause();
+        playBtn.style.display = '';
+        pauseBtn.style.display = 'none';
+    }
+
+    const setCorrectMediaInPos = useCallback(() => {
         if (mediaRefs?.current[0]) {
             mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
             const eleWidth = Number(window.getComputedStyle(mediaRefs.current[0]).width.split('px')[0]);
-            const finalMarginVal = eleWidth * mediaIndex * (-1);
-            mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
+            const marginLeft = Number(window.getComputedStyle(mediaRefs.current[0]).marginLeft.split('px')[0]);
+            const thresholdLeftScrollMin = eleWidth * (mediaIndex + 0.25);
+            const thresholdRightScrollMin = eleWidth * ((mediaIndex - 1) + 0.75);
+            if (Math.abs(marginLeft) > thresholdLeftScrollMin) {
+                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+                setMediaIndex(prev => prev + 1);
+                setshouldAllowScrollX(false);
+            }
+            else if (Math.abs(marginLeft) < thresholdRightScrollMin) {
+                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
+                setMediaIndex(prev => prev - 1);
+                setshouldAllowScrollX(false);
+            }
+            else {
+                const finalMarginVal = eleWidth * mediaIndex * (-1);
+                mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
+            }
         }
-    }, [mediaIndex, mediaRefs]);
+    }, [mediaIndex]);
 
     const handleTouchStart = (e: React.TouchEvent) => {
         setCurrentTouchX(e?.touches[0]?.clientX ?? 0);
@@ -80,7 +122,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             if (Math.abs(touchDiffY) > 10) {
                 setshouldAllowScrollX(false);
             }
-            resetCurrentMediaPos();
+            setCorrectMediaInPos();
         }
         if (e?.touches[0].clientX && shouldAllowScrollX) {
             const touchDiffX = e.touches[0].clientX - currentTouchXScroll;
@@ -90,41 +132,26 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
         }
         if (currentTouchX && e?.touches[0]?.clientX && shouldAllowScrollX && mediaRefs.current[0] && shouldAllowScrollX) {
             const touchDiffX = e.touches[0].clientX - currentTouchX;
-            if (Math.abs(touchDiffX) > 10) {
-                setshouldAllowScrollY(false);
-            }
-            mediaRefs.current[0].classList.remove(`${style.smoothScroll}`);
             const marginLeft = Number(window.getComputedStyle(mediaRefs.current[0]).marginLeft.split('px')[0]);
             const eleWidth = Number(window.getComputedStyle(mediaRefs.current[0]).width.split('px')[0]);
             const calMargin = marginLeft + touchDiffX;
             const minMargin = eleWidth * ((mediaIndex < (mediaRefs.current.length - 1)) ? mediaIndex + 1 : (mediaRefs.current.length - 1)) * (-1);
             const maxMargin = eleWidth * (mediaIndex ? mediaIndex - 1 : 0) * (-1);
-            const thresholdLeftScrollMin = eleWidth * (mediaIndex + 0.50);
-            const thresholdRightScrollMin = eleWidth * ((mediaIndex - 1) + 0.50)
             let finalMarginVal = Math.min(Math.max(calMargin, minMargin), maxMargin);
+            mediaRefs.current[0].classList.remove(`${style.smoothScroll}`);
             mediaRefs.current[0].style.marginLeft = finalMarginVal + 'px';
-            if (Math.abs(finalMarginVal) > thresholdLeftScrollMin) {
-                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
-                setMediaIndex(prev => prev + 1);
-                setshouldAllowScrollX(false);
-            }
-            if (Math.abs(finalMarginVal) < thresholdRightScrollMin) {
-                mediaRefs.current[0].classList.add(`${style.smoothScroll}`);
-                setMediaIndex(prev => prev - 1);
-                setshouldAllowScrollX(false);
-            }
             setCurrentTouchX(e.touches[0].clientX);
         }
-    }, [currentTouchX, mediaRefs, mediaIndex, shouldAllowScrollX, currentTouchYScroll, resetCurrentMediaPos]);
+    }, [currentTouchX, mediaIndex, shouldAllowScrollX, currentTouchYScroll, setCorrectMediaInPos]);
 
     const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-        resetCurrentMediaPos();
+        setCorrectMediaInPos();
         setCurrentTouchX(0);
         setCurrentTouchXScroll(0);
         setCurrentTouchYScroll(0);
         setshouldAllowScrollX(true);
         setshouldAllowScrollY(true);
-    }, [resetCurrentMediaPos]);
+    }, [setCorrectMediaInPos]);
 
     useEffect(() => {
         const handleTouchMove = (e: TouchEvent) => {
@@ -137,6 +164,39 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             window.removeEventListener("touchmove", handleTouchMove);
         };
     }, [shouldAllowScrollY]);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry) {
+                        const videoEl = entry.target.firstChild as HTMLVideoElement;
+                        const isVisible = entry.isIntersecting && entry.intersectionRatio > 0.6;
+
+                        if (isVisible) {
+                            videoEl.play();
+                            (entry.target.children[1] as SVGSVGElement).style.display = 'none';
+                            (entry.target.children[2] as SVGSVGElement).style.display = '';
+                        } else {
+                            videoEl.pause();
+                            (entry.target.children[1] as SVGSVGElement).style.display = '';
+                            (entry.target.children[2] as SVGSVGElement).style.display = 'none';
+                        }
+                    }
+                });
+            },
+            { threshold: 0.6 }
+        );
+
+        mediaRefs.current.forEach((el) => {
+            if (el && el.firstChild instanceof HTMLVideoElement) observer.observe(el);
+        });
+
+        return () => {
+            mediaRefs.current.forEach((el) => {
+                if (el) observer.unobserve(el);
+            });
+        };
+    }, []);
     return (
         <div>
             <div className={'df js ac gp30px ps-1 ' + style.card_content_container}>
@@ -196,17 +256,18 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                                         />
                                     ) : (
                                         <video
-                                            src={s3BaseUrl + media.mediaLink}
-                                            muted
-                                            autoPlay
                                             loop
+                                            muted
                                             playsInline
+                                            controls
                                             preload="metadata"
                                             className="top-0 start-0 w-100 h-100 object-fit-cover"
-                                        />
+                                        >
+                                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                                        </video>
                                     )}
-                                    <PlayArrowRoundedIcon className={style.galleryPlayIcon}
-                                    />
+                                    <PlayArrowRoundedIcon className={`${style.galleryPlayIcon}`} onClick={playMedia} />
+                                    <PauseRoundedIcon className={`${style.galleryPlayIcon}`} onClick={pauseMedia} />
                                 </div> :
                                 <></>)
                     })
