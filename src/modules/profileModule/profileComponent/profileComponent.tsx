@@ -2,7 +2,7 @@ import { Avatar, Button, Card, CardActions, CardContent, Tooltip, Typography } f
 import style from "./profileComponent.module.scss";
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import { AppValues } from "../../../constants/appConstants";
+import { AppText, AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
 import { SearchSkeleton } from "../../searchModule/searchSkeleton/searchSkeleton";
 import React from "react";
@@ -16,12 +16,18 @@ import { ProfileDetailsComponent } from "../profileDetailsComponent/profileDetai
 import { ProfilePostsComponent } from "../profilePostsComponent/profilePostsComponent";
 import { PostDetails } from "../../../models/postData";
 import { ViewType } from "../../../components/galleryComponent/galleryComponent";
+import { InfiniteScrollComponent } from "../../../components/infiniteScroll/infiniteScrollComponent";
 
 export interface ProfileComponentProps {
     postDetailView?: boolean;
 }
 
 const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileComponentProps) => {
+    const defaultPageSize: number = 6;
+    const defaultPageNumber: number = 0;
+    const defaultSearchKeyWord: string = "";
+    const noPostMessage = "This user has not posted yet."
+    const errorSearchMessage: string = AppText.errorMessage;
     const [searchParams] = useSearchParams();
     const [postIndex, setPostIndex] = useState(0);
     const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
@@ -30,15 +36,45 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
     const [expData, setExpData] = useState<UserExperienceDetails[]>();
     const currentTheme = useThemeStore();
     const [profilePosts, setProfilePosts] = useState<PostDetails[]>([]);
-    useEffect(() => {
-        if (devData?.userId) {
-            apiFunctions.fetchProfilePublicPosts(12, 0, devData.userId).then((res) => {
+    const [pageSize, setPageSize] = useState<number>(defaultPageSize);
+    const [pageNumber, setPageNumber] = useState<number>(defaultPageNumber);
+    const [totalElements, setTotalElements] = useState<number>(0);
+    const [hasMore, setHasMore] = useState<boolean>(false);
+    const [userName, setUserName] = useState("");
+    const [profilePostSearchMsg, setProfilePostSearchMsg] = useState("");
+
+    const fetchProfilePublicPosts = useCallback(async (pageSize: number, pageNumber: number, userId?: number) => {
+        if (userId) {
+            apiFunctions.fetchProfilePublicPosts(pageSize, pageNumber, userId).then((res) => {
                 if (res.data.data) {
-                    setProfilePosts(res.data.data);
+                    setTotalElements(res.data.totalElements);
+                    setProfilePostSearchMsg('');
+                    ((pageNumber+1)*pageSize < res.data.totalElements)? setHasMore(true): setHasMore(false);
+                    setProfilePosts(prev=>[...prev, ...res.data.data]);
                 }
+                else {
+                    setTotalElements(0);
+                    setProfilePosts([]);
+                    setProfilePostSearchMsg(noPostMessage);
+                    setHasMore(false);
+                }
+            }).catch(err => {
+                setTotalElements(0);
+                setProfilePosts([]);
+                setProfilePostSearchMsg(errorSearchMessage);
+                setHasMore(false);
             })
         }
+    }, [totalElements])
+
+    useEffect(() => {
+        fetchProfilePublicPosts(defaultPageSize, defaultPageNumber, devData?.userId);
     }, [devData]);
+
+    const onSCrollEnd = useCallback(() => {
+        fetchProfilePublicPosts(pageSize, pageNumber + 1, devData?.userId);
+        setPageNumber(pageNumber + 1);
+    }, [pageNumber, pageSize, fetchProfilePublicPosts, devData]);
 
     const fetchUserData = useCallback(async (userName: string) => {
         if (userName && userName.trim() !== '') {
@@ -72,6 +108,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
 
     useEffect(() => {
         const userName = searchParams.get('userName');
+        setUserName(userName ?? '');
         const postIndex = searchParams.get('postIndex');
         if (userName) {
             fetchUserData(userName);
@@ -139,7 +176,9 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
                                 <div className={`${style.postTabContainer}`}>
                                     <TabsComponent>
                                         <TabComponent index={0} label="Posts">
-                                            <ProfilePostsComponent profilePosts={profilePosts} accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}></ProfilePostsComponent>
+                                            <InfiniteScrollComponent onScrollEnd={onSCrollEnd} hasMore={hasMore}>
+                                                <ProfilePostsComponent profilePosts={profilePosts}></ProfilePostsComponent>
+                                            </InfiniteScrollComponent>
                                         </TabComponent>
                                         <TabComponent index={1} label="Details">
                                             <div className="mx-3">
@@ -153,7 +192,6 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
                         <div className={`${style.postTabContainer} ${style.detailPostTabContainer}`}>
                             <ProfilePostsComponent
                                 profilePosts={profilePosts}
-                                accountDetails={{ userName: devData?.userName, userId: devData?.userId, profilePictureUrl: devData?.profilePictureUrl }}
                                 postIndex={postIndex}
                                 viewMode={ViewType.DETAILED}
                             ></ProfilePostsComponent>

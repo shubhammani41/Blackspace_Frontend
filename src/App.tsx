@@ -1,6 +1,6 @@
 import React, { ElementType, Suspense, lazy, useEffect } from 'react';
 import './App.scss';
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
@@ -17,6 +17,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMotionFramerStore } from './store/motionFramerAnimationStore';
 import useSigninDialogStore from './components/signinDialog/store/signinDialogStore';
+import { MenuBarBottom } from './components/menuBarBottom/menuBarBottom';
 
 const SearchModule = lazy(() => import("./modules/searchModule/searchModule"));
 const ProfileModule = lazy(() => import("./modules/profileModule/ProfileModule"));
@@ -82,6 +83,7 @@ const GlobalComponents: React.FC = () => {
       <AppHeader></AppHeader>
       <SigninDialog></SigninDialog>
       <AddBasicDetailsDialog></AddBasicDetailsDialog>
+      <MenuBarBottom></MenuBarBottom>
     </div>
   )
 }
@@ -90,6 +92,13 @@ const RoutesComponent: React.FC = () => {
   const location = useLocation();
   const motionFramerStore = useMotionFramerStore();
   const AnimatePresenceFixedType = AnimatePresence as ElementType;
+
+  //to prevent scrolling to last scrolled position
+  // const { pathname } = useLocation();
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [pathname]);
+
   return (
     <AnimatePresenceFixedType mode="popLayout">
       <motion.div

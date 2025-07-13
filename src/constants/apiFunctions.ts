@@ -105,7 +105,7 @@ const apiFunctions = {
     saveBasicDetailsByUserLoginId: async (userData: UserData) => {
         return new Promise<{ data: UserData }>((resolve, reject) => {
             const url = apiConstants.saveBasicDetailsByUserLoginId.url;
-            axiosInstance.post(url,userData).then((response: { data: UserData }) => {
+            axiosInstance.post(url, userData).then((response: { data: UserData }) => {
                 if (response.data) {
                     response.data = transformUserData(response.data);
                     resolve(response);
@@ -124,6 +124,26 @@ const apiFunctions = {
             if (userId) {
                 url = apiConstants.getProfilePublicPostsByUserId.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}&userId=${userId}`;
                 axiosInstance.get(url).then((response: { data: PostListReponse }) => {
+                    if (response?.data?.data) {
+                        resolve(response);
+                    }
+                    else {
+                        reject(response);
+                    }
+                }).catch(err => {
+                    reject(err);
+                });
+            }
+            else {
+                reject("Invalid user id");
+            }
+        });
+    },
+    fetchPublciFeed: async (pageSize: number, pageNumber: number): Promise<{ data: PostListReponse }> => {
+        return new Promise<{ data: PostListReponse }>((resolve, reject) => {
+            let url = "";
+            url = apiConstants.getPublicFeed.url + `?pageSize=${pageSize}&pageNumber=${pageNumber}`;
+            axiosInstance.get(url).then((response: { data: PostListReponse }) => {
                 if (response?.data?.data) {
                     resolve(response);
                 }
@@ -133,10 +153,6 @@ const apiFunctions = {
             }).catch(err => {
                 reject(err);
             });
-            }
-            else {
-                reject("Invalid user id");
-            }
         });
     },
 }

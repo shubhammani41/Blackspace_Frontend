@@ -46,6 +46,11 @@ const apiConstants: { [key: string]: APIConfig } = {
         "type": "PUBLIC",
         "access": "public",
         "url": "/public/getProfilePublicPostsByUserId"
+    },
+    getPublicFeed: {
+        "type": "PUBLIC",
+        "access": "public",
+        "url": "/public/getPublicFeed"
     }
 }
 

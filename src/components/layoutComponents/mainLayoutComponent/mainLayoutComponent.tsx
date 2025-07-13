@@ -1,13 +1,11 @@
 import './mainLayoutComponent.scss';
 import { ReactNode } from 'react';
-import { MenuBarBottom } from '../../menuBarBottom/menuBarBottom';
 import { Typography } from '@mui/material';
 import { MenuBarInner } from '../../menuBarBottom/menuBarInner/menuBarInner';
 import useThemeStore from '../../themeToggleBtn/store/themeStore';
 
 export interface MainLayoutComponentProps {
     children: ReactNode[] | ReactNode;
-    mobileBottomBarEnabled?: boolean;
     desktopSideBarEnabled?: boolean;
 }
 
@@ -16,7 +14,6 @@ const MainLayoutComponent: React.FC<MainLayoutComponentProps> = (props: MainLayo
 
     return (
         <div className="mainContainer">
-            {props.mobileBottomBarEnabled === false ? <></> : <MenuBarBottom></MenuBarBottom>}
             <div className="row gx-0 px-2">
                 <div className="col-xxl-3 col-xl-2 col-lg-1 d-lg-block d-none">
                 </div>

@@ -1,0 +1,14 @@
+@media (max-width: 768px) {
+    .postTabContainer {
+        position: absolute;
+        width: 100vw;
+        left: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .detailPostTabContainer {
+        top: 80px;
+        padding-bottom: 70px;
+    }
+}

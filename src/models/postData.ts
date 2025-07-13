@@ -11,6 +11,8 @@ export enum Reaction {
 export interface Post {
     postId: number;
     userId: number;
+    userName: string;
+    profilePictureUrl?:string;
     postCaption: string;
     visibility: PostVisibility;
     createdDate: Date;
@@ -30,6 +32,7 @@ export interface PostView {
     viewId: number;
     postId: number;
     userId: number;
+    userName: string;
     reaction: Reaction;
     viewedAt: Date;
 }
@@ -50,6 +53,7 @@ export const mockPosts: PostDetails[] = [
     {
         postId: 1,
         userId: 101,
+        userName:"shubham",
         postCaption: "Enjoying a peaceful sunset 🌅",
         visibility: PostVisibility.PUBLIC,
         createdDate: new Date("2024-09-01T18:30:00"),
@@ -71,6 +75,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 1,
                 postId: 1,
                 userId: 102,
+                userName:"shubham",
                 reaction: Reaction.LIKE,
                 viewedAt: new Date("2024-09-01T19:00:00"),
             },
@@ -78,6 +83,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 2,
                 postId: 1,
                 userId: 103,
+                userName:"sid",
                 reaction: Reaction.NONE,
                 viewedAt: new Date("2024-09-01T19:05:00"),
             },
@@ -91,6 +97,7 @@ export const mockPosts: PostDetails[] = [
     {
         postId: 2,
         userId: 102,
+        userName:"sid",
         postCaption: "Beach vibes all day! 🌴",
         visibility: PostVisibility.FRIENDS,
         createdDate: new Date("2024-09-03T14:00:00"),
@@ -121,6 +128,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 3,
                 postId: 2,
                 userId: 101,
+                userName:"shubham",
                 reaction: Reaction.LIKE,
                 viewedAt: new Date("2024-09-03T15:00:00"),
             },
@@ -134,6 +142,7 @@ export const mockPosts: PostDetails[] = [
     {
         postId: 3,
         userId: 103,
+        userName:"shubham",
         postCaption: "Check out this short cinematic 🌌",
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
@@ -155,6 +164,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 4,
                 postId: 3,
                 userId: 102,
+                userName:"sid",
                 reaction: Reaction.DISLIKE,
                 viewedAt: new Date("2024-09-05T22:00:00"),
             },
@@ -168,6 +178,7 @@ export const mockPosts: PostDetails[] = [
     {
         postId: 3,
         userId: 103,
+        userName:"shubham",
         postCaption: "Check out this short cinematic 🌌",
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
@@ -189,6 +200,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 4,
                 postId: 3,
                 userId: 102,
+                userName:"shubham",
                 reaction: Reaction.DISLIKE,
                 viewedAt: new Date("2024-09-05T22:00:00"),
             },
@@ -202,6 +214,7 @@ export const mockPosts: PostDetails[] = [
     {
         postId: 3,
         userId: 103,
+        userName:"shubham",
         postCaption: "Check out this short cinematic 🌌",
         visibility: PostVisibility.PRIVATE,
         createdDate: new Date("2024-09-05T21:30:00"),
@@ -223,40 +236,7 @@ export const mockPosts: PostDetails[] = [
                 viewId: 4,
                 postId: 3,
                 userId: 102,
-                reaction: Reaction.DISLIKE,
-                viewedAt: new Date("2024-09-05T22:00:00"),
-            },
-        ],
-
-        postHashtags: [
-            { postId: 3, hashtagId: 205, hashtag: "cinematic" },
-            { postId: 3, hashtagId: 206, hashtag: "video" },
-        ],
-    },
-    {
-        postId: 3,
-        userId: 103,
-        postCaption: "Check out this short cinematic 🌌",
-        visibility: PostVisibility.PRIVATE,
-        createdDate: new Date("2024-09-05T21:30:00"),
-
-        postContents: [
-            {
-                postId: 3,
-                contentId: 31,
-                mediaLink: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-                mediaType: MediaType.VIDEO,
-                mediaDuration: 12,
-                thumbnailLink: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217",
-                createdDate: new Date("2024-09-05T21:30:00"),
-            },
-        ],
-
-        postViews: [
-            {
-                viewId: 4,
-                postId: 3,
-                userId: 102,
+                userName:"shubham",
                 reaction: Reaction.DISLIKE,
                 viewedAt: new Date("2024-09-05T22:00:00"),
             },

@@ -14,14 +14,8 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 
-export interface GalleryAccountDetails {
-    userName?: string;
-    userId?: number;
-    profilePictureUrl?: string;
-}
 export interface GalleryMediaDetailedViewProps {
     previewItems: PostDetails;
-    accountDetails: GalleryAccountDetails;
 }
 
 const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props: GalleryMediaDetailedViewProps) => {
@@ -243,8 +237,8 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
             <div className={'df js ac gp30px ps-1 ' + style.card_content_container}>
                 <div className={style.card_content_left}>
                     <div className={style.avatarContainer}>
-                        {props?.accountDetails?.profilePictureUrl ?
-                            <Avatar className={style.avatar100} alt={props.accountDetails.userName || ""} src={s3BaseUrl + props.accountDetails.profilePictureUrl || ""} /> :
+                        {props?.previewItems?.userName?
+                            <Avatar className={style.avatar100} alt={props.previewItems.userName || ""} src={s3BaseUrl + props.previewItems.profilePictureUrl || ""} /> :
                             <></>
                         }
                     </div>
@@ -252,7 +246,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                         <Typography sx={{ color: 'text.primary' }} className={"ellipsis " + style.postDetailTop} gutterBottom variant="h5" component="div">
                             <VerifiedRoundedIcon className="verifiedTick" style={{ position: 'relative', top: '0px' }}></VerifiedRoundedIcon>
                             <span style={{ color: 'white' }}>
-                                {props?.accountDetails?.userName ? props.accountDetails.userName : ""}
+                                {props?.previewItems?.userName ? props.previewItems.userName : ""}
                             </span>
                         </Typography>
                     </div>
@@ -357,7 +351,7 @@ const GalleryMediaDetailedView: React.FC<GalleryMediaDetailedViewProps> = (props
                 </div>
                 <div>
                     <Typography sx={{ color: 'text.primary' }} className={style.postDetailTop} gutterBottom variant="h5" component="div">
-                        <span className={style.postCaptionUserName}>{props?.accountDetails?.userName}</span> {props?.previewItems?.postCaption}
+                        <span className={style.postCaptionUserName}>{props?.previewItems?.userName}</span> {props?.previewItems?.postCaption}
                     </Typography>
                     <Typography sx={{ color: 'text.secondary' }} className={style.postDetailTop}>
                         {timeAgo(props?.previewItems?.createdDate)}

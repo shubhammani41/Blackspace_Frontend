@@ -1,5 +1,5 @@
 import { PostDetails } from '../../models/postData';
-import { GalleryAccountDetails, GalleryMediaDetailedView } from '../galleryMediaDetailedView/galleryMediaDetailedView';
+import { GalleryMediaDetailedView } from '../galleryMediaDetailedView/galleryMediaDetailedView';
 import { GalleryMediaPreview } from '../galleryMediaPreview/galleryMediaPreview';
 import style from './galleryComponent.module.scss';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -13,7 +13,6 @@ export interface GalleryComponentProps {
     galleryItems: PostDetails[];
     viewType?: ViewType;
     toggleEnabled?: boolean;
-    accountDetails: GalleryAccountDetails;
     postIndex?: number;
     onClickMiniItem?: (item: PostDetails, itemRefs: (HTMLDivElement | null)[], index: number) => void
     onClickDetailedItem?: (item: PostDetails, itemRefs: (HTMLDivElement | null)[], index: number) => void
@@ -40,7 +39,7 @@ const GalleryComponent: React.FC<GalleryComponentProps> = (props: GalleryCompone
     };
 
     useEffect(() => {
-        if (props.viewType === ViewType.DETAILED && props.postIndex && props.postIndex > 0) {
+        if (props.viewType === ViewType.DETAILED && props.postIndex) {
             scrollToIndex(props.postIndex);
         }
     }, [props.postIndex, props.viewType, props.galleryItems])
@@ -63,7 +62,7 @@ const GalleryComponent: React.FC<GalleryComponentProps> = (props: GalleryCompone
                     return (
                         <div key={'gallery_item_detail' + index} className={`${style.fullWidth} ${props.viewType}`} ref={(el) => (itemRefs.current[index] = el)}>
                             <div className={style.galleryDetailedPreviewContainer} onClick={() => onClickDetailedItem(item, itemRefs.current, index)}>
-                                <GalleryMediaDetailedView previewItems={item} accountDetails={props.accountDetails}></GalleryMediaDetailedView>
+                                <GalleryMediaDetailedView previewItems={item}></GalleryMediaDetailedView>
                             </div>
                         </div>
                     );

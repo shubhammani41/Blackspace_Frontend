@@ -99,7 +99,7 @@
 .menuBarInnerItems {
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: start !important;
     align-items: center;
     text-transform: none;
 }
