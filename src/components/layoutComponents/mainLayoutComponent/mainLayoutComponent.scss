@@ -1,6 +1,8 @@
 .mainContainer {
-    margin: 10px;
+    padding: 0px 10px 10px;
     margin-top: calc(80px + 1vw);
+    max-width: 1800px;
+    width: 100%;
 }
 
 .mainContentContainer {
@@ -10,4 +12,34 @@
 .stickyMenu {
     position: sticky;
     top: calc(80px + 1vw);
+}
+
+.menuBottomContainer {
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 100px;
+
+    .stickyMenuBottom {
+        position: absolute;
+        bottom: -27px;
+        width: calc(100% - 20px);
+    }
+}
+
+@media (min-width: 1700px) {
+    .mainContainer {
+        width: 85vw;
+    }
+}
+
+@media (min-width: 1700px) {
+    .mainContainer {
+        width: 80vw;
+    }
+}
+
+@media (min-width: 2100px) {
+    .mainContainer {
+        width: 75vw;
+    }
 }

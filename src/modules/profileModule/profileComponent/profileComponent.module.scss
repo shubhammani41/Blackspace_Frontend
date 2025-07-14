@@ -2,7 +2,7 @@
     position: relative;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .postTabContainer {
         position: absolute;
         width: 100vw;
@@ -10,7 +10,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .detailPostTabContainer {
         top: 80px;
         padding-bottom: 70px;

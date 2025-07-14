@@ -60,6 +60,7 @@
             justify-content: space-around !important;
             align-items: center !important;
             text-transform: none !important;
+
             p.ellipsis {
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -165,4 +166,12 @@
 
 .leftAlignedText {
     text-align: left;
+}
+
+.online_icon {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    bottom: 7px;
+    left: 25px;
 }
