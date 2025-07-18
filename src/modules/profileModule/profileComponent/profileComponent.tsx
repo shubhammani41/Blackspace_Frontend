@@ -4,10 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { AppText, AppValues } from "../../../constants/appConstants";
 import { UserData } from "../../../models/userData";
-import { SearchSkeleton } from "../../searchModule/searchSkeleton/searchSkeleton";
 import React from "react";
 import { UserExperienceDetails } from "../../../models/userExperience";
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import useThemeStore from "../../../components/themeToggleBtn/store/themeStore";
 import apiFunctions from "../../../constants/apiFunctions";
 import { MainLayoutComponent } from "../../../components/layoutComponents/mainLayoutComponent/mainLayoutComponent";
@@ -17,6 +15,11 @@ import { ProfilePostsComponent } from "../profilePostsComponent/profilePostsComp
 import { PostDetails } from "../../../models/postData";
 import { ViewType } from "../../../components/galleryComponent/galleryComponent";
 import { InfiniteScrollComponent } from "../../../components/infiniteScroll/infiniteScrollComponent";
+import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
+import BlockRoundedIcon from '@mui/icons-material/BlockRounded';
+import { s3BaseUrl } from "../../../constants/sensitiveConstants";
+import useLoaderStore from "../../../components/globalLoader/store/globalLoaderStore";
+
 
 export interface ProfileComponentProps {
     postDetailView?: boolean;
@@ -30,8 +33,6 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
     const errorSearchMessage: string = AppText.errorMessage;
     const [searchParams] = useSearchParams();
     const [postIndex, setPostIndex] = useState(0);
-    const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
-    const defaultTimeout: number = AppValues.defaultLoadingTimer;
     const [devData, setDevData] = useState<UserData>();
     const [expData, setExpData] = useState<UserExperienceDetails[]>();
     const currentTheme = useThemeStore();
@@ -43,14 +44,18 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
     const [userName, setUserName] = useState("");
     const [profilePostSearchMsg, setProfilePostSearchMsg] = useState("");
 
+    const globalLoaderStore = useLoaderStore();
+
     const fetchProfilePublicPosts = useCallback(async (pageSize: number, pageNumber: number, userId?: number) => {
         if (userId) {
+            globalLoaderStore.openLoader();
             apiFunctions.fetchProfilePublicPosts(pageSize, pageNumber, userId).then((res) => {
+                globalLoaderStore.closeLoader();
                 if (res.data.data) {
                     setTotalElements(res.data.totalElements);
                     setProfilePostSearchMsg('');
-                    ((pageNumber+1)*pageSize < res.data.totalElements)? setHasMore(true): setHasMore(false);
-                    setProfilePosts(prev=>[...prev, ...res.data.data]);
+                    ((pageNumber + 1) * pageSize < res.data.totalElements) ? setHasMore(true) : setHasMore(false);
+                    setProfilePosts(prev => [...prev, ...res.data.data]);
                 }
                 else {
                     setTotalElements(0);
@@ -59,6 +64,7 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
                     setHasMore(false);
                 }
             }).catch(err => {
+                globalLoaderStore.closeLoader();
                 setTotalElements(0);
                 setProfilePosts([]);
                 setProfilePostSearchMsg(errorSearchMessage);
@@ -76,35 +82,32 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
         setPageNumber(pageNumber + 1);
     }, [pageNumber, pageSize, fetchProfilePublicPosts, devData]);
 
-    const fetchUserData = useCallback(async (userName: string) => {
+    const fetchUserData = async (userName: string) => {
         if (userName && userName.trim() !== '') {
-            setUserDataLoading(true);
+            globalLoaderStore.openLoader();
             const response1: { data: UserData } = await apiFunctions.fetchUserDetailsByUserName(userName);
+            globalLoaderStore.closeLoader();
             if (response1?.data?.userId) {
+                globalLoaderStore.openLoader();
                 apiFunctions.fetchUserExperienceDetails(response1.data.userId).then((response2: { data?: UserExperienceDetails[] }) => {
+                    globalLoaderStore.closeLoader();
                     if (response2?.data) {
-                        setTimeout(() => {
-                            setDevData([response1.data][0]);
-                            if (response2 && response2.data) {
-                                setExpData(response2.data);
-                            }
-                        }, defaultTimeout)
+                        setDevData([response1.data][0]);
+                        if (response2 && response2.data) {
+                            setExpData(response2.data);
+                        }
                     }
                     else {
-                        setTimeout(() => {
-                            setDevData([response1.data][0]);
-                        }, defaultTimeout)
+                        setDevData([response1.data][0]);
                     }
                 }).catch(err => {
-                    setTimeout(() => {
-                        setDevData([response1.data][0]);
-                    }, defaultTimeout)
+                    globalLoaderStore.closeLoader();
+                    setDevData([response1.data][0]);
                 });
 
             }
-            setTimeout(() => { setUserDataLoading(false) }, defaultTimeout);
         }
-    }, [defaultTimeout]);
+    }
 
     useEffect(() => {
         const userName = searchParams.get('userName');
@@ -117,78 +120,88 @@ const ProfileComponent: React.FC<ProfileComponentProps> = (props: ProfileCompone
             const index = Number(postIndex);
             setPostIndex(isNaN(index) ? 0 : index);
         }
-    }, [searchParams, fetchUserData]);
+    }, [searchParams]);
 
     return (
         <MainLayoutComponent>
             <div className="mb-3">
                 {
                     !props.postDetailView ?
-                        (userDataLoading ? <SearchSkeleton></SearchSkeleton> :
-                            <React.Fragment>
-                                {devData != null ? <React.Fragment>
-                                    <div className='df js ac f100'>
-                                        <p className='headerl' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
-                                            Profile
-                                        </p>
-                                    </div>
-                                    <div className="roundedContainer f100 mb20">
-                                        <Card>
-                                            <div className={"df jsb as m-2 " + style.profileMainInfoContainer}>
-                                                <div className="df js ac gp30px">
-                                                    <Avatar className="avatar100" alt={devData?.firstName || ""} src={devData?.profilePictureUrl || ""} />
-                                                    <div>
-                                                        <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
-                                                            {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
-                                                        </Typography>
-                                                        <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
-                                                            {devData?.positionName}
-                                                        </Typography>
-                                                        {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
-                                                            return (<Typography key={'exp_' + index} className="ellipsis" variant="body2" color="text.secondary">
-                                                                {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
-                                                            </Typography>)
-                                                        })}
-                                                    </div>
+                        <React.Fragment>
+                            {devData != null ? <React.Fragment>
+                                <div className='df js ac f100'>
+                                    <p className='headerl mt-0' style={{ color: currentTheme.data.theme.palette?.text?.secondary }}>
+                                        Profile
+                                    </p>
+                                </div>
+                                <div className="roundedContainer f100 mb20">
+                                    <Card>
+                                        <div className={"df jsb as m-2 " + style.profileMainInfoContainer}>
+                                            <div className={"df js ac gp30px " + style.card_content_container}>
+                                                <div className={style.avatarContainer}>
+                                                    {devData.profilePictureUrl ?
+                                                        <Avatar className={style.avatar100} alt={devData.firstName || ""} src={s3BaseUrl + devData.profilePictureUrl || ""} /> :
+                                                        <div className={style.avatar100}>
+                                                            <p>{devData.firstName || ""}</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <Typography sx={{ color: 'text.primary' }} gutterBottom variant="h5" component="div">
+                                                        {devData?.firstName ? devData?.firstName : ""} {devData?.lastName ? devData?.lastName : ""}
+                                                    </Typography>
+                                                    <Typography sx={{ color: 'text.primary' }} variant="body2" color="text.secondary">
+                                                        {devData?.positionName}
+                                                    </Typography>
+                                                    {devData.userExperience?.filter(exp => exp.isCurrentOrganization).map((obj, index) => {
+                                                        return (<Typography key={'exp_' + index} className="ellipsis" variant="body2" color="text.secondary">
+                                                            {obj?.organizationName ? ('@' + obj?.organizationName) : ''}
+                                                        </Typography>)
+                                                    })}
                                                 </div>
                                             </div>
-                                            <CardContent>
-                                                {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
-                                                    Socials: {devData.websiteUrl}
-                                                </Typography> : null}
-                                                <Typography className="w90per" variant="body2" color="text.secondary">
-                                                    Experience: {devData?.experience} years
-                                                </Typography>
-                                                <Typography className="w90per" variant="body2" color="text.secondary">
-                                                    Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions>
-                                                <Tooltip title="Download">
-                                                    <Button variant="contained" size="small">
-                                                        <DownloadRoundedIcon></DownloadRoundedIcon>&nbsp;Download
-                                                    </Button>
-                                                </Tooltip>
-                                            </CardActions>
-                                        </Card>
-                                    </div>
-                                </React.Fragment> : <></>}
-                                <div className={`${style.postTabContainer}`}>
-                                    <TabsComponent>
-                                        <TabComponent index={0} label="Posts">
-                                            <InfiniteScrollComponent onScrollEnd={onSCrollEnd} hasMore={hasMore}>
-                                                <ProfilePostsComponent profilePosts={profilePosts}></ProfilePostsComponent>
-                                            </InfiniteScrollComponent>
-                                        </TabComponent>
-                                        <TabComponent index={1} label="Details">
-                                            <div className="mx-3">
-                                                <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
-                                            </div>
-                                        </TabComponent>
-                                    </TabsComponent>
+                                        </div>
+                                        <CardContent>
+                                            {devData?.websiteUrl ? <Typography className="w90per" variant="body2" color="text.secondary">
+                                                Socials: {devData.websiteUrl}
+                                            </Typography> : null}
+                                            <Typography className="w90per" variant="body2" color="text.secondary">
+                                                Experience: {devData?.experience} years
+                                            </Typography>
+                                            <Typography className="w90per" variant="body2" color="text.secondary">
+                                                Location: {devData?.cityName ? devData?.cityName + "," : ""} {devData?.stateName ? devData.stateName + "," : ""} {devData?.cityName ? devData.countryName + "," : ""}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Tooltip title="View">
+                                                <Button variant="contained" size="small">
+                                                    <PersonAddRoundedIcon></PersonAddRoundedIcon>&nbsp;Follow
+                                                </Button>
+                                            </Tooltip>
+                                            <Tooltip title="Download">
+                                                <Button variant="contained" size="small">
+                                                    <BlockRoundedIcon></BlockRoundedIcon>&nbsp;Block
+                                                </Button>
+                                            </Tooltip>
+                                        </CardActions>
+                                    </Card>
                                 </div>
-                            </React.Fragment>
-                        ) :
+                            </React.Fragment> : <></>}
+                            <div className={`${style.postTabContainer}`}>
+                                <TabsComponent>
+                                    <TabComponent index={0} label="Posts">
+                                        <InfiniteScrollComponent onScrollEnd={onSCrollEnd} hasMore={hasMore}>
+                                            <ProfilePostsComponent profilePosts={profilePosts}></ProfilePostsComponent>
+                                        </InfiniteScrollComponent>
+                                    </TabComponent>
+                                    <TabComponent index={1} label="Details">
+                                        <div className="mx-3">
+                                            <ProfileDetailsComponent devData={devData} expData={expData}></ProfileDetailsComponent>
+                                        </div>
+                                    </TabComponent>
+                                </TabsComponent>
+                            </div>
+                        </React.Fragment> :
                         <div className={`${style.postTabContainer} ${style.detailPostTabContainer}`}>
                             <ProfilePostsComponent
                                 profilePosts={profilePosts}

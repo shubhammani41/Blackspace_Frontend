@@ -80,6 +80,7 @@ const App: React.FC = () => {
 const GlobalComponents: React.FC = () => {
   return (
     <div>
+      <GlobalLoader></GlobalLoader>
       <AppHeader></AppHeader>
       <SigninDialog></SigninDialog>
       <AddBasicDetailsDialog></AddBasicDetailsDialog>
@@ -119,35 +120,35 @@ const RoutesComponent: React.FC = () => {
         <Routes location={location} key={location.pathname}>
           <Route path='/'
             element={
-              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <FeedModule></FeedModule>
               </Suspense>
             }>
           </Route>
           {/* <Route path='/signin'
             element={
-              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <AuthModule></AuthModule>
               </Suspense>
             }>
           </Route> */}
           <Route path='/profileSearch'
             element={
-              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <SearchModule></SearchModule>
               </Suspense>
             }>
           </Route>
           <Route path='/profile/*'
             element={
-              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <ProfileModule></ProfileModule>
               </Suspense>
             }>
           </Route>
           <Route path='/settings/*'
             element={
-              <Suspense fallback={<GlobalLoader></GlobalLoader>}>
+              <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <SettingsModule></SettingsModule>
               </Suspense>
             }>

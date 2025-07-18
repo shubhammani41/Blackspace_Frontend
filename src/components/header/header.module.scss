@@ -9,6 +9,12 @@
     z-index: 1000;
 }
 
+@media(max-width:576px){
+    .headerContainer {
+        background: transparent !important;
+    }
+}
+
 .headerInner {
     border-radius: var(--app-border-radius-s);
     padding: 12px;

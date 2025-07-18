@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './backButtonComponent.scss';
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { useMotionFramerStore } from '../../store/motionFramerAnimationStore';
 
 
@@ -14,7 +14,7 @@ const BackButtonComponent: React.FC = () => {
         }, 0)
         navigate(-1);
     }
-    return <ArrowBackRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830 me-1" onClick={goBack}></ArrowBackRoundedIcon>
+    return <ArrowBackIosNewRoundedIcon sx={{ color: 'text.secondary' }} className="headerIcoClamp2830 me-1" onClick={goBack}></ArrowBackIosNewRoundedIcon>
 }
 
 export { BackButtonComponent }
