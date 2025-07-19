@@ -197,12 +197,22 @@ fieldset {
   .fullwidthMobile {
     z-index: 9999 !important;
     .MuiDialog-paper{
-      width: 100vw;
-      height: 100vh;
-      max-width: 100vw;
-      max-height: 100vh;
-      min-width: 100vw;
-      min-height: 100vh;
+      width: 100dvw;
+width: 100vw;
+      height: 100dvh;
+height: 100vh;
+      max-width: 100dvw;
+max-width: 100vw;
+width: 100vw;
+      max-heigh: 100dvh;
+max-heigh: 100vh;
+height: 100vh;
+      min-width: 100dvw;
+min-width: 100vw;
+width: 100vw;
+      min-height: 100dvh;
+min-height: 100vh;
+height: 100vh;
     }
   }
 }
