@@ -17,7 +17,7 @@ const NotFound: React.FC = () => {
         }
     }, [countDown])
     return (
-        <div className="df jc ac h100dvh">
+        <div className="df jc ac h100vh">
             <div className="df jc ac fw">
                 <div className="df jc ac f100">
                     <p className="errorText">
