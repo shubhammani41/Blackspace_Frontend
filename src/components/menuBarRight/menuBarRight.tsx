@@ -19,8 +19,8 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
         {userLoginDataStore?.data.isUserLoggedIn ?
             <></> :
             <Button className="mw0px menuBarInnerItems">
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
-                <Typography className='menuItemLabel leftAlignedText' variant="body2">Offline!</Typography>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+                <Typography className='menuItemLabel leftAlignedText' variant="body2">You are offline!</Typography>
             </Button>
         }
     </>
@@ -28,9 +28,9 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
     const profileSettingContainerVertical = <>
         {userLoginDataStore?.data.isUserLoggedIn ?
             <></> :
-            <Button className={"mw0px menuBarInnerItems" + (currentTheme.data.mode === ThemeMode.Light ? ' lightModeBanner' : ' darkModeBanner')}>
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
-                <Typography className='menuItemLabel leftAlignedText' variant="body2">Offline!</Typography>
+            <Button className={"mw0px menuBarInnerItems"}>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+                <Typography className='menuItemLabel leftAlignedText' variant="body2">You are offline!</Typography>
             </Button>
         }
     </>
@@ -80,6 +80,9 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
                     </svg>
                     <Typography className='menuItemLabel ellipsis' variant="body2">pushspamUzumaki</Typography>
                 </Button>
+                <div className="m-0" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper, width: '100%' }}>
+                    <hr className="m-0"></hr>
+                </div>
                 {props.mode === "horizontal" ?
                     profileSettingContainerHorizontal :
                     profileSettingContainerVertical

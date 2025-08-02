@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import './mainBarLayoutComponent.scss';
 import { AppBar } from '@mui/material';
+import useThemeStore from '../../themeToggleBtn/store/themeStore';
 
 export interface MainBarLayoutComponentProps {
     children: ReactNode[] | ReactNode;
@@ -8,15 +9,16 @@ export interface MainBarLayoutComponentProps {
 }
 
 const MainBarLayoutComponent: React.FC<MainBarLayoutComponentProps> = (props: MainBarLayoutComponentProps) => {
+    const themeStore = useThemeStore();
     return (
-        <AppBar className={''+(props.position==='BOTTOM'?'bottom':'')} sx={{ backgroundColor: 'transparent', padding: '0px', paddingRight: '0px !important', paddingTop: '8px' }}>
-            <div className="row gx-0 px-2">
-                <div className="col-lg-1 d-lg-block d-none">
+        <AppBar className={''+(props.position==='BOTTOM'?'bottom':'')} sx={{ backgroundColor: themeStore.data.theme.palette?.background?.paper, padding: '0px', paddingRight: '0px !important', paddingTop: '8px' }}>
+            <div className="row gx-0">
+                <div className="col-xl-1 d-lg-block d-none">
                 </div>
-                <div className="col-lg-10 col-sm-12">
+                <div className="col-xl-10 col-sm-12">
                     {props.children}
                 </div>
-                <div className="col-lg-1 d-lg-block d-none">
+                <div className="col-xl-1 d-lg-block d-none">
                 </div>
             </div>
         </AppBar>)

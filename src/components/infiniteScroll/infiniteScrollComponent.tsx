@@ -25,12 +25,12 @@ const InfiniteScrollComponent: React.FC<InfiniteScrollComponentProps> = (props: 
     }, [scrollEnd])
 
     useEffect(() => {
-        window.removeEventListener('scrollend', handleScroll);
+        window.removeEventListener('scroll', handleScroll);
         if (hasMore) {
-            window.addEventListener('scrollend', handleScroll);
+            window.addEventListener('scroll', handleScroll);
         }
         return () => {
-            window.removeEventListener('scrollend', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         }
     }, [hasMore, handleScroll]);
     return (

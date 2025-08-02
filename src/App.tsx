@@ -1,6 +1,6 @@
 import React, { ElementType, Suspense, lazy, useEffect } from 'react';
 import './App.scss';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFound } from './components/notFound/notFound';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import useThemeStore from './components/themeToggleBtn/store/themeStore';
@@ -118,7 +118,8 @@ const RoutesComponent: React.FC = () => {
         }}
       >
         <Routes location={location} key={location.pathname}>
-          <Route path='/'
+          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path='/home'
             element={
               <Suspense fallback={<GlobalLoader static={true}></GlobalLoader>}>
                 <FeedModule></FeedModule>

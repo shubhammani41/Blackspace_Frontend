@@ -30,7 +30,7 @@ const MenuBarBottom: React.FC = () => {
     return (
         <div className={"menuBarBottomContainer row gx-0 px-2" + (isHidden ? " bottomBarHidden" : "")} style={{ "backgroundColor": 'transparent' }}>
             <MainBarLayoutComponent position='BOTTOM'>
-                <div className="menuBarBottomContainerInner df js as d-md-none" style={{ "backgroundColor": currentTheme.data.theme.palette?.background?.paper }}>
+                <div className="menuBarBottomContainerInner df js as d-sm-none" style={{ "backgroundColor": currentTheme.data.theme.palette?.background?.paper }}>
                     <MenuBarInner mode="horizontal"></MenuBarInner>
                 </div>
             </MainBarLayoutComponent>

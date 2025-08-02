@@ -1,8 +1,7 @@
 .headerContainer {
-    padding: 10px 10px;
     position: fixed;
     width: 100vw;
-width: 100dvw;
+    width: 100dvw;
     top: 0;
     left: 0;
     transition: transform 0.4s ease-in-out;
@@ -10,7 +9,7 @@ width: 100dvw;
     z-index: 1000;
 }
 
-@media(max-width:576px){
+@media(max-width:576px) {
     .headerContainer {
         background: transparent !important;
     }
@@ -18,7 +17,7 @@ width: 100dvw;
 
 .headerInner {
     border-radius: var(--app-border-radius-s);
-    padding: 12px;
+    padding: 5px 12px 14px;
     box-shadow: var(--shadow-down-s-transparent);
     transition: all 0.4s ease-in-out;
     display: flex;
@@ -30,10 +29,12 @@ width: 100dvw;
     .headerHidden {
         padding: 5px 10px;
         transform: translateY(-15px);
-        .headerInner{
+
+        .headerInner {
             padding: 14px 12px 5px;
             transition: all 0.4s ease-in-out;
         }
+
         transition: all 0.4s ease-in-out;
     }
 }
@@ -59,7 +60,7 @@ width: 100dvw;
     width: 2vw !important;
     height: 2vw !important;
     max-width: 40px;
-    max-heightt: 40px;
+    max-height: 40px;
     min-width: 25px;
     min-height: 25px;
     cursor: pointer;
@@ -99,23 +100,24 @@ width: 100dvw;
     justify-content: end;
     align-items: center;
     gap: 0px;
-    button{
+
+    button {
         padding: 2px;
     }
 }
 
 .mw0px {
     min-width: 0px !important;
-  }
+}
 
-.logoContainer{
+.logoContainer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

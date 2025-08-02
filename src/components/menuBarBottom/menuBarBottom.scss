@@ -3,7 +3,7 @@
     height: 24px !important;
 }
 
-.menuBarBottomContainer{
+.menuBarBottomContainer {
     bottom: 0px;
     position: fixed;
     left: 0px;
@@ -11,21 +11,24 @@
     width: 100%;
     transition: all 0.4s ease-in-out;
     padding-bottom: 8px;
-    .menuBarBottomContainerInner{
+
+    .menuBarBottomContainerInner {
         box-shadow: var(--shadow-down-s-transparent);
         border-radius: var(--app-border-radius-s);
         overflow: hidden;
-        padding: 8px 8px;
+        padding: 14px 12px 5px;
         transition: all 0.4s ease-in-out;
     }
 }
 
-.menuBarBottomContainer.bottomBarHidden{
+.menuBarBottomContainer.bottomBarHidden {
     transform: translateY(20px);
-    .menuBarBottomContainerInner{
-        padding: 2px 8px 12px;
+
+    .menuBarBottomContainerInner {
+        padding: 0px 12px 19px;
         transition: all 0.4s ease-in-out;
     }
+
     transition: all 0.4s ease-in-out;
 }
 
@@ -45,6 +48,6 @@
     filter: invert(1);
 }
 
-.dsBlock{
+.dsBlock {
     display: block;
 }

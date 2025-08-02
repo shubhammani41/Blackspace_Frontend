@@ -18,25 +18,25 @@ const MenuBarInner: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
     const profileSettingContainerHorizontal = <>
         {userLoginDataStore?.data.isUserLoggedIn ?
             <Button className="mw0px menuBarInnerItems">
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
                 <Typography className='menuItemLabel leftAlignedText' variant="body2">{userLoginDataStore?.data.userDetails?.userProfileDetails?.firstName || 'Tell us more about yourself!'}</Typography>
             </Button> :
             <Button className="mw0px menuBarInnerItems">
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
-                <Typography className='menuItemLabel leftAlignedText' variant="body2">You gotta signin first!</Typography>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+                <Typography className='menuItemLabel leftAlignedText' variant="body2">Signin here!</Typography>
             </Button>
         }
     </>
 
     const profileSettingContainerVertical = <>
         {userLoginDataStore?.data.isUserLoggedIn ?
-            <Button className={"mw0px menuBarInnerItems" + (currentTheme.data.mode === ThemeMode.Light ? ' lightModeBanner' : ' darkModeBanner')}>
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+            <Button className={"mw0px menuBarInnerItems"}>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
                 <Typography className='menuItemLabel leftAlignedText' variant="body2">{userLoginDataStore?.data.userDetails?.userProfileDetails?.firstName || 'Tell us more about yourself!'}</Typography>
             </Button> :
-            <Button className={"mw0px menuBarInnerItems" + (currentTheme.data.mode === ThemeMode.Light ? ' lightModeBanner' : ' darkModeBanner')}>
-                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={props.mode === 'vertical' ? 'profileannerIconClamp' : 'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
-                <Typography className='menuItemLabel leftAlignedText' variant="body2">You gotta signin first!</Typography>
+            <Button className={"mw0px menuBarInnerItems"}>
+                <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className={'menuBarInnerIcoClamp2830'}></AccountCircleRoundedIcon>
+                <Typography className='menuItemLabel leftAlignedText' variant="body2">Signin here!</Typography>
             </Button>
         }
     </>
@@ -65,6 +65,9 @@ const MenuBarInner: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
                     </svg>
                     <Typography className='menuItemLabel ellipsis' variant="body2">Messages</Typography>
                 </Button>
+                <div className="m-0 d-none d-sm-block" style={{ backgroundColor: currentTheme.data.theme.palette?.background?.paper, width: '100%' }}>
+                    <hr className="m-0"></hr>
+                </div>
                 {props.mode === "horizontal" ?
                     profileSettingContainerHorizontal :
                     profileSettingContainerVertical

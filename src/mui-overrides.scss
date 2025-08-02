@@ -179,12 +179,13 @@ fieldset {
   padding: 8px 24px !important;
 }
 
-.MuiPopover-paper{
+.MuiPopover-paper {
   box-shadow: var(--shadow-down-s-transparent) !important;
 }
 
-.MuiList-root .MuiMenuItem-root{
+.MuiList-root .MuiMenuItem-root {
   padding: 0px !important;
+
   button {
     width: 100% !important;
     display: flex !important;
@@ -196,24 +197,26 @@ fieldset {
 @media (max-width: 768px) {
   .fullwidthMobile {
     z-index: 9999 !important;
-    .MuiDialog-paper{
+
+    .MuiDialog-paper {
       width: 100vw;
-width: 100dvw;
+      width: 100dvw;
       height: 100vh;
-height: 100dvh;
+      height: 100dvh;
       max-width: 100vw;
-max-width: 100dvw;
-width: 100dvw;
+      max-width: 100dvw;
+      width: 100dvw;
       max-height: 100vh;
-max-height: 100dvh;
-height: 100dvh;
+      max-height: 100dvh;
+      height: 100dvh;
       min-width: 100vw;
-min-width: 100dvw;
-width: 100dvw;
+      min-width: 100dvw;
+      width: 100dvw;
       min-height: 100vh;
-min-height: 100dvh;
-height: 100dvh;
+      min-height: 100dvh;
+      height: 100dvh;
     }
   }
 }
+
 /* mui override ends */

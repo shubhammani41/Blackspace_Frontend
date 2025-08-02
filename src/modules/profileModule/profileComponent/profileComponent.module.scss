@@ -6,14 +6,15 @@
     .postTabContainer {
         position: absolute;
         width: 100vw;
-width: 100dvw;
+        width: 100dvw;
         left: 0px;
+        padding-bottom: 55px;
     }
 }
 
 @media (max-width: 576px) {
     .detailPostTabContainer {
-        top: 80px;
+        top: 59px;
         padding-bottom: 70px;
     }
 }
@@ -41,7 +42,7 @@ width: 100dvw;
     }
 }
 
-@media (min-width: 600px) and  (max-width: 769px) {
+@media (min-width: 600px) and (max-width: 769px) {
     .avatarContainer {
         padding: 10%;
         display: flex;
@@ -52,7 +53,7 @@ width: 100dvw;
     }
 }
 
-@media (min-width: 769px) and  (max-width: 1800px) {
+@media (min-width: 769px) and (max-width: 1800px) {
     .avatarContainer {
         padding: 12%;
         display: flex;
