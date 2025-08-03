@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
-    if (!config?.url?.startsWith('/public')) {
+    if (!config?.url?.startsWith('/public') && !config?.url?.startsWith('https://countriesnow.space')) {
       const token = getTokenFromLocalStorage();
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;

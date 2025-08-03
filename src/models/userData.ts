@@ -1,24 +1,24 @@
 interface UserProfile {
-        userId?: number;
-        firstName?: string;
-        lastName?: string;
-        dateOfBirth?: Date | string;
-        gender?: "MALE" | "FEMALE" | "OTHER";
-        profilePictureUrl?: string;
-        bio?: string;
-        websiteUrl?: string;
-        userName?: string;
-        countryId?: number;
-        stateId?: number;
-        cityId?: number;
-        roleId?: number;
-        positionId?: number;
-        skillIds?: string;
-        isPhonePrivate?: boolean;
-        isEmailPrivate?: boolean;
-        createdAt?: Date | string;
-        updatedAt?: Date | string;
-        updatedBy?: number;
+    userId?: number;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: Date | string;
+    gender?: "MALE" | "FEMALE" | "OTHER";
+    profilePictureUrl?: string;
+    bio?: string;
+    websiteUrl?: string;
+    userName?: string;
+    countryName?: string;
+    stateName?: string;
+    cityName?: string;
+    roleId?: number;
+    positionId?: number;
+    skillIds?: string;
+    isPhonePrivate?: boolean;
+    isEmailPrivate?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    updatedBy?: number;
 }
 
 interface UserLogin {
@@ -45,15 +45,9 @@ interface UserData extends UserProfile {
     userName?: string;
     skills?: UserSkill[];
     userExperience?: UserExperience[];
-    countryName?: string;
-    stateName?: string;
-    cityName?: string;
     positionName?: string;
     industryName?: string;
     roleId?: number;
-    countryId?: number;
-    cityId?: number;
-    stateId?: number;
     positionId?: number;
     industryId?: number;
     roleName?: String;

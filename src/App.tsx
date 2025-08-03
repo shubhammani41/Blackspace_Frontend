@@ -34,10 +34,10 @@ const App: React.FC = () => {
   const verifyUserDataFromLocalAndSignin = () => {
     let userData = getUserDataFromLocalStorage();
     if (userData?.userLoginDetails?.userDetails?.userId && userData?.userLoginDetails?.token) {
-      userLoginDataStore.updateUserData({ userLoginDetails: userData.userLoginDetails, ...userLoginDataStore.data.userDetails });
+      userLoginDataStore.updateUserData({ userLoginDetails: userData.userLoginDetails});
       apiFunctions.fetchUserProfileByUserLoginId(userData.userLoginDetails.userDetails.userId).then(res => {
-        if (res?.data?.userId && userLoginDataStore?.data?.userDetails) {
-          userLoginDataStore.updateUserData({ userProfileDetails: res.data, ...userLoginDataStore.data.userDetails });
+        if (res?.data?.userId && userData?.userLoginDetails?.userDetails?.userProfileId) {
+          userLoginDataStore.updateUserData({ userProfileDetails: res.data, userLoginDetails: userData.userLoginDetails });
         }
         else {
           addBasicDetailsDialogStore.openDialog();

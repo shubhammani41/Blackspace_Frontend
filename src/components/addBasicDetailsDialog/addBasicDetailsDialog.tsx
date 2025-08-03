@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
 import useAddBasicDetailsDialogStore from "./store/addBasicDetailsDialogStotre"
 import useThemeStore from "../themeToggleBtn/store/themeStore";
 import moment from "moment";
@@ -7,6 +7,9 @@ import apiFunctions from "../../constants/apiFunctions";
 import useUserLoginDataStore from "../../store/userLoginDetailsStore";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styles from './addBasicDetailsDialog.module.scss';
+import { useCallback, useEffect, useState } from "react";
+import { Country, State } from "../../models/locationData";
+import useLoaderStore from "../globalLoader/store/globalLoaderStore";
 const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
@@ -20,6 +23,66 @@ const AddBasicDetailsDialog: React.FC = () => {
             })
         }
     }
+    const loaderStore = useLoaderStore();
+
+    const [countryList, setCountryList] = useState<Country[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<string>('');
+    const fetchCountryList = () => {
+        loaderStore.openLoader();
+        apiFunctions.fetchCountriesWithCodes().then(res => {
+            loaderStore.closeLoader();
+            setCountryList(res.data);
+        }).catch(err => {
+            loaderStore.closeLoader();
+            setCountryList([]);
+        })
+    }
+    const countryChange = (event: SelectChangeEvent) => {
+        setSelectedCountry(event.target.value);
+        setSelectedState('');
+        setSelectedCity('');
+        setCityList([]);
+        fetchStateList(event.target.value);
+    };
+
+    const [stateList, setStateList] = useState<State[]>([]);
+    const [selectedState, setSelectedState] = useState<string>('');
+    const fetchStateList = (state: string) => {
+        loaderStore.openLoader();
+        apiFunctions.fetchStatesOfCountry(state).then(res => {
+            loaderStore.closeLoader();
+            setStateList(res.data.states);
+        }).catch(err => {
+            loaderStore.closeLoader();
+            setStateList([]);
+        })
+    }
+    const stateChange = useCallback((event: SelectChangeEvent) => {
+        setSelectedState(event.target.value);
+        setSelectedCity('');
+        fetchCityList(selectedCountry, event.target.value);
+    }, [selectedCountry]);
+
+    const [cityList, setCityList] = useState<string[]>([]);
+    const [selectedCity, setSelectedCity] = useState<string>('');
+    const fetchCityList = (country: string, state: string) => {
+        loaderStore.openLoader();
+        apiFunctions.fetchCitiesOfStateOfCountry(country, state).then(res => {
+            loaderStore.closeLoader();
+            setCityList(res.data);
+        }).catch(err => {
+            loaderStore.closeLoader();
+            setCityList([]);
+        })
+    }
+    const cityChange = (event: SelectChangeEvent) => {
+        setSelectedCity(event.target.value);
+    };
+
+
+    useEffect(() => {
+        fetchCountryList();
+    }, [])
     return <div>
         <Dialog className="fullwidthMobile"
             open={addBasicDetailsDialogStore.data.dialogState}
@@ -105,9 +168,12 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="Country"
                     variant="filled"
                     defaultValue={''}
+                    onChange={countryChange}
                 >
-                    <MenuItem value={'1'}>USA</MenuItem>
-                    <MenuItem value={'2'}>India</MenuItem>
+                    {countryList.map((country, i) => {
+                        return <MenuItem key={"country_" + i} value={country.name}>{country.name} ({country.code})</MenuItem>
+                    }
+                    )}
                 </Select>
                 <InputLabel id="state">State</InputLabel>
                 <Select className="w100per thinInput select mb-2"
@@ -115,9 +181,12 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="State"
                     variant="filled"
                     defaultValue={''}
+                    onChange={stateChange}
                 >
-                    <MenuItem value={'1'}>Uttar Pradesh</MenuItem>
-                    <MenuItem value={'2'}>Delhi</MenuItem>
+                    {stateList.map((state, i) => {
+                        return <MenuItem key={"state" + i} value={state.name}>{state.name} ({state.state_code})</MenuItem>
+                    }
+                    )}
                 </Select>
                 <InputLabel id="city">City</InputLabel>
                 <Select className="w100per thinInput select mb-2"
@@ -125,9 +194,12 @@ const AddBasicDetailsDialog: React.FC = () => {
                     label="City"
                     variant="filled"
                     defaultValue={''}
+                    onChange={cityChange}
                 >
-                    <MenuItem value={'1'}>Gorakhpur</MenuItem>
-                    <MenuItem value={'2'}>Noida</MenuItem>
+                    {cityList.map((city, i) => {
+                        return <MenuItem key={"city" + i} value={city}>{city}</MenuItem>
+                    }
+                    )}
                 </Select>
             </DialogContent>
             <DialogActions>

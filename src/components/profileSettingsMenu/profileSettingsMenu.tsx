@@ -20,7 +20,8 @@ const ProfileSettingsMenu: React.FC = () => {
         userLoginDataStore.clearUserData();
         apiFunctions.logout()
             .then(() => {
-                navigate('/signin');
+                navigate('/home');
+                window.location.reload();
             })
             .catch((err) => {
                 console.log(err);

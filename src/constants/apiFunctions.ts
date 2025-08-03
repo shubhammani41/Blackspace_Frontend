@@ -1,5 +1,6 @@
 import axiosInstance from "../config/axiosConfig";
 import { firebaseAuth } from "../config/firebaseConfig";
+import { CitiesResponse, CountriesResponse, StatesResponse } from "../models/locationData";
 import { PostListReponse } from "../models/postData";
 import { UserData, UserListResponse } from "../models/userData";
 import { UserExperienceDetails } from "../models/userExperience";
@@ -155,6 +156,48 @@ const apiFunctions = {
             });
         });
     },
+    fetchCountriesWithCodes: async () => {
+        return new Promise<CountriesResponse>((resolve, reject) => {
+            axiosInstance.get('https://countriesnow.space/api/v0.1/countries/codes').then((response: any) => {
+                if (response?.data) {
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    fetchStatesOfCountry: async (country: string) => {
+        return new Promise<StatesResponse>((resolve, reject) => {
+            axiosInstance.post('https://countriesnow.space/api/v0.1/countries/states', { country: country }).then((response: any) => {
+                if (response?.data?.states) {
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    fetchCitiesOfStateOfCountry: async (country: string, state: String) => {
+        return new Promise<CitiesResponse>((resolve, reject) => {
+            axiosInstance.post('https://countriesnow.space/api/v0.1/countries/state/cities', { country: country, state: state }).then((response: any) => {
+                if (response?.data) {
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
 }
 
 export default apiFunctions;

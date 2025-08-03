@@ -186,7 +186,7 @@ const SearchComponent: React.FC = () => {
                                                             </Typography>)
                                                         })}
                                                         <Typography className="ellipsis" variant="body2" color="text.secondary">
-                                                            Location: {devData.cityName ? devData.cityName + "," : ""} {devData.stateName ? devData.stateName + "," : ""} {devData.cityName ? devData.countryName + "," : ""}
+                                                            Location: {devData.cityName ? (devData.cityName + ",") : ""} {devData.stateName ? (devData.stateName + ",") : ""} {devData.cityName ? devData.countryName : ""}
                                                         </Typography>
                                                     </div>
                                                 </div>

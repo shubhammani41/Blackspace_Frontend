@@ -196,7 +196,7 @@ fieldset {
 
 @media (max-width: 768px) {
   .fullwidthMobile {
-    z-index: 9999 !important;
+    // z-index: 9999 !important;
 
     .MuiDialog-paper {
       width: 100vw;
@@ -217,6 +217,14 @@ fieldset {
       height: 100dvh;
     }
   }
+}
+
+.MuiPickersPopper-root{
+  z-index: 9999 !important;
+}
+
+.MuiMenu-paper{
+  max-height: 500px !important;
 }
 
 /* mui override ends */

@@ -41,7 +41,7 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
                 <Button className="mw0px menuBarInnerItems">
                     <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className="menuBarInnerIcoClamp2830"></AccountCircleRoundedIcon>
                     <svg className='online_icon' height="256px" width="256px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.955 31.955" fill="#000000">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
                             <g>
                                 <path fill='#4dff00' d="M27.25,4.655C20.996-1.571,10.88-1.546,4.656,4.706C-1.571,10.96-1.548,21.076,4.705,27.3 c6.256,6.226,16.374,6.203,22.597-0.051C33.526,20.995,33.505,10.878,27.25,4.655z"></path>
@@ -55,7 +55,7 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
                 <Button className="mw0px menuBarInnerItems">
                     <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className="menuBarInnerIcoClamp2830"></AccountCircleRoundedIcon>
                     <svg className='online_icon' height="256px" width="256px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.955 31.955" fill="#000000">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
                             <g>
                                 <path fill='#4dff00' d="M27.25,4.655C20.996-1.571,10.88-1.546,4.656,4.706C-1.571,10.96-1.548,21.076,4.705,27.3 c6.256,6.226,16.374,6.203,22.597-0.051C33.526,20.995,33.505,10.878,27.25,4.655z"></path>
@@ -69,7 +69,7 @@ const MenuBarRight: React.FC<MenuBarInnerProps> = (props: MenuBarInnerProps) => 
                 <Button className="mw0px menuBarInnerItems">
                     <AccountCircleRoundedIcon sx={{ color: 'text.secondary' }} className="menuBarInnerIcoClamp2830"></AccountCircleRoundedIcon>
                     <svg className='online_icon' height="256px" width="256px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.955 31.955" fill="#000000">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
                             <g>
                                 <path fill='#4dff00' d="M27.25,4.655C20.996-1.571,10.88-1.546,4.656,4.706C-1.571,10.96-1.548,21.076,4.705,27.3 c6.256,6.226,16.374,6.203,22.597-0.051C33.526,20.995,33.505,10.878,27.25,4.655z"></path>

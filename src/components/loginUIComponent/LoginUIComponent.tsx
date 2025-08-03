@@ -23,8 +23,8 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const currentTheme = useThemeStore();
     const themeMode = useMemo<string | null>(() => {
-            return currentTheme?.data?.mode ? currentTheme.data.mode : null;
-        }, [currentTheme]);
+        return currentTheme?.data?.mode ? currentTheme.data.mode : null;
+    }, [currentTheme]);
 
     const firebaseUIConfig = {
         signInSuccessUrl: props?.redirectURL ?? '',
@@ -44,17 +44,17 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
                                 userLoginDataStore.updateUserData({ userLoginDetails: res.data, userProfileDetails: userLoginDataStore?.data?.userDetails?.userProfileDetails });
                                 if (res.data.userDetails?.userId) {
                                     apiFunctions.fetchUserProfileByUserLoginId(res.data.userDetails.userId).then(response => {
-                                        if (response?.data?.userId && userLoginDataStore?.data?.userDetails) {
-                                            userLoginDataStore.updateUserData({ userProfileDetails: response.data, ...userLoginDataStore.data.userDetails })
+                                        if (response?.data?.userId && res?.data?.userDetails?.userProfileId) {
+                                            userLoginDataStore.updateUserData({ userProfileDetails: response.data, userLoginDetails: res?.data });
                                         }
                                         else {
                                             addBasicDetailsDialogStore.openDialog();
-                                            if (props?.onSuccess) {
-                                                props.onSuccess(res);
-                                            }
-                                            if (props?.redirectURL) {
-                                                navigate(props.redirectURL);
-                                            }
+                                        }
+                                        if (props?.onSuccess) {
+                                            props.onSuccess(res);
+                                        }
+                                        if (props?.redirectURL) {
+                                            navigate(props.redirectURL);
                                         }
                                     }, rej => {
                                         if (rej === 'error') {
@@ -116,8 +116,8 @@ const LoginUIComponent: React.FC<LoginUIComponentProp> = (props: LoginUIComponen
     return (
         <div className={styles.loginUIContainer + ' ' + (!isLoginCardReady ? " hidden" : "")}>
             <div className={styles.logoContainer}>
-                    <img src={LogoTr} className={styles.loginLogoIco + ' ' + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? styles.logoIcoInvert : '')}></img>
-                </div>
+                <img src={LogoTr} className={styles.loginLogoIco + ' ' + ((themeMode === ThemeMode.Dark || themeMode === ThemeMode.Blue || themeMode === ThemeMode.Red) ? styles.logoIcoInvert : '')}></img>
+            </div>
             <div className={styles.singInButtonContainer}>
                 <div id="firebaseui-auth-container"></div>
                 <div className="df jc ac f100">
