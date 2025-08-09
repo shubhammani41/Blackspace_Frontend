@@ -17,7 +17,7 @@ const useLoaderStore: UseBoundStore<StoreApi<LoaderStore>> = create((set) => ({
     openLoader: () => set(() => ({ state: LoaderState.open })),
     closeLoader: () => setTimeout(()=>{
         set(() => ({ state: LoaderState.closed }))
-    },1000)
+    },1500)
 }));
 
 export { defaultState };
