@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
 import useAddBasicDetailsDialogStore from "./store/addBasicDetailsDialogStotre"
 import useThemeStore from "../themeToggleBtn/store/themeStore";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import apiFunctions from "../../constants/apiFunctions";
 import useUserLoginDataStore from "../../store/userLoginDetailsStore";
@@ -10,19 +10,48 @@ import styles from './addBasicDetailsDialog.module.scss';
 import { useCallback, useEffect, useState } from "react";
 import { Country, State } from "../../models/locationData";
 import useLoaderStore from "../globalLoader/store/globalLoaderStore";
+import { useForm } from "react-hook-form";
+import { UserData } from "../../models/userData";
 const AddBasicDetailsDialog: React.FC = () => {
     const addBasicDetailsDialogStore = useAddBasicDetailsDialogStore();
     const userLoginDataStore = useUserLoginDataStore();
     const currentTheme = useThemeStore();
-    const saveBasicDetailsByUserLoginId = async () => {
-        if (userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId) {
-            apiFunctions.saveBasicDetailsByUserLoginId({ firstName: "name" }).then(res => {
-                addBasicDetailsDialogStore.closeDialog();
-            }).catch(err => {
-                console.log(err);
-            })
+    const defaultDate: Moment | null = moment();
+    const {
+        register: basicDetailForm,
+        getValues: getBasicDetailFormValues,
+        setValue: setBasicDetailFormValues,
+        formState: { errors: basicDetailFormErrors },
+        trigger: basicDetailFormTrigger } = useForm({
+            mode: "onChange",
+            defaultValues: {
+                'userName': '',
+                'firstName': '',
+                'lastName': '',
+                'gender': '',
+                'countryName': '',
+                'stateName': '',
+                'cityName': '',
+                'dob': new Date()
+            }
+        });
+    const saveBasicDetailsByUserLoginId = useCallback(async () => {
+        if (Object.keys(basicDetailFormErrors).length === 0) {
+            const gender = getBasicDetailFormValues().gender as 'MALE' | 'FEMALE' | 'OTHER' | undefined;
+            const payload: UserData = { ...getBasicDetailFormValues(), gender: gender, userId: userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId }
+            if (userLoginDataStore.data.userDetails?.userLoginDetails.userDetails?.userId) {
+                apiFunctions.saveBasicDetailsByUserLoginId(payload).then(res => {
+                    userLoginDataStore.updateUserData({
+                        userLoginDetails: userLoginDataStore.data.userDetails?.userLoginDetails!,
+                        userProfileDetails: res.data
+                    })
+                    addBasicDetailsDialogStore.closeDialog();
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
         }
-    }
+    }, [getBasicDetailFormValues, basicDetailFormErrors, userLoginDataStore.data, basicDetailFormTrigger])
     const loaderStore = useLoaderStore();
 
     const [countryList, setCountryList] = useState<Country[]>([]);
@@ -81,6 +110,7 @@ const AddBasicDetailsDialog: React.FC = () => {
 
 
     useEffect(() => {
+        basicDetailFormTrigger();
         fetchCountryList();
     }, [])
     return <div>
@@ -101,6 +131,8 @@ const AddBasicDetailsDialog: React.FC = () => {
             </DialogTitle>
             <DialogContent>
                 <TextField
+                    required
+                    {...basicDetailForm("userName", { required: "Username is required" })}
                     id="userName"
                     label="User Name"
                     variant="filled"
@@ -115,6 +147,8 @@ const AddBasicDetailsDialog: React.FC = () => {
                     }}
                 />
                 <TextField
+                    required
+                    {...basicDetailForm("firstName", { required: "First name is required" })}
                     id="firstName"
                     label="First Name"
                     variant="filled"
@@ -129,6 +163,8 @@ const AddBasicDetailsDialog: React.FC = () => {
                     }}
                 />
                 <TextField
+                    required
+                    {...basicDetailForm("lastName", { required: "Last name is required" })}
                     id="lastName"
                     label="Last Name"
                     variant="filled"
@@ -142,9 +178,15 @@ const AddBasicDetailsDialog: React.FC = () => {
                         ),
                     }}
                 />
+                <input
+                    required
+                    type="hidden"
+                    {...basicDetailForm("dob", { required: "Date of birth is required" })}
+                />
                 <DesktopDatePicker className="thinInput date mb-2"
-                    label="Select Date"
+                    label="Select Date of birth *"
                     defaultValue={moment()}
+                    onChange={(date: Moment | null) => { setBasicDetailFormValues("dob", date?.toDate() ?? new Date(), { shouldValidate: true }); basicDetailFormTrigger("dob"); }}
                     slotProps={{
                         textField: {
                             variant: "filled",
@@ -152,8 +194,15 @@ const AddBasicDetailsDialog: React.FC = () => {
                         },
                     }}
                 />
-                <InputLabel id="gender">Choose gender</InputLabel>
+                <InputLabel id="gender">Choose gender *</InputLabel>
+                <input
+                    required
+                    type="hidden"
+                    {...basicDetailForm("gender", { required: "Gender is required" })}
+                />
                 <Select className="w100per thinInput select mb-2"
+                    {...basicDetailForm("gender", { required: "Gender is required" })}
+                    onChange={(event: SelectChangeEvent) => { setBasicDetailFormValues("gender", event.target.value, { shouldValidate: true }); basicDetailFormTrigger("gender"); }}
                     labelId="gender"
                     label="Gender"
                     variant="filled"
@@ -162,39 +211,56 @@ const AddBasicDetailsDialog: React.FC = () => {
                     <MenuItem value={'MALE'}>Male</MenuItem>
                     <MenuItem value={'FEMALE'}>Female</MenuItem>
                 </Select>
-                <InputLabel id="country">Country</InputLabel>
+                <input
+                    required
+                    type="hidden"
+                    {...basicDetailForm("countryName", { required: "Country name is required" })}
+                />
+                <InputLabel id="country">Country *</InputLabel>
                 <Select className="w100per thinInput select mb-2"
+                    {...basicDetailForm("countryName", { required: "Country name is required" })}
+                    onChange={(event: SelectChangeEvent) => { countryChange(event); setBasicDetailFormValues("countryName", event.target.value, { shouldValidate: true }); basicDetailFormTrigger("countryName"); }}
                     labelId="country"
                     label="Country"
                     variant="filled"
                     defaultValue={''}
-                    onChange={countryChange}
                 >
                     {countryList.map((country, i) => {
                         return <MenuItem key={"country_" + i} value={country.name}>{country.name} ({country.code})</MenuItem>
                     }
                     )}
                 </Select>
+                <input
+                    required
+                    type="hidden"
+                    {...basicDetailForm("stateName")}
+                />
                 <InputLabel id="state">State</InputLabel>
                 <Select className="w100per thinInput select mb-2"
+                    onChange={(event: SelectChangeEvent) => { stateChange(event); setBasicDetailFormValues("stateName", event.target.value, { shouldValidate: true }); basicDetailFormTrigger("stateName"); }}
                     labelId="state"
                     label="State"
                     variant="filled"
                     defaultValue={''}
-                    onChange={stateChange}
                 >
                     {stateList.map((state, i) => {
                         return <MenuItem key={"state" + i} value={state.name}>{state.name} ({state.state_code})</MenuItem>
                     }
                     )}
                 </Select>
+                <input
+                    required
+                    type="hidden"
+                    {...basicDetailForm("cityName")}
+                />
                 <InputLabel id="city">City</InputLabel>
                 <Select className="w100per thinInput select mb-2"
+                    {...basicDetailForm("cityName")}
+                    onChange={(event: SelectChangeEvent) => { cityChange(event); setBasicDetailFormValues("cityName", event.target.value, { shouldValidate: true }); basicDetailFormTrigger("cityName"); }}
                     labelId="city"
                     label="City"
                     variant="filled"
                     defaultValue={''}
-                    onChange={cityChange}
                 >
                     {cityList.map((city, i) => {
                         return <MenuItem key={"city" + i} value={city}>{city}</MenuItem>

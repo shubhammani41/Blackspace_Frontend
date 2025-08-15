@@ -8,6 +8,7 @@ import { PostDetails } from '../../../models/postData';
 import { AppText } from '../../../constants/appConstants';
 import { ViewType } from '../../../components/galleryComponent/galleryComponent';
 import { InfiniteScrollComponent } from '../../../components/infiniteScroll/infiniteScrollComponent';
+import useLoaderStore from '../../../components/globalLoader/store/globalLoaderStore';
 
 const FeedComponent: React.FC = () => {
     const defaultPageSize: number = 6;
@@ -21,9 +22,12 @@ const FeedComponent: React.FC = () => {
     const [hasMore, setHasMore] = useState<boolean>(false);
     const [postSearchMsg, setPostSearchMsg] = useState("");
     const errorSearchMessage: string = AppText.errorMessage;
+    const loaderStore = useLoaderStore();
 
     const fetchPublicPosts = useCallback(async (pageSize: number, pageNumber: number) => {
+        loaderStore.openLoader();
         apiFunctions.fetchPublciFeed(pageSize, pageNumber).then((res) => {
+            loaderStore.closeLoader();
             if (res.data.data) {
                 setTotalElements(res.data.totalElements);
                 setPostSearchMsg('');
@@ -37,6 +41,7 @@ const FeedComponent: React.FC = () => {
                 setHasMore(false);
             }
         }).catch(err => {
+            loaderStore.closeLoader();
             setTotalElements(0);
             setProfilePosts([]);
             setPostSearchMsg(errorSearchMessage);

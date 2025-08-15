@@ -36,7 +36,7 @@ const App: React.FC = () => {
     if (userData?.userLoginDetails?.userDetails?.userId && userData?.userLoginDetails?.token) {
       userLoginDataStore.updateUserData({ userLoginDetails: userData.userLoginDetails});
       apiFunctions.fetchUserProfileByUserLoginId(userData.userLoginDetails.userDetails.userId).then(res => {
-        if (res?.data?.userId && userData?.userLoginDetails?.userDetails?.userProfileId) {
+        if (res?.data?.userId && userData?.userLoginDetails?.userDetails) {
           userLoginDataStore.updateUserData({ userProfileDetails: res.data, userLoginDetails: userData.userLoginDetails });
         }
         else {
